@@ -1,6 +1,7 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
 [![style: flutter lints](https://img.shields.io/badge/style-flutter__lints-blue)](https://pub.dev/packages/flutter_lints)
-[![Code Quality](https://github.com/Turskyi/flutter_laozi_ai/actions/workflows/code_quality_tests.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/code_quality_tests.yml)
+[![Code Quality](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/code_quality_tests.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/code_quality_tests.yml)
+[![codecov](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai/graph/badge.svg?token=U26RQJ7H44)](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai)
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Turskyi/flutter_life_coaching_ai">
 
 # Life-Coaching AI (Flutter Version. In progress...)
