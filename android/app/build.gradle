@@ -1,0 +1,119 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+if (flutterVersionCode == null) {
+    flutterVersionCode = "1.0.0"
+}
+
+def flutterVersionName = localProperties.getProperty("flutter.versionName")
+if (flutterVersionName == null) {
+    flutterVersionName = "1.0.0"
+}
+
+def keyProperties = new Properties()
+def keyPropertiesFile = rootProject.file('key.properties')
+if (keyPropertiesFile.exists()) {
+    keyPropertiesFile.withReader('UTF-8') { reader ->
+        //noinspection GroovyAssignabilityCheck
+        keyProperties.load(reader)
+    }
+}
+
+// Debug environment variables.
+def signingKeyDebugPath = keyProperties.getProperty('dev.SIGNING_KEY_DEBUG_PATH') ?: rootProject.SIGNING_KEY_DEBUG_PATH
+def signingKeyDebugPassword = keyProperties.getProperty('dev.SIGNING_KEY_DEBUG_PASSWORD') ?: rootProject.SIGNING_KEY_DEBUG_PASSWORD
+def signingKeyDebugKey = keyProperties.getProperty('dev.SIGNING_KEY_DEBUG_KEY') ?: rootProject.SIGNING_KEY_DEBUG_KEY
+def signingKeyDebugKeyPassword = keyProperties.getProperty('dev.SIGNING_KEY_DEBUG_KEY_PASSWORD') ?: rootProject.SIGNING_KEY_DEBUG_KEY_PASSWORD
+// Release environment variables.
+def signingKeyReleasePath = keyProperties.getProperty('production.SIGNING_KEY_RELEASE_PATH') ?: rootProject.SIGNING_KEY_RELEASE_PATH
+def signingKeyReleasePassword = keyProperties.getProperty('production.SIGNING_KEY_RELEASE_PASSWORD') ?: rootProject.SIGNING_KEY_RELEASE_PASSWORD
+def signingKeyReleaseKey = keyProperties.getProperty('production.SIGNING_KEY_RELEASE_KEY') ?: rootProject.SIGNING_KEY_RELEASE_KEY
+def signingKeyReleaseKeyPassword = keyProperties.getProperty('production.SIGNING_KEY_RELEASE_KEY_PASSWORD') ?: rootProject.SIGNING_KEY_RELEASE_KEY_PASSWORD
+
+android {
+    namespace = rootProject.applicationId
+    compileSdk = flutter.compileSdkVersion
+    //TODO: change back to dynamic "flutter.ndkVersion" version, when the error "One or more plugins require a higher Android NDK version." is gone.
+    ndkVersion = "26.1.10909125"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId = rootProject.applicationId
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+    }
+
+    signingConfigs {
+        production {
+            // FCI_BUILD_ID is exported by Codemagic
+            if (System.getenv()["FCI_BUILD_ID"] != null) {
+                storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+                storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+                keyAlias System.getenv()["CM_KEY_ALIAS"]
+                keyPassword System.getenv()["CM_KEY_PASSWORD"]
+            } else {
+                storeFile file(signingKeyReleasePath)
+                storePassword signingKeyReleasePassword
+                keyAlias signingKeyReleaseKey
+                keyPassword signingKeyReleaseKeyPassword
+            }
+        }
+        dev {
+            // FCI_BUILD_ID is exported by Codemagic
+            if (System.getenv()["FCI_BUILD_ID"] != null) {
+                storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+                storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+                keyAlias System.getenv()["CM_KEY_ALIAS"]
+                keyPassword System.getenv()["CM_KEY_PASSWORD"]
+            } else {
+                storeFile file(signingKeyDebugPath)
+                storePassword signingKeyDebugPassword
+                keyAlias signingKeyDebugKey
+                keyPassword signingKeyDebugKeyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+            signingConfig = signingConfigs.production
+        }
+        debug {
+            signingConfig = signingConfigs.dev
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+configurations {
+    configureEach {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+    }
+}

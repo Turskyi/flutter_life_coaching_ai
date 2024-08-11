@@ -1,0 +1,39 @@
+name: Code Quality
+
+on: [ push ]
+
+jobs:
+  check-code-quality-and-tests:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+
+      - name: Get packages
+        run: flutter pub get
+
+      - name: Check format errors
+        run: dart format --set-exit-if-changed .
+
+      - name: Check lint errors
+        run: flutter analyze .
+
+      - name: Run tests with coverage and random order
+        run: flutter test --coverage --test-randomize-ordering-seed random
+
+      - name: Very Good Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
+        with:
+          min_coverage: 0
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Turskyi/flutter_life_coaching_ai

@@ -1,0 +1,30 @@
+{
+  "title": "Life-Coaching AI",
+  "submit": "submit",
+  "appId": "App id",
+  "appVersion": "App version",
+  "buildNumber": "Build number",
+  "chat": {
+    "sendMessageToStartChat": "Send a message to start the chat with Life-Coach AI!"
+  },
+  "feedback": {
+    "appFeedback": "App Feedback",
+    "whatKind": "What kind of feedback do you want to give?",
+    "whatIsYourFeedback": "What is your feedback?",
+    "howDoesThisFeel": "How does this make you feel?",
+    "feedbackSent": "Your feedback has been sent successfully!",
+    "bugReport": "Bug report",
+    "featureRequest": "Feature request",
+    "type": "Feedback Type",
+    "rating": "Rating",
+    "bad": "Bad",
+    "neutral": "Neutral",
+    "good": "Good"
+  },
+  "error": {
+    "pleaseCheckInternet": "An error occurred. Please check your internet connection and try again.",
+    "unexpectedError": "An unexpected error occurred. Please try again.",
+    "oops": "Oops! Something went wrong. Please try again later.",
+    "cors": "Error: Local Environment Setup Required\nTo run this application locally on web, please use the following command:\nflutter run -d chrome --web-browser-flag \"--disable-web-security\"\nThis step is necessary to bypass CORS restrictions during local development. Please note that this flag should only be used in a development environment and never in production."
+  }
+}
