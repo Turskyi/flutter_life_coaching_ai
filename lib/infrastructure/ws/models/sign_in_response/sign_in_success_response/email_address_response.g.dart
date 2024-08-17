@@ -13,7 +13,7 @@ EmailAddressResponse _$EmailAddressResponseFromJson(
       object: json['object'] as String?,
       emailAddress: json['email_address'] as String?,
       reserved: json['reserved'] as bool?,
-      verification: json['verification'] == null
+      verificationResponse: json['verification'] == null
           ? null
           : VerificationResponse.fromJson(
               json['verification'] as Map<String, dynamic>),
@@ -29,7 +29,7 @@ Map<String, dynamic> _$EmailAddressResponseToJson(
       'object': instance.object,
       'email_address': instance.emailAddress,
       'reserved': instance.reserved,
-      'verification': instance.verification,
+      'verification': instance.verificationResponse,
       'linked_to': instance.linkedTo,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,

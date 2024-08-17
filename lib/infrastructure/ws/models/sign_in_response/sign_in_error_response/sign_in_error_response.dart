@@ -1,39 +1,46 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lifecoach/infrastructure/ws/models/sign_in_response/sign_in_response.dart';
 
-import 'error.dart';
-import 'meta.dart';
+import 'error_response.dart';
+import 'meta_response.dart';
 
 part 'sign_in_error_response.g.dart';
 
 @JsonSerializable()
-class SignInErrorResponse {
-  final List<Error>? errors;
-  final Meta? meta;
-  @JsonKey(name: 'clerk_trace_id')
-  final String? clerkTraceId;
-
-  const SignInErrorResponse({this.errors, this.meta, this.clerkTraceId});
-
-  @override
-  String toString() {
-    return 'SignInErrorResponse(errors: $errors, meta: $meta, clerkTraceId: $clerkTraceId)';
-  }
+class SignInErrorResponse extends SignInResponse {
+  const SignInErrorResponse({
+    this.errors,
+    this.metaResponse,
+    this.clerkTraceId,
+  });
 
   factory SignInErrorResponse.fromJson(Map<String, dynamic> json) {
     return _$SignInErrorResponseFromJson(json);
   }
 
+  final List<ErrorResponse>? errors;
+  @JsonKey(name: 'meta')
+  final MetaResponse? metaResponse;
+  @JsonKey(name: 'clerk_trace_id')
+  final String? clerkTraceId;
+
+  @override
+  String toString() => 'SignInErrorResponse('
+      'errors: $errors, '
+      'meta: $metaResponse, '
+      'clerkTraceId: $clerkTraceId)';
+
   Map<String, dynamic> toJson() => _$SignInErrorResponseToJson(this);
 
   SignInErrorResponse copyWith({
-    List<Error>? errors,
-    Meta? meta,
+    List<ErrorResponse>? errors,
+    MetaResponse? metaResponse,
     String? clerkTraceId,
   }) {
     return SignInErrorResponse(
       errors: errors ?? this.errors,
-      meta: meta ?? this.meta,
+      metaResponse: metaResponse ?? this.metaResponse,
       clerkTraceId: clerkTraceId ?? this.clerkTraceId,
     );
   }
@@ -42,10 +49,12 @@ class SignInErrorResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     if (other is! SignInErrorResponse) return false;
-    final mapEquals = const DeepCollectionEquality().equals;
+    final bool Function(Object? e1, Object? e2) mapEquals =
+        const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
 
   @override
-  int get hashCode => errors.hashCode ^ meta.hashCode ^ clerkTraceId.hashCode;
+  int get hashCode =>
+      errors.hashCode ^ metaResponse.hashCode ^ clerkTraceId.hashCode;
 }

@@ -1,39 +1,41 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lifecoach/infrastructure/ws/models/sign_in_response/client_response.dart';
 
-import 'client.dart';
-
-part 'meta.g.dart';
+part 'meta_response.g.dart';
 
 @JsonSerializable()
-class Meta {
-  final Client? client;
+class MetaResponse {
+  const MetaResponse({this.clientResponse});
 
-  const Meta({this.client});
+  factory MetaResponse.fromJson(Map<String, dynamic> json) =>
+      _$MetaResponseFromJson(json);
+
+  @JsonKey(name: 'client')
+  final ClientResponse? clientResponse;
 
   @override
-  String toString() => 'Meta(client: $client)';
+  String toString() => 'MetaResponse(clientResponse: $clientResponse)';
 
-  factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
+  Map<String, dynamic> toJson() => _$MetaResponseToJson(this);
 
-  Map<String, dynamic> toJson() => _$MetaToJson(this);
-
-  Meta copyWith({
-    Client? client,
+  MetaResponse copyWith({
+    ClientResponse? clientResponse,
   }) {
-    return Meta(
-      client: client ?? this.client,
+    return MetaResponse(
+      clientResponse: clientResponse ?? this.clientResponse,
     );
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Meta) return false;
-    final mapEquals = const DeepCollectionEquality().equals;
+    if (other is! MetaResponse) return false;
+    final bool Function(Object? e1, Object? e2) mapEquals =
+        const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
 
   @override
-  int get hashCode => client.hashCode;
+  int get hashCode => clientResponse.hashCode;
 }

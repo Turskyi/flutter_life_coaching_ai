@@ -27,6 +27,7 @@ class AuthenticationResponse {
     return _$AuthenticationResponseFromJson(json);
   }
 
+  @JsonKey(name: 'object')
   final String? object;
   final String? id;
   final String? status;

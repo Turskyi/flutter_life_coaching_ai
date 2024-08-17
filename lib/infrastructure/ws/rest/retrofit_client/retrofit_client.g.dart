@@ -12,11 +12,14 @@ class _RetrofitClient implements RetrofitClient {
   _RetrofitClient(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   });
 
   final Dio _dio;
 
   String? baseUrl;
+
+  final ParseErrorLogger? errorLogger;
 
   @override
   Future<SignInResponse> signIn(
@@ -32,25 +35,64 @@ class _RetrofitClient implements RetrofitClient {
       'password': password,
       'strategy': strategy,
     };
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<SignInResponse>(Options(
+    final _options = _setStreamType<SignInResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
       contentType: 'application/x-www-form-urlencoded',
     )
-            .compose(
-              _dio.options,
-              'https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.14.0',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final _value = SignInResponse.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          'https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.14.0',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SignInResponse _value;
+    try {
+      _value = SignInResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<SignOutResponse> signOut() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<SignOutResponse>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'https://clerk.turskyi.com/v1/environment?_clerk_js_version=5.14.0',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SignOutResponse _value;
+    try {
+      _value = SignOutResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
     return _value;
   }
 

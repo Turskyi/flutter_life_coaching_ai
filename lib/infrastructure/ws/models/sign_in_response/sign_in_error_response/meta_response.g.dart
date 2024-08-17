@@ -7,12 +7,12 @@ part of 'meta_response.dart';
 // **************************************************************************
 
 MetaResponse _$MetaResponseFromJson(Map<String, dynamic> json) => MetaResponse(
-      client: json['client'] == null
+      clientResponse: json['client'] == null
           ? null
           : ClientResponse.fromJson(json['client'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MetaResponseToJson(MetaResponse instance) =>
     <String, dynamic>{
-      'client': instance.client,
+      'client': instance.clientResponse,
     };

@@ -1,32 +1,34 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'error.g.dart';
+part 'error_response.g.dart';
 
 @JsonSerializable()
-class Error {
+class ErrorResponse {
+  factory ErrorResponse.fromJson(Map<String, dynamic> json) =>
+      _$ErrorResponseFromJson(json);
+
+  const ErrorResponse({this.message, this.longMessage, this.code});
+
   final String? message;
   @JsonKey(name: 'long_message')
   final String? longMessage;
   final String? code;
 
-  const Error({this.message, this.longMessage, this.code});
-
   @override
-  String toString() {
-    return 'Error(message: $message, longMessage: $longMessage, code: $code)';
-  }
+  String toString() => 'ErrorResponse('
+      'message: $message, '
+      'longMessage: $longMessage, '
+      'code: $code)';
 
-  factory Error.fromJson(Map<String, dynamic> json) => _$ErrorFromJson(json);
+  Map<String, dynamic> toJson() => _$ErrorResponseToJson(this);
 
-  Map<String, dynamic> toJson() => _$ErrorToJson(this);
-
-  Error copyWith({
+  ErrorResponse copyWith({
     String? message,
     String? longMessage,
     String? code,
   }) {
-    return Error(
+    return ErrorResponse(
       message: message ?? this.message,
       longMessage: longMessage ?? this.longMessage,
       code: code ?? this.code,
@@ -36,8 +38,9 @@ class Error {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Error) return false;
-    final mapEquals = const DeepCollectionEquality().equals;
+    if (other is! ErrorResponse) return false;
+    final bool Function(Object? e1, Object? e2) mapEquals =
+        const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
 

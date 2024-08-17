@@ -9,11 +9,11 @@ part of 'sign_in_error_response.dart';
 SignInErrorResponse _$SignInErrorResponseFromJson(Map<String, dynamic> json) =>
     SignInErrorResponse(
       errors: (json['errors'] as List<dynamic>?)
-          ?.map((e) => Error.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ErrorResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      meta: json['meta'] == null
+      metaResponse: json['meta'] == null
           ? null
-          : Meta.fromJson(json['meta'] as Map<String, dynamic>),
+          : MetaResponse.fromJson(json['meta'] as Map<String, dynamic>),
       clerkTraceId: json['clerk_trace_id'] as String?,
     );
 
@@ -21,6 +21,6 @@ Map<String, dynamic> _$SignInErrorResponseToJson(
         SignInErrorResponse instance) =>
     <String, dynamic>{
       'errors': instance.errors,
-      'meta': instance.meta,
+      'meta': instance.metaResponse,
       'clerk_trace_id': instance.clerkTraceId,
     };

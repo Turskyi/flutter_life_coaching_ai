@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:laozi_ai/infrastructure/web_services/rest/logging_interceptor.dart';
-import 'package:laozi_ai/infrastructure/web_services/rest/retrofit_client/retrofit_client.dart';
-import 'package:laozi_ai/res/constants.dart' as constants;
+import 'package:lifecoach/infrastructure/ws/rest/logging_interceptor.dart';
+import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
 
 @module
 abstract class RetrofitClientModule {

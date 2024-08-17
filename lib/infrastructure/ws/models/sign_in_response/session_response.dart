@@ -2,9 +2,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../last_active_token_response.dart';
-import '../public_user_response.dart';
-import 'user_response.dart';
+import 'last_active_token_response.dart';
+import 'public_user_response.dart';
+import 'sign_in_success_response/user_response.dart';
 
 part 'session_response.g.dart';
 

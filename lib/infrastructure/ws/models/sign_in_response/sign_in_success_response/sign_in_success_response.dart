@@ -1,61 +1,62 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lifecoach/infrastructure/ws/models/sign_in_response/client_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/sign_in_response/sign_in_response.dart';
 
 import 'authentication_response.dart';
-import 'client_response.dart';
 
-part 'sign_in_response.g.dart';
-part 'sign_in_error_response.g.dart';
+part 'sign_in_success_response.g.dart';
 
 @JsonSerializable()
-class SignInResponse {
-  const SignInResponse({required this.client, this.authenticationResponse});
+class SignInSuccessResponse extends SignInResponse {
+  const SignInSuccessResponse({
+    this.clientResponse,
+    this.authenticationResponse,
+  });
 
-  factory SignInResponse.fromJson(Map<String, dynamic> json) {
-    if (json.containsKey('errors')) {
-      return _$SignInErrorResponseFromJson(json);
-    }
-    return _$SignInResponseFromJson(json);
+  factory SignInSuccessResponse.fromJson(Map<String, dynamic> json) {
+    return _$SignInSuccessResponseFromJson(json);
   }
 
   @JsonKey(name: 'response')
   final AuthenticationResponse? authenticationResponse;
-  final ClientResponse client;
+  @JsonKey(name: 'client')
+  final ClientResponse? clientResponse;
 
   @override
   String toString() {
     if (kDebugMode) {
-      return 'SignInResponse('
+      return 'SignInSuccessResponse('
           'response: $authenticationResponse, '
-          'client: $client)';
+          'clientResponse: $clientResponse)';
     } else {
       return super.toString();
     }
   }
 
-  Map<String, dynamic> toJson() => _$SignInResponseToJson(this);
+  Map<String, dynamic> toJson() => _$SignInSuccessResponseToJson(this);
 
-  SignInResponse copyWith({
+  SignInSuccessResponse copyWith({
     AuthenticationResponse? authenticationResponse,
-    ClientResponse? client,
+    ClientResponse? clientResponse,
   }) {
-    return SignInResponse(
+    return SignInSuccessResponse(
       authenticationResponse:
           authenticationResponse ?? this.authenticationResponse,
-      client: client ?? this.client,
+      clientResponse: clientResponse ?? this.clientResponse,
     );
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! SignInResponse) return false;
+    if (other is! SignInSuccessResponse) return false;
     final bool Function(Object? e1, Object? e2) mapEquals =
         const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
 
   @override
-  int get hashCode => authenticationResponse.hashCode ^ client.hashCode;
+  int get hashCode => authenticationResponse.hashCode ^ clientResponse.hashCode;
 }

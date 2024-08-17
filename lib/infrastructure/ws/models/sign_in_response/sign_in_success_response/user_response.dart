@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'email_address_response.dart';
-import 'unsafe_metadata_response.dart';
 
 part 'user_response.g.dart';
 
@@ -181,7 +180,6 @@ class UserResponse {
     List<dynamic>? passkeys,
     List<dynamic>? externalAccounts,
     List<dynamic>? samlAccounts,
-    UnsafeMetadataResponse? unsafeMetadata,
     dynamic externalId,
     int? lastSignInAt,
     bool? banned,

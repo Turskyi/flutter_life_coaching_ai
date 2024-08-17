@@ -2,8 +2,11 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:lifecoach/di/injector.dart';
 
 void main() {
+  injectDependencies();
+
   runApp(const App(home: ExampleGradientBubbles()));
 }
 

@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'verification_response.dart';
+import '../verification_response.dart';
 
 part 'email_address_response.g.dart';
 
@@ -13,7 +13,7 @@ class EmailAddressResponse {
     this.object,
     this.emailAddress,
     this.reserved,
-    this.verification,
+    this.verificationResponse,
     this.linkedTo,
     this.createdAt,
     this.updatedAt,
@@ -28,7 +28,8 @@ class EmailAddressResponse {
   @JsonKey(name: 'email_address')
   final String? emailAddress;
   final bool? reserved;
-  final VerificationResponse? verification;
+  @JsonKey(name: 'verification')
+  final VerificationResponse? verificationResponse;
   @JsonKey(name: 'linked_to')
   final List<dynamic>? linkedTo;
   @JsonKey(name: 'created_at')
@@ -44,7 +45,7 @@ class EmailAddressResponse {
           'object: $object, '
           'emailAddress: $emailAddress, '
           'reserved: $reserved, '
-          'verification: $verification, '
+          'verification: $verificationResponse, '
           'linkedTo: $linkedTo, '
           'createdAt: $createdAt, '
           'updatedAt: $updatedAt)';
@@ -60,7 +61,7 @@ class EmailAddressResponse {
     String? object,
     String? emailAddress,
     bool? reserved,
-    VerificationResponse? verification,
+    VerificationResponse? verificationResponse,
     List<dynamic>? linkedTo,
     int? createdAt,
     int? updatedAt,
@@ -70,7 +71,7 @@ class EmailAddressResponse {
       object: object ?? this.object,
       emailAddress: emailAddress ?? this.emailAddress,
       reserved: reserved ?? this.reserved,
-      verification: verification ?? this.verification,
+      verificationResponse: verificationResponse ?? this.verificationResponse,
       linkedTo: linkedTo ?? this.linkedTo,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -92,7 +93,7 @@ class EmailAddressResponse {
       object.hashCode ^
       emailAddress.hashCode ^
       reserved.hashCode ^
-      verification.hashCode ^
+      verificationResponse.hashCode ^
       linkedTo.hashCode ^
       createdAt.hashCode ^
       updatedAt.hashCode;

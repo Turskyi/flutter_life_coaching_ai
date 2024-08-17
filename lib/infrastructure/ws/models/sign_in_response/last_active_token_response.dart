@@ -15,7 +15,7 @@ class LastActiveTokenResponse {
   final String? jwt;
 
   @override
-  String toString() => 'LastActiveToken(object: $object, jwt: $jwt)';
+  String toString() => 'LastActiveTokenResponse(object: $object, jwt: $jwt)';
 
   Map<String, dynamic> toJson() => _$LastActiveTokenResponseToJson(this);
 

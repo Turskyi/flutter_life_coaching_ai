@@ -12,6 +12,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - "**.g.dart"
+    - "**.config.dart"
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -25,6 +26,7 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
+    ambiguous_import: false
     # ------ Enabling individual rules -----#
     #                 ---                   #
     # These rules here are good but too ----#
@@ -42,7 +44,6 @@ linter:
     sort_constructors_first: true
     always_put_required_named_parameters_first: true
     avoid_as: true
-    avoid_unused_constructor_parameters: true
     avoid_void_async: true
     cancel_subscriptions: true
 

@@ -1,60 +1,179 @@
 import 'dart:convert';
-/// auth_config : {"object":"auth_config","id":"aac_2kTp2sRI5N5cZrdGafFWm6vECmA","first_name":"off","last_name":"off","email_address":"on","phone_number":"off","username":"off","password":"required","identification_requirements":[["email_address"],[]],"identification_strategies":["email_address"],"first_factors":["password","reset_password_email_code","ticket"],"second_factors":[],"email_address_verification_strategies":["email_code"],"single_session_mode":true,"enhanced_email_deliverability":false,"test_mode":false,"cookieless_dev":false,"url_based_session_syncing":false,"demo":false}
-/// display_config : {"object":"display_config","id":"display_config_2kTp2vtASfwWimi2SRW3V4EJPi5","instance_environment_type":"production","application_name":"life-coaching-ai","theme":{"buttons":{"font_color":"#ffffff","font_family":"\"Source Sans Pro\", sans-serif","font_weight":"600"},"general":{"color":"#0F172A","padding":"1em","box_shadow":"0 2px 8px rgba(0, 0, 0, 0.2)","font_color":"#151515","font_family":"\"Source Sans Pro\", sans-serif","border_radius":"0.5em","background_color":"#ffffff","label_font_weight":"600"},"accounts":{"background_color":"#ffffff"}},"preferred_sign_in_strategy":"password","logo_image_url":"https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJrRm42NGE5TGVhalhFbmpENHc4a29QVVV4RyJ9","favicon_image_url":"https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJrRmN6eVUzQTNaOEI0ODIxNEo2MEdQTlg1VSJ9","home_url":"https://lifecoach.turskyi.com","sign_in_url":"https://lifecoach.turskyi.com/sign-in","sign_up_url":"https://lifecoach.turskyi.com/sign-up","user_profile_url":"https://accounts.turskyi.com/user","after_sign_in_url":"https://lifecoach.turskyi.com/goals","after_sign_up_url":"https://lifecoach.turskyi.com/goals","after_sign_out_one_url":"https://accounts.turskyi.com/sign-in/choose","after_sign_out_all_url":"https://lifecoach.turskyi.com/","after_switch_session_url":"https://lifecoach.turskyi.com","organization_profile_url":"https://accounts.turskyi.com/organization","create_organization_url":"https://accounts.turskyi.com/create-organization","after_leave_organization_url":"https://lifecoach.turskyi.com","after_create_organization_url":"https://lifecoach.turskyi.com","logo_link_url":"https://lifecoach.turskyi.com","support_email":"support@turskyi.com","branded":true,"experimental_force_oauth_first":false,"clerk_js_version":"5","show_devmode_warning":false,"google_one_tap_client_id":null,"help_url":null,"privacy_policy_url":null,"terms_url":null,"logo_url":"https://images.clerk.dev/uploaded/img_2kFn64a9LeajXEnjD4w8koPUUxG","favicon_url":"https://images.clerk.dev/uploaded/img_2kFczyU3A3Z8B48214J60GPNX5U","logo_image":{"object":"image","id":"img_2kFn64a9LeajXEnjD4w8koPUUxG","public_url":"https://images.clerk.dev/uploaded/img_2kFn64a9LeajXEnjD4w8koPUUxG"},"favicon_image":{"object":"image","id":"img_2kFczyU3A3Z8B48214J60GPNX5U","public_url":"https://images.clerk.dev/uploaded/img_2kFczyU3A3Z8B48214J60GPNX5U"},"captcha_public_key":"0x4AAAAAAAFV93qQdS0ycilX","captcha_widget_type":"invisible","captcha_public_key_invisible":"0x4AAAAAAAFV93qQdS0ycilX","captcha_provider":"turnstile"}
-/// user_settings : {"attributes":{"email_address":{"enabled":true,"required":true,"used_for_first_factor":true,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":["email_code"],"verify_at_sign_up":true},"phone_number":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"username":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"web3_wallet":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"first_name":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"last_name":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"password":{"enabled":true,"required":true,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"authenticator_app":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"ticket":{"enabled":true,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"backup_code":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"passkey":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}},"sign_in":{"second_factor":{"required":false}},"sign_up":{"captcha_enabled":true,"captcha_widget_type":"invisible","custom_action_required":false,"progressive":true,"invite_only_enabled":false},"restrictions":{"allowlist":{"enabled":false},"blocklist":{"enabled":false},"block_email_subaddresses":{"enabled":false},"block_disposable_email_domains":{"enabled":false},"ignore_dots_for_gmail_addresses":{"enabled":false}},"username_settings":{"min_length":4,"max_length":64},"actions":{"delete_self":true,"create_organization":true,"create_organizations_limit":null},"attack_protection":{"user_lockout":{"enabled":true,"max_attempts":100,"duration_in_minutes":60},"pii":{"enabled":true},"email_link":{"require_same_client":true}},"passkey_settings":{"allow_autofill":true,"show_sign_in_button":true},"social":{"oauth_google":{"enabled":false,"required":false,"authenticatable":false,"block_email_subaddresses":false,"strategy":"oauth_google","not_selectable":false,"deprecated":false}},"password_settings":{"disable_hibp":false,"min_length":0,"max_length":0,"require_special_char":false,"require_numbers":false,"require_uppercase":false,"require_lowercase":false,"show_zxcvbn":false,"min_zxcvbn_strength":0,"enforce_hibp_on_sign_in":false,"allowed_special_characters":"!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~"},"saml":{"enabled":false}}
-/// organization_settings : {"enabled":false,"max_allowed_memberships":5,"actions":{"admin_delete":true},"domains":{"enabled":false,"enrollment_modes":[],"default_role":""},"creator_role":"org:admin"}
+
+/// auth_config : {"object":"auth_config",
+/// "id":"aac_something","first_name":"off",
+/// "last_name":"off","email_address":"on","phone_number":"off",
+/// "username":"off","password":"required",
+/// "identification_requirements":
+/// [["email_address"],[]],"identification_strategies":["email_address"],
+/// "first_factors":["password","reset_password_email_code","ticket"],
+/// "second_factors":[],"email_address_verification_strategies":["email_code"],
+/// "single_session_mode":true,"enhanced_email_deliverability":false,
+/// "test_mode":false,"cookieless_dev":false,"url_based_session_syncing":false,
+/// "demo":false}
+/// display_config : {"object":"display_config",
+/// "id":"display_config_something",
+/// "instance_environment_type":"production",
+/// "application_name":"life-coaching-ai",
+/// "theme":{"buttons": {"font_color":"#ffffff",
+/// "font_family":"\"Source Sans Pro\",
+/// sans-serif","font_weight":"600"},"general":{"color":"#0F172A",
+/// "padding":"1em","box_shadow":"0 2px 8px rgba(0, 0, 0, 0.2)",
+/// "font_color":"#151515","font_family":"\"Source Sans Pro\", sans-serif",
+/// "border_radius":"0.5em","background_color":"#ffffff",
+/// "label_font_weight":"600"},"accounts":{"background_color":"#ffffff"}},
+/// "preferred_sign_in_strategy":"password",
+/// "logo_image_url":"https://img.clerk.com/something",
+/// "favicon_image_url":"https://img.clerk.com/something",
+/// "home_url":"https://lifecoach.turskyi.com",
+/// "sign_in_url":"https://lifecoach.turskyi.com/sign-in",
+/// "sign_up_url":"https://lifecoach.turskyi.com/sign-up",
+/// "user_profile_url":"https://accounts.turskyi.com/user",
+/// "after_sign_in_url":"https://lifecoach.turskyi.com/goals",
+/// "after_sign_up_url":"https://lifecoach.turskyi.com/goals",
+/// "after_sign_out_one_url":"https://accounts.turskyi.com/sign-in/choose",
+/// "after_sign_out_all_url":"https://lifecoach.turskyi.com/",
+/// "after_switch_session_url":"https://lifecoach.turskyi.com",
+/// "organization_profile_url":"https://accounts.turskyi.com/organization",
+/// "create_organization_url":"https://accounts.turskyi.com/create-organization",
+/// "after_leave_organization_url":"https://lifecoach.turskyi.com",
+/// "after_create_organization_url":"https://lifecoach.turskyi.com",
+/// "logo_link_url":"https://lifecoach.turskyi.com",
+/// "support_email":"support@turskyi.com","branded":true,
+/// "experimental_force_oauth_first":false,"clerk_js_version":"5",
+/// "show_devmode_warning":false,"google_one_tap_client_id":null,
+/// "help_url":null,"privacy_policy_url":null,"terms_url":null,
+/// "logo_url":"https://images.clerk.dev/uploaded/img_something",
+/// "favicon_url":"https://images.clerk.dev/uploaded/img_something",
+/// "logo_image":{"object":"image","id":"img_something",
+/// "public_url":"https://images.clerk.dev/uploaded/img_something"},
+/// "favicon_image":{"object":"image","id":"img_something",
+/// "public_url":"https://images.clerk.dev/uploaded/img_something"},
+/// "captcha_public_key":"0xsomething","captcha_widget_type":"invisible",
+/// "captcha_public_key_invisible":"0xsomething","captcha_provider":"turnstile"}
+/// user_settings : {"attributes":{"email_address":{"enabled":true,
+/// "required":true,"used_for_first_factor":true,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],
+/// "verifications":["email_code"],"verify_at_sign_up":true},
+/// "phone_number":{"enabled":false,"required":false,
+/// "used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],"verifications":[],
+/// "verify_at_sign_up":false},"username":{"enabled":false,"required":false,
+/// "used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],"verifications":[],
+/// "verify_at_sign_up":false},"web3_wallet":{"enabled":false,
+/// "required":false,"used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],"verifications":[],
+/// "verify_at_sign_up":false},"first_name":{"enabled":false,"required":false,
+/// "used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],"verifications":[],
+/// "verify_at_sign_up":false},"last_name":{"enabled":false,"required":false,
+/// "used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],
+/// "verifications":[],"verify_at_sign_up":false},
+/// "password":{"enabled":true,"required":true,"used_for_first_factor":false,
+/// "first_factors":[],"used_for_second_factor":false,"second_factors":[],
+/// "verifications":[],"verify_at_sign_up":false},
+/// "authenticator_app":{"enabled":false,"required":false,
+/// "used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],"verifications":[],
+/// "verify_at_sign_up":false},"ticket":{"enabled":true,"required":false,
+/// "used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],"verifications":[],
+/// "verify_at_sign_up":false},"backup_code":{"enabled":false,"required":false,
+/// "used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],"verifications":[],
+/// "verify_at_sign_up":false},"passkey":{"enabled":false,"required":false,
+/// "used_for_first_factor":false,"first_factors":[],
+/// "used_for_second_factor":false,"second_factors":[],"verifications":[],
+/// "verify_at_sign_up":false}},"sign_in":{"second_factor":{"required":false}},
+/// "sign_up":{"captcha_enabled":true,"captcha_widget_type":"invisible",
+/// "custom_action_required":false,"progressive":true,
+/// "invite_only_enabled":false},"restrictions":{"allowlist":{"enabled":false},
+/// "blocklist":{"enabled":false},"block_email_subaddresses":{"enabled":false},
+/// "block_disposable_email_domains":{"enabled":false},
+/// "ignore_dots_for_gmail_addresses":{"enabled":false}},
+/// "username_settings":{"min_length":4,"max_length":64},
+/// "actions":{"delete_self":true,"create_organization":true,
+/// "create_organizations_limit":null},
+/// "attack_protection":{"user_lockout":{"enabled":true,"max_attempts":100,
+/// "duration_in_minutes":60},"pii":{"enabled":true},
+/// "email_link":{"require_same_client":true}},
+/// "passkey_settings":{"allow_autofill":true,"show_sign_in_button":true},
+/// "social":{"oauth_google":{"enabled":false,"required":false,
+/// "authenticatable":false,"block_email_subaddresses":false,
+/// "strategy":"oauth_google","not_selectable":false,"deprecated":false}},
+/// "password_settings":{"disable_hibp":false,"min_length":0,"max_length":0,
+/// "require_special_char":false,"require_numbers":false,
+/// "require_uppercase":false,"require_lowercase":false,"show_zxcvbn":false,
+/// "min_zxcvbn_strength":0,"enforce_hibp_on_sign_in":false,
+/// "allowed_special_characters":"!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~"},
+/// "saml":{"enabled":false}}
+/// organization_settings : {"enabled":false,"max_allowed_memberships":5,
+/// "actions":{"admin_delete":true},"domains":{"enabled":false,
+/// "enrollment_modes":[],"default_role":""},"creator_role":"org:admin"}
 /// maintenance_mode : false
 
-SignOutResponse signOutResponseFromJson(String str) => SignOutResponse.fromJson(json.decode(str));
-String signOutResponseToJson(SignOutResponse data) => json.encode(data.toJson());
+SignOutResponse signOutResponseFromJson(String str) =>
+    SignOutResponse.fromJson(json.decode(str));
+
+String signOutResponseToJson(SignOutResponse data) =>
+    json.encode(data.toJson());
+
 class SignOutResponse {
   SignOutResponse({
-      AuthConfig? authConfig, 
-      DisplayConfig? displayConfig, 
-      UserSettings? userSettings, 
-      OrganizationSettings? organizationSettings, 
-      bool? maintenanceMode,}){
-    _authConfig = authConfig;
+    DisplayConfig? displayConfig,
+    UserSettings? userSettings,
+    OrganizationSettings? organizationSettings,
+    bool? maintenanceMode,
+  }) {
     _displayConfig = displayConfig;
     _userSettings = userSettings;
     _organizationSettings = organizationSettings;
     _maintenanceMode = maintenanceMode;
-}
+  }
 
   SignOutResponse.fromJson(dynamic json) {
-    _authConfig = json['auth_config'] != null ? AuthConfig.fromJson(json['auth_config']) : null;
-    _displayConfig = json['display_config'] != null ? DisplayConfig.fromJson(json['display_config']) : null;
-    _userSettings = json['user_settings'] != null ? UserSettings.fromJson(json['user_settings']) : null;
-    _organizationSettings = json['organization_settings'] != null ? OrganizationSettings.fromJson(json['organization_settings']) : null;
+    _displayConfig = json['display_config'] != null
+        ? DisplayConfig.fromJson(json['display_config'])
+        : null;
+    _userSettings = json['user_settings'] != null
+        ? UserSettings.fromJson(json['user_settings'])
+        : null;
+    _organizationSettings = json['organization_settings'] != null
+        ? OrganizationSettings.fromJson(json['organization_settings'])
+        : null;
     _maintenanceMode = json['maintenance_mode'];
   }
-  AuthConfig? _authConfig;
+
   DisplayConfig? _displayConfig;
   UserSettings? _userSettings;
   OrganizationSettings? _organizationSettings;
   bool? _maintenanceMode;
-SignOutResponse copyWith({  AuthConfig? authConfig,
-  DisplayConfig? displayConfig,
-  UserSettings? userSettings,
-  OrganizationSettings? organizationSettings,
-  bool? maintenanceMode,
-}) => SignOutResponse(  authConfig: authConfig ?? _authConfig,
-  displayConfig: displayConfig ?? _displayConfig,
-  userSettings: userSettings ?? _userSettings,
-  organizationSettings: organizationSettings ?? _organizationSettings,
-  maintenanceMode: maintenanceMode ?? _maintenanceMode,
-);
-  AuthConfig? get authConfig => _authConfig;
+
+  SignOutResponse copyWith({
+    DisplayConfig? displayConfig,
+    UserSettings? userSettings,
+    OrganizationSettings? organizationSettings,
+    bool? maintenanceMode,
+  }) =>
+      SignOutResponse(
+        displayConfig: displayConfig ?? _displayConfig,
+        userSettings: userSettings ?? _userSettings,
+        organizationSettings: organizationSettings ?? _organizationSettings,
+        maintenanceMode: maintenanceMode ?? _maintenanceMode,
+      );
+
   DisplayConfig? get displayConfig => _displayConfig;
+
   UserSettings? get userSettings => _userSettings;
+
   OrganizationSettings? get organizationSettings => _organizationSettings;
+
   bool? get maintenanceMode => _maintenanceMode;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (_authConfig != null) {
-      map['auth_config'] = _authConfig?.toJson();
-    }
+    final Map<String, dynamic> map = <String, dynamic>{};
     if (_displayConfig != null) {
       map['display_config'] = _displayConfig?.toJson();
     }
@@ -67,7 +186,6 @@ SignOutResponse copyWith({  AuthConfig? authConfig,
     map['maintenance_mode'] = _maintenanceMode;
     return map;
   }
-
 }
 
 /// enabled : false
@@ -76,173 +194,125 @@ SignOutResponse copyWith({  AuthConfig? authConfig,
 /// domains : {"enabled":false,"enrollment_modes":[],"default_role":""}
 /// creator_role : "org:admin"
 
-OrganizationSettings organizationSettingsFromJson(String str) => OrganizationSettings.fromJson(json.decode(str));
-String organizationSettingsToJson(OrganizationSettings data) => json.encode(data.toJson());
+OrganizationSettings organizationSettingsFromJson(String str) =>
+    OrganizationSettings.fromJson(json.decode(str));
+
+String organizationSettingsToJson(OrganizationSettings data) =>
+    json.encode(data.toJson());
+
 class OrganizationSettings {
   OrganizationSettings({
-      bool? enabled, 
-      int? maxAllowedMemberships, 
-      Actions? actions, 
-      Domains? domains, 
-      String? creatorRole,}){
+    bool? enabled,
+    int? maxAllowedMemberships,
+    Actions? actions,
+    String? creatorRole,
+  }) {
     _enabled = enabled;
     _maxAllowedMemberships = maxAllowedMemberships;
     _actions = actions;
-    _domains = domains;
     _creatorRole = creatorRole;
-}
+  }
 
   OrganizationSettings.fromJson(dynamic json) {
     _enabled = json['enabled'];
     _maxAllowedMemberships = json['max_allowed_memberships'];
-    _actions = json['actions'] != null ? Actions.fromJson(json['actions']) : null;
-    _domains = json['domains'] != null ? Domains.fromJson(json['domains']) : null;
+    _actions =
+        json['actions'] != null ? Actions.fromJson(json['actions']) : null;
     _creatorRole = json['creator_role'];
   }
+
   bool? _enabled;
   int? _maxAllowedMemberships;
   Actions? _actions;
-  Domains? _domains;
   String? _creatorRole;
-OrganizationSettings copyWith({  bool? enabled,
-  int? maxAllowedMemberships,
-  Actions? actions,
-  Domains? domains,
-  String? creatorRole,
-}) => OrganizationSettings(  enabled: enabled ?? _enabled,
-  maxAllowedMemberships: maxAllowedMemberships ?? _maxAllowedMemberships,
-  actions: actions ?? _actions,
-  domains: domains ?? _domains,
-  creatorRole: creatorRole ?? _creatorRole,
-);
+
+  OrganizationSettings copyWith({
+    bool? enabled,
+    int? maxAllowedMemberships,
+    Actions? actions,
+    String? creatorRole,
+  }) =>
+      OrganizationSettings(
+        enabled: enabled ?? _enabled,
+        maxAllowedMemberships: maxAllowedMemberships ?? _maxAllowedMemberships,
+        actions: actions ?? _actions,
+        creatorRole: creatorRole ?? _creatorRole,
+      );
+
   bool? get enabled => _enabled;
+
   int? get maxAllowedMemberships => _maxAllowedMemberships;
+
   Actions? get actions => _actions;
-  Domains? get domains => _domains;
+
   String? get creatorRole => _creatorRole;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     map['max_allowed_memberships'] = _maxAllowedMemberships;
     if (_actions != null) {
       map['actions'] = _actions?.toJson();
     }
-    if (_domains != null) {
-      map['domains'] = _domains?.toJson();
-    }
     map['creator_role'] = _creatorRole;
     return map;
   }
-
-}
-
-/// enabled : false
-/// enrollment_modes : []
-/// default_role : ""
-
-Domains domainsFromJson(String str) => Domains.fromJson(json.decode(str));
-String domainsToJson(Domains data) => json.encode(data.toJson());
-class Domains {
-  Domains({
-      bool? enabled, 
-      List<dynamic>? enrollmentModes, 
-      String? defaultRole,}){
-    _enabled = enabled;
-    _enrollmentModes = enrollmentModes;
-    _defaultRole = defaultRole;
-}
-
-  Domains.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    if (json['enrollment_modes'] != null) {
-      _enrollmentModes = [];
-      json['enrollment_modes'].forEach((v) {
-        _enrollmentModes?.add(Dynamic.fromJson(v));
-      });
-    }
-    _defaultRole = json['default_role'];
-  }
-  bool? _enabled;
-  List<dynamic>? _enrollmentModes;
-  String? _defaultRole;
-Domains copyWith({  bool? enabled,
-  List<dynamic>? enrollmentModes,
-  String? defaultRole,
-}) => Domains(  enabled: enabled ?? _enabled,
-  enrollmentModes: enrollmentModes ?? _enrollmentModes,
-  defaultRole: defaultRole ?? _defaultRole,
-);
-  bool? get enabled => _enabled;
-  List<dynamic>? get enrollmentModes => _enrollmentModes;
-  String? get defaultRole => _defaultRole;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    if (_enrollmentModes != null) {
-      map['enrollment_modes'] = _enrollmentModes?.map((v) => v.toJson()).toList();
-    }
-    map['default_role'] = _defaultRole;
-    return map;
-  }
-
 }
 
 /// admin_delete : true
 
 Actions actionsFromJson(String str) => Actions.fromJson(json.decode(str));
+
 String actionsToJson(Actions data) => json.encode(data.toJson());
+
 class Actions {
   Actions({
-      bool? adminDelete,}){
+    bool? adminDelete,
+  }) {
     _adminDelete = adminDelete;
-}
+  }
 
   Actions.fromJson(dynamic json) {
     _adminDelete = json['admin_delete'];
   }
+
   bool? _adminDelete;
-Actions copyWith({  bool? adminDelete,
-}) => Actions(  adminDelete: adminDelete ?? _adminDelete,
-);
+
+  Actions copyWith({
+    bool? adminDelete,
+  }) =>
+      Actions(
+        adminDelete: adminDelete ?? _adminDelete,
+      );
+
   bool? get adminDelete => _adminDelete;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['admin_delete'] = _adminDelete;
     return map;
   }
-
 }
 
-/// attributes : {"email_address":{"enabled":true,"required":true,"used_for_first_factor":true,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":["email_code"],"verify_at_sign_up":true},"phone_number":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"username":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"web3_wallet":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"first_name":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"last_name":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"password":{"enabled":true,"required":true,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"authenticator_app":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"ticket":{"enabled":true,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"backup_code":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false},"passkey":{"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}}
-/// sign_in : {"second_factor":{"required":false}}
-/// sign_up : {"captcha_enabled":true,"captcha_widget_type":"invisible","custom_action_required":false,"progressive":true,"invite_only_enabled":false}
-/// restrictions : {"allowlist":{"enabled":false},"blocklist":{"enabled":false},"block_email_subaddresses":{"enabled":false},"block_disposable_email_domains":{"enabled":false},"ignore_dots_for_gmail_addresses":{"enabled":false}}
-/// username_settings : {"min_length":4,"max_length":64}
-/// actions : {"delete_self":true,"create_organization":true,"create_organizations_limit":null}
-/// attack_protection : {"user_lockout":{"enabled":true,"max_attempts":100,"duration_in_minutes":60},"pii":{"enabled":true},"email_link":{"require_same_client":true}}
-/// passkey_settings : {"allow_autofill":true,"show_sign_in_button":true}
-/// social : {"oauth_google":{"enabled":false,"required":false,"authenticatable":false,"block_email_subaddresses":false,"strategy":"oauth_google","not_selectable":false,"deprecated":false}}
-/// password_settings : {"disable_hibp":false,"min_length":0,"max_length":0,"require_special_char":false,"require_numbers":false,"require_uppercase":false,"require_lowercase":false,"show_zxcvbn":false,"min_zxcvbn_strength":0,"enforce_hibp_on_sign_in":false,"allowed_special_characters":"!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~"}
-/// saml : {"enabled":false}
+UserSettings userSettingsFromJson(String str) =>
+    UserSettings.fromJson(json.decode(str));
 
-UserSettings userSettingsFromJson(String str) => UserSettings.fromJson(json.decode(str));
 String userSettingsToJson(UserSettings data) => json.encode(data.toJson());
+
 class UserSettings {
   UserSettings({
-      Attributes? attributes, 
-      SignIn? signIn, 
-      SignUp? signUp, 
-      Restrictions? restrictions, 
-      UsernameSettings? usernameSettings, 
-      Actions? actions, 
-      AttackProtection? attackProtection, 
-      PasskeySettings? passkeySettings, 
-      Social? social, 
-      PasswordSettings? passwordSettings, 
-      Saml? saml,}){
+    Attributes? attributes,
+    SignIn? signIn,
+    SignUp? signUp,
+    Restrictions? restrictions,
+    UsernameSettings? usernameSettings,
+    Actions? actions,
+    AttackProtection? attackProtection,
+    PasskeySettings? passkeySettings,
+    Social? social,
+    PasswordSettings? passwordSettings,
+    Saml? saml,
+  }) {
     _attributes = attributes;
     _signIn = signIn;
     _signUp = signUp;
@@ -254,21 +324,35 @@ class UserSettings {
     _social = social;
     _passwordSettings = passwordSettings;
     _saml = saml;
-}
+  }
 
   UserSettings.fromJson(dynamic json) {
-    _attributes = json['attributes'] != null ? Attributes.fromJson(json['attributes']) : null;
+    _attributes = json['attributes'] != null
+        ? Attributes.fromJson(json['attributes'])
+        : null;
     _signIn = json['sign_in'] != null ? SignIn.fromJson(json['sign_in']) : null;
     _signUp = json['sign_up'] != null ? SignUp.fromJson(json['sign_up']) : null;
-    _restrictions = json['restrictions'] != null ? Restrictions.fromJson(json['restrictions']) : null;
-    _usernameSettings = json['username_settings'] != null ? UsernameSettings.fromJson(json['username_settings']) : null;
-    _actions = json['actions'] != null ? Actions.fromJson(json['actions']) : null;
-    _attackProtection = json['attack_protection'] != null ? AttackProtection.fromJson(json['attack_protection']) : null;
-    _passkeySettings = json['passkey_settings'] != null ? PasskeySettings.fromJson(json['passkey_settings']) : null;
+    _restrictions = json['restrictions'] != null
+        ? Restrictions.fromJson(json['restrictions'])
+        : null;
+    _usernameSettings = json['username_settings'] != null
+        ? UsernameSettings.fromJson(json['username_settings'])
+        : null;
+    _actions =
+        json['actions'] != null ? Actions.fromJson(json['actions']) : null;
+    _attackProtection = json['attack_protection'] != null
+        ? AttackProtection.fromJson(json['attack_protection'])
+        : null;
+    _passkeySettings = json['passkey_settings'] != null
+        ? PasskeySettings.fromJson(json['passkey_settings'])
+        : null;
     _social = json['social'] != null ? Social.fromJson(json['social']) : null;
-    _passwordSettings = json['password_settings'] != null ? PasswordSettings.fromJson(json['password_settings']) : null;
+    _passwordSettings = json['password_settings'] != null
+        ? PasswordSettings.fromJson(json['password_settings'])
+        : null;
     _saml = json['saml'] != null ? Saml.fromJson(json['saml']) : null;
   }
+
   Attributes? _attributes;
   SignIn? _signIn;
   SignUp? _signUp;
@@ -280,43 +364,58 @@ class UserSettings {
   Social? _social;
   PasswordSettings? _passwordSettings;
   Saml? _saml;
-UserSettings copyWith({  Attributes? attributes,
-  SignIn? signIn,
-  SignUp? signUp,
-  Restrictions? restrictions,
-  UsernameSettings? usernameSettings,
-  Actions? actions,
-  AttackProtection? attackProtection,
-  PasskeySettings? passkeySettings,
-  Social? social,
-  PasswordSettings? passwordSettings,
-  Saml? saml,
-}) => UserSettings(  attributes: attributes ?? _attributes,
-  signIn: signIn ?? _signIn,
-  signUp: signUp ?? _signUp,
-  restrictions: restrictions ?? _restrictions,
-  usernameSettings: usernameSettings ?? _usernameSettings,
-  actions: actions ?? _actions,
-  attackProtection: attackProtection ?? _attackProtection,
-  passkeySettings: passkeySettings ?? _passkeySettings,
-  social: social ?? _social,
-  passwordSettings: passwordSettings ?? _passwordSettings,
-  saml: saml ?? _saml,
-);
+
+  UserSettings copyWith({
+    Attributes? attributes,
+    SignIn? signIn,
+    SignUp? signUp,
+    Restrictions? restrictions,
+    UsernameSettings? usernameSettings,
+    Actions? actions,
+    AttackProtection? attackProtection,
+    PasskeySettings? passkeySettings,
+    Social? social,
+    PasswordSettings? passwordSettings,
+    Saml? saml,
+  }) =>
+      UserSettings(
+        attributes: attributes ?? _attributes,
+        signIn: signIn ?? _signIn,
+        signUp: signUp ?? _signUp,
+        restrictions: restrictions ?? _restrictions,
+        usernameSettings: usernameSettings ?? _usernameSettings,
+        actions: actions ?? _actions,
+        attackProtection: attackProtection ?? _attackProtection,
+        passkeySettings: passkeySettings ?? _passkeySettings,
+        social: social ?? _social,
+        passwordSettings: passwordSettings ?? _passwordSettings,
+        saml: saml ?? _saml,
+      );
+
   Attributes? get attributes => _attributes;
+
   SignIn? get signIn => _signIn;
+
   SignUp? get signUp => _signUp;
+
   Restrictions? get restrictions => _restrictions;
+
   UsernameSettings? get usernameSettings => _usernameSettings;
+
   Actions? get actions => _actions;
+
   AttackProtection? get attackProtection => _attackProtection;
+
   PasskeySettings? get passkeySettings => _passkeySettings;
+
   Social? get social => _social;
+
   PasswordSettings? get passwordSettings => _passwordSettings;
+
   Saml? get saml => _saml;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     if (_attributes != null) {
       map['attributes'] = _attributes?.toJson();
     }
@@ -352,34 +451,41 @@ UserSettings copyWith({  Attributes? attributes,
     }
     return map;
   }
-
 }
 
 /// enabled : false
 
 Saml samlFromJson(String str) => Saml.fromJson(json.decode(str));
+
 String samlToJson(Saml data) => json.encode(data.toJson());
+
 class Saml {
   Saml({
-      bool? enabled,}){
+    bool? enabled,
+  }) {
     _enabled = enabled;
-}
+  }
 
   Saml.fromJson(dynamic json) {
     _enabled = json['enabled'];
   }
+
   bool? _enabled;
-Saml copyWith({  bool? enabled,
-}) => Saml(  enabled: enabled ?? _enabled,
-);
+
+  Saml copyWith({
+    bool? enabled,
+  }) =>
+      Saml(
+        enabled: enabled ?? _enabled,
+      );
+
   bool? get enabled => _enabled;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     return map;
   }
-
 }
 
 /// disable_hibp : false
@@ -394,21 +500,26 @@ Saml copyWith({  bool? enabled,
 /// enforce_hibp_on_sign_in : false
 /// allowed_special_characters : "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~"
 
-PasswordSettings passwordSettingsFromJson(String str) => PasswordSettings.fromJson(json.decode(str));
-String passwordSettingsToJson(PasswordSettings data) => json.encode(data.toJson());
+PasswordSettings passwordSettingsFromJson(String str) =>
+    PasswordSettings.fromJson(json.decode(str));
+
+String passwordSettingsToJson(PasswordSettings data) =>
+    json.encode(data.toJson());
+
 class PasswordSettings {
   PasswordSettings({
-      bool? disableHibp, 
-      int? minLength, 
-      int? maxLength, 
-      bool? requireSpecialChar, 
-      bool? requireNumbers, 
-      bool? requireUppercase, 
-      bool? requireLowercase, 
-      bool? showZxcvbn, 
-      int? minZxcvbnStrength, 
-      bool? enforceHibpOnSignIn, 
-      String? allowedSpecialCharacters,}){
+    bool? disableHibp,
+    int? minLength,
+    int? maxLength,
+    bool? requireSpecialChar,
+    bool? requireNumbers,
+    bool? requireUppercase,
+    bool? requireLowercase,
+    bool? showZxcvbn,
+    int? minZxcvbnStrength,
+    bool? enforceHibpOnSignIn,
+    String? allowedSpecialCharacters,
+  }) {
     _disableHibp = disableHibp;
     _minLength = minLength;
     _maxLength = maxLength;
@@ -420,7 +531,7 @@ class PasswordSettings {
     _minZxcvbnStrength = minZxcvbnStrength;
     _enforceHibpOnSignIn = enforceHibpOnSignIn;
     _allowedSpecialCharacters = allowedSpecialCharacters;
-}
+  }
 
   PasswordSettings.fromJson(dynamic json) {
     _disableHibp = json['disable_hibp'];
@@ -435,6 +546,7 @@ class PasswordSettings {
     _enforceHibpOnSignIn = json['enforce_hibp_on_sign_in'];
     _allowedSpecialCharacters = json['allowed_special_characters'];
   }
+
   bool? _disableHibp;
   int? _minLength;
   int? _maxLength;
@@ -446,43 +558,59 @@ class PasswordSettings {
   int? _minZxcvbnStrength;
   bool? _enforceHibpOnSignIn;
   String? _allowedSpecialCharacters;
-PasswordSettings copyWith({  bool? disableHibp,
-  int? minLength,
-  int? maxLength,
-  bool? requireSpecialChar,
-  bool? requireNumbers,
-  bool? requireUppercase,
-  bool? requireLowercase,
-  bool? showZxcvbn,
-  int? minZxcvbnStrength,
-  bool? enforceHibpOnSignIn,
-  String? allowedSpecialCharacters,
-}) => PasswordSettings(  disableHibp: disableHibp ?? _disableHibp,
-  minLength: minLength ?? _minLength,
-  maxLength: maxLength ?? _maxLength,
-  requireSpecialChar: requireSpecialChar ?? _requireSpecialChar,
-  requireNumbers: requireNumbers ?? _requireNumbers,
-  requireUppercase: requireUppercase ?? _requireUppercase,
-  requireLowercase: requireLowercase ?? _requireLowercase,
-  showZxcvbn: showZxcvbn ?? _showZxcvbn,
-  minZxcvbnStrength: minZxcvbnStrength ?? _minZxcvbnStrength,
-  enforceHibpOnSignIn: enforceHibpOnSignIn ?? _enforceHibpOnSignIn,
-  allowedSpecialCharacters: allowedSpecialCharacters ?? _allowedSpecialCharacters,
-);
+
+  PasswordSettings copyWith({
+    bool? disableHibp,
+    int? minLength,
+    int? maxLength,
+    bool? requireSpecialChar,
+    bool? requireNumbers,
+    bool? requireUppercase,
+    bool? requireLowercase,
+    bool? showZxcvbn,
+    int? minZxcvbnStrength,
+    bool? enforceHibpOnSignIn,
+    String? allowedSpecialCharacters,
+  }) =>
+      PasswordSettings(
+        disableHibp: disableHibp ?? _disableHibp,
+        minLength: minLength ?? _minLength,
+        maxLength: maxLength ?? _maxLength,
+        requireSpecialChar: requireSpecialChar ?? _requireSpecialChar,
+        requireNumbers: requireNumbers ?? _requireNumbers,
+        requireUppercase: requireUppercase ?? _requireUppercase,
+        requireLowercase: requireLowercase ?? _requireLowercase,
+        showZxcvbn: showZxcvbn ?? _showZxcvbn,
+        minZxcvbnStrength: minZxcvbnStrength ?? _minZxcvbnStrength,
+        enforceHibpOnSignIn: enforceHibpOnSignIn ?? _enforceHibpOnSignIn,
+        allowedSpecialCharacters:
+            allowedSpecialCharacters ?? _allowedSpecialCharacters,
+      );
+
   bool? get disableHibp => _disableHibp;
+
   int? get minLength => _minLength;
+
   int? get maxLength => _maxLength;
+
   bool? get requireSpecialChar => _requireSpecialChar;
+
   bool? get requireNumbers => _requireNumbers;
+
   bool? get requireUppercase => _requireUppercase;
+
   bool? get requireLowercase => _requireLowercase;
+
   bool? get showZxcvbn => _showZxcvbn;
+
   int? get minZxcvbnStrength => _minZxcvbnStrength;
+
   bool? get enforceHibpOnSignIn => _enforceHibpOnSignIn;
+
   String? get allowedSpecialCharacters => _allowedSpecialCharacters;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['disable_hibp'] = _disableHibp;
     map['min_length'] = _minLength;
     map['max_length'] = _maxLength;
@@ -496,36 +624,47 @@ PasswordSettings copyWith({  bool? disableHibp,
     map['allowed_special_characters'] = _allowedSpecialCharacters;
     return map;
   }
-
 }
 
-/// oauth_google : {"enabled":false,"required":false,"authenticatable":false,"block_email_subaddresses":false,"strategy":"oauth_google","not_selectable":false,"deprecated":false}
+/// oauth_google : {"enabled":false,"required":false,"authenticatable":false,
+/// "block_email_subaddresses":false,"strategy":"oauth_google",
+/// "not_selectable":false,"deprecated":false}
 
 Social socialFromJson(String str) => Social.fromJson(json.decode(str));
+
 String socialToJson(Social data) => json.encode(data.toJson());
+
 class Social {
   Social({
-      OauthGoogle? oauthGoogle,}){
+    OauthGoogle? oauthGoogle,
+  }) {
     _oauthGoogle = oauthGoogle;
-}
+  }
 
   Social.fromJson(dynamic json) {
-    _oauthGoogle = json['oauth_google'] != null ? OauthGoogle.fromJson(json['oauth_google']) : null;
+    _oauthGoogle = json['oauth_google'] != null
+        ? OauthGoogle.fromJson(json['oauth_google'])
+        : null;
   }
+
   OauthGoogle? _oauthGoogle;
-Social copyWith({  OauthGoogle? oauthGoogle,
-}) => Social(  oauthGoogle: oauthGoogle ?? _oauthGoogle,
-);
+
+  Social copyWith({
+    OauthGoogle? oauthGoogle,
+  }) =>
+      Social(
+        oauthGoogle: oauthGoogle ?? _oauthGoogle,
+      );
+
   OauthGoogle? get oauthGoogle => _oauthGoogle;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     if (_oauthGoogle != null) {
       map['oauth_google'] = _oauthGoogle?.toJson();
     }
     return map;
   }
-
 }
 
 /// enabled : false
@@ -536,17 +675,21 @@ Social copyWith({  OauthGoogle? oauthGoogle,
 /// not_selectable : false
 /// deprecated : false
 
-OauthGoogle oauthGoogleFromJson(String str) => OauthGoogle.fromJson(json.decode(str));
+OauthGoogle oauthGoogleFromJson(String str) =>
+    OauthGoogle.fromJson(json.decode(str));
+
 String oauthGoogleToJson(OauthGoogle data) => json.encode(data.toJson());
+
 class OauthGoogle {
   OauthGoogle({
-      bool? enabled, 
-      bool? required, 
-      bool? authenticatable, 
-      bool? blockEmailSubaddresses, 
-      String? strategy, 
-      bool? notSelectable, 
-      bool? deprecated,}){
+    bool? enabled,
+    bool? required,
+    bool? authenticatable,
+    bool? blockEmailSubaddresses,
+    String? strategy,
+    bool? notSelectable,
+    bool? deprecated,
+  }) {
     _enabled = enabled;
     _required = required;
     _authenticatable = authenticatable;
@@ -554,7 +697,7 @@ class OauthGoogle {
     _strategy = strategy;
     _notSelectable = notSelectable;
     _deprecated = deprecated;
-}
+  }
 
   OauthGoogle.fromJson(dynamic json) {
     _enabled = json['enabled'];
@@ -565,6 +708,7 @@ class OauthGoogle {
     _notSelectable = json['not_selectable'];
     _deprecated = json['deprecated'];
   }
+
   bool? _enabled;
   bool? _required;
   bool? _authenticatable;
@@ -572,31 +716,43 @@ class OauthGoogle {
   String? _strategy;
   bool? _notSelectable;
   bool? _deprecated;
-OauthGoogle copyWith({  bool? enabled,
-  bool? required,
-  bool? authenticatable,
-  bool? blockEmailSubaddresses,
-  String? strategy,
-  bool? notSelectable,
-  bool? deprecated,
-}) => OauthGoogle(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  authenticatable: authenticatable ?? _authenticatable,
-  blockEmailSubaddresses: blockEmailSubaddresses ?? _blockEmailSubaddresses,
-  strategy: strategy ?? _strategy,
-  notSelectable: notSelectable ?? _notSelectable,
-  deprecated: deprecated ?? _deprecated,
-);
+
+  OauthGoogle copyWith({
+    bool? enabled,
+    bool? required,
+    bool? authenticatable,
+    bool? blockEmailSubaddresses,
+    String? strategy,
+    bool? notSelectable,
+    bool? deprecated,
+  }) =>
+      OauthGoogle(
+        enabled: enabled ?? _enabled,
+        required: required ?? _required,
+        authenticatable: authenticatable ?? _authenticatable,
+        blockEmailSubaddresses:
+            blockEmailSubaddresses ?? _blockEmailSubaddresses,
+        strategy: strategy ?? _strategy,
+        notSelectable: notSelectable ?? _notSelectable,
+        deprecated: deprecated ?? _deprecated,
+      );
+
   bool? get enabled => _enabled;
+
   bool? get required => _required;
+
   bool? get authenticatable => _authenticatable;
+
   bool? get blockEmailSubaddresses => _blockEmailSubaddresses;
+
   String? get strategy => _strategy;
+
   bool? get notSelectable => _notSelectable;
+
   bool? get deprecated => _deprecated;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     map['required'] = _required;
     map['authenticatable'] = _authenticatable;
@@ -606,82 +762,109 @@ OauthGoogle copyWith({  bool? enabled,
     map['deprecated'] = _deprecated;
     return map;
   }
-
 }
 
 /// allow_autofill : true
 /// show_sign_in_button : true
 
-PasskeySettings passkeySettingsFromJson(String str) => PasskeySettings.fromJson(json.decode(str));
-String passkeySettingsToJson(PasskeySettings data) => json.encode(data.toJson());
+PasskeySettings passkeySettingsFromJson(String str) =>
+    PasskeySettings.fromJson(json.decode(str));
+
+String passkeySettingsToJson(PasskeySettings data) =>
+    json.encode(data.toJson());
+
 class PasskeySettings {
   PasskeySettings({
-      bool? allowAutofill, 
-      bool? showSignInButton,}){
+    bool? allowAutofill,
+    bool? showSignInButton,
+  }) {
     _allowAutofill = allowAutofill;
     _showSignInButton = showSignInButton;
-}
+  }
 
   PasskeySettings.fromJson(dynamic json) {
     _allowAutofill = json['allow_autofill'];
     _showSignInButton = json['show_sign_in_button'];
   }
+
   bool? _allowAutofill;
   bool? _showSignInButton;
-PasskeySettings copyWith({  bool? allowAutofill,
-  bool? showSignInButton,
-}) => PasskeySettings(  allowAutofill: allowAutofill ?? _allowAutofill,
-  showSignInButton: showSignInButton ?? _showSignInButton,
-);
+
+  PasskeySettings copyWith({
+    bool? allowAutofill,
+    bool? showSignInButton,
+  }) =>
+      PasskeySettings(
+        allowAutofill: allowAutofill ?? _allowAutofill,
+        showSignInButton: showSignInButton ?? _showSignInButton,
+      );
+
   bool? get allowAutofill => _allowAutofill;
+
   bool? get showSignInButton => _showSignInButton;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['allow_autofill'] = _allowAutofill;
     map['show_sign_in_button'] = _showSignInButton;
     return map;
   }
-
 }
 
 /// user_lockout : {"enabled":true,"max_attempts":100,"duration_in_minutes":60}
 /// pii : {"enabled":true}
 /// email_link : {"require_same_client":true}
 
-AttackProtection attackProtectionFromJson(String str) => AttackProtection.fromJson(json.decode(str));
-String attackProtectionToJson(AttackProtection data) => json.encode(data.toJson());
+AttackProtection attackProtectionFromJson(String str) =>
+    AttackProtection.fromJson(json.decode(str));
+
+String attackProtectionToJson(AttackProtection data) =>
+    json.encode(data.toJson());
+
 class AttackProtection {
   AttackProtection({
-      UserLockout? userLockout, 
-      Pii? pii, 
-      EmailLink? emailLink,}){
+    UserLockout? userLockout,
+    Pii? pii,
+    EmailLink? emailLink,
+  }) {
     _userLockout = userLockout;
     _pii = pii;
     _emailLink = emailLink;
-}
+  }
 
   AttackProtection.fromJson(dynamic json) {
-    _userLockout = json['user_lockout'] != null ? UserLockout.fromJson(json['user_lockout']) : null;
+    _userLockout = json['user_lockout'] != null
+        ? UserLockout.fromJson(json['user_lockout'])
+        : null;
     _pii = json['pii'] != null ? Pii.fromJson(json['pii']) : null;
-    _emailLink = json['email_link'] != null ? EmailLink.fromJson(json['email_link']) : null;
+    _emailLink = json['email_link'] != null
+        ? EmailLink.fromJson(json['email_link'])
+        : null;
   }
+
   UserLockout? _userLockout;
   Pii? _pii;
   EmailLink? _emailLink;
-AttackProtection copyWith({  UserLockout? userLockout,
-  Pii? pii,
-  EmailLink? emailLink,
-}) => AttackProtection(  userLockout: userLockout ?? _userLockout,
-  pii: pii ?? _pii,
-  emailLink: emailLink ?? _emailLink,
-);
+
+  AttackProtection copyWith({
+    UserLockout? userLockout,
+    Pii? pii,
+    EmailLink? emailLink,
+  }) =>
+      AttackProtection(
+        userLockout: userLockout ?? _userLockout,
+        pii: pii ?? _pii,
+        emailLink: emailLink ?? _emailLink,
+      );
+
   UserLockout? get userLockout => _userLockout;
+
   Pii? get pii => _pii;
+
   EmailLink? get emailLink => _emailLink;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     if (_userLockout != null) {
       map['user_lockout'] = _userLockout?.toJson();
     }
@@ -693,187 +876,179 @@ AttackProtection copyWith({  UserLockout? userLockout,
     }
     return map;
   }
-
 }
 
 /// require_same_client : true
 
 EmailLink emailLinkFromJson(String str) => EmailLink.fromJson(json.decode(str));
+
 String emailLinkToJson(EmailLink data) => json.encode(data.toJson());
+
 class EmailLink {
   EmailLink({
-      bool? requireSameClient,}){
+    bool? requireSameClient,
+  }) {
     _requireSameClient = requireSameClient;
-}
+  }
 
   EmailLink.fromJson(dynamic json) {
     _requireSameClient = json['require_same_client'];
   }
+
   bool? _requireSameClient;
-EmailLink copyWith({  bool? requireSameClient,
-}) => EmailLink(  requireSameClient: requireSameClient ?? _requireSameClient,
-);
+
+  EmailLink copyWith({
+    bool? requireSameClient,
+  }) =>
+      EmailLink(
+        requireSameClient: requireSameClient ?? _requireSameClient,
+      );
+
   bool? get requireSameClient => _requireSameClient;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['require_same_client'] = _requireSameClient;
     return map;
   }
-
 }
 
 /// enabled : true
 
 Pii piiFromJson(String str) => Pii.fromJson(json.decode(str));
+
 String piiToJson(Pii data) => json.encode(data.toJson());
+
 class Pii {
   Pii({
-      bool? enabled,}){
+    bool? enabled,
+  }) {
     _enabled = enabled;
-}
+  }
 
   Pii.fromJson(dynamic json) {
     _enabled = json['enabled'];
   }
+
   bool? _enabled;
-Pii copyWith({  bool? enabled,
-}) => Pii(  enabled: enabled ?? _enabled,
-);
+
+  Pii copyWith({
+    bool? enabled,
+  }) =>
+      Pii(
+        enabled: enabled ?? _enabled,
+      );
+
   bool? get enabled => _enabled;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     return map;
   }
-
 }
 
 /// enabled : true
 /// max_attempts : 100
 /// duration_in_minutes : 60
 
-UserLockout userLockoutFromJson(String str) => UserLockout.fromJson(json.decode(str));
+UserLockout userLockoutFromJson(String str) =>
+    UserLockout.fromJson(json.decode(str));
+
 String userLockoutToJson(UserLockout data) => json.encode(data.toJson());
+
 class UserLockout {
   UserLockout({
-      bool? enabled, 
-      int? maxAttempts, 
-      int? durationInMinutes,}){
+    bool? enabled,
+    int? maxAttempts,
+    int? durationInMinutes,
+  }) {
     _enabled = enabled;
     _maxAttempts = maxAttempts;
     _durationInMinutes = durationInMinutes;
-}
+  }
 
   UserLockout.fromJson(dynamic json) {
     _enabled = json['enabled'];
     _maxAttempts = json['max_attempts'];
     _durationInMinutes = json['duration_in_minutes'];
   }
+
   bool? _enabled;
   int? _maxAttempts;
   int? _durationInMinutes;
-UserLockout copyWith({  bool? enabled,
-  int? maxAttempts,
-  int? durationInMinutes,
-}) => UserLockout(  enabled: enabled ?? _enabled,
-  maxAttempts: maxAttempts ?? _maxAttempts,
-  durationInMinutes: durationInMinutes ?? _durationInMinutes,
-);
+
+  UserLockout copyWith({
+    bool? enabled,
+    int? maxAttempts,
+    int? durationInMinutes,
+  }) =>
+      UserLockout(
+        enabled: enabled ?? _enabled,
+        maxAttempts: maxAttempts ?? _maxAttempts,
+        durationInMinutes: durationInMinutes ?? _durationInMinutes,
+      );
+
   bool? get enabled => _enabled;
+
   int? get maxAttempts => _maxAttempts;
+
   int? get durationInMinutes => _durationInMinutes;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     map['max_attempts'] = _maxAttempts;
     map['duration_in_minutes'] = _durationInMinutes;
     return map;
   }
-
-}
-
-/// delete_self : true
-/// create_organization : true
-/// create_organizations_limit : null
-
-Actions actionsFromJson(String str) => Actions.fromJson(json.decode(str));
-String actionsToJson(Actions data) => json.encode(data.toJson());
-class Actions {
-  Actions({
-      bool? deleteSelf, 
-      bool? createOrganization, 
-      dynamic createOrganizationsLimit,}){
-    _deleteSelf = deleteSelf;
-    _createOrganization = createOrganization;
-    _createOrganizationsLimit = createOrganizationsLimit;
-}
-
-  Actions.fromJson(dynamic json) {
-    _deleteSelf = json['delete_self'];
-    _createOrganization = json['create_organization'];
-    _createOrganizationsLimit = json['create_organizations_limit'];
-  }
-  bool? _deleteSelf;
-  bool? _createOrganization;
-  dynamic _createOrganizationsLimit;
-Actions copyWith({  bool? deleteSelf,
-  bool? createOrganization,
-  dynamic createOrganizationsLimit,
-}) => Actions(  deleteSelf: deleteSelf ?? _deleteSelf,
-  createOrganization: createOrganization ?? _createOrganization,
-  createOrganizationsLimit: createOrganizationsLimit ?? _createOrganizationsLimit,
-);
-  bool? get deleteSelf => _deleteSelf;
-  bool? get createOrganization => _createOrganization;
-  dynamic get createOrganizationsLimit => _createOrganizationsLimit;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['delete_self'] = _deleteSelf;
-    map['create_organization'] = _createOrganization;
-    map['create_organizations_limit'] = _createOrganizationsLimit;
-    return map;
-  }
-
 }
 
 /// min_length : 4
 /// max_length : 64
 
-UsernameSettings usernameSettingsFromJson(String str) => UsernameSettings.fromJson(json.decode(str));
-String usernameSettingsToJson(UsernameSettings data) => json.encode(data.toJson());
+UsernameSettings usernameSettingsFromJson(String str) =>
+    UsernameSettings.fromJson(json.decode(str));
+
+String usernameSettingsToJson(UsernameSettings data) =>
+    json.encode(data.toJson());
+
 class UsernameSettings {
   UsernameSettings({
-      int? minLength, 
-      int? maxLength,}){
+    int? minLength,
+    int? maxLength,
+  }) {
     _minLength = minLength;
     _maxLength = maxLength;
-}
+  }
 
   UsernameSettings.fromJson(dynamic json) {
     _minLength = json['min_length'];
     _maxLength = json['max_length'];
   }
+
   int? _minLength;
   int? _maxLength;
-UsernameSettings copyWith({  int? minLength,
-  int? maxLength,
-}) => UsernameSettings(  minLength: minLength ?? _minLength,
-  maxLength: maxLength ?? _maxLength,
-);
+
+  UsernameSettings copyWith({
+    int? minLength,
+    int? maxLength,
+  }) =>
+      UsernameSettings(
+        minLength: minLength ?? _minLength,
+        maxLength: maxLength ?? _maxLength,
+      );
+
   int? get minLength => _minLength;
+
   int? get maxLength => _maxLength;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['min_length'] = _minLength;
     map['max_length'] = _maxLength;
     return map;
   }
-
 }
 
 /// allowlist : {"enabled":false}
@@ -882,202 +1057,280 @@ UsernameSettings copyWith({  int? minLength,
 /// block_disposable_email_domains : {"enabled":false}
 /// ignore_dots_for_gmail_addresses : {"enabled":false}
 
-Restrictions restrictionsFromJson(String str) => Restrictions.fromJson(json.decode(str));
+Restrictions restrictionsFromJson(String str) =>
+    Restrictions.fromJson(json.decode(str));
+
 String restrictionsToJson(Restrictions data) => json.encode(data.toJson());
+
 class Restrictions {
   Restrictions({
-      Allowlist? allowlist, 
-      Blocklist? blocklist, 
-      BlockEmailSubaddresses? blockEmailSubaddresses, 
-      BlockDisposableEmailDomains? blockDisposableEmailDomains, 
-      IgnoreDotsForGmailAddresses? ignoreDotsForGmailAddresses,}){
+    Allowlist? allowlist,
+    Blocklist? blocklist,
+    BlockEmailSubaddresses? blockEmailSubaddresses,
+    BlockDisposableEmailDomains? blockDisposableEmailDomains,
+    IgnoreDotsForGmailAddresses? ignoreDotsForGmailAddresses,
+  }) {
     _allowlist = allowlist;
     _blocklist = blocklist;
     _blockEmailSubaddresses = blockEmailSubaddresses;
     _blockDisposableEmailDomains = blockDisposableEmailDomains;
     _ignoreDotsForGmailAddresses = ignoreDotsForGmailAddresses;
-}
+  }
 
   Restrictions.fromJson(dynamic json) {
     _allowlist = json['allowlist'];
     _blocklist = json['blocklist'];
-    _blockEmailSubaddresses = json['block_email_subaddresses'] != null ? BlockEmailSubaddresses.fromJson(json['block_email_subaddresses']) : null;
-    _blockDisposableEmailDomains = json['block_disposable_email_domains'] != null ? BlockDisposableEmailDomains.fromJson(json['block_disposable_email_domains']) : null;
-    _ignoreDotsForGmailAddresses = json['ignore_dots_for_gmail_addresses'] != null ? IgnoreDotsForGmailAddresses.fromJson(json['ignore_dots_for_gmail_addresses']) : null;
+    _blockEmailSubaddresses = json['block_email_subaddresses'] != null
+        ? BlockEmailSubaddresses.fromJson(json['block_email_subaddresses'])
+        : null;
+    _blockDisposableEmailDomains =
+        json['block_disposable_email_domains'] != null
+            ? BlockDisposableEmailDomains.fromJson(
+                json['block_disposable_email_domains'],
+              )
+            : null;
+    _ignoreDotsForGmailAddresses =
+        json['ignore_dots_for_gmail_addresses'] != null
+            ? IgnoreDotsForGmailAddresses.fromJson(
+                json['ignore_dots_for_gmail_addresses'],
+              )
+            : null;
   }
+
   Allowlist? _allowlist;
   Blocklist? _blocklist;
   BlockEmailSubaddresses? _blockEmailSubaddresses;
   BlockDisposableEmailDomains? _blockDisposableEmailDomains;
   IgnoreDotsForGmailAddresses? _ignoreDotsForGmailAddresses;
-Restrictions copyWith({  Allowlist? allowlist,
-  Blocklist? blocklist,
-  BlockEmailSubaddresses? blockEmailSubaddresses,
-  BlockDisposableEmailDomains? blockDisposableEmailDomains,
-  IgnoreDotsForGmailAddresses? ignoreDotsForGmailAddresses,
-}) => Restrictions(  allowlist: allowlist ?? _allowlist,
-  blocklist: blocklist ?? _blocklist,
-  blockEmailSubaddresses: blockEmailSubaddresses ?? _blockEmailSubaddresses,
-  blockDisposableEmailDomains: blockDisposableEmailDomains ?? _blockDisposableEmailDomains,
-  ignoreDotsForGmailAddresses: ignoreDotsForGmailAddresses ?? _ignoreDotsForGmailAddresses,
-);
+
+  Restrictions copyWith({
+    Allowlist? allowlist,
+    Blocklist? blocklist,
+    BlockEmailSubaddresses? blockEmailSubaddresses,
+    BlockDisposableEmailDomains? blockDisposableEmailDomains,
+    IgnoreDotsForGmailAddresses? ignoreDotsForGmailAddresses,
+  }) =>
+      Restrictions(
+        allowlist: allowlist ?? _allowlist,
+        blocklist: blocklist ?? _blocklist,
+        blockEmailSubaddresses:
+            blockEmailSubaddresses ?? _blockEmailSubaddresses,
+        blockDisposableEmailDomains:
+            blockDisposableEmailDomains ?? _blockDisposableEmailDomains,
+        ignoreDotsForGmailAddresses:
+            ignoreDotsForGmailAddresses ?? _ignoreDotsForGmailAddresses,
+      );
+
   Allowlist? get allowlist => _allowlist;
+
   Blocklist? get blocklist => _blocklist;
+
   BlockEmailSubaddresses? get blockEmailSubaddresses => _blockEmailSubaddresses;
-  BlockDisposableEmailDomains? get blockDisposableEmailDomains => _blockDisposableEmailDomains;
-  IgnoreDotsForGmailAddresses? get ignoreDotsForGmailAddresses => _ignoreDotsForGmailAddresses;
+
+  BlockDisposableEmailDomains? get blockDisposableEmailDomains =>
+      _blockDisposableEmailDomains;
+
+  IgnoreDotsForGmailAddresses? get ignoreDotsForGmailAddresses =>
+      _ignoreDotsForGmailAddresses;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['allowlist'] = _allowlist;
     map['blocklist'] = _blocklist;
     if (_blockEmailSubaddresses != null) {
       map['block_email_subaddresses'] = _blockEmailSubaddresses?.toJson();
     }
     if (_blockDisposableEmailDomains != null) {
-      map['block_disposable_email_domains'] = _blockDisposableEmailDomains?.toJson();
+      map['block_disposable_email_domains'] =
+          _blockDisposableEmailDomains?.toJson();
     }
     if (_ignoreDotsForGmailAddresses != null) {
-      map['ignore_dots_for_gmail_addresses'] = _ignoreDotsForGmailAddresses?.toJson();
+      map['ignore_dots_for_gmail_addresses'] =
+          _ignoreDotsForGmailAddresses?.toJson();
     }
     return map;
   }
-
 }
 
 /// enabled : false
 
-IgnoreDotsForGmailAddresses ignoreDotsForGmailAddressesFromJson(String str) => IgnoreDotsForGmailAddresses.fromJson(json.decode(str));
-String ignoreDotsForGmailAddressesToJson(IgnoreDotsForGmailAddresses data) => json.encode(data.toJson());
+IgnoreDotsForGmailAddresses ignoreDotsForGmailAddressesFromJson(String str) =>
+    IgnoreDotsForGmailAddresses.fromJson(json.decode(str));
+
+String ignoreDotsForGmailAddressesToJson(IgnoreDotsForGmailAddresses data) =>
+    json.encode(data.toJson());
+
 class IgnoreDotsForGmailAddresses {
   IgnoreDotsForGmailAddresses({
-      bool? enabled,}){
+    bool? enabled,
+  }) {
     _enabled = enabled;
-}
+  }
 
   IgnoreDotsForGmailAddresses.fromJson(dynamic json) {
     _enabled = json['enabled'];
   }
+
   bool? _enabled;
-IgnoreDotsForGmailAddresses copyWith({  bool? enabled,
-}) => IgnoreDotsForGmailAddresses(  enabled: enabled ?? _enabled,
-);
+
+  IgnoreDotsForGmailAddresses copyWith({
+    bool? enabled,
+  }) =>
+      IgnoreDotsForGmailAddresses(
+        enabled: enabled ?? _enabled,
+      );
+
   bool? get enabled => _enabled;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     return map;
   }
-
 }
 
 /// enabled : false
 
-BlockDisposableEmailDomains blockDisposableEmailDomainsFromJson(String str) => BlockDisposableEmailDomains.fromJson(json.decode(str));
-String blockDisposableEmailDomainsToJson(BlockDisposableEmailDomains data) => json.encode(data.toJson());
+BlockDisposableEmailDomains blockDisposableEmailDomainsFromJson(String str) =>
+    BlockDisposableEmailDomains.fromJson(json.decode(str));
+
+String blockDisposableEmailDomainsToJson(BlockDisposableEmailDomains data) =>
+    json.encode(data.toJson());
+
 class BlockDisposableEmailDomains {
   BlockDisposableEmailDomains({
-      bool? enabled,}){
+    bool? enabled,
+  }) {
     _enabled = enabled;
-}
+  }
 
   BlockDisposableEmailDomains.fromJson(dynamic json) {
     _enabled = json['enabled'];
   }
+
   bool? _enabled;
-BlockDisposableEmailDomains copyWith({  bool? enabled,
-}) => BlockDisposableEmailDomains(  enabled: enabled ?? _enabled,
-);
+
+  BlockDisposableEmailDomains copyWith({
+    bool? enabled,
+  }) =>
+      BlockDisposableEmailDomains(
+        enabled: enabled ?? _enabled,
+      );
+
   bool? get enabled => _enabled;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     return map;
   }
-
 }
 
 /// enabled : false
 
-BlockEmailSubaddresses blockEmailSubaddressesFromJson(String str) => BlockEmailSubaddresses.fromJson(json.decode(str));
-String blockEmailSubaddressesToJson(BlockEmailSubaddresses data) => json.encode(data.toJson());
+BlockEmailSubaddresses blockEmailSubaddressesFromJson(String str) =>
+    BlockEmailSubaddresses.fromJson(json.decode(str));
+
+String blockEmailSubaddressesToJson(BlockEmailSubaddresses data) =>
+    json.encode(data.toJson());
+
 class BlockEmailSubaddresses {
   BlockEmailSubaddresses({
-      bool? enabled,}){
+    bool? enabled,
+  }) {
     _enabled = enabled;
-}
+  }
 
   BlockEmailSubaddresses.fromJson(dynamic json) {
     _enabled = json['enabled'];
   }
+
   bool? _enabled;
-BlockEmailSubaddresses copyWith({  bool? enabled,
-}) => BlockEmailSubaddresses(  enabled: enabled ?? _enabled,
-);
+
+  BlockEmailSubaddresses copyWith({
+    bool? enabled,
+  }) =>
+      BlockEmailSubaddresses(
+        enabled: enabled ?? _enabled,
+      );
+
   bool? get enabled => _enabled;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     return map;
   }
-
 }
 
 /// enabled : false
 
 Blocklist blocklistFromJson(String str) => Blocklist.fromJson(json.decode(str));
+
 String blocklistToJson(Blocklist data) => json.encode(data.toJson());
+
 class Blocklist {
   Blocklist({
-      bool? enabled,}){
+    bool? enabled,
+  }) {
     _enabled = enabled;
-}
+  }
 
   Blocklist.fromJson(dynamic json) {
     _enabled = json['enabled'];
   }
+
   bool? _enabled;
-Blocklist copyWith({  bool? enabled,
-}) => Blocklist(  enabled: enabled ?? _enabled,
-);
+
+  Blocklist copyWith({
+    bool? enabled,
+  }) =>
+      Blocklist(
+        enabled: enabled ?? _enabled,
+      );
+
   bool? get enabled => _enabled;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     return map;
   }
-
 }
 
 /// enabled : false
 
 Allowlist allowlistFromJson(String str) => Allowlist.fromJson(json.decode(str));
+
 String allowlistToJson(Allowlist data) => json.encode(data.toJson());
+
 class Allowlist {
   Allowlist({
-      bool? enabled,}){
+    bool? enabled,
+  }) {
     _enabled = enabled;
-}
+  }
 
   Allowlist.fromJson(dynamic json) {
     _enabled = json['enabled'];
   }
+
   bool? _enabled;
-Allowlist copyWith({  bool? enabled,
-}) => Allowlist(  enabled: enabled ?? _enabled,
-);
+
+  Allowlist copyWith({
+    bool? enabled,
+  }) =>
+      Allowlist(
+        enabled: enabled ?? _enabled,
+      );
+
   bool? get enabled => _enabled;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['enabled'] = _enabled;
     return map;
   }
-
 }
 
 /// captcha_enabled : true
@@ -1087,20 +1340,23 @@ Allowlist copyWith({  bool? enabled,
 /// invite_only_enabled : false
 
 SignUp signUpFromJson(String str) => SignUp.fromJson(json.decode(str));
+
 String signUpToJson(SignUp data) => json.encode(data.toJson());
+
 class SignUp {
   SignUp({
-      bool? captchaEnabled, 
-      String? captchaWidgetType, 
-      bool? customActionRequired, 
-      bool? progressive, 
-      bool? inviteOnlyEnabled,}){
+    bool? captchaEnabled,
+    String? captchaWidgetType,
+    bool? customActionRequired,
+    bool? progressive,
+    bool? inviteOnlyEnabled,
+  }) {
     _captchaEnabled = captchaEnabled;
     _captchaWidgetType = captchaWidgetType;
     _customActionRequired = customActionRequired;
     _progressive = progressive;
     _inviteOnlyEnabled = inviteOnlyEnabled;
-}
+  }
 
   SignUp.fromJson(dynamic json) {
     _captchaEnabled = json['captcha_enabled'];
@@ -1109,30 +1365,40 @@ class SignUp {
     _progressive = json['progressive'];
     _inviteOnlyEnabled = json['invite_only_enabled'];
   }
+
   bool? _captchaEnabled;
   String? _captchaWidgetType;
   bool? _customActionRequired;
   bool? _progressive;
   bool? _inviteOnlyEnabled;
-SignUp copyWith({  bool? captchaEnabled,
-  String? captchaWidgetType,
-  bool? customActionRequired,
-  bool? progressive,
-  bool? inviteOnlyEnabled,
-}) => SignUp(  captchaEnabled: captchaEnabled ?? _captchaEnabled,
-  captchaWidgetType: captchaWidgetType ?? _captchaWidgetType,
-  customActionRequired: customActionRequired ?? _customActionRequired,
-  progressive: progressive ?? _progressive,
-  inviteOnlyEnabled: inviteOnlyEnabled ?? _inviteOnlyEnabled,
-);
+
+  SignUp copyWith({
+    bool? captchaEnabled,
+    String? captchaWidgetType,
+    bool? customActionRequired,
+    bool? progressive,
+    bool? inviteOnlyEnabled,
+  }) =>
+      SignUp(
+        captchaEnabled: captchaEnabled ?? _captchaEnabled,
+        captchaWidgetType: captchaWidgetType ?? _captchaWidgetType,
+        customActionRequired: customActionRequired ?? _customActionRequired,
+        progressive: progressive ?? _progressive,
+        inviteOnlyEnabled: inviteOnlyEnabled ?? _inviteOnlyEnabled,
+      );
+
   bool? get captchaEnabled => _captchaEnabled;
+
   String? get captchaWidgetType => _captchaWidgetType;
+
   bool? get customActionRequired => _customActionRequired;
+
   bool? get progressive => _progressive;
+
   bool? get inviteOnlyEnabled => _inviteOnlyEnabled;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['captcha_enabled'] = _captchaEnabled;
     map['captcha_widget_type'] = _captchaWidgetType;
     map['custom_action_required'] = _customActionRequired;
@@ -1140,1426 +1406,115 @@ SignUp copyWith({  bool? captchaEnabled,
     map['invite_only_enabled'] = _inviteOnlyEnabled;
     return map;
   }
-
 }
 
 /// second_factor : {"required":false}
 
 SignIn signInFromJson(String str) => SignIn.fromJson(json.decode(str));
+
 String signInToJson(SignIn data) => json.encode(data.toJson());
+
 class SignIn {
   SignIn({
-      SecondFactor? secondFactor,}){
+    SecondFactor? secondFactor,
+  }) {
     _secondFactor = secondFactor;
-}
+  }
 
   SignIn.fromJson(dynamic json) {
-    _secondFactor = json['second_factor'] != null ? SecondFactor.fromJson(json['second_factor']) : null;
+    _secondFactor = json['second_factor'] != null
+        ? SecondFactor.fromJson(json['second_factor'])
+        : null;
   }
+
   SecondFactor? _secondFactor;
-SignIn copyWith({  SecondFactor? secondFactor,
-}) => SignIn(  secondFactor: secondFactor ?? _secondFactor,
-);
+
+  SignIn copyWith({
+    SecondFactor? secondFactor,
+  }) =>
+      SignIn(
+        secondFactor: secondFactor ?? _secondFactor,
+      );
+
   SecondFactor? get secondFactor => _secondFactor;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     if (_secondFactor != null) {
       map['second_factor'] = _secondFactor?.toJson();
     }
     return map;
   }
-
 }
 
 /// required : false
 
-SecondFactor secondFactorFromJson(String str) => SecondFactor.fromJson(json.decode(str));
+SecondFactor secondFactorFromJson(String str) =>
+    SecondFactor.fromJson(json.decode(str));
+
 String secondFactorToJson(SecondFactor data) => json.encode(data.toJson());
+
 class SecondFactor {
   SecondFactor({
-      bool? required,}){
+    bool? required,
+  }) {
     _required = required;
-}
+  }
 
   SecondFactor.fromJson(dynamic json) {
     _required = json['required'];
   }
+
   bool? _required;
-SecondFactor copyWith({  bool? required,
-}) => SecondFactor(  required: required ?? _required,
-);
+
+  SecondFactor copyWith({
+    bool? required,
+  }) =>
+      SecondFactor(
+        required: required ?? _required,
+      );
+
   bool? get required => _required;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['required'] = _required;
     return map;
   }
-
 }
 
-/// email_address : {"enabled":true,"required":true,"used_for_first_factor":true,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":["email_code"],"verify_at_sign_up":true}
-/// phone_number : {"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// username : {"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// web3_wallet : {"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// first_name : {"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// last_name : {"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// password : {"enabled":true,"required":true,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// authenticator_app : {"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// ticket : {"enabled":true,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// backup_code : {"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
-/// passkey : {"enabled":false,"required":false,"used_for_first_factor":false,"first_factors":[],"used_for_second_factor":false,"second_factors":[],"verifications":[],"verify_at_sign_up":false}
+Attributes attributesFromJson(String str) =>
+    Attributes.fromJson(json.decode(str));
 
-Attributes attributesFromJson(String str) => Attributes.fromJson(json.decode(str));
 String attributesToJson(Attributes data) => json.encode(data.toJson());
+
 class Attributes {
-  Attributes({
-      EmailAddress? emailAddress, 
-      PhoneNumber? phoneNumber, 
-      Username? username, 
-      Web3Wallet? web3Wallet, 
-      FirstName? firstName, 
-      LastName? lastName, 
-      Password? password, 
-      AuthenticatorApp? authenticatorApp, 
-      Ticket? ticket, 
-      BackupCode? backupCode, 
-      Passkey? passkey,}){
-    _emailAddress = emailAddress;
-    _phoneNumber = phoneNumber;
-    _username = username;
-    _web3Wallet = web3Wallet;
-    _firstName = firstName;
-    _lastName = lastName;
-    _password = password;
-    _authenticatorApp = authenticatorApp;
-    _ticket = ticket;
-    _backupCode = backupCode;
-    _passkey = passkey;
-}
+  const Attributes();
 
-  Attributes.fromJson(dynamic json) {
-    _emailAddress = json['email_address'] != null ? EmailAddress.fromJson(json['email_address']) : null;
-    _phoneNumber = json['phone_number'] != null ? PhoneNumber.fromJson(json['phone_number']) : null;
-    _username = json['username'] != null ? Username.fromJson(json['username']) : null;
-    _web3Wallet = json['web3_wallet'] != null ? Web3Wallet.fromJson(json['web3_wallet']) : null;
-    _firstName = json['first_name'] != null ? FirstName.fromJson(json['first_name']) : null;
-    _lastName = json['last_name'] != null ? LastName.fromJson(json['last_name']) : null;
-    _password = json['password'] != null ? Password.fromJson(json['password']) : null;
-    _authenticatorApp = json['authenticator_app'] != null ? AuthenticatorApp.fromJson(json['authenticator_app']) : null;
-    _ticket = json['ticket'] != null ? Ticket.fromJson(json['ticket']) : null;
-    _backupCode = json['backup_code'] != null ? BackupCode.fromJson(json['backup_code']) : null;
-    _passkey = json['passkey'] != null ? Passkey.fromJson(json['passkey']) : null;
-  }
-  EmailAddress? _emailAddress;
-  PhoneNumber? _phoneNumber;
-  Username? _username;
-  Web3Wallet? _web3Wallet;
-  FirstName? _firstName;
-  LastName? _lastName;
-  Password? _password;
-  AuthenticatorApp? _authenticatorApp;
-  Ticket? _ticket;
-  BackupCode? _backupCode;
-  Passkey? _passkey;
-Attributes copyWith({  EmailAddress? emailAddress,
-  PhoneNumber? phoneNumber,
-  Username? username,
-  Web3Wallet? web3Wallet,
-  FirstName? firstName,
-  LastName? lastName,
-  Password? password,
-  AuthenticatorApp? authenticatorApp,
-  Ticket? ticket,
-  BackupCode? backupCode,
-  Passkey? passkey,
-}) => Attributes(  emailAddress: emailAddress ?? _emailAddress,
-  phoneNumber: phoneNumber ?? _phoneNumber,
-  username: username ?? _username,
-  web3Wallet: web3Wallet ?? _web3Wallet,
-  firstName: firstName ?? _firstName,
-  lastName: lastName ?? _lastName,
-  password: password ?? _password,
-  authenticatorApp: authenticatorApp ?? _authenticatorApp,
-  ticket: ticket ?? _ticket,
-  backupCode: backupCode ?? _backupCode,
-  passkey: passkey ?? _passkey,
-);
-  EmailAddress? get emailAddress => _emailAddress;
-  PhoneNumber? get phoneNumber => _phoneNumber;
-  Username? get username => _username;
-  Web3Wallet? get web3Wallet => _web3Wallet;
-  FirstName? get firstName => _firstName;
-  LastName? get lastName => _lastName;
-  Password? get password => _password;
-  AuthenticatorApp? get authenticatorApp => _authenticatorApp;
-  Ticket? get ticket => _ticket;
-  BackupCode? get backupCode => _backupCode;
-  Passkey? get passkey => _passkey;
+  Attributes.fromJson(dynamic json);
+
+  Attributes copyWith() => const Attributes();
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (_emailAddress != null) {
-      map['email_address'] = _emailAddress?.toJson();
-    }
-    if (_phoneNumber != null) {
-      map['phone_number'] = _phoneNumber?.toJson();
-    }
-    if (_username != null) {
-      map['username'] = _username?.toJson();
-    }
-    if (_web3Wallet != null) {
-      map['web3_wallet'] = _web3Wallet?.toJson();
-    }
-    if (_firstName != null) {
-      map['first_name'] = _firstName?.toJson();
-    }
-    if (_lastName != null) {
-      map['last_name'] = _lastName?.toJson();
-    }
-    if (_password != null) {
-      map['password'] = _password?.toJson();
-    }
-    if (_authenticatorApp != null) {
-      map['authenticator_app'] = _authenticatorApp?.toJson();
-    }
-    if (_ticket != null) {
-      map['ticket'] = _ticket?.toJson();
-    }
-    if (_backupCode != null) {
-      map['backup_code'] = _backupCode?.toJson();
-    }
-    if (_passkey != null) {
-      map['passkey'] = _passkey?.toJson();
-    }
+    final Map<String, dynamic> map = <String, dynamic>{};
     return map;
   }
-
-}
-
-/// enabled : false
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-Passkey passkeyFromJson(String str) => Passkey.fromJson(json.decode(str));
-String passkeyToJson(Passkey data) => json.encode(data.toJson());
-class Passkey {
-  Passkey({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  Passkey.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-Passkey copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => Passkey(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : false
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-BackupCode backupCodeFromJson(String str) => BackupCode.fromJson(json.decode(str));
-String backupCodeToJson(BackupCode data) => json.encode(data.toJson());
-class BackupCode {
-  BackupCode({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  BackupCode.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-BackupCode copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => BackupCode(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : true
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-Ticket ticketFromJson(String str) => Ticket.fromJson(json.decode(str));
-String ticketToJson(Ticket data) => json.encode(data.toJson());
-class Ticket {
-  Ticket({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  Ticket.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-Ticket copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => Ticket(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : false
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-AuthenticatorApp authenticatorAppFromJson(String str) => AuthenticatorApp.fromJson(json.decode(str));
-String authenticatorAppToJson(AuthenticatorApp data) => json.encode(data.toJson());
-class AuthenticatorApp {
-  AuthenticatorApp({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  AuthenticatorApp.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-AuthenticatorApp copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => AuthenticatorApp(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : true
-/// required : true
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-Password passwordFromJson(String str) => Password.fromJson(json.decode(str));
-String passwordToJson(Password data) => json.encode(data.toJson());
-class Password {
-  Password({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  Password.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-Password copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => Password(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : false
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-LastName lastNameFromJson(String str) => LastName.fromJson(json.decode(str));
-String lastNameToJson(LastName data) => json.encode(data.toJson());
-class LastName {
-  LastName({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  LastName.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-LastName copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => LastName(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : false
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-FirstName firstNameFromJson(String str) => FirstName.fromJson(json.decode(str));
-String firstNameToJson(FirstName data) => json.encode(data.toJson());
-class FirstName {
-  FirstName({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  FirstName.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-FirstName copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => FirstName(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : false
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-Web3Wallet web3WalletFromJson(String str) => Web3Wallet.fromJson(json.decode(str));
-String web3WalletToJson(Web3Wallet data) => json.encode(data.toJson());
-class Web3Wallet {
-  Web3Wallet({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  Web3Wallet.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-Web3Wallet copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => Web3Wallet(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : false
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-Username usernameFromJson(String str) => Username.fromJson(json.decode(str));
-String usernameToJson(Username data) => json.encode(data.toJson());
-class Username {
-  Username({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  Username.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-Username copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => Username(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : false
-/// required : false
-/// used_for_first_factor : false
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : []
-/// verify_at_sign_up : false
-
-PhoneNumber phoneNumberFromJson(String str) => PhoneNumber.fromJson(json.decode(str));
-String phoneNumberToJson(PhoneNumber data) => json.encode(data.toJson());
-class PhoneNumber {
-  PhoneNumber({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<dynamic>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  PhoneNumber.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['verifications'] != null) {
-      _verifications = [];
-      json['verifications'].forEach((v) {
-        _verifications?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<dynamic>? _verifications;
-  bool? _verifyAtSignUp;
-PhoneNumber copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<dynamic>? verifications,
-  bool? verifyAtSignUp,
-}) => PhoneNumber(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<dynamic>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    if (_verifications != null) {
-      map['verifications'] = _verifications?.map((v) => v.toJson()).toList();
-    }
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
-}
-
-/// enabled : true
-/// required : true
-/// used_for_first_factor : true
-/// first_factors : []
-/// used_for_second_factor : false
-/// second_factors : []
-/// verifications : ["email_code"]
-/// verify_at_sign_up : true
-
-EmailAddress emailAddressFromJson(String str) => EmailAddress.fromJson(json.decode(str));
-String emailAddressToJson(EmailAddress data) => json.encode(data.toJson());
-class EmailAddress {
-  EmailAddress({
-      bool? enabled, 
-      bool? required, 
-      bool? usedForFirstFactor, 
-      List<dynamic>? firstFactors, 
-      bool? usedForSecondFactor, 
-      List<dynamic>? secondFactors, 
-      List<String>? verifications, 
-      bool? verifyAtSignUp,}){
-    _enabled = enabled;
-    _required = required;
-    _usedForFirstFactor = usedForFirstFactor;
-    _firstFactors = firstFactors;
-    _usedForSecondFactor = usedForSecondFactor;
-    _secondFactors = secondFactors;
-    _verifications = verifications;
-    _verifyAtSignUp = verifyAtSignUp;
-}
-
-  EmailAddress.fromJson(dynamic json) {
-    _enabled = json['enabled'];
-    _required = json['required'];
-    _usedForFirstFactor = json['used_for_first_factor'];
-    if (json['first_factors'] != null) {
-      _firstFactors = [];
-      json['first_factors'].forEach((v) {
-        _firstFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _usedForSecondFactor = json['used_for_second_factor'];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _verifications = json['verifications'] != null ? json['verifications'].cast<String>() : [];
-    _verifyAtSignUp = json['verify_at_sign_up'];
-  }
-  bool? _enabled;
-  bool? _required;
-  bool? _usedForFirstFactor;
-  List<dynamic>? _firstFactors;
-  bool? _usedForSecondFactor;
-  List<dynamic>? _secondFactors;
-  List<String>? _verifications;
-  bool? _verifyAtSignUp;
-EmailAddress copyWith({  bool? enabled,
-  bool? required,
-  bool? usedForFirstFactor,
-  List<dynamic>? firstFactors,
-  bool? usedForSecondFactor,
-  List<dynamic>? secondFactors,
-  List<String>? verifications,
-  bool? verifyAtSignUp,
-}) => EmailAddress(  enabled: enabled ?? _enabled,
-  required: required ?? _required,
-  usedForFirstFactor: usedForFirstFactor ?? _usedForFirstFactor,
-  firstFactors: firstFactors ?? _firstFactors,
-  usedForSecondFactor: usedForSecondFactor ?? _usedForSecondFactor,
-  secondFactors: secondFactors ?? _secondFactors,
-  verifications: verifications ?? _verifications,
-  verifyAtSignUp: verifyAtSignUp ?? _verifyAtSignUp,
-);
-  bool? get enabled => _enabled;
-  bool? get required => _required;
-  bool? get usedForFirstFactor => _usedForFirstFactor;
-  List<dynamic>? get firstFactors => _firstFactors;
-  bool? get usedForSecondFactor => _usedForSecondFactor;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<String>? get verifications => _verifications;
-  bool? get verifyAtSignUp => _verifyAtSignUp;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['enabled'] = _enabled;
-    map['required'] = _required;
-    map['used_for_first_factor'] = _usedForFirstFactor;
-    if (_firstFactors != null) {
-      map['first_factors'] = _firstFactors?.map((v) => v.toJson()).toList();
-    }
-    map['used_for_second_factor'] = _usedForSecondFactor;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    map['verifications'] = _verifications;
-    map['verify_at_sign_up'] = _verifyAtSignUp;
-    return map;
-  }
-
 }
 
 /// object : "display_config"
-/// id : "display_config_2kTp2vtASfwWimi2SRW3V4EJPi5"
+/// id : "display_config_something"
 /// instance_environment_type : "production"
 /// application_name : "life-coaching-ai"
-/// theme : {"buttons":{"font_color":"#ffffff","font_family":"\"Source Sans Pro\", sans-serif","font_weight":"600"},"general":{"color":"#0F172A","padding":"1em","box_shadow":"0 2px 8px rgba(0, 0, 0, 0.2)","font_color":"#151515","font_family":"\"Source Sans Pro\", sans-serif","border_radius":"0.5em","background_color":"#ffffff","label_font_weight":"600"},"accounts":{"background_color":"#ffffff"}}
+/// theme : {"buttons":{"font_color":"#ffffff",
+/// "font_family":"\"Source Sans Pro\", sans-serif","font_weight":"600"},
+/// "general":{"color":"#0F172A","padding":"1em",
+/// "box_shadow":"0 2px 8px rgba(0, 0, 0, 0.2)",
+/// "font_color":"#151515","font_family":"\"Source Sans Pro\",
+/// sans-serif","border_radius":"0.5em","background_color":"#ffffff",
+/// "label_font_weight":"600"},"accounts":{"background_color":"#ffffff"}}
 /// preferred_sign_in_strategy : "password"
-/// logo_image_url : "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJrRm42NGE5TGVhalhFbmpENHc4a29QVVV4RyJ9"
-/// favicon_image_url : "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJrRmN6eVUzQTNaOEI0ODIxNEo2MEdQTlg1VSJ9"
+/// logo_image_url : "https://img.clerk.com/something"
+/// favicon_image_url : "https://img.clerk.com/something"
 /// home_url : "https://lifecoach.turskyi.com"
 /// sign_in_url : "https://lifecoach.turskyi.com/sign-in"
 /// sign_up_url : "https://lifecoach.turskyi.com/sign-up"
@@ -2583,58 +1538,64 @@ EmailAddress copyWith({  bool? enabled,
 /// help_url : null
 /// privacy_policy_url : null
 /// terms_url : null
-/// logo_url : "https://images.clerk.dev/uploaded/img_2kFn64a9LeajXEnjD4w8koPUUxG"
-/// favicon_url : "https://images.clerk.dev/uploaded/img_2kFczyU3A3Z8B48214J60GPNX5U"
-/// logo_image : {"object":"image","id":"img_2kFn64a9LeajXEnjD4w8koPUUxG","public_url":"https://images.clerk.dev/uploaded/img_2kFn64a9LeajXEnjD4w8koPUUxG"}
-/// favicon_image : {"object":"image","id":"img_2kFczyU3A3Z8B48214J60GPNX5U","public_url":"https://images.clerk.dev/uploaded/img_2kFczyU3A3Z8B48214J60GPNX5U"}
-/// captcha_public_key : "0x4AAAAAAAFV93qQdS0ycilX"
+/// logo_url : "https://images.clerk.dev/uploaded/img_something"
+/// favicon_url : "https://images.clerk.dev/uploaded/img_something"
+/// logo_image : {"object":"image","id":"img_something",
+/// "public_url":"https://images.clerk.dev/uploaded/img_something"}
+/// favicon_image : {"object":"image","id":"img_something",
+/// "public_url":"https://images.clerk.dev/uploaded/img_something"}
+/// captcha_public_key : "0xsomething"
 /// captcha_widget_type : "invisible"
-/// captcha_public_key_invisible : "0x4AAAAAAAFV93qQdS0ycilX"
+/// captcha_public_key_invisible : "0xsomething"
 /// captcha_provider : "turnstile"
 
-DisplayConfig displayConfigFromJson(String str) => DisplayConfig.fromJson(json.decode(str));
+DisplayConfig displayConfigFromJson(String str) =>
+    DisplayConfig.fromJson(json.decode(str));
+
 String displayConfigToJson(DisplayConfig data) => json.encode(data.toJson());
+
 class DisplayConfig {
   DisplayConfig({
-      String? object, 
-      String? id, 
-      String? instanceEnvironmentType, 
-      String? applicationName, 
-      Theme? theme, 
-      String? preferredSignInStrategy, 
-      String? logoImageUrl, 
-      String? faviconImageUrl, 
-      String? homeUrl, 
-      String? signInUrl, 
-      String? signUpUrl, 
-      String? userProfileUrl, 
-      String? afterSignInUrl, 
-      String? afterSignUpUrl, 
-      String? afterSignOutOneUrl, 
-      String? afterSignOutAllUrl, 
-      String? afterSwitchSessionUrl, 
-      String? organizationProfileUrl, 
-      String? createOrganizationUrl, 
-      String? afterLeaveOrganizationUrl, 
-      String? afterCreateOrganizationUrl, 
-      String? logoLinkUrl, 
-      String? supportEmail, 
-      bool? branded, 
-      bool? experimentalForceOauthFirst, 
-      String? clerkJsVersion, 
-      bool? showDevmodeWarning, 
-      dynamic googleOneTapClientId, 
-      dynamic helpUrl, 
-      dynamic privacyPolicyUrl, 
-      dynamic termsUrl, 
-      String? logoUrl, 
-      String? faviconUrl, 
-      LogoImage? logoImage, 
-      FaviconImage? faviconImage, 
-      String? captchaPublicKey, 
-      String? captchaWidgetType, 
-      String? captchaPublicKeyInvisible, 
-      String? captchaProvider,}){
+    String? object,
+    String? id,
+    String? instanceEnvironmentType,
+    String? applicationName,
+    Theme? theme,
+    String? preferredSignInStrategy,
+    String? logoImageUrl,
+    String? faviconImageUrl,
+    String? homeUrl,
+    String? signInUrl,
+    String? signUpUrl,
+    String? userProfileUrl,
+    String? afterSignInUrl,
+    String? afterSignUpUrl,
+    String? afterSignOutOneUrl,
+    String? afterSignOutAllUrl,
+    String? afterSwitchSessionUrl,
+    String? organizationProfileUrl,
+    String? createOrganizationUrl,
+    String? afterLeaveOrganizationUrl,
+    String? afterCreateOrganizationUrl,
+    String? logoLinkUrl,
+    String? supportEmail,
+    bool? branded,
+    bool? experimentalForceOauthFirst,
+    String? clerkJsVersion,
+    bool? showDevmodeWarning,
+    dynamic googleOneTapClientId,
+    dynamic helpUrl,
+    dynamic privacyPolicyUrl,
+    dynamic termsUrl,
+    String? logoUrl,
+    String? faviconUrl,
+    LogoImage? logoImage,
+    FaviconImage? faviconImage,
+    String? captchaPublicKey,
+    String? captchaWidgetType,
+    String? captchaPublicKeyInvisible,
+    String? captchaProvider,
+  }) {
     _object = object;
     _id = id;
     _instanceEnvironmentType = instanceEnvironmentType;
@@ -2674,7 +1635,7 @@ class DisplayConfig {
     _captchaWidgetType = captchaWidgetType;
     _captchaPublicKeyInvisible = captchaPublicKeyInvisible;
     _captchaProvider = captchaProvider;
-}
+  }
 
   DisplayConfig.fromJson(dynamic json) {
     _object = json['object'];
@@ -2710,13 +1671,18 @@ class DisplayConfig {
     _termsUrl = json['terms_url'];
     _logoUrl = json['logo_url'];
     _faviconUrl = json['favicon_url'];
-    _logoImage = json['logo_image'] != null ? LogoImage.fromJson(json['logo_image']) : null;
-    _faviconImage = json['favicon_image'] != null ? FaviconImage.fromJson(json['favicon_image']) : null;
+    _logoImage = json['logo_image'] != null
+        ? LogoImage.fromJson(json['logo_image'])
+        : null;
+    _faviconImage = json['favicon_image'] != null
+        ? FaviconImage.fromJson(json['favicon_image'])
+        : null;
     _captchaPublicKey = json['captcha_public_key'];
     _captchaWidgetType = json['captcha_widget_type'];
     _captchaPublicKeyInvisible = json['captcha_public_key_invisible'];
     _captchaProvider = json['captcha_provider'];
   }
+
   String? _object;
   String? _id;
   String? _instanceEnvironmentType;
@@ -2756,127 +1722,177 @@ class DisplayConfig {
   String? _captchaWidgetType;
   String? _captchaPublicKeyInvisible;
   String? _captchaProvider;
-DisplayConfig copyWith({  String? object,
-  String? id,
-  String? instanceEnvironmentType,
-  String? applicationName,
-  Theme? theme,
-  String? preferredSignInStrategy,
-  String? logoImageUrl,
-  String? faviconImageUrl,
-  String? homeUrl,
-  String? signInUrl,
-  String? signUpUrl,
-  String? userProfileUrl,
-  String? afterSignInUrl,
-  String? afterSignUpUrl,
-  String? afterSignOutOneUrl,
-  String? afterSignOutAllUrl,
-  String? afterSwitchSessionUrl,
-  String? organizationProfileUrl,
-  String? createOrganizationUrl,
-  String? afterLeaveOrganizationUrl,
-  String? afterCreateOrganizationUrl,
-  String? logoLinkUrl,
-  String? supportEmail,
-  bool? branded,
-  bool? experimentalForceOauthFirst,
-  String? clerkJsVersion,
-  bool? showDevmodeWarning,
-  dynamic googleOneTapClientId,
-  dynamic helpUrl,
-  dynamic privacyPolicyUrl,
-  dynamic termsUrl,
-  String? logoUrl,
-  String? faviconUrl,
-  LogoImage? logoImage,
-  FaviconImage? faviconImage,
-  String? captchaPublicKey,
-  String? captchaWidgetType,
-  String? captchaPublicKeyInvisible,
-  String? captchaProvider,
-}) => DisplayConfig(  object: object ?? _object,
-  id: id ?? _id,
-  instanceEnvironmentType: instanceEnvironmentType ?? _instanceEnvironmentType,
-  applicationName: applicationName ?? _applicationName,
-  theme: theme ?? _theme,
-  preferredSignInStrategy: preferredSignInStrategy ?? _preferredSignInStrategy,
-  logoImageUrl: logoImageUrl ?? _logoImageUrl,
-  faviconImageUrl: faviconImageUrl ?? _faviconImageUrl,
-  homeUrl: homeUrl ?? _homeUrl,
-  signInUrl: signInUrl ?? _signInUrl,
-  signUpUrl: signUpUrl ?? _signUpUrl,
-  userProfileUrl: userProfileUrl ?? _userProfileUrl,
-  afterSignInUrl: afterSignInUrl ?? _afterSignInUrl,
-  afterSignUpUrl: afterSignUpUrl ?? _afterSignUpUrl,
-  afterSignOutOneUrl: afterSignOutOneUrl ?? _afterSignOutOneUrl,
-  afterSignOutAllUrl: afterSignOutAllUrl ?? _afterSignOutAllUrl,
-  afterSwitchSessionUrl: afterSwitchSessionUrl ?? _afterSwitchSessionUrl,
-  organizationProfileUrl: organizationProfileUrl ?? _organizationProfileUrl,
-  createOrganizationUrl: createOrganizationUrl ?? _createOrganizationUrl,
-  afterLeaveOrganizationUrl: afterLeaveOrganizationUrl ?? _afterLeaveOrganizationUrl,
-  afterCreateOrganizationUrl: afterCreateOrganizationUrl ?? _afterCreateOrganizationUrl,
-  logoLinkUrl: logoLinkUrl ?? _logoLinkUrl,
-  supportEmail: supportEmail ?? _supportEmail,
-  branded: branded ?? _branded,
-  experimentalForceOauthFirst: experimentalForceOauthFirst ?? _experimentalForceOauthFirst,
-  clerkJsVersion: clerkJsVersion ?? _clerkJsVersion,
-  showDevmodeWarning: showDevmodeWarning ?? _showDevmodeWarning,
-  googleOneTapClientId: googleOneTapClientId ?? _googleOneTapClientId,
-  helpUrl: helpUrl ?? _helpUrl,
-  privacyPolicyUrl: privacyPolicyUrl ?? _privacyPolicyUrl,
-  termsUrl: termsUrl ?? _termsUrl,
-  logoUrl: logoUrl ?? _logoUrl,
-  faviconUrl: faviconUrl ?? _faviconUrl,
-  logoImage: logoImage ?? _logoImage,
-  faviconImage: faviconImage ?? _faviconImage,
-  captchaPublicKey: captchaPublicKey ?? _captchaPublicKey,
-  captchaWidgetType: captchaWidgetType ?? _captchaWidgetType,
-  captchaPublicKeyInvisible: captchaPublicKeyInvisible ?? _captchaPublicKeyInvisible,
-  captchaProvider: captchaProvider ?? _captchaProvider,
-);
+
+  DisplayConfig copyWith({
+    String? object,
+    String? id,
+    String? instanceEnvironmentType,
+    String? applicationName,
+    Theme? theme,
+    String? preferredSignInStrategy,
+    String? logoImageUrl,
+    String? faviconImageUrl,
+    String? homeUrl,
+    String? signInUrl,
+    String? signUpUrl,
+    String? userProfileUrl,
+    String? afterSignInUrl,
+    String? afterSignUpUrl,
+    String? afterSignOutOneUrl,
+    String? afterSignOutAllUrl,
+    String? afterSwitchSessionUrl,
+    String? organizationProfileUrl,
+    String? createOrganizationUrl,
+    String? afterLeaveOrganizationUrl,
+    String? afterCreateOrganizationUrl,
+    String? logoLinkUrl,
+    String? supportEmail,
+    bool? branded,
+    bool? experimentalForceOauthFirst,
+    String? clerkJsVersion,
+    bool? showDevmodeWarning,
+    dynamic googleOneTapClientId,
+    dynamic helpUrl,
+    dynamic privacyPolicyUrl,
+    dynamic termsUrl,
+    String? logoUrl,
+    String? faviconUrl,
+    LogoImage? logoImage,
+    FaviconImage? faviconImage,
+    String? captchaPublicKey,
+    String? captchaWidgetType,
+    String? captchaPublicKeyInvisible,
+    String? captchaProvider,
+  }) =>
+      DisplayConfig(
+        object: object ?? _object,
+        id: id ?? _id,
+        instanceEnvironmentType:
+            instanceEnvironmentType ?? _instanceEnvironmentType,
+        applicationName: applicationName ?? _applicationName,
+        theme: theme ?? _theme,
+        preferredSignInStrategy:
+            preferredSignInStrategy ?? _preferredSignInStrategy,
+        logoImageUrl: logoImageUrl ?? _logoImageUrl,
+        faviconImageUrl: faviconImageUrl ?? _faviconImageUrl,
+        homeUrl: homeUrl ?? _homeUrl,
+        signInUrl: signInUrl ?? _signInUrl,
+        signUpUrl: signUpUrl ?? _signUpUrl,
+        userProfileUrl: userProfileUrl ?? _userProfileUrl,
+        afterSignInUrl: afterSignInUrl ?? _afterSignInUrl,
+        afterSignUpUrl: afterSignUpUrl ?? _afterSignUpUrl,
+        afterSignOutOneUrl: afterSignOutOneUrl ?? _afterSignOutOneUrl,
+        afterSignOutAllUrl: afterSignOutAllUrl ?? _afterSignOutAllUrl,
+        afterSwitchSessionUrl: afterSwitchSessionUrl ?? _afterSwitchSessionUrl,
+        organizationProfileUrl:
+            organizationProfileUrl ?? _organizationProfileUrl,
+        createOrganizationUrl: createOrganizationUrl ?? _createOrganizationUrl,
+        afterLeaveOrganizationUrl:
+            afterLeaveOrganizationUrl ?? _afterLeaveOrganizationUrl,
+        afterCreateOrganizationUrl:
+            afterCreateOrganizationUrl ?? _afterCreateOrganizationUrl,
+        logoLinkUrl: logoLinkUrl ?? _logoLinkUrl,
+        supportEmail: supportEmail ?? _supportEmail,
+        branded: branded ?? _branded,
+        experimentalForceOauthFirst:
+            experimentalForceOauthFirst ?? _experimentalForceOauthFirst,
+        clerkJsVersion: clerkJsVersion ?? _clerkJsVersion,
+        showDevmodeWarning: showDevmodeWarning ?? _showDevmodeWarning,
+        googleOneTapClientId: googleOneTapClientId ?? _googleOneTapClientId,
+        helpUrl: helpUrl ?? _helpUrl,
+        privacyPolicyUrl: privacyPolicyUrl ?? _privacyPolicyUrl,
+        termsUrl: termsUrl ?? _termsUrl,
+        logoUrl: logoUrl ?? _logoUrl,
+        faviconUrl: faviconUrl ?? _faviconUrl,
+        logoImage: logoImage ?? _logoImage,
+        faviconImage: faviconImage ?? _faviconImage,
+        captchaPublicKey: captchaPublicKey ?? _captchaPublicKey,
+        captchaWidgetType: captchaWidgetType ?? _captchaWidgetType,
+        captchaPublicKeyInvisible:
+            captchaPublicKeyInvisible ?? _captchaPublicKeyInvisible,
+        captchaProvider: captchaProvider ?? _captchaProvider,
+      );
+
   String? get object => _object;
+
   String? get id => _id;
+
   String? get instanceEnvironmentType => _instanceEnvironmentType;
+
   String? get applicationName => _applicationName;
+
   Theme? get theme => _theme;
+
   String? get preferredSignInStrategy => _preferredSignInStrategy;
+
   String? get logoImageUrl => _logoImageUrl;
+
   String? get faviconImageUrl => _faviconImageUrl;
+
   String? get homeUrl => _homeUrl;
+
   String? get signInUrl => _signInUrl;
+
   String? get signUpUrl => _signUpUrl;
+
   String? get userProfileUrl => _userProfileUrl;
+
   String? get afterSignInUrl => _afterSignInUrl;
+
   String? get afterSignUpUrl => _afterSignUpUrl;
+
   String? get afterSignOutOneUrl => _afterSignOutOneUrl;
+
   String? get afterSignOutAllUrl => _afterSignOutAllUrl;
+
   String? get afterSwitchSessionUrl => _afterSwitchSessionUrl;
+
   String? get organizationProfileUrl => _organizationProfileUrl;
+
   String? get createOrganizationUrl => _createOrganizationUrl;
+
   String? get afterLeaveOrganizationUrl => _afterLeaveOrganizationUrl;
+
   String? get afterCreateOrganizationUrl => _afterCreateOrganizationUrl;
+
   String? get logoLinkUrl => _logoLinkUrl;
+
   String? get supportEmail => _supportEmail;
+
   bool? get branded => _branded;
+
   bool? get experimentalForceOauthFirst => _experimentalForceOauthFirst;
+
   String? get clerkJsVersion => _clerkJsVersion;
+
   bool? get showDevmodeWarning => _showDevmodeWarning;
+
   dynamic get googleOneTapClientId => _googleOneTapClientId;
+
   dynamic get helpUrl => _helpUrl;
+
   dynamic get privacyPolicyUrl => _privacyPolicyUrl;
+
   dynamic get termsUrl => _termsUrl;
+
   String? get logoUrl => _logoUrl;
+
   String? get faviconUrl => _faviconUrl;
+
   LogoImage? get logoImage => _logoImage;
+
   FaviconImage? get faviconImage => _faviconImage;
+
   String? get captchaPublicKey => _captchaPublicKey;
+
   String? get captchaWidgetType => _captchaWidgetType;
+
   String? get captchaPublicKeyInvisible => _captchaPublicKeyInvisible;
+
   String? get captchaProvider => _captchaProvider;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['object'] = _object;
     map['id'] = _id;
     map['instance_environment_type'] = _instanceEnvironmentType;
@@ -2924,52 +1940,62 @@ DisplayConfig copyWith({  String? object,
     map['captcha_provider'] = _captchaProvider;
     return map;
   }
-
 }
 
 /// object : "image"
-/// id : "img_2kFczyU3A3Z8B48214J60GPNX5U"
-/// public_url : "https://images.clerk.dev/uploaded/img_2kFczyU3A3Z8B48214J60GPNX5U"
+/// id : "img_something"
+/// public_url : "https://images.clerk.dev/uploaded/img_something"
 
-FaviconImage faviconImageFromJson(String str) => FaviconImage.fromJson(json.decode(str));
+FaviconImage faviconImageFromJson(String str) =>
+    FaviconImage.fromJson(json.decode(str));
+
 String faviconImageToJson(FaviconImage data) => json.encode(data.toJson());
+
 class FaviconImage {
   FaviconImage({
-      String? object, 
-      String? id, 
-      String? publicUrl,}){
+    String? object,
+    String? id,
+    String? publicUrl,
+  }) {
     _object = object;
     _id = id;
     _publicUrl = publicUrl;
-}
+  }
 
   FaviconImage.fromJson(dynamic json) {
     _object = json['object'];
     _id = json['id'];
     _publicUrl = json['public_url'];
   }
+
   String? _object;
   String? _id;
   String? _publicUrl;
-FaviconImage copyWith({  String? object,
-  String? id,
-  String? publicUrl,
-}) => FaviconImage(  object: object ?? _object,
-  id: id ?? _id,
-  publicUrl: publicUrl ?? _publicUrl,
-);
+
+  FaviconImage copyWith({
+    String? object,
+    String? id,
+    String? publicUrl,
+  }) =>
+      FaviconImage(
+        object: object ?? _object,
+        id: id ?? _id,
+        publicUrl: publicUrl ?? _publicUrl,
+      );
+
   String? get object => _object;
+
   String? get id => _id;
+
   String? get publicUrl => _publicUrl;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['object'] = _object;
     map['id'] = _id;
     map['public_url'] = _publicUrl;
     return map;
   }
-
 }
 
 /// object : "image"
@@ -2977,44 +2003,54 @@ FaviconImage copyWith({  String? object,
 /// public_url : "https://images.clerk.dev/uploaded/img_2kFn64a9LeajXEnjD4w8koPUUxG"
 
 LogoImage logoImageFromJson(String str) => LogoImage.fromJson(json.decode(str));
+
 String logoImageToJson(LogoImage data) => json.encode(data.toJson());
+
 class LogoImage {
   LogoImage({
-      String? object, 
-      String? id, 
-      String? publicUrl,}){
+    String? object,
+    String? id,
+    String? publicUrl,
+  }) {
     _object = object;
     _id = id;
     _publicUrl = publicUrl;
-}
+  }
 
   LogoImage.fromJson(dynamic json) {
     _object = json['object'];
     _id = json['id'];
     _publicUrl = json['public_url'];
   }
+
   String? _object;
   String? _id;
   String? _publicUrl;
-LogoImage copyWith({  String? object,
-  String? id,
-  String? publicUrl,
-}) => LogoImage(  object: object ?? _object,
-  id: id ?? _id,
-  publicUrl: publicUrl ?? _publicUrl,
-);
+
+  LogoImage copyWith({
+    String? object,
+    String? id,
+    String? publicUrl,
+  }) =>
+      LogoImage(
+        object: object ?? _object,
+        id: id ?? _id,
+        publicUrl: publicUrl ?? _publicUrl,
+      );
+
   String? get object => _object;
+
   String? get id => _id;
+
   String? get publicUrl => _publicUrl;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['object'] = _object;
     map['id'] = _id;
     map['public_url'] = _publicUrl;
     return map;
   }
-
 }
 
 /// buttons : {"font_color":"#ffffff","font_family":"\"Source Sans Pro\", sans-serif","font_weight":"600"}
@@ -3022,38 +2058,52 @@ LogoImage copyWith({  String? object,
 /// accounts : {"background_color":"#ffffff"}
 
 Theme themeFromJson(String str) => Theme.fromJson(json.decode(str));
+
 String themeToJson(Theme data) => json.encode(data.toJson());
+
 class Theme {
   Theme({
-      Buttons? buttons, 
-      General? general, 
-      Accounts? accounts,}){
+    Buttons? buttons,
+    General? general,
+    Accounts? accounts,
+  }) {
     _buttons = buttons;
     _general = general;
     _accounts = accounts;
-}
+  }
 
   Theme.fromJson(dynamic json) {
-    _buttons = json['buttons'] != null ? Buttons.fromJson(json['buttons']) : null;
-    _general = json['general'] != null ? General.fromJson(json['general']) : null;
-    _accounts = json['accounts'] != null ? Accounts.fromJson(json['accounts']) : null;
+    _buttons =
+        json['buttons'] != null ? Buttons.fromJson(json['buttons']) : null;
+    _general =
+        json['general'] != null ? General.fromJson(json['general']) : null;
+    _accounts =
+        json['accounts'] != null ? Accounts.fromJson(json['accounts']) : null;
   }
+
   Buttons? _buttons;
   General? _general;
   Accounts? _accounts;
-Theme copyWith({  Buttons? buttons,
-  General? general,
-  Accounts? accounts,
-}) => Theme(  buttons: buttons ?? _buttons,
-  general: general ?? _general,
-  accounts: accounts ?? _accounts,
-);
+
+  Theme copyWith({
+    Buttons? buttons,
+    General? general,
+    Accounts? accounts,
+  }) =>
+      Theme(
+        buttons: buttons ?? _buttons,
+        general: general ?? _general,
+        accounts: accounts ?? _accounts,
+      );
+
   Buttons? get buttons => _buttons;
+
   General? get general => _general;
+
   Accounts? get accounts => _accounts;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     if (_buttons != null) {
       map['buttons'] = _buttons?.toJson();
     }
@@ -3065,34 +2115,41 @@ Theme copyWith({  Buttons? buttons,
     }
     return map;
   }
-
 }
 
 /// background_color : "#ffffff"
 
 Accounts accountsFromJson(String str) => Accounts.fromJson(json.decode(str));
+
 String accountsToJson(Accounts data) => json.encode(data.toJson());
+
 class Accounts {
   Accounts({
-      String? backgroundColor,}){
+    String? backgroundColor,
+  }) {
     _backgroundColor = backgroundColor;
-}
+  }
 
   Accounts.fromJson(dynamic json) {
     _backgroundColor = json['background_color'];
   }
+
   String? _backgroundColor;
-Accounts copyWith({  String? backgroundColor,
-}) => Accounts(  backgroundColor: backgroundColor ?? _backgroundColor,
-);
+
+  Accounts copyWith({
+    String? backgroundColor,
+  }) =>
+      Accounts(
+        backgroundColor: backgroundColor ?? _backgroundColor,
+      );
+
   String? get backgroundColor => _backgroundColor;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['background_color'] = _backgroundColor;
     return map;
   }
-
 }
 
 /// color : "#0F172A"
@@ -3105,17 +2162,20 @@ Accounts copyWith({  String? backgroundColor,
 /// label_font_weight : "600"
 
 General generalFromJson(String str) => General.fromJson(json.decode(str));
+
 String generalToJson(General data) => json.encode(data.toJson());
+
 class General {
   General({
-      String? color, 
-      String? padding, 
-      String? boxShadow, 
-      String? fontColor, 
-      String? fontFamily, 
-      String? borderRadius, 
-      String? backgroundColor, 
-      String? labelFontWeight,}){
+    String? color,
+    String? padding,
+    String? boxShadow,
+    String? fontColor,
+    String? fontFamily,
+    String? borderRadius,
+    String? backgroundColor,
+    String? labelFontWeight,
+  }) {
     _color = color;
     _padding = padding;
     _boxShadow = boxShadow;
@@ -3124,7 +2184,7 @@ class General {
     _borderRadius = borderRadius;
     _backgroundColor = backgroundColor;
     _labelFontWeight = labelFontWeight;
-}
+  }
 
   General.fromJson(dynamic json) {
     _color = json['color'];
@@ -3136,6 +2196,7 @@ class General {
     _backgroundColor = json['background_color'];
     _labelFontWeight = json['label_font_weight'];
   }
+
   String? _color;
   String? _padding;
   String? _boxShadow;
@@ -3144,34 +2205,46 @@ class General {
   String? _borderRadius;
   String? _backgroundColor;
   String? _labelFontWeight;
-General copyWith({  String? color,
-  String? padding,
-  String? boxShadow,
-  String? fontColor,
-  String? fontFamily,
-  String? borderRadius,
-  String? backgroundColor,
-  String? labelFontWeight,
-}) => General(  color: color ?? _color,
-  padding: padding ?? _padding,
-  boxShadow: boxShadow ?? _boxShadow,
-  fontColor: fontColor ?? _fontColor,
-  fontFamily: fontFamily ?? _fontFamily,
-  borderRadius: borderRadius ?? _borderRadius,
-  backgroundColor: backgroundColor ?? _backgroundColor,
-  labelFontWeight: labelFontWeight ?? _labelFontWeight,
-);
+
+  General copyWith({
+    String? color,
+    String? padding,
+    String? boxShadow,
+    String? fontColor,
+    String? fontFamily,
+    String? borderRadius,
+    String? backgroundColor,
+    String? labelFontWeight,
+  }) =>
+      General(
+        color: color ?? _color,
+        padding: padding ?? _padding,
+        boxShadow: boxShadow ?? _boxShadow,
+        fontColor: fontColor ?? _fontColor,
+        fontFamily: fontFamily ?? _fontFamily,
+        borderRadius: borderRadius ?? _borderRadius,
+        backgroundColor: backgroundColor ?? _backgroundColor,
+        labelFontWeight: labelFontWeight ?? _labelFontWeight,
+      );
+
   String? get color => _color;
+
   String? get padding => _padding;
+
   String? get boxShadow => _boxShadow;
+
   String? get fontColor => _fontColor;
+
   String? get fontFamily => _fontFamily;
+
   String? get borderRadius => _borderRadius;
+
   String? get backgroundColor => _backgroundColor;
+
   String? get labelFontWeight => _labelFontWeight;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['color'] = _color;
     map['padding'] = _padding;
     map['box_shadow'] = _boxShadow;
@@ -3182,7 +2255,6 @@ General copyWith({  String? color,
     map['label_font_weight'] = _labelFontWeight;
     return map;
   }
-
 }
 
 /// font_color : "#ffffff"
@@ -3190,238 +2262,52 @@ General copyWith({  String? color,
 /// font_weight : "600"
 
 Buttons buttonsFromJson(String str) => Buttons.fromJson(json.decode(str));
+
 String buttonsToJson(Buttons data) => json.encode(data.toJson());
+
 class Buttons {
   Buttons({
-      String? fontColor, 
-      String? fontFamily, 
-      String? fontWeight,}){
+    String? fontColor,
+    String? fontFamily,
+    String? fontWeight,
+  }) {
     _fontColor = fontColor;
     _fontFamily = fontFamily;
     _fontWeight = fontWeight;
-}
+  }
 
   Buttons.fromJson(dynamic json) {
     _fontColor = json['font_color'];
     _fontFamily = json['font_family'];
     _fontWeight = json['font_weight'];
   }
+
   String? _fontColor;
   String? _fontFamily;
   String? _fontWeight;
-Buttons copyWith({  String? fontColor,
-  String? fontFamily,
-  String? fontWeight,
-}) => Buttons(  fontColor: fontColor ?? _fontColor,
-  fontFamily: fontFamily ?? _fontFamily,
-  fontWeight: fontWeight ?? _fontWeight,
-);
+
+  Buttons copyWith({
+    String? fontColor,
+    String? fontFamily,
+    String? fontWeight,
+  }) =>
+      Buttons(
+        fontColor: fontColor ?? _fontColor,
+        fontFamily: fontFamily ?? _fontFamily,
+        fontWeight: fontWeight ?? _fontWeight,
+      );
+
   String? get fontColor => _fontColor;
+
   String? get fontFamily => _fontFamily;
+
   String? get fontWeight => _fontWeight;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
+    final Map<String, dynamic> map = <String, dynamic>{};
     map['font_color'] = _fontColor;
     map['font_family'] = _fontFamily;
     map['font_weight'] = _fontWeight;
     return map;
   }
-
-}
-
-/// object : "auth_config"
-/// id : "aac_2kTp2sRI5N5cZrdGafFWm6vECmA"
-/// first_name : "off"
-/// last_name : "off"
-/// email_address : "on"
-/// phone_number : "off"
-/// username : "off"
-/// password : "required"
-/// identification_requirements : [["email_address"],[]]
-/// identification_strategies : ["email_address"]
-/// first_factors : ["password","reset_password_email_code","ticket"]
-/// second_factors : []
-/// email_address_verification_strategies : ["email_code"]
-/// single_session_mode : true
-/// enhanced_email_deliverability : false
-/// test_mode : false
-/// cookieless_dev : false
-/// url_based_session_syncing : false
-/// demo : false
-
-AuthConfig authConfigFromJson(String str) => AuthConfig.fromJson(json.decode(str));
-String authConfigToJson(AuthConfig data) => json.encode(data.toJson());
-class AuthConfig {
-  AuthConfig({
-      String? object, 
-      String? id, 
-      String? firstName, 
-      String? lastName, 
-      String? emailAddress, 
-      String? phoneNumber, 
-      String? username, 
-      String? password, 
-      List<List<String>>? identificationRequirements, 
-      List<String>? identificationStrategies, 
-      List<String>? firstFactors, 
-      List<dynamic>? secondFactors, 
-      List<String>? emailAddressVerificationStrategies, 
-      bool? singleSessionMode, 
-      bool? enhancedEmailDeliverability, 
-      bool? testMode, 
-      bool? cookielessDev, 
-      bool? urlBasedSessionSyncing, 
-      bool? demo,}){
-    _object = object;
-    _id = id;
-    _firstName = firstName;
-    _lastName = lastName;
-    _emailAddress = emailAddress;
-    _phoneNumber = phoneNumber;
-    _username = username;
-    _password = password;
-    _identificationRequirements = identificationRequirements;
-    _identificationStrategies = identificationStrategies;
-    _firstFactors = firstFactors;
-    _secondFactors = secondFactors;
-    _emailAddressVerificationStrategies = emailAddressVerificationStrategies;
-    _singleSessionMode = singleSessionMode;
-    _enhancedEmailDeliverability = enhancedEmailDeliverability;
-    _testMode = testMode;
-    _cookielessDev = cookielessDev;
-    _urlBasedSessionSyncing = urlBasedSessionSyncing;
-    _demo = demo;
-}
-
-  AuthConfig.fromJson(dynamic json) {
-    _object = json['object'];
-    _id = json['id'];
-    _firstName = json['first_name'];
-    _lastName = json['last_name'];
-    _emailAddress = json['email_address'];
-    _phoneNumber = json['phone_number'];
-    _username = json['username'];
-    _password = json['password'];
-    _identificationRequirements = json['identification_requirements'] != null ? json['identification_requirements'].cast<String>() : [];
-    _identificationStrategies = json['identification_strategies'] != null ? json['identification_strategies'].cast<String>() : [];
-    _firstFactors = json['first_factors'] != null ? json['first_factors'].cast<String>() : [];
-    if (json['second_factors'] != null) {
-      _secondFactors = [];
-      json['second_factors'].forEach((v) {
-        _secondFactors?.add(Dynamic.fromJson(v));
-      });
-    }
-    _emailAddressVerificationStrategies = json['email_address_verification_strategies'] != null ? json['email_address_verification_strategies'].cast<String>() : [];
-    _singleSessionMode = json['single_session_mode'];
-    _enhancedEmailDeliverability = json['enhanced_email_deliverability'];
-    _testMode = json['test_mode'];
-    _cookielessDev = json['cookieless_dev'];
-    _urlBasedSessionSyncing = json['url_based_session_syncing'];
-    _demo = json['demo'];
-  }
-  String? _object;
-  String? _id;
-  String? _firstName;
-  String? _lastName;
-  String? _emailAddress;
-  String? _phoneNumber;
-  String? _username;
-  String? _password;
-  List<List<String>>? _identificationRequirements;
-  List<String>? _identificationStrategies;
-  List<String>? _firstFactors;
-  List<dynamic>? _secondFactors;
-  List<String>? _emailAddressVerificationStrategies;
-  bool? _singleSessionMode;
-  bool? _enhancedEmailDeliverability;
-  bool? _testMode;
-  bool? _cookielessDev;
-  bool? _urlBasedSessionSyncing;
-  bool? _demo;
-AuthConfig copyWith({  String? object,
-  String? id,
-  String? firstName,
-  String? lastName,
-  String? emailAddress,
-  String? phoneNumber,
-  String? username,
-  String? password,
-  List<List<String>>? identificationRequirements,
-  List<String>? identificationStrategies,
-  List<String>? firstFactors,
-  List<dynamic>? secondFactors,
-  List<String>? emailAddressVerificationStrategies,
-  bool? singleSessionMode,
-  bool? enhancedEmailDeliverability,
-  bool? testMode,
-  bool? cookielessDev,
-  bool? urlBasedSessionSyncing,
-  bool? demo,
-}) => AuthConfig(  object: object ?? _object,
-  id: id ?? _id,
-  firstName: firstName ?? _firstName,
-  lastName: lastName ?? _lastName,
-  emailAddress: emailAddress ?? _emailAddress,
-  phoneNumber: phoneNumber ?? _phoneNumber,
-  username: username ?? _username,
-  password: password ?? _password,
-  identificationRequirements: identificationRequirements ?? _identificationRequirements,
-  identificationStrategies: identificationStrategies ?? _identificationStrategies,
-  firstFactors: firstFactors ?? _firstFactors,
-  secondFactors: secondFactors ?? _secondFactors,
-  emailAddressVerificationStrategies: emailAddressVerificationStrategies ?? _emailAddressVerificationStrategies,
-  singleSessionMode: singleSessionMode ?? _singleSessionMode,
-  enhancedEmailDeliverability: enhancedEmailDeliverability ?? _enhancedEmailDeliverability,
-  testMode: testMode ?? _testMode,
-  cookielessDev: cookielessDev ?? _cookielessDev,
-  urlBasedSessionSyncing: urlBasedSessionSyncing ?? _urlBasedSessionSyncing,
-  demo: demo ?? _demo,
-);
-  String? get object => _object;
-  String? get id => _id;
-  String? get firstName => _firstName;
-  String? get lastName => _lastName;
-  String? get emailAddress => _emailAddress;
-  String? get phoneNumber => _phoneNumber;
-  String? get username => _username;
-  String? get password => _password;
-  List<List<String>>? get identificationRequirements => _identificationRequirements;
-  List<String>? get identificationStrategies => _identificationStrategies;
-  List<String>? get firstFactors => _firstFactors;
-  List<dynamic>? get secondFactors => _secondFactors;
-  List<String>? get emailAddressVerificationStrategies => _emailAddressVerificationStrategies;
-  bool? get singleSessionMode => _singleSessionMode;
-  bool? get enhancedEmailDeliverability => _enhancedEmailDeliverability;
-  bool? get testMode => _testMode;
-  bool? get cookielessDev => _cookielessDev;
-  bool? get urlBasedSessionSyncing => _urlBasedSessionSyncing;
-  bool? get demo => _demo;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['object'] = _object;
-    map['id'] = _id;
-    map['first_name'] = _firstName;
-    map['last_name'] = _lastName;
-    map['email_address'] = _emailAddress;
-    map['phone_number'] = _phoneNumber;
-    map['username'] = _username;
-    map['password'] = _password;
-    map['identification_requirements'] = _identificationRequirements;
-    map['identification_strategies'] = _identificationStrategies;
-    map['first_factors'] = _firstFactors;
-    if (_secondFactors != null) {
-      map['second_factors'] = _secondFactors?.map((v) => v.toJson()).toList();
-    }
-    map['email_address_verification_strategies'] = _emailAddressVerificationStrategies;
-    map['single_session_mode'] = _singleSessionMode;
-    map['enhanced_email_deliverability'] = _enhancedEmailDeliverability;
-    map['test_mode'] = _testMode;
-    map['cookieless_dev'] = _cookielessDev;
-    map['url_based_session_syncing'] = _urlBasedSessionSyncing;
-    map['demo'] = _demo;
-    return map;
-  }
-
 }
