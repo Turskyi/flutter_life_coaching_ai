@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
@@ -30,11 +31,34 @@ class HomePage extends StatelessWidget {
                   width: 200,
                   height: 200,
                 ),
-                const Text(
-                  constants.appName,
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
+                ShaderMask(
+                  shaderCallback: (Rect bounds) => const LinearGradient(
+                    colors: <Color>[
+                      Colors.white,
+                      Colors.white,
+                      Colors.blueGrey,
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ).createShader(bounds),
+                  child: AnimatedTextKit(
+                    animatedTexts: <AnimatedText>[
+                      TypewriterAnimatedText(
+                        constants.appName,
+                        textStyle: const TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Pacifico',
+                          // This color will be masked by the gradient
+                          color: Colors.white,
+                        ),
+                        speed: const Duration(milliseconds: 200),
+                      ),
+                    ],
+                    totalRepeatCount: 1,
+                    pause: const Duration(milliseconds: 1000),
+                    displayFullTextOnTap: true,
+                    stopPauseOnTap: true,
                   ),
                 ),
                 const SizedBox(height: 20),
