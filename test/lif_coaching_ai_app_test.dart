@@ -1,7 +1,7 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/life_coaching_ai_app.dart';
-import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/ui/home/home_page.dart';
 
 void main() {
@@ -9,9 +9,11 @@ void main() {
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const LifeCoachingAiApp());
+    // Wait for the AnimatedTextKit widget to appear
+    await tester.pumpAndSettle();
 
-    // Verify the app title
-    expect(find.text(constants.appName), findsOneWidget);
+    // Verify the AnimatedTextKit widget is present
+    expect(find.byType(AnimatedTextKit), findsOneWidget);
 
     // Verify the theme is dark
     final MaterialApp app = tester.widget(find.byType(MaterialApp));

@@ -1,7 +1,9 @@
 enum AppRoute {
   home('/'),
   anonymousChat('/anonymous-chat'),
-  goals('/goals');
+  goals('/goals'),
+  signIn('/sign-in'),
+  signUp('/sign-up');
 
   const AppRoute(this.path);
 
