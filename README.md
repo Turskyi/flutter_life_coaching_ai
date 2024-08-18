@@ -99,6 +99,36 @@ no unused variables or methods, and no commented-out code, all variables,
 methods, and resource IDs are descriptively named such that another developer
 reading the code can easily understand their function.
 
+### Project Structure
+
+The simplified structure of the project is as follows:
+
+```
+lib/
+├── ui/
+│   ├── goals/
+│   │   ├── goals_page.dart
+│   │   ├── goal_widget.dart
+│   │   ├── add_edit_goal_dialog.dart
+│   ├── chat/
+│   │   ├── anonymous_ai_chat_page.dart
+│   ├── home/
+│   │   ├── home_page.dart
+│   ├── common/
+│   │   ├── custom_widgets.dart
+│   │   ├── theme.dart
+├── models/
+│   ├── goal.dart
+├── di/
+│   ├── injector.dart
+├── res/
+│   ├── constants.dart
+├── router/
+│   ├── app_route.dart
+│   ├── routes.dart
+└── main.dart
+```
+
 ## Getting Started
 
 ### Prerequisites

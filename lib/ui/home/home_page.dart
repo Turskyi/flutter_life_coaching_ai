@@ -2,7 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
-import 'package:lifecoach/ui/widgets/anonymous_ai_chat_button.dart';
+import 'package:lifecoach/ui/common/anonymous_ai_chat_button.dart';
 
 @immutable
 class HomePage extends StatelessWidget {
