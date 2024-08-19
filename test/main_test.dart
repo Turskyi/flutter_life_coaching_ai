@@ -1,17 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/di/injector.dart';
-import 'package:lifecoach/life_coaching_ai_app.dart';
+import 'package:lifecoach/main.dart' as app;
+import 'package:lifecoach/ui/app/app.dart';
 
 void main() {
-  setUp(() {
-    // Ensure dependencies are injected before each test
-    injectDependencies();
-  });
-
-  testWidgets('App initializes without errors', (WidgetTester tester) async {
-    await tester.pumpWidget(const LifeCoachingAiApp());
-
-    // Verify the app initializes correctly
-    expect(find.byType(LifeCoachingAiApp), findsOneWidget);
+  testWidgets('Main initializes the app', (WidgetTester tester) async {
+    await tester.runAsync(() async {
+      app.main();
+      await tester.pumpAndSettle();
+      expect(find.byType(App), findsOneWidget);
+    });
   });
 }

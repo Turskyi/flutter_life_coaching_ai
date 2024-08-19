@@ -1,24 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifecoach/application_services/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/models/goal.dart';
 import 'package:lifecoach/ui/goals/goal_widget.dart';
 
+/// The [GoalsPage] can access the current user id via
+/// `context.select((AuthenticationBloc bloc) => bloc.state.user.id)` and
+/// displays it via a [Text] widget. In addition, when the sign out button is
+/// tapped, an [AuthenticationLogoutRequested] event is added to the
+/// [AuthenticationBloc].
+/// `context.select((AuthenticationBloc bloc) => bloc.state.user.id)` will
+/// trigger updates if the user id changes.
 class GoalsPage extends StatelessWidget {
   const GoalsPage({super.key});
 
+  static Route<void> route() =>
+      MaterialPageRoute<void>(builder: (_) => const GoalsPage());
+
   @override
   Widget build(BuildContext context) {
-    //TODO:
-    // final String? userId = AuthService().getUserId();
-    //
-    // if (userId == null) {
-    //   throw Exception('userId undefined 😞');
-    // }
+    //TODO: Use userId to get user's goals.
+    // final String userId = context.select(
+    //   (AuthenticationBloc bloc) => bloc.state.user.id,
+    // );
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Goals'),
+      appBar: AppBar(title: const Text('Goals')),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(),
+              child: Text('Menu'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Sign out'),
+              onTap: () => context
+                  .read<AuthenticationBloc>()
+                  .add(const AuthenticationSignOutPressed()),
+            ),
+            // const _SignOutButton(),
+          ],
+        ),
       ),
       body: FutureBuilder<List<Goal>>(
-        //TODO: future: DBService().getGoals(userId),
+        //TODO: Replace with future: DBService().getGoals(userId),
         future: Future<List<Goal>>.value(<Goal>[
           Goal(
             id: 'testId',

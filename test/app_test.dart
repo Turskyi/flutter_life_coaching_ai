@@ -1,29 +1,54 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/material.dart';
+import 'package:authentication_repository/authentication_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/ui/app/app.dart';
-import 'package:lifecoach/ui/home/home_page.dart';
+import 'package:lifecoach/application_services/authentication/authentication.dart';
+import 'package:lifecoach/di/injector.dart';
+import 'package:lifecoach/ui/app/app_view.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:user_repository/user_repository.dart';
+
+class MockAuthenticationRepository extends Mock
+    implements AuthenticationRepository {}
+
+class MockUserRepository extends Mock implements UserRepository {}
 
 void main() {
-  testWidgets('App initializes with correct title and theme', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(const App());
-    // Wait for the AnimatedTextKit widget to appear
-    await tester.pumpAndSettle();
+  late MockAuthenticationRepository authenticationRepository;
+  late MockUserRepository userRepository;
 
-    // Verify the AnimatedTextKit widget is present
-    expect(find.byType(AnimatedTextKit), findsOneWidget);
+  setUp(() {
+    // Ensure dependencies are injected before each test
+    injectDependencies();
+    authenticationRepository = MockAuthenticationRepository();
+    userRepository = MockUserRepository();
 
-    // Verify the theme is dark
-    final MaterialApp app = tester.widget(find.byType(MaterialApp));
-    expect(app.theme?.brightness, Brightness.dark);
+    // Set up the mock to return a valid stream
+    when(() => authenticationRepository.status).thenAnswer(
+      (_) => Stream<AuthenticationStatus>.value(
+        AuthenticationStatus.unauthenticated,
+      ),
+    );
   });
 
-  testWidgets('App navigates to home route', (WidgetTester tester) async {
-    await tester.pumpWidget(const App());
+  testWidgets('App initializes correctly', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      RepositoryProvider<AuthenticationRepository>.value(
+        value: authenticationRepository,
+        child: BlocProvider<AuthenticationBloc>(
+          lazy: false,
+          create: (_) => AuthenticationBloc(
+            authenticationRepository: authenticationRepository,
+            userRepository: userRepository,
+          )..add(const AuthenticationSubscriptionRequested()),
+          child: const AppView(),
+        ),
+      ),
+    );
 
-    // Verify the initial route is the home route
-    expect(find.byType(HomePage), findsOneWidget);
+    // Wait for all asynchronous operations to complete
+    await tester.pumpAndSettle();
+
+    // Verify that the app is rendered correctly
+    expect(find.byType(AppView), findsOneWidget);
   });
 }

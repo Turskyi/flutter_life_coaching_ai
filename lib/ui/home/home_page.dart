@@ -8,6 +8,9 @@ import 'package:lifecoach/ui/common/anonymous_ai_chat_button.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  static Route<void> route() =>
+      MaterialPageRoute<void>(builder: (_) => const HomePage());
+
   @override
   Widget build(BuildContext context) {
     //TODO:
@@ -64,7 +67,7 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 const Text(
                   'Discover your true potential with AI-powered life-coaching '
-                  'app. Set and achieve your goals with personalized guidance '
+                  'app.\nSet and achieve your goals with personalized guidance '
                   'and insightful questions designed to help you find your own '
                   'answers.',
                   textAlign: TextAlign.center,
@@ -77,7 +80,7 @@ class HomePage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => Navigator.pushNamed(
                       context,
-                      AppRoute.goals.path,
+                      AppRoute.signIn.path,
                     ),
                     child: const Text('View Goals'),
                   ),

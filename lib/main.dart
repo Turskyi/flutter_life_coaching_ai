@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lifecoach/di/injector.dart';
-import 'package:lifecoach/life_coaching_ai_app.dart';
+import 'package:lifecoach/ui/app/app.dart';
 
 /// The [main] is the ultimate detail — the lowest-level policy.
 /// It is the initial entry point of the system.
@@ -19,5 +19,5 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   injectDependencies();
 
-  runApp(const LifeCoachingAiApp());
+  runApp(const App());
 }
