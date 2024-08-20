@@ -2,8 +2,9 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:lifecoach/models/email.dart';
 import 'package:lifecoach/models/password.dart';
-import 'package:lifecoach/models/username.dart';
+import 'package:lifecoach/models/validation_error.dart';
 
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
@@ -14,10 +15,10 @@ part 'sign_in_state.dart';
 /// because when the form is submitted, it invokes `signIn`. The initial state
 /// of the bloc is pure meaning neither the inputs nor the form has been
 /// touched or interacted with.
-/// Whenever either the username or password change, the bloc will create a
-/// dirty variant of the [Username]/[Password] model and update the form
+/// Whenever either the email or password change, the bloc will create a
+/// dirty variant of the [Email]/[Password] model and update the form
 /// status via the [Formz.validate] API.
-/// When the [LoginSubmitted] event is added, if the current status of the
+/// When the [SignInSubmitted] event is added, if the current status of the
 /// form is valid, the bloc makes a call to `signIn` and updates the status
 /// based on the outcome of the request.
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
@@ -25,57 +26,51 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     required AuthenticationRepository authenticationRepository,
   })  : _authenticationRepository = authenticationRepository,
         super(const SignInState()) {
-    on<LoginUsernameChanged>(_onUsernameChanged);
-    on<LoginPasswordChanged>(_onPasswordChanged);
-    on<LoginSubmitted>(_onSubmitted);
+    on<SignInEmailChanged>(_onEmailChanged);
+    on<SignInPasswordChanged>(_onPasswordChanged);
+    on<SignInSubmitted>(_onSubmitted);
   }
 
   final AuthenticationRepository _authenticationRepository;
 
-  void _onUsernameChanged(
-    LoginUsernameChanged event,
+  void _onEmailChanged(
+    SignInEmailChanged event,
     Emitter<SignInState> emit,
   ) {
-    final Username username = Username.dirty(event.username);
+    final Email email = Email.dirty(event.email);
     emit(
       state.copyWith(
-        username: username,
-        // The second generic type will be either `PasswordValidationError`
-        // or `UsernameValidationError`
-        isValid: Formz.validate(<FormzInput<String, dynamic>>[
+        email: email,
+        isValid: Formz.validate(<FormzInput<String, ValidationError>>[
           state.password,
-          username,
+          email,
         ]),
       ),
     );
   }
 
-  void _onPasswordChanged(
-    LoginPasswordChanged event,
+  void _onPasswordChanged(SignInPasswordChanged event,
     Emitter<SignInState> emit,
   ) {
     final Password password = Password.dirty(event.password);
     emit(
       state.copyWith(
         password: password,
-        // The second generic type will be either `PasswordValidationError`
-        // or `UsernameValidationError`
         isValid: Formz.validate(
-          <FormzInput<String, dynamic>>[password, state.username],
+          <FormzInput<String, ValidationError>>[password, state.email],
         ),
       ),
     );
   }
 
-  Future<void> _onSubmitted(
-    LoginSubmitted event,
+  Future<void> _onSubmitted(SignInSubmitted event,
     Emitter<SignInState> emit,
   ) async {
     if (state.isValid) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
         await _authenticationRepository.signIn(
-          username: state.username.value,
+          email: state.email.value,
           password: state.password.value,
         );
         emit(state.copyWith(status: FormzSubmissionStatus.success));

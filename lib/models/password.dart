@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart';
-import 'package:lifecoach/models/enums/password_validation_error.dart';
+import 'package:lifecoach/models/validation_error.dart';
 
 class Password extends FormzInput<String, PasswordValidationError> {
   const Password.pure() : super.pure('');
@@ -8,7 +8,7 @@ class Password extends FormzInput<String, PasswordValidationError> {
 
   @override
   PasswordValidationError? validator(String value) {
-    if (value.isEmpty) return PasswordValidationError.empty;
+    if (value.isEmpty) return const EmptyPasswordValidationError();
     return null;
   }
 }

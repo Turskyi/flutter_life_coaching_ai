@@ -1,33 +1,33 @@
 part of 'sign_in_bloc.dart';
 
-/// The Username and Password models are used as part of the [SignInState] and
+/// The [Email] and [Password] models are used as part of the [SignInState] and
 /// the status is also part of `package:formz`.
 final class SignInState extends Equatable {
   const SignInState({
     this.status = FormzSubmissionStatus.initial,
-    this.username = const Username.pure(),
+    this.email = const Email.pure(),
     this.password = const Password.pure(),
     this.isValid = false,
   });
 
   final FormzSubmissionStatus status;
-  final Username username;
+  final Email email;
   final Password password;
   final bool isValid;
 
   SignInState copyWith({
     FormzSubmissionStatus? status,
-    Username? username,
+    Email? email,
     Password? password,
     bool? isValid,
   }) =>
       SignInState(
         status: status ?? this.status,
-        username: username ?? this.username,
+        email: email ?? this.email,
         password: password ?? this.password,
         isValid: isValid ?? this.isValid,
       );
 
   @override
-  List<Object> get props => <Object>[status, username, password];
+  List<Object> get props => <Object>[status, email, password];
 }

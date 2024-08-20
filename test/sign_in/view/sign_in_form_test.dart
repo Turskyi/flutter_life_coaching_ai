@@ -18,10 +18,9 @@ void main() {
       loginBloc = MockLoginBloc();
     });
 
-    testWidgets(
-        'adds LoginUsernameChanged to LoginBloc when username is updated',
+    testWidgets('adds SignInEmailChanged to SignInBloc when email is updated',
         (WidgetTester tester) async {
-      const String username = 'username';
+      const String email = 'test@turskyi.com';
       when(() => loginBloc.state).thenReturn(const SignInState());
       await tester.pumpWidget(
         MaterialApp(
@@ -34,16 +33,16 @@ void main() {
         ),
       );
       await tester.enterText(
-        find.byKey(const Key('loginForm_usernameInput_textField')),
-        username,
+        find.byKey(const Key('signInForm_emailInput_textField')),
+        email,
       );
       verify(
-        () => loginBloc.add(const LoginUsernameChanged(username)),
+        () => loginBloc.add(const SignInEmailChanged(email)),
       ).called(1);
     });
 
     testWidgets(
-        'adds LoginPasswordChanged to LoginBloc when password is updated',
+        'adds SignInPasswordChanged to SignInBloc when password is updated',
         (WidgetTester tester) async {
       const String password = 'password';
       when(() => loginBloc.state).thenReturn(const SignInState());
@@ -58,11 +57,11 @@ void main() {
         ),
       );
       await tester.enterText(
-        find.byKey(const Key('loginForm_passwordInput_textField')),
+        find.byKey(const Key('signInForm_passwordInput_textField')),
         password,
       );
       verify(
-        () => loginBloc.add(const LoginPasswordChanged(password)),
+        () => loginBloc.add(const SignInPasswordChanged(password)),
       ).called(1);
     });
 
@@ -141,7 +140,8 @@ void main() {
       expect(button.enabled, isTrue);
     });
 
-    testWidgets('LoginSubmitted is added to LoginBloc when continue is tapped',
+    testWidgets(
+        'SignInSubmitted is added to SignInBloc when continue is tapped',
         (WidgetTester tester) async {
       when(() => loginBloc.state).thenReturn(const SignInState(isValid: true));
       await tester.pumpWidget(
@@ -155,7 +155,7 @@ void main() {
         ),
       );
       await tester.tap(find.byType(ElevatedButton));
-      verify(() => loginBloc.add(const LoginSubmitted())).called(1);
+      verify(() => loginBloc.add(const SignInSubmitted())).called(1);
     });
 
     testWidgets('shows SnackBar when status is submission failure',

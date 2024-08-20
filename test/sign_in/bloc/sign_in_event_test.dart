@@ -2,30 +2,30 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/application_services/sign_in/sign_in.dart';
 
 void main() {
-  const String username = 'mock-username';
+  const String email = 'test@turskyi.com';
   const String password = 'mock-password';
-  group('LoginEvent', () {
-    group('LoginUsernameChanged', () {
+  group('SignInEvent', () {
+    group('SignInEmailChanged', () {
       test('supports value comparisons', () {
         expect(
-          const LoginUsernameChanged(username),
-          const LoginUsernameChanged(username),
+          const SignInEmailChanged(email),
+          const SignInEmailChanged(email),
         );
       });
     });
 
-    group('LoginPasswordChanged', () {
+    group('SignInPasswordChanged', () {
       test('supports value comparisons', () {
         expect(
-          const LoginPasswordChanged(password),
-          const LoginPasswordChanged(password),
+          const SignInPasswordChanged(password),
+          const SignInPasswordChanged(password),
         );
       });
     });
 
-    group('LoginSubmitted', () {
+    group('SignInSubmitted', () {
       test('supports value comparisons', () {
-        expect(const LoginSubmitted(), const LoginSubmitted());
+        expect(const SignInSubmitted(), const SignInSubmitted());
       });
     });
   });

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/models/enums/password_validation_error.dart';
 import 'package:lifecoach/models/models.dart';
+import 'package:lifecoach/models/validation_error.dart';
 
 void main() {
   const String passwordString = 'mock-password';
@@ -23,7 +23,7 @@ void main() {
       test('returns empty error when password is empty', () {
         expect(
           const Password.dirty().error,
-          PasswordValidationError.empty,
+          const EmptyPasswordValidationError(),
         );
       });
 

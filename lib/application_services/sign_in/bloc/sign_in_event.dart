@@ -7,17 +7,17 @@ sealed class SignInEvent extends Equatable {
   List<Object> get props => <Object>[];
 }
 
-final class LoginUsernameChanged extends SignInEvent {
-  const LoginUsernameChanged(this.username);
+final class SignInEmailChanged extends SignInEvent {
+  const SignInEmailChanged(this.email);
 
-  final String username;
+  final String email;
 
   @override
-  List<Object> get props => <Object>[username];
+  List<Object> get props => <Object>[email];
 }
 
-final class LoginPasswordChanged extends SignInEvent {
-  const LoginPasswordChanged(this.password);
+final class SignInPasswordChanged extends SignInEvent {
+  const SignInPasswordChanged(this.password);
 
   final String password;
 
@@ -25,6 +25,6 @@ final class LoginPasswordChanged extends SignInEvent {
   List<Object> get props => <Object>[password];
 }
 
-final class LoginSubmitted extends SignInEvent {
-  const LoginSubmitted();
+final class SignInSubmitted extends SignInEvent {
+  const SignInSubmitted();
 }

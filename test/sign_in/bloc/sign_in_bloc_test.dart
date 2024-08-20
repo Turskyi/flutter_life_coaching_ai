@@ -3,8 +3,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/sign_in/sign_in.dart';
+import 'package:lifecoach/models/email.dart';
 import 'package:lifecoach/models/password.dart';
-import 'package:lifecoach/models/username.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthenticationRepository extends Mock
@@ -17,22 +17,22 @@ void main() {
     authenticationRepository = MockAuthenticationRepository();
   });
 
-  group('LoginBloc', () {
-    test('initial state is LoginState', () {
+  group('SignInBloc', () {
+    test('initial state is SignInState', () {
       final SignInBloc loginBloc = SignInBloc(
         authenticationRepository: authenticationRepository,
       );
       expect(loginBloc.state, const SignInState());
     });
 
-    group('LoginSubmitted', () {
+    group('SignInSubmitted', () {
       blocTest<SignInBloc, SignInState>(
         'emits [submissionInProgress, submissionSuccess] '
-        'when login succeeds',
+        'when sign in succeeds',
         setUp: () {
           when(
             () => authenticationRepository.signIn(
-              username: 'username',
+              email: 'test@turskyi.com',
               password: 'password',
             ),
           ).thenAnswer((_) => Future<String>.value('user'));
@@ -41,26 +41,25 @@ void main() {
           authenticationRepository: authenticationRepository,
         ),
         act: (SignInBloc bloc) {
-          bloc
-            ..add(const LoginUsernameChanged('username'))
-            ..add(const LoginPasswordChanged('password'))
-            ..add(const LoginSubmitted());
+          bloc..add(const SignInEmailChanged('test@turskyi.com'))..add(
+              const SignInPasswordChanged('password'))..add(
+              const SignInSubmitted());
         },
         expect: () => const <SignInState>[
-          SignInState(username: Username.dirty('username')),
+          SignInState(email: Email.dirty('test@turskyi.com')),
           SignInState(
-            username: Username.dirty('username'),
+            email: Email.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
           ),
           SignInState(
-            username: Username.dirty('username'),
+            email: Email.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.inProgress,
           ),
           SignInState(
-            username: Username.dirty('username'),
+            email: Email.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.success,
@@ -69,11 +68,11 @@ void main() {
       );
 
       blocTest<SignInBloc, SignInState>(
-        'emits [LoginInProgress, LoginFailure] when logIn fails',
+        'emits [SignInInProgress, SignInFailure] when signIn fails',
         setUp: () {
           when(
             () => authenticationRepository.signIn(
-              username: 'username',
+              email: 'test@turskyi.com',
               password: 'password',
             ),
           ).thenThrow(Exception('oops'));
@@ -82,28 +81,27 @@ void main() {
           authenticationRepository: authenticationRepository,
         ),
         act: (dynamic bloc) {
-          bloc
-            ..add(const LoginUsernameChanged('username'))
-            ..add(const LoginPasswordChanged('password'))
-            ..add(const LoginSubmitted());
+          bloc..add(const SignInEmailChanged('test@turskyi.com'))..add(
+              const SignInPasswordChanged('password'))..add(
+              const SignInSubmitted());
         },
         expect: () => const <SignInState>[
           SignInState(
-            username: Username.dirty('username'),
+            email: Email.dirty('test@turskyi.com'),
           ),
           SignInState(
-            username: Username.dirty('username'),
+            email: Email.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
           ),
           SignInState(
-            username: Username.dirty('username'),
+            email: Email.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.inProgress,
           ),
           SignInState(
-            username: Username.dirty('username'),
+            email: Email.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.failure,

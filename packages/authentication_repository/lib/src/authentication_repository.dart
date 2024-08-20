@@ -8,6 +8,8 @@ import 'package:authentication_repository/src/authentication_status.dart';
 /// Since we are maintaining a StreamController internally, a dispose method
 /// is exposed so that the controller can be closed when it is no longer needed.
 class AuthenticationRepository {
+  AuthenticationRepository();
+
   final StreamController<AuthenticationStatus> _controller =
       StreamController<AuthenticationStatus>();
 
@@ -19,7 +21,7 @@ class AuthenticationRepository {
   }
 
   Future<void> signIn({
-    required String username,
+    required String email,
     required String password,
   }) async {
     //TODO: implement real logic

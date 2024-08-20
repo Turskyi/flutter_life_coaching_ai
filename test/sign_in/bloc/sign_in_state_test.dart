@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/sign_in/sign_in.dart';
+import 'package:lifecoach/models/email.dart';
 import 'package:lifecoach/models/password.dart';
-import 'package:lifecoach/models/username.dart';
 
 void main() {
-  const Username username = Username.dirty('username');
+  const Email email = Email.dirty('email');
   const Password password = Password.dirty('password');
-  group('LoginState', () {
+  group('SignInState', () {
     test('supports value comparisons', () {
       expect(const SignInState(), const SignInState());
     });
@@ -23,10 +23,10 @@ void main() {
       );
     });
 
-    test('returns object with updated username when username is passed', () {
+    test('returns object with updated email when email is passed', () {
       expect(
-        const SignInState().copyWith(username: username),
-        const SignInState(username: username),
+        const SignInState().copyWith(email: email),
+        const SignInState(email: email),
       );
     });
 
