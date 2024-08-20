@@ -41,9 +41,14 @@ void main() {
           authenticationRepository: authenticationRepository,
         ),
         act: (SignInBloc bloc) {
-          bloc..add(const SignInEmailChanged('test@turskyi.com'))..add(
-              const SignInPasswordChanged('password'))..add(
-              const SignInSubmitted());
+          bloc
+            ..add(const SignInEmailChanged('test@turskyi.com'))
+            ..add(
+              const SignInPasswordChanged('password'),
+            )
+            ..add(
+              const SignInSubmitted(),
+            );
         },
         expect: () => const <SignInState>[
           SignInState(email: Email.dirty('test@turskyi.com')),
@@ -81,9 +86,14 @@ void main() {
           authenticationRepository: authenticationRepository,
         ),
         act: (dynamic bloc) {
-          bloc..add(const SignInEmailChanged('test@turskyi.com'))..add(
-              const SignInPasswordChanged('password'))..add(
-              const SignInSubmitted());
+          bloc
+            ..add(const SignInEmailChanged('test@turskyi.com'))
+            ..add(
+              const SignInPasswordChanged('password'),
+            )
+            ..add(
+              const SignInSubmitted(),
+            );
         },
         expect: () => const <SignInState>[
           SignInState(

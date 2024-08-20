@@ -49,7 +49,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     );
   }
 
-  void _onPasswordChanged(SignInPasswordChanged event,
+  void _onPasswordChanged(
+    SignInPasswordChanged event,
     Emitter<SignInState> emit,
   ) {
     final Password password = Password.dirty(event.password);
@@ -63,7 +64,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     );
   }
 
-  Future<void> _onSubmitted(SignInSubmitted event,
+  Future<void> _onSubmitted(
+    SignInSubmitted event,
     Emitter<SignInState> emit,
   ) async {
     if (state.isValid) {
