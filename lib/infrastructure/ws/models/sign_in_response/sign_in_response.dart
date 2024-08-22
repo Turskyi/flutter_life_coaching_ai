@@ -1,11 +1,12 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:lifecoach/infrastructure/ws/models/sign_in_response/sign_in_error_response/sign_in_error_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/sign_in_response/sign_in_success_response/sign_in_success_response.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:lifecoach/models/abstract/login_response.dart';
 
 part 'sign_in_response.g.dart';
 
 @JsonSerializable()
-class SignInResponse {
+class SignInResponse extends LoginResponse {
   const SignInResponse();
 
   factory SignInResponse.fromJson(Map<String, dynamic> json) {

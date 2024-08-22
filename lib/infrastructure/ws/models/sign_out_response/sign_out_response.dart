@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:lifecoach/models/abstract/logout_response.dart';
+
 /// auth_config : {"object":"auth_config",
 /// "id":"aac_something","first_name":"off",
 /// "last_name":"off","email_address":"on","phone_number":"off",
@@ -120,7 +122,7 @@ SignOutResponse signOutResponseFromJson(String str) =>
 String signOutResponseToJson(SignOutResponse data) =>
     json.encode(data.toJson());
 
-class SignOutResponse {
+class SignOutResponse extends LogoutResponse {
   SignOutResponse({
     DisplayConfig? displayConfig,
     UserSettings? userSettings,

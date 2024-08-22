@@ -8,7 +8,7 @@ import 'meta_response.dart';
 part 'sign_in_error_response.g.dart';
 
 @JsonSerializable()
-class SignInErrorResponse extends SignInResponse {
+class SignInErrorResponse implements SignInResponse {
   const SignInErrorResponse({
     this.errors,
     this.metaResponse,
