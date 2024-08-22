@@ -9,7 +9,7 @@ import 'authentication_response.dart';
 part 'sign_in_success_response.g.dart';
 
 @JsonSerializable()
-class SignInSuccessResponse extends SignInResponse {
+class SignInSuccessResponse implements SignInResponse {
   const SignInSuccessResponse({
     this.clientResponse,
     this.authenticationResponse,
