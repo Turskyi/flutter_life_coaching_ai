@@ -1,4 +1,7 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:lifecoach/application_services/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/di/injector.dart';
 import 'package:lifecoach/ui/app/app.dart';
 
@@ -11,13 +14,21 @@ import 'package:lifecoach/ui/app/app.dart';
 /// Think of [main] as a plugin to the [LifeCoachingAiApp] — a plugin that sets
 /// up the initial conditions and configurations, gathers all the outside
 /// resources, and then hands control over to the high-level policy of the
-/// [LifeCoachingAiApp].
+/// [App].
 /// When [main] is released, it has utterly no effect on any of the other
 /// components in the system. They don’t know about [main], and they don’t care
 /// when it changes.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await injectDependencies();
-
-  runApp(const App());
+  final AuthenticationRepository authenticationRepository =
+      GetIt.instance<AuthenticationRepository>();
+  final AuthenticationBloc authenticationBloc =
+      GetIt.instance<AuthenticationBloc>();
+  runApp(
+    App(
+      authenticationRepository: authenticationRepository,
+      authenticationBloc: authenticationBloc,
+    ),
+  );
 }
