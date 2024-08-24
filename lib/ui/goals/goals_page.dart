@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifecoach/application_services/authentication/bloc/authentication_bloc.dart';
-import 'package:lifecoach/models/goal.dart';
 import 'package:lifecoach/ui/goals/goal_widget.dart';
+import 'package:models/models.dart';
 
 /// The [GoalsPage] can access the current user id via
 /// `context.select((AuthenticationBloc bloc) => bloc.state.user.id)` and

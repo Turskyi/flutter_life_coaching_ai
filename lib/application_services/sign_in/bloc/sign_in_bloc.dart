@@ -2,9 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:lifecoach/models/email.dart';
-import 'package:lifecoach/models/password.dart';
-import 'package:lifecoach/models/validation_error.dart';
+import 'package:models/models.dart';
 
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
@@ -16,7 +14,7 @@ part 'sign_in_state.dart';
 /// of the bloc is pure meaning neither the inputs nor the form has been
 /// touched or interacted with.
 /// Whenever either the email or password change, the bloc will create a
-/// dirty variant of the [Email]/[Password] model and update the form
+/// dirty variant of the [EmailAddress]/[Password] model and update the form
 /// status via the [Formz.validate] API.
 /// When the [SignInSubmitted] event is added, if the current status of the
 /// form is valid, the bloc makes a call to `signIn` and updates the status
@@ -37,7 +35,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     SignInEmailChanged event,
     Emitter<SignInState> emit,
   ) {
-    final Email email = Email.dirty(event.email);
+    final EmailAddress email = EmailAddress.dirty(event.email);
     emit(
       state.copyWith(
         email: email,

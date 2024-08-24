@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:lifecoach/models/abstract/logout_response.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:models/models.dart';
 
 /// auth_config : {"object":"auth_config",
 /// "id":"aac_something","first_name":"off",
@@ -1080,8 +1081,8 @@ class Restrictions {
   }
 
   Restrictions.fromJson(dynamic json) {
-    _allowlist = json['allowlist'];
-    _blocklist = json['blocklist'];
+    _allowlist = Allowlist.fromJson(json['allowlist']);
+    _blocklist = Blocklist.fromJson(json['blocklist']);
     _blockEmailSubaddresses = json['block_email_subaddresses'] != null
         ? BlockEmailSubaddresses.fromJson(json['block_email_subaddresses'])
         : null;
@@ -1306,6 +1307,7 @@ Allowlist allowlistFromJson(String str) => Allowlist.fromJson(json.decode(str));
 
 String allowlistToJson(Allowlist data) => json.encode(data.toJson());
 
+@JsonSerializable()
 class Allowlist {
   Allowlist({
     bool? enabled,

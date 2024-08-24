@@ -3,9 +3,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/sign_in/sign_in.dart';
-import 'package:lifecoach/models/email.dart';
-import 'package:lifecoach/models/password.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:models/models.dart';
 
 class MockAuthenticationRepository extends Mock
     implements AuthenticationRepository {}
@@ -51,20 +50,20 @@ void main() {
             );
         },
         expect: () => const <SignInState>[
-          SignInState(email: Email.dirty('test@turskyi.com')),
+          SignInState(email: EmailAddress.dirty('test@turskyi.com')),
           SignInState(
-            email: Email.dirty('test@turskyi.com'),
+            email: EmailAddress.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
           ),
           SignInState(
-            email: Email.dirty('test@turskyi.com'),
+            email: EmailAddress.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.inProgress,
           ),
           SignInState(
-            email: Email.dirty('test@turskyi.com'),
+            email: EmailAddress.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.success,
@@ -97,21 +96,21 @@ void main() {
         },
         expect: () => const <SignInState>[
           SignInState(
-            email: Email.dirty('test@turskyi.com'),
+            email: EmailAddress.dirty('test@turskyi.com'),
           ),
           SignInState(
-            email: Email.dirty('test@turskyi.com'),
+            email: EmailAddress.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
           ),
           SignInState(
-            email: Email.dirty('test@turskyi.com'),
+            email: EmailAddress.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.inProgress,
           ),
           SignInState(
-            email: Email.dirty('test@turskyi.com'),
+            email: EmailAddress.dirty('test@turskyi.com'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.failure,

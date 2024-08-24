@@ -26,10 +26,17 @@ class SignInErrorResponse implements SignInResponse {
   final String? clerkTraceId;
 
   @override
+  String get token =>
+      metaResponse
+          ?.clientResponse?.sessions.firstOrNull?.lastActiveToken?.jwt ??
+      '';
+
+  @override
   String toString() => 'SignInErrorResponse('
       'errors: $errors, '
       'meta: $metaResponse, '
-      'clerkTraceId: $clerkTraceId)';
+      'clerkTraceId: $clerkTraceId,'
+      'token: $token)';
 
   Map<String, dynamic> toJson() => _$SignInErrorResponseToJson(this);
 

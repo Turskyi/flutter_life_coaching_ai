@@ -183,15 +183,16 @@ void main() {
     });
   });
 
-  group('AuthenticationLogoutPressed', () {
-    blocTest<AuthenticationBloc, AuthenticationState>(
-      'calls logOut on authenticationRepository ',
-      build: buildBloc,
-      act: (AuthenticationBloc bloc) =>
-          bloc.add(const AuthenticationSignOutPressed()),
-      verify: (_) {
-        verify(() => authenticationRepository.signOut()).called(1);
-      },
+  test('AuthenticationLogoutPressed calls logOut on authenticationRepository',
+      () async {
+    when(() => authenticationRepository.signOut())
+        .thenAnswer((_) async => Future<void>.value());
+    final AuthenticationBloc bloc = AuthenticationBloc(
+      authenticationRepository: authenticationRepository,
+      userRepository: userRepository,
     );
+    bloc.add(const AuthenticationSignOutPressed());
+    await untilCalled(() => authenticationRepository.signOut());
+    verify(() => authenticationRepository.signOut()).called(1);
   });
 }

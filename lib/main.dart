@@ -15,9 +15,9 @@ import 'package:lifecoach/ui/app/app.dart';
 /// When [main] is released, it has utterly no effect on any of the other
 /// components in the system. They don’t know about [main], and they don’t care
 /// when it changes.
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  injectDependencies();
+  await injectDependencies();
 
   runApp(const App());
 }

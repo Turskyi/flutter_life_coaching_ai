@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lifecoach/infrastructure/ws/rest/logging_interceptor.dart';
-import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart';
-import 'package:lifecoach/res/constants.dart' as constants;
 
 @module
-abstract class RetrofitClientModule {
-  RetrofitClient getRestClient(
+abstract class DioHttpClientModule {
+  @lazySingleton
+  Dio getDioHttpClient(
     LoggingInterceptor loggingInterceptor,
   ) {
     final Dio dio = Dio()
@@ -15,6 +14,6 @@ abstract class RetrofitClientModule {
       ..options.receiveTimeout = const Duration(minutes: 1)
       ..options.sendTimeout = const Duration(minutes: 1);
 
-    return RetrofitClient(dio, baseUrl: constants.baseUrl);
+    return dio;
   }
 }

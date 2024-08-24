@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/models/models.dart';
-import 'package:lifecoach/models/validation_error.dart';
+import 'package:models/models.dart';
 
 void main() {
   const String passwordString = 'mock-password';

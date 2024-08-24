@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lifecoach/models/goal.dart';
 import 'package:lifecoach/ui/goals/add_edit_goal_dialog.dart';
+import 'package:models/models.dart';
 
 class GoalWidget extends StatelessWidget {
   const GoalWidget({required this.goal, super.key});

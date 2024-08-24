@@ -1,13 +1,15 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/main.dart' as app;
-import 'package:lifecoach/ui/app/app.dart';
+import 'package:get_it/get_it.dart';
+import 'package:lifecoach/di/injector.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  testWidgets('Main initializes the app', (WidgetTester tester) async {
-    await tester.runAsync(() async {
-      app.main();
-      await tester.pumpAndSettle();
-      expect(find.byType(App), findsOneWidget);
-    });
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
+  });
+  test('injectDependencies registers dependencies correctly', () async {
+    await injectDependencies();
+    expect(GetIt.instance.isRegistered<AuthenticationRepository>(), true);
   });
 }

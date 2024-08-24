@@ -7,7 +7,11 @@ part of 'sign_in_response.dart';
 // **************************************************************************
 
 SignInResponse _$SignInResponseFromJson(Map<String, dynamic> json) =>
-    SignInResponse();
+    SignInResponse(
+      json['token'] as String,
+    );
 
 Map<String, dynamic> _$SignInResponseToJson(SignInResponse instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'token': instance.token,
+    };

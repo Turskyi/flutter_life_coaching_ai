@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifecoach/application_services/sign_in/bloc/sign_in_bloc.dart';
-import 'package:lifecoach/models/validation_error.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
+import 'package:models/models.dart';
 
 class EmailInput extends StatelessWidget {
   const EmailInput({super.key});

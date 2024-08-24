@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifecoach/application_services/sign_in/bloc/sign_in_bloc.dart';
-import 'package:lifecoach/models/validation_error.dart';
+import 'package:models/models.dart';
 
 class PasswordInput extends StatelessWidget {
   const PasswordInput({super.key});

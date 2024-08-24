@@ -1,0 +1,14 @@
+name: models
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+repository: https://github.com/Turskyi/flutter_life_coaching_ai
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  formz: ^0.7.0
+
+dev_dependencies:
+  lints: ^4.0.0
+  test: ^1.25.8

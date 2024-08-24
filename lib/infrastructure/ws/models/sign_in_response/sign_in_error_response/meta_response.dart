@@ -21,11 +21,10 @@ class MetaResponse {
 
   MetaResponse copyWith({
     ClientResponse? clientResponse,
-  }) {
-    return MetaResponse(
-      clientResponse: clientResponse ?? this.clientResponse,
-    );
-  }
+  }) =>
+      MetaResponse(
+        clientResponse: clientResponse ?? this.clientResponse,
+      );
 
   @override
   bool operator ==(Object other) {

@@ -1,0 +1,57 @@
+# This file configures the static analysis results for your project (errors,
+# warnings, and lints).
+#
+# This enables the 'recommended' set of lints from `package:lints`.
+# This set helps identify many issues that may lead to problems when running
+# or consuming Dart code, and enforces writing Dart using a single, idiomatic
+# style and format.
+#
+# If you want a smaller set of lints you can change this to specify
+# 'package:lints/core.yaml'. These are just the most critical lints
+# (the recommended set includes the core lints).
+# The core lints are also what is used by pub.dev for scoring packages.
+
+include: package:lints/recommended.yaml
+
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at https://dart.dev/lints.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
+  rules:
+    # ------ Enabling individual rules -----#
+    #                 ---                   #
+    # These rules here are good but too ----#
+    # opinionated to enable them by default.#
+    # ------------------------------------- #
+    require_trailing_commas: true
+    # The new tabs vs. spaces. Choose wisely.
+    prefer_single_quotes: true
+    # Blindly follow the Flutter code style, which prefers types everywhere.
+    always_specify_types: true
+    # Do not allow code lines longer than 80 characters.
+    lines_longer_than_80_chars: true
+    sort_pub_dependencies: true
+    avoid_classes_with_only_static_members: true
+    sort_constructors_first: true
+    always_put_required_named_parameters_first: true
+    avoid_as: true
+    avoid_void_async: true
+    cancel_subscriptions: true
+
+analyzer:
+  exclude:
+    - "**.g.dart"
+    - "**.config.dart"
+
+# For more information about the core and recommended set of lints, see
+# https://dart.dev/go/core-lints
+
+# For additional information about configuring this file, see
+# https://dart.dev/guides/language/analysis-options

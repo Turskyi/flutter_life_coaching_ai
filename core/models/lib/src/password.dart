@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart';
-import 'package:lifecoach/models/validation_error.dart';
+import 'package:models/src/validation_error.dart';
 
 class Password extends FormzInput<String, PasswordValidationError> {
   const Password.pure() : super.pure('');

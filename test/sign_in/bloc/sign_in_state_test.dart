@@ -1,11 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/sign_in/sign_in.dart';
-import 'package:lifecoach/models/email.dart';
-import 'package:lifecoach/models/password.dart';
+import 'package:models/models.dart';
 
 void main() {
-  const Email email = Email.dirty('email');
+  const EmailAddress email = EmailAddress.dirty('email');
   const Password password = Password.dirty('password');
   group('SignInState', () {
     test('supports value comparisons', () {

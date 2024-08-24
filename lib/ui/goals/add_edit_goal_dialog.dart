@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lifecoach/models/goal.dart';
+import 'package:models/models.dart';
 
 class AddEditGoalDialog extends StatefulWidget {
   const AddEditGoalDialog({super.key, this.goal});

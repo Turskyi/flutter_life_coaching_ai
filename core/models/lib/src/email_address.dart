@@ -1,11 +1,11 @@
 import 'package:formz/formz.dart';
-import 'package:lifecoach/models/validation_error.dart';
-import 'package:lifecoach/res/constants.dart' as constants;
+import 'package:models/res/constants.dart' as constants;
+import 'package:models/src/validation_error.dart';
 
-class Email extends FormzInput<String, EmailValidationError> {
-  const Email.pure() : super.pure('');
+class EmailAddress extends FormzInput<String, EmailValidationError> {
+  const EmailAddress.pure() : super.pure('');
 
-  const Email.dirty([super.value = '']) : super.dirty();
+  const EmailAddress.dirty([super.value = '']) : super.dirty();
 
   @override
   EmailValidationError? validator(String value) {
