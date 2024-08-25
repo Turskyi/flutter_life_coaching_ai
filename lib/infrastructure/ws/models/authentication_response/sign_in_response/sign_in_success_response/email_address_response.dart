@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../verification_response.dart';
+import '../../verification_response.dart';
 
 part 'email_address_response.g.dart';
 

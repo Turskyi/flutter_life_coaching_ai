@@ -5,6 +5,7 @@ import 'package:lifecoach/application_services/sign_in/bloc/sign_in_bloc.dart';
 import 'package:lifecoach/ui/sign_in/continue_button.dart';
 import 'package:lifecoach/ui/sign_in/email_input.dart';
 import 'package:lifecoach/ui/sign_in/password_input.dart';
+import 'package:lifecoach/ui/sign_in/sign_up_prompt.dart';
 
 /// The [SignInForm] handles notifying the [SignInBloc] of user events and
 /// also responds to state changes using [BlocBuilder] and [BlocListener].
@@ -38,6 +39,8 @@ class SignInForm extends StatelessWidget {
             PasswordInput(),
             Padding(padding: EdgeInsets.all(12)),
             ContinueButton(),
+            Padding(padding: EdgeInsets.all(12)),
+            SignUpPrompt(),
           ],
         ),
       ),

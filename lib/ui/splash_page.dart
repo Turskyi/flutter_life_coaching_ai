@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// right when the app is launched while the app determines whether the user
 /// is authenticated.
 /// SplashPage exposes a static Route which makes it very easy to navigate to
-/// via Navigator.of(context).push(SplashPage.route());
+/// via `Navigator.of(context).push(SplashPage.route());`
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 

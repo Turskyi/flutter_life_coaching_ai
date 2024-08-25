@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/infrastructure/ws/models/sign_in_response/client_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/sign_in_response/session_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/sign_in_response/sign_in_success_response/user_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/client_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/session_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/sign_in_success_response/user_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_form_response.dart';
 
 void main() {
   group('ClientResponse', () {
@@ -18,7 +19,7 @@ void main() {
       object: 'client',
       id: 'client_id',
       signIn: 'sign_in_data',
-      signUp: 'sign_up_data',
+      signUp: SignUpFormResponse(),
       lastActiveSessionId: 'last_active_session_id',
       createdAt: 1627847284,
       updatedAt: 1627847284,
@@ -49,7 +50,7 @@ void main() {
         object: 'client',
         id: 'client_id',
         signIn: 'sign_in_data',
-        signUp: 'sign_up_data',
+        signUp: SignUpFormResponse(),
         lastActiveSessionId: 'last_active_session_id',
         createdAt: 1627847284,
         updatedAt: 1627847284,
@@ -64,7 +65,7 @@ void main() {
         object: 'client',
         id: 'client_id',
         signIn: 'sign_in_data',
-        signUp: 'sign_up_data',
+        signUp: SignUpFormResponse(),
         lastActiveSessionId: 'last_active_session_id',
         createdAt: 1627847284,
         updatedAt: 1627847284,

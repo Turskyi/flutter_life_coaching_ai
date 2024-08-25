@@ -5,6 +5,7 @@ import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
+import 'package:lifecoach/ui/sign_up/code_page.dart';
 import 'package:lifecoach/ui/splash_page.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/routes.dart' as routes;
@@ -42,6 +43,11 @@ class _AppViewState extends State<AppView> {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (BuildContext context, AuthenticationState state) {
             switch (state.status) {
+              case AuthenticationStatus.code:
+                _navigator.pushAndRemoveUntil<void>(
+                  CodePage.route(),
+                  (Route<void> route) => false,
+                );
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   GoalsPage.route(),

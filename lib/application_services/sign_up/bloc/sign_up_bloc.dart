@@ -4,36 +4,38 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:models/models.dart';
 
-part 'sign_in_event.dart';
-part 'sign_in_state.dart';
+part 'sign_up_event.dart';
+part 'sign_up_state.dart';
 
-/// The [SignInBloc] is responsible for reacting to user interactions in the
+/// The [SignUpBloc] is responsible for reacting to user interactions in the
 /// [LoginForm] and handling the validation and submission of the form.
-/// The [SignInBloc] has a dependency on the [AuthenticationRepository]
+/// The [SignUpBloc] has a dependency on the [AuthenticationRepository]
 /// because when the form is submitted, it invokes `signIn`. The initial state
 /// of the bloc is pure meaning neither the inputs nor the form has been
 /// touched or interacted with.
 /// Whenever either the email or password change, the bloc will create a
 /// dirty variant of the [EmailAddress]/[Password] model and update the form
 /// status via the [Formz.validate] API.
-/// When the [SignInSubmitted] event is added, if the current status of the
+/// When the [SignUpSubmitted] event is added, if the current status of the
 /// form is valid, the bloc makes a call to `signIn` and updates the status
 /// based on the outcome of the request.
-class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  SignInBloc({
+class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
+  SignUpBloc({
     required AuthenticationRepository authenticationRepository,
   })  : _authenticationRepository = authenticationRepository,
-        super(const SignInState()) {
-    on<SignInEmailChanged>(_onEmailChanged);
-    on<SignInPasswordChanged>(_onPasswordChanged);
-    on<SignInSubmitted>(_onSubmitted);
+        super(const SignUpState()) {
+    on<SignUpEmailChanged>(_onEmailChanged);
+    on<SignUpPasswordChanged>(_onPasswordChanged);
+    on<SignUpSubmitted>(_onSubmitted);
+    on<CodeChanged>(_onCodeChanged);
+    on<CodeSubmitted>(_onCodeSubmitted);
   }
 
   final AuthenticationRepository _authenticationRepository;
 
   void _onEmailChanged(
-    SignInEmailChanged event,
-    Emitter<SignInState> emit,
+    SignUpEmailChanged event,
+    Emitter<SignUpState> emit,
   ) {
     final EmailAddress email = EmailAddress.dirty(event.email);
     emit(
@@ -48,8 +50,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   }
 
   void _onPasswordChanged(
-    SignInPasswordChanged event,
-    Emitter<SignInState> emit,
+    SignUpPasswordChanged event,
+    Emitter<SignUpState> emit,
   ) {
     final Password password = Password.dirty(event.password);
     emit(
@@ -62,17 +64,47 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     );
   }
 
+  void _onCodeChanged(
+    CodeChanged event,
+    Emitter<SignUpState> emit,
+  ) {
+    final Code code = Code.dirty(event.code);
+    emit(
+      state.copyWith(
+        code: code,
+        isValid: Formz.validate(
+          <FormzInput<String, ValidationError>>[code],
+        ),
+      ),
+    );
+  }
+
   Future<void> _onSubmitted(
-    SignInSubmitted event,
-    Emitter<SignInState> emit,
+    SignUpSubmitted event,
+    Emitter<SignUpState> emit,
   ) async {
     if (state.isValid) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
-        await _authenticationRepository.signIn(
+        await _authenticationRepository.signUp(
           email: state.email.value,
           password: state.password.value,
         );
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
+      } catch (_) {
+        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      }
+    }
+  }
+
+  Future<void> _onCodeSubmitted(
+    CodeSubmitted event,
+    Emitter<SignUpState> emit,
+  ) async {
+    if (state.isValid) {
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      try {
+        await _authenticationRepository.verify(state.code.value);
         emit(state.copyWith(status: FormzSubmissionStatus.success));
       } catch (_) {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));

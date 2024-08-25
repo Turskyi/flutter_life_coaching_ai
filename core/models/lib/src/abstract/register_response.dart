@@ -1,5 +1,5 @@
-abstract class LoginResponse {
-  const LoginResponse(this.token);
+abstract class RegisterResponse {
+  const RegisterResponse(this.id);
 
-  final String token;
+  final String id;
 }

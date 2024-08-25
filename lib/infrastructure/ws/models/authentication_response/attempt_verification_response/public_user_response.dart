@@ -1,10 +1,24 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'public_user_data.g.dart';
+part 'public_user_response.g.dart';
 
 @JsonSerializable()
-class PublicUserData {
+class PublicUserResponse {
+  const PublicUserResponse({
+    this.firstName,
+    this.lastName,
+    this.imageUrl,
+    this.hasImage,
+    this.identifier,
+    this.profileImageUrl,
+  });
+
+  factory PublicUserResponse.fromJson(Map<String, dynamic> json) {
+    return _$PublicUserResponseFromJson(json);
+  }
+
   @JsonKey(name: 'first_name')
   final dynamic firstName;
   @JsonKey(name: 'last_name')
@@ -17,27 +31,24 @@ class PublicUserData {
   @JsonKey(name: 'profile_image_url')
   final String? profileImageUrl;
 
-  const PublicUserData({
-    this.firstName,
-    this.lastName,
-    this.imageUrl,
-    this.hasImage,
-    this.identifier,
-    this.profileImageUrl,
-  });
-
   @override
   String toString() {
-    return 'PublicUserData(firstName: $firstName, lastName: $lastName, imageUrl: $imageUrl, hasImage: $hasImage, identifier: $identifier, profileImageUrl: $profileImageUrl)';
+    if (kDebugMode) {
+      return 'PublicUserResponse('
+          'firstName: $firstName, '
+          'lastName: $lastName, '
+          'imageUrl: $imageUrl, '
+          'hasImage: $hasImage, '
+          'identifier: $identifier, '
+          'profileImageUrl: $profileImageUrl)';
+    } else {
+      return super.toString();
+    }
   }
 
-  factory PublicUserData.fromJson(Map<String, dynamic> json) {
-    return _$PublicUserDataFromJson(json);
-  }
+  Map<String, dynamic> toJson() => _$PublicUserResponseToJson(this);
 
-  Map<String, dynamic> toJson() => _$PublicUserDataToJson(this);
-
-  PublicUserData copyWith({
+  PublicUserResponse copyWith({
     dynamic firstName,
     dynamic lastName,
     String? imageUrl,
@@ -45,7 +56,7 @@ class PublicUserData {
     String? identifier,
     String? profileImageUrl,
   }) {
-    return PublicUserData(
+    return PublicUserResponse(
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       imageUrl: imageUrl ?? this.imageUrl,
@@ -58,8 +69,9 @@ class PublicUserData {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! PublicUserData) return false;
-    final mapEquals = const DeepCollectionEquality().equals;
+    if (other is! PublicUserResponse) return false;
+    final bool Function(Object? e1, Object? e2) mapEquals =
+        const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
 

@@ -3,14 +3,20 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i8;
 
-import 'package:lifecoach/infrastructure/ws/models/sign_in_response/sign_in_response.dart'
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/prepare_verification_response/prepare_verification_response.dart'
+    as _i5;
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/sign_in_response.dart'
     as _i2;
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_response/sign_up_response.dart'
+    as _i4;
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/verification_response.dart'
+    as _i6;
 import 'package:lifecoach/infrastructure/ws/models/sign_out_response/sign_out_response.dart'
     as _i3;
 import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart'
-    as _i4;
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -48,16 +54,49 @@ class _FakeSignOutResponse_1 extends _i1.SmartFake
         );
 }
 
+class _FakeSignUpResponse_2 extends _i1.SmartFake
+    implements _i4.SignUpResponse {
+  _FakeSignUpResponse_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakePrepareVerificationResponse_3 extends _i1.SmartFake
+    implements _i5.PrepareVerificationResponse {
+  _FakePrepareVerificationResponse_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeVerificationResponse_4 extends _i1.SmartFake
+    implements _i6.VerificationResponse {
+  _FakeVerificationResponse_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [RetrofitClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRetrofitClient extends _i1.Mock implements _i4.RetrofitClient {
+class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
   MockRetrofitClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.SignInResponse> signIn(
+  _i8.Future<_i2.SignInResponse> signIn(
     String? identifier,
     String? password,
     String? strategy,
@@ -71,7 +110,7 @@ class MockRetrofitClient extends _i1.Mock implements _i4.RetrofitClient {
             strategy,
           ],
         ),
-        returnValue: _i5.Future<_i2.SignInResponse>.value(_FakeSignInResponse_0(
+        returnValue: _i8.Future<_i2.SignInResponse>.value(_FakeSignInResponse_0(
           this,
           Invocation.method(
             #signIn,
@@ -82,21 +121,107 @@ class MockRetrofitClient extends _i1.Mock implements _i4.RetrofitClient {
             ],
           ),
         )),
-      ) as _i5.Future<_i2.SignInResponse>);
+      ) as _i8.Future<_i2.SignInResponse>);
 
   @override
-  _i5.Future<_i3.SignOutResponse> signOut() => (super.noSuchMethod(
+  _i8.Future<_i3.SignOutResponse> signOut() => (super.noSuchMethod(
         Invocation.method(
           #signOut,
           [],
         ),
         returnValue:
-            _i5.Future<_i3.SignOutResponse>.value(_FakeSignOutResponse_1(
+            _i8.Future<_i3.SignOutResponse>.value(_FakeSignOutResponse_1(
           this,
           Invocation.method(
             #signOut,
             [],
           ),
         )),
-      ) as _i5.Future<_i3.SignOutResponse>);
+      ) as _i8.Future<_i3.SignOutResponse>);
+
+  @override
+  _i8.Future<_i4.SignUpResponse> signUp(
+    String? emailAddress,
+    String? password,
+    String? captchaToken,
+    String? captchaWidgetType,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [
+            emailAddress,
+            password,
+            captchaToken,
+            captchaWidgetType,
+          ],
+        ),
+        returnValue: _i8.Future<_i4.SignUpResponse>.value(_FakeSignUpResponse_2(
+          this,
+          Invocation.method(
+            #signUp,
+            [
+              emailAddress,
+              password,
+              captchaToken,
+              captchaWidgetType,
+            ],
+          ),
+        )),
+      ) as _i8.Future<_i4.SignUpResponse>);
+
+  @override
+  _i8.Future<_i5.PrepareVerificationResponse> prepare(
+    String? id,
+    String? strategy,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #prepare,
+          [
+            id,
+            strategy,
+          ],
+        ),
+        returnValue: _i8.Future<_i5.PrepareVerificationResponse>.value(
+            _FakePrepareVerificationResponse_3(
+          this,
+          Invocation.method(
+            #prepare,
+            [
+              id,
+              strategy,
+            ],
+          ),
+        )),
+      ) as _i8.Future<_i5.PrepareVerificationResponse>);
+
+  @override
+  _i8.Future<_i6.VerificationResponse> verify(
+    String? id,
+    String? code,
+    String? strategy,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verify,
+          [
+            id,
+            code,
+            strategy,
+          ],
+        ),
+        returnValue: _i8.Future<_i6.VerificationResponse>.value(
+            _FakeVerificationResponse_4(
+          this,
+          Invocation.method(
+            #verify,
+            [
+              id,
+              code,
+              strategy,
+            ],
+          ),
+        )),
+      ) as _i8.Future<_i6.VerificationResponse>);
 }

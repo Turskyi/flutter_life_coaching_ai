@@ -1,3 +1,3 @@
-abstract class VerificationResponse {
-  const VerificationResponse();
+abstract class Verification {
+  const Verification();
 }

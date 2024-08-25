@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lifecoach/infrastructure/ws/models/sign_in_response/client_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/client_response.dart';
 
 part 'meta_response.g.dart';
 

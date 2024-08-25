@@ -17,6 +17,8 @@ import 'package:lifecoach/application_services/authentication/bloc/authenticatio
     as _i698;
 import 'package:lifecoach/application_services/sign_in/bloc/sign_in_bloc.dart'
     as _i1032;
+import 'package:lifecoach/application_services/sign_up/bloc/sign_up_bloc.dart'
+    as _i85;
 import 'package:lifecoach/di/authentication_repository_module.dart' as _i413;
 import 'package:lifecoach/di/dio_http_client_module.dart' as _i1000;
 import 'package:lifecoach/di/preferences_module.dart' as _i78;
@@ -67,6 +69,8 @@ extension GetItInjectableX on _i174.GetIt {
           userRepository: gh<_i164.UserRepository>(),
         ));
     gh.factory<_i1032.SignInBloc>(() => _i1032.SignInBloc(
+        authenticationRepository: gh<_i223.AuthenticationRepository>()));
+    gh.factory<_i85.SignUpBloc>(() => _i85.SignUpBloc(
         authenticationRepository: gh<_i223.AuthenticationRepository>()));
     return this;
   }

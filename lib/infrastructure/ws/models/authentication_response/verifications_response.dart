@@ -1,19 +1,11 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'verifications_response.g.dart';
 
 @JsonSerializable()
 class VerificationsResponse {
-  @JsonKey(name: 'email_address')
-  final dynamic emailAddress;
-  @JsonKey(name: 'phone_number')
-  final dynamic phoneNumber;
-  @JsonKey(name: 'web3_wallet')
-  final dynamic web3Wallet;
-  @JsonKey(name: 'external_account')
-  final dynamic externalAccount;
-
   const VerificationsResponse({
     this.emailAddress,
     this.phoneNumber,
@@ -21,13 +13,30 @@ class VerificationsResponse {
     this.externalAccount,
   });
 
-  @override
-  String toString() {
-    return 'Verifications(emailAddress: $emailAddress, phoneNumber: $phoneNumber, web3Wallet: $web3Wallet, externalAccount: $externalAccount)';
-  }
-
   factory VerificationsResponse.fromJson(Map<String, dynamic> json) {
     return _$VerificationsResponseFromJson(json);
+  }
+
+  @JsonKey(name: 'email_address')
+  final VerificationsResponse? emailAddress;
+  @JsonKey(name: 'phone_number')
+  final dynamic phoneNumber;
+  @JsonKey(name: 'web3_wallet')
+  final dynamic web3Wallet;
+  @JsonKey(name: 'external_account')
+  final dynamic externalAccount;
+
+  @override
+  String toString() {
+    if (kDebugMode) {
+      return 'Verifications('
+          'emailAddress: $emailAddress, '
+          'phoneNumber: $phoneNumber, '
+          'web3Wallet: $web3Wallet, '
+          'externalAccount: $externalAccount)';
+    } else {
+      return super.toString();
+    }
   }
 
   Map<String, dynamic> toJson() => _$VerificationsResponseToJson(this);
@@ -50,7 +59,8 @@ class VerificationsResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     if (other is! VerificationsResponse) return false;
-    final mapEquals = const DeepCollectionEquality().equals;
+    final bool Function(Object? e1, Object? e2) mapEquals =
+        const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
 

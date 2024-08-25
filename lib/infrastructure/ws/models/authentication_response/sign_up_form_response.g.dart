@@ -30,18 +30,10 @@ SignUpFormResponse _$SignUpFormResponseFromJson(Map<String, dynamic> json) =>
       passwordEnabled: json['password_enabled'] as bool?,
       firstName: json['first_name'],
       lastName: json['last_name'],
-      unsafeMetadata: json['unsafe_metadata'] == null
-          ? null
-          : UnsafeMetadata.fromJson(
-              json['unsafe_metadata'] as Map<String, dynamic>),
-      publicMetadata: json['public_metadata'] == null
-          ? null
-          : PublicMetadata.fromJson(
-              json['public_metadata'] as Map<String, dynamic>),
       customAction: json['custom_action'] as bool?,
       externalId: json['external_id'],
-      createdSessionId: json['created_session_id'],
-      createdUserId: json['created_user_id'],
+      createdSessionId: json['created_session_id'] as String?,
+      createdUserId: json['created_user_id'] as String?,
       abandonAt: (json['abandon_at'] as num?)?.toInt(),
     );
 
@@ -62,8 +54,6 @@ Map<String, dynamic> _$SignUpFormResponseToJson(SignUpFormResponse instance) =>
       'password_enabled': instance.passwordEnabled,
       'first_name': instance.firstName,
       'last_name': instance.lastName,
-      'unsafe_metadata': instance.unsafeMetadata,
-      'public_metadata': instance.publicMetadata,
       'custom_action': instance.customAction,
       'external_id': instance.externalId,
       'created_session_id': instance.createdSessionId,

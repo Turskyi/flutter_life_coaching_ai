@@ -13,6 +13,10 @@ VerificationResponse _$VerificationResponseFromJson(
       strategy: json['strategy'] as String?,
       attempts: (json['attempts'] as num?)?.toInt(),
       expireAt: (json['expire_at'] as num?)?.toInt(),
+      nextAction: json['next_action'] as String?,
+      supportedStrategies: (json['supported_strategies'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$VerificationResponseToJson(
@@ -22,4 +26,6 @@ Map<String, dynamic> _$VerificationResponseToJson(
       'strategy': instance.strategy,
       'attempts': instance.attempts,
       'expire_at': instance.expireAt,
+      'next_action': instance.nextAction,
+      'supported_strategies': instance.supportedStrategies,
     };

@@ -42,6 +42,43 @@ class AuthenticationRepository {
     _controller.add(AuthenticationStatus.authenticated);
   }
 
+  Future<void> signUp({
+    required String email,
+    required String password,
+  }) async {
+    final RegisterResponse signUpResponse = await _restClient.signUp(
+      email,
+      password,
+      //TODO: get `captchaToken`.
+      'captchaToken',
+      'invisible',
+    );
+
+    await _restClient.prepare(
+      signUpResponse.id,
+      'email_code',
+    );
+    await _saveSignUpId(signUpResponse.id);
+    _controller.add(AuthenticationStatus.code);
+  }
+
+  Future<void> verify(String code) async {
+    final String signUpId =
+        _preferences.getString(StorageKeys.signUpId.key) ?? '';
+    if (signUpId.isNotEmpty) {
+      await _restClient.verify(
+        signUpId,
+        code,
+        // This value is always `email_code`.
+        'email_code',
+      );
+      _controller.add(AuthenticationStatus.authenticated);
+    } else {
+      //TODO:  this should never happen, so better come up with better handling.
+      _controller.add(AuthenticationStatus.unauthenticated);
+    }
+  }
+
   Future<void> signOut() async {
     await _restClient.signOut();
     await _removeToken();
@@ -58,6 +95,9 @@ class AuthenticationRepository {
 
   Future<bool> _saveToken(String token) async =>
       _preferences.setString(StorageKeys.authToken.key, token);
+
+  Future<bool> _saveSignUpId(String id) async =>
+      _preferences.setString(StorageKeys.signUpId.key, id);
 
   Future<bool> _removeToken() => _preferences.remove(StorageKeys.authToken.key);
 }

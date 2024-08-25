@@ -1,16 +1,19 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:models/models.dart';
 
 part 'verification_response.g.dart';
 
 @JsonSerializable()
-class VerificationResponse {
+class VerificationResponse implements Verification {
   const VerificationResponse({
     this.status,
     this.strategy,
     this.attempts,
     this.expireAt,
+    this.nextAction,
+    this.supportedStrategies,
   });
 
   factory VerificationResponse.fromJson(Map<String, dynamic> json) {
@@ -22,6 +25,10 @@ class VerificationResponse {
   final int? attempts;
   @JsonKey(name: 'expire_at')
   final int? expireAt;
+  @JsonKey(name: 'next_action')
+  final String? nextAction;
+  @JsonKey(name: 'supported_strategies')
+  final List<String>? supportedStrategies;
 
   @override
   String toString() {

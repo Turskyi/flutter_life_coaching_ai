@@ -9,7 +9,7 @@ part of 'sign_up_error_response.dart';
 SignUpErrorResponse _$SignUpErrorResponseFromJson(Map<String, dynamic> json) =>
     SignUpErrorResponse(
       errors: (json['errors'] as List<dynamic>?)
-          ?.map((e) => Error.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ErrorResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       clerkTraceId: json['clerk_trace_id'] as String?,
     );

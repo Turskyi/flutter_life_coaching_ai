@@ -71,6 +71,13 @@ class AuthenticationBloc
                     ? AuthenticationState.authenticated(user)
                     : const AuthenticationState.unauthenticated(),
               );
+            case AuthenticationStatus.code:
+              final User? user = await _tryGetUser();
+              return emit(
+                user != null
+                    ? AuthenticationState.authenticated(user)
+                    : const AuthenticationState.unauthenticated(),
+              );
             case AuthenticationStatus.unknown:
               return emit(const AuthenticationState.unknown());
           }

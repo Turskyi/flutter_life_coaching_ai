@@ -9,7 +9,10 @@ part of 'verifications_response.dart';
 VerificationsResponse _$VerificationsResponseFromJson(
         Map<String, dynamic> json) =>
     VerificationsResponse(
-      emailAddress: json['email_address'],
+      emailAddress: json['email_address'] == null
+          ? null
+          : VerificationsResponse.fromJson(
+              json['email_address'] as Map<String, dynamic>),
       phoneNumber: json['phone_number'],
       web3Wallet: json['web3_wallet'],
       externalAccount: json['external_account'],

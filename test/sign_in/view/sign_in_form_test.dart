@@ -78,8 +78,9 @@ void main() {
           ),
         ),
       );
-      final ElevatedButton button =
-          tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+      final ElevatedButton button = tester.widget<ElevatedButton>(
+        find.byKey(const Key('signInForm_continue_raisedButton')),
+      );
       expect(button.enabled, isFalse);
     });
 
@@ -99,7 +100,10 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(ElevatedButton), findsNothing);
+      expect(
+        find.byKey(const Key('signInForm_continue_raisedButton')),
+        findsNothing,
+      );
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
@@ -118,7 +122,11 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(ElevatedButton), findsNothing);
+
+      expect(
+        find.byKey(const Key('signInForm_continue_raisedButton')),
+        findsNothing,
+      );
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
@@ -135,8 +143,9 @@ void main() {
           ),
         ),
       );
-      final ElevatedButton button =
-          tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+      final ElevatedButton button = tester.widget<ElevatedButton>(
+        find.byKey(const Key('signInForm_continue_raisedButton')),
+      );
       expect(button.enabled, isTrue);
     });
 
@@ -154,7 +163,9 @@ void main() {
           ),
         ),
       );
-      await tester.tap(find.byType(ElevatedButton));
+      await tester.tap(
+        find.byKey(const Key('signInForm_continue_raisedButton')),
+      );
       verify(() => loginBloc.add(const SignInSubmitted())).called(1);
     });
 

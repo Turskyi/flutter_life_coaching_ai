@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/infrastructure/ws/models/sign_in_response/sign_in_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/sign_in_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/sign_out_response/sign_out_response.dart';
 import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart';
 import 'package:mockito/annotations.dart';

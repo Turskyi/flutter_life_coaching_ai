@@ -1,34 +1,42 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/client_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_form_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_response/sign_up_response.dart';
 
-import 'client.dart';
-import 'response.dart';
-
-part 'sign_up_response.g.dart';
+part 'sign_up_success_response.g.dart';
 
 @JsonSerializable()
-class SignUpResponse {
-  final Response? response;
-  final Client? client;
+class SignUpSuccessResponse implements SignUpResponse {
+  const SignUpSuccessResponse({this.response, this.client});
 
-  const SignUpResponse({this.response, this.client});
+  factory SignUpSuccessResponse.fromJson(Map<String, dynamic> json) {
+    return _$SignUpSuccessResponseFromJson(json);
+  }
+
+  final SignUpFormResponse? response;
+  final ClientResponse? client;
+
+  @override
+  String get id => response?.id ?? '';
 
   @override
   String toString() {
-    return 'SignUpResponse(response: $response, client: $client)';
+    if (kDebugMode) {
+      return 'SignUpResponse(response: $response, client: $client)';
+    } else {
+      return super.toString();
+    }
   }
 
-  factory SignUpResponse.fromJson(Map<String, dynamic> json) {
-    return _$SignUpResponseFromJson(json);
-  }
+  Map<String, dynamic> toJson() => _$SignUpSuccessResponseToJson(this);
 
-  Map<String, dynamic> toJson() => _$SignUpResponseToJson(this);
-
-  SignUpResponse copyWith({
-    Response? response,
-    Client? client,
+  SignUpSuccessResponse copyWith({
+    SignUpFormResponse? response,
+    ClientResponse? client,
   }) {
-    return SignUpResponse(
+    return SignUpSuccessResponse(
       response: response ?? this.response,
       client: client ?? this.client,
     );
@@ -37,8 +45,9 @@ class SignUpResponse {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! SignUpResponse) return false;
-    final mapEquals = const DeepCollectionEquality().equals;
+    if (other is! SignUpSuccessResponse) return false;
+    final bool Function(Object? e1, Object? e2) mapEquals =
+        const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
 
