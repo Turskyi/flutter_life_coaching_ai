@@ -10,10 +10,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Write .env file
+        run: |
+          echo $ENV | base64 -d > .env
+        shell: bash
+        env:
+          ENV: ${{ secrets.ENV }}
+
       - name: Setup flutter
         uses: subosito/flutter-action@v1
         with:
           channel: stable
+
+      - name: Write env.g.dart file
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+        shell: bash
 
       - name: Get packages
         run: flutter pub get
