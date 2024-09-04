@@ -16,7 +16,6 @@ abstract class RetrofitClient implements RestClient {
 
   @override
   @POST('https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.14.0')
-  @FormUrlEncoded()
   Future<SignInResponse> signIn(
     @Field('identifier') String identifier,
     @Field('password') String password,
@@ -29,39 +28,39 @@ abstract class RetrofitClient implements RestClient {
   Future<SignOutResponse> signOut();
 
   @override
-  @POST('https://clerk.turskyi.com/v1/client/sign_ups?_clerk_js_version=5.15.0')
+  @POST('https://clerk.turskyi.com/v1/client/sign_ups?_clerk_js_version=5.17.0')
   Future<SignUpResponse> signUp(
     @Field('email_address') String emailAddress,
     @Field('password') String password,
-    @Field('captcha_token') String captchaToken,
-    // This value is always `invisible`.
-    @Field('captcha_widget_type') String captchaWidgetType,
   );
 
   /// The [RegisterResponse.id] will be used to call
-  /// https://clerk.turskyi.com/v1/client/sign_ups/[RegisterResponse.id]/prepare_verification?_clerk_js_version=5.15.0
+  /// `https://clerk.turskyi.com/v1/client/sign_ups/[RegisterResponse.id]/
+  /// prepare_verification?_clerk_js_version=5.15.0`
   /// it will send a 6 digits code to the `emailAddress` from the
   /// [signUp] form.
   @override
   @POST(
-    'https://clerk.turskyi.com/v1/client/sign_ups/{id}/prepare_verification?_clerk_js_version=5.15.0',
+    'https://clerk.turskyi.com/v1/client/sign_ups/{id}/prepare_verification?'
+    '_clerk_js_version=5.17.0',
   )
   Future<PrepareVerificationResponse> prepare(
     @Path() String id,
     // This value is always `email_code`.
-    String strategy,
+    @Field('strategy') String strategy,
   );
 
   /// This call should be called after [prepare] and it will expect the code
   /// received on `emailAddress` from the [signUp] form.
   @override
   @POST(
-    'https://clerk.turskyi.com/v1/client/sign_ups/{id}/attempt_verification?_clerk_js_version=5.15.0',
+    'https://clerk.turskyi.com/v1/client/sign_ups/{id}/attempt_verification?'
+    '_clerk_js_version=5.15.0',
   )
   Future<VerificationResponse> verify(
     @Path() String id,
-    String code,
+    @Field('code') String code,
     // This value is always `email_code`.
-    String strategy,
+    @Field('strategy') String strategy,
   );
 }

@@ -45,7 +45,7 @@ void main() {
         setUp: () {
           when(() => authenticationRepository.status).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.unauthenticated,
+              AuthenticationStatus.unauthenticated(),
             ),
           );
         },
@@ -61,7 +61,7 @@ void main() {
         setUp: () {
           when(() => authenticationRepository.status).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.authenticated,
+              AuthenticationStatus.authenticated(),
             ),
           );
           when(() => userRepository.getUser()).thenAnswer((_) async => user);
@@ -81,7 +81,7 @@ void main() {
             () => authenticationRepository.status,
           ).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.authenticated,
+              AuthenticationStatus.authenticated(),
             ),
           );
           when(() => userRepository.getUser()).thenAnswer((_) async => user);
@@ -99,7 +99,7 @@ void main() {
         setUp: () {
           when(() => authenticationRepository.status).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.unauthenticated,
+              AuthenticationStatus.unauthenticated(),
             ),
           );
         },
@@ -118,7 +118,7 @@ void main() {
             () => authenticationRepository.status,
           ).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.authenticated,
+              AuthenticationStatus.authenticated(),
             ),
           );
           when(() => userRepository.getUser()).thenThrow(Exception('oops'));
@@ -138,7 +138,7 @@ void main() {
             () => authenticationRepository.status,
           ).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.authenticated,
+              AuthenticationStatus.authenticated(),
             ),
           );
           when(() => userRepository.getUser()).thenAnswer((_) async => null);
@@ -157,7 +157,7 @@ void main() {
             () => authenticationRepository.status,
           ).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.unknown,
+              AuthenticationStatus.unknown(),
             ),
           );
         },

@@ -1,7 +1,9 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:lifecoach/infrastructure/ws/models/authentication_response/api_exception.dart';
 import 'package:models/models.dart';
 
 part 'sign_up_event.dart';
@@ -29,6 +31,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpSubmitted>(_onSubmitted);
     on<CodeChanged>(_onCodeChanged);
     on<CodeSubmitted>(_onCodeSubmitted);
+    on<ResendCode>(_onResendCode);
   }
 
   final AuthenticationRepository _authenticationRepository;
@@ -91,9 +94,57 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: state.password.value,
         );
         emit(state.copyWith(status: FormzSubmissionStatus.success));
-      } catch (_) {
-        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      } on ApiException catch (e) {
+        _handleError(error: e, emitter: emit);
+      } catch (e) {
+        _handleError(error: e, emitter: emit);
       }
+    }
+  }
+
+  Future<void> _onResendCode(
+    ResendCode event,
+    Emitter<SignUpState> emit,
+  ) async {
+    if (_authenticationRepository.canSendCode()) {
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      try {
+        await _authenticationRepository.sendCode();
+
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
+      } catch (e) {
+        _handleError(error: e, emitter: emit);
+      }
+    }
+  }
+
+  void _handleError({
+    required Object error,
+    required Emitter<SignUpState> emitter,
+  }) {
+    if (error is DioException) {
+      final dynamic data = error.response?.data;
+
+      const String errorsKey = 'errors';
+      const String messageKey = 'long_message';
+      final String errorMessage = (data != null &&
+              data.containsKey(errorsKey) &&
+              data[errorsKey].isNotEmpty &&
+              data[errorsKey].first.containsKey(messageKey))
+          ? data[errorsKey][0][messageKey]
+          : 'Unknown error';
+
+      emitter(
+        SignUpErrorState(
+          status: FormzSubmissionStatus.failure,
+          email: state.email,
+          password: state.password,
+          isValid: state.isValid,
+          errorMessage: errorMessage,
+        ),
+      );
+    } else {
+      emitter(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
 
@@ -105,9 +156,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
         await _authenticationRepository.verify(state.code.value);
+
         emit(state.copyWith(status: FormzSubmissionStatus.success));
-      } catch (_) {
-        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      } catch (e) {
+        _handleError(error: e, emitter: emit);
       }
     }
   }

@@ -62,23 +62,18 @@ class AuthenticationBloc
         _authenticationRepository.status,
         onData: (AuthenticationStatus status) async {
           switch (status) {
-            case AuthenticationStatus.unauthenticated:
+            case UnauthenticatedStatus():
               return emit(const AuthenticationState.unauthenticated());
-            case AuthenticationStatus.authenticated:
+            case AuthenticatedStatus():
               final User? user = await _tryGetUser();
               return emit(
                 user != null
                     ? AuthenticationState.authenticated(user)
                     : const AuthenticationState.unauthenticated(),
               );
-            case AuthenticationStatus.code:
-              final User? user = await _tryGetUser();
-              return emit(
-                user != null
-                    ? AuthenticationState.authenticated(user)
-                    : const AuthenticationState.unauthenticated(),
-              );
-            case AuthenticationStatus.unknown:
+            case CodeAuthenticationStatus():
+              return emit(AuthenticationState.code(status.email));
+            case UnknownAuthenticationStatus():
               return emit(const AuthenticationState.unknown());
           }
         },

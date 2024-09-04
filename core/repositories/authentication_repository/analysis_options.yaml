@@ -44,6 +44,7 @@ linter:
     avoid_as: true
     avoid_void_async: true
     cancel_subscriptions: true
+    avoid_print: true
 
 analyzer:
   exclude:

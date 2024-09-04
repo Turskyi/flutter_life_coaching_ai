@@ -19,31 +19,42 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignInBloc, SignInState>(
+    return BlocConsumer<SignInBloc, SignInState>(
       listener: (BuildContext context, SignInState state) {
-        if (state.status.isFailure) {
+        if (state.status.isFailure || state is SignInErrorState) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Authentication Failure')),
+              SnackBar(
+                content: Text(
+                  state is SignInErrorState
+                      ? state.errorMessage
+                      : 'Authentication Failure',
+                ),
+              ),
             );
         }
       },
-      child: const Align(
-        alignment: Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            EmailInput(),
-            Padding(padding: EdgeInsets.all(12)),
-            PasswordInput(),
-            Padding(padding: EdgeInsets.all(12)),
-            ContinueButton(),
-            Padding(padding: EdgeInsets.all(12)),
-            SignUpPrompt(),
-          ],
-        ),
-      ),
+      builder: (_, SignInState state) {
+        return Align(
+          alignment: const Alignment(0, -1 / 3),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const EmailInput(),
+              const Padding(padding: EdgeInsets.all(12)),
+              const PasswordInput(),
+              const Padding(padding: EdgeInsets.all(12)),
+              const ContinueButton(),
+              const Padding(padding: EdgeInsets.all(12)),
+              SignUpPrompt(
+                email: state.email.value,
+                password: state.password.value,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

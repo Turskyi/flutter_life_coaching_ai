@@ -5,10 +5,22 @@ import 'package:lifecoach/application_services/sign_up/bloc/sign_up_bloc.dart';
 import 'package:lifecoach/ui/sign_up/sign_up_form.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({
+    this.email = '',
+    this.password = '',
+    super.key,
+  });
 
-  static Route<void> route() =>
-      MaterialPageRoute<void>(builder: (_) => const SignUpPage());
+  final String email;
+  final String password;
+
+  static Route<void> route({required String email, String password = ''}) =>
+      MaterialPageRoute<void>(
+        builder: (_) => SignUpPage(
+          email: email,
+          password: password,
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,7 @@ class SignUpPage extends StatelessWidget {
           create: (BuildContext context) => SignUpBloc(
             authenticationRepository: context.read<AuthenticationRepository>(),
           ),
-          child: const SignUpForm(),
+          child: SignUpForm(email: email, password: password),
         ),
       ),
     );

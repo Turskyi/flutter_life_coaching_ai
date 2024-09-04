@@ -11,14 +11,15 @@ class CodeContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isInProgressOrSuccess = context.select(
-      (SignUpBloc bloc) => bloc.state.status.isInProgressOrSuccess,
-    );
-
-    if (isInProgressOrSuccess) return const CircularProgressIndicator();
-
     final bool isValid =
         context.select((SignUpBloc bloc) => bloc.state.isValid);
+
+    final bool isInProgress = isValid &&
+        context.select(
+          (SignUpBloc bloc) => bloc.state.status.isInProgress,
+        );
+
+    if (isInProgress) return const CircularProgressIndicator();
 
     return ElevatedButton(
       key: const Key('codeForm_continue_raisedButton'),

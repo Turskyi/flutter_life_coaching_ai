@@ -4,7 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i3;
-import 'package:lifecoach/infrastructure/ws/rest/logging_interceptor.dart'
+import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_interceptor.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 

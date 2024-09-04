@@ -31,3 +31,40 @@ final class SignInState extends Equatable {
   @override
   List<Object> get props => <Object>[status, email, password];
 }
+
+final class SignInErrorState extends SignInState {
+  const SignInErrorState({
+    super.status,
+    super.email,
+    super.password,
+    super.isValid,
+    this.errorMessage = 'Authentication Failure',
+  });
+
+  final String errorMessage;
+
+  @override
+  SignInErrorState copyWith({
+    FormzSubmissionStatus? status,
+    EmailAddress? email,
+    Password? password,
+    bool? isValid,
+    String? errorMessage,
+  }) =>
+      SignInErrorState(
+        status: status ?? this.status,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        isValid: isValid ?? this.isValid,
+        errorMessage: errorMessage ?? this.errorMessage,
+      );
+
+  @override
+  List<Object> get props => <Object>[
+        status,
+        email,
+        password,
+        isValid,
+        errorMessage,
+      ];
+}

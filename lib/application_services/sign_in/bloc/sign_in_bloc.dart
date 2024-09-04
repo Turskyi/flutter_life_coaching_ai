@@ -1,5 +1,6 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:models/models.dart';
@@ -74,8 +75,29 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           password: state.password.value,
         );
         emit(state.copyWith(status: FormzSubmissionStatus.success));
-      } catch (_) {
-        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      } catch (e) {
+        if (e is DioException) {
+          final dynamic data = e.response?.data;
+          const String errorsKey = 'errors';
+          const String messageKey = 'message';
+          final String errorMessage = (data != null &&
+                  data.containsKey(errorsKey) &&
+                  data[errorsKey].isNotEmpty &&
+                  data[errorsKey].first.containsKey(messageKey))
+              ? data[errorsKey][0][messageKey]
+              : 'Unknown error';
+          emit(
+            SignInErrorState(
+              status: FormzSubmissionStatus.failure,
+              email: state.email,
+              password: state.password,
+              isValid: state.isValid,
+              errorMessage: errorMessage,
+            ),
+          );
+        } else {
+          emit(state.copyWith(status: FormzSubmissionStatus.failure));
+        }
       }
     }
   }

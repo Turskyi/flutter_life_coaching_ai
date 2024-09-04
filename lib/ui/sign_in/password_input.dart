@@ -15,9 +15,8 @@ class PasswordInput extends StatelessWidget {
     return TextField(
       key: const Key('signInForm_passwordInput_textField'),
       keyboardType: TextInputType.visiblePassword,
-      onChanged: (String password) {
-        context.read<SignInBloc>().add(SignInPasswordChanged(password));
-      },
+      onChanged: (String password) =>
+          context.read<SignInBloc>().add(SignInPasswordChanged(password)),
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Password',

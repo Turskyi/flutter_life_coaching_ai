@@ -39,7 +39,6 @@ class _RetrofitClient implements RetrofitClient {
       method: 'POST',
       headers: _headers,
       extra: _extra,
-      contentType: 'application/x-www-form-urlencoded',
     )
         .compose(
           _dio.options,
@@ -100,8 +99,6 @@ class _RetrofitClient implements RetrofitClient {
   Future<SignUpResponse> signUp(
     String emailAddress,
     String password,
-    String captchaToken,
-    String captchaWidgetType,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -109,8 +106,6 @@ class _RetrofitClient implements RetrofitClient {
     final _data = {
       'email_address': emailAddress,
       'password': password,
-      'captcha_token': captchaToken,
-      'captcha_widget_type': captchaWidgetType,
     };
     final _options = _setStreamType<SignUpResponse>(Options(
       method: 'POST',
@@ -119,7 +114,7 @@ class _RetrofitClient implements RetrofitClient {
     )
         .compose(
           _dio.options,
-          'https://clerk.turskyi.com/v1/client/sign_ups?_clerk_js_version=5.15.0',
+          'https://clerk.turskyi.com/v1/client/sign_ups?_clerk_js_version=5.17.0',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -147,7 +142,7 @@ class _RetrofitClient implements RetrofitClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = {'strategy': strategy};
     final _options = _setStreamType<PrepareVerificationResponse>(Options(
       method: 'POST',
       headers: _headers,
@@ -155,7 +150,7 @@ class _RetrofitClient implements RetrofitClient {
     )
         .compose(
           _dio.options,
-          'https://clerk.turskyi.com/v1/client/sign_ups/${id}/prepare_verification?_clerk_js_version=5.15.0',
+          'https://clerk.turskyi.com/v1/client/sign_ups/${id}/prepare_verification?_clerk_js_version=5.17.0',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -184,7 +179,10 @@ class _RetrofitClient implements RetrofitClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = {
+      'code': code,
+      'strategy': strategy,
+    };
     final _options = _setStreamType<VerificationResponse>(Options(
       method: 'POST',
       headers: _headers,

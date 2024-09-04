@@ -38,7 +38,10 @@ dependencies:
   bloc: ^8.1.4
   bloc_test: ^9.1.7
   collection: any
-  dio: ^5.6.0
+  cookie_jar: ^4.0.8
+  dio: ^5.7.0
+  dio_cookie_manager: ^3.1.1
+  envied: ^0.5.4+1
   equatable: ^2.0.5
   feedback: ^3.1.0
   flutter:
@@ -67,8 +70,8 @@ dependencies:
     path: core/models
   package_info_plus: ^8.0.2
   path_provider: ^2.1.4
-  retrofit: ^4.2.0
-  retrofit_generator: ^8.2.0
+  retrofit: ^4.3.0
+  retrofit_generator: ^9.0.0
   shared_preferences: ^2.3.2
   user_repository:
     path: core/repositories/user_repository
@@ -80,6 +83,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
+  envied_generator: ^0.5.4+1
   flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter

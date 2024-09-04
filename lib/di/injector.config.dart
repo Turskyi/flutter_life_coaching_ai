@@ -24,8 +24,8 @@ import 'package:lifecoach/di/dio_http_client_module.dart' as _i1000;
 import 'package:lifecoach/di/preferences_module.dart' as _i78;
 import 'package:lifecoach/di/retrofit_http_client_module.dart' as _i696;
 import 'package:lifecoach/di/user_repository_module.dart' as _i960;
-import 'package:lifecoach/infrastructure/ws/rest/logging_interceptor.dart'
-    as _i865;
+import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_interceptor.dart'
+    as _i284;
 import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart'
     as _i1073;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
@@ -51,10 +51,13 @@ extension GetItInjectableX on _i174.GetIt {
       () => sharedPreferencesModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i865.LoggingInterceptor>(
-        () => const _i865.LoggingInterceptor());
-    gh.lazySingleton<_i361.Dio>(() =>
-        dioHttpClientModule.getDioHttpClient(gh<_i865.LoggingInterceptor>()));
+    gh.factory<_i284.LoggingInterceptor>(
+        () => const _i284.LoggingInterceptor());
+    await gh.factoryAsync<_i361.Dio>(
+      () =>
+          dioHttpClientModule.getDioHttpClient(gh<_i284.LoggingInterceptor>()),
+      preResolve: true,
+    );
     gh.lazySingleton<_i1073.RetrofitClient>(
         () => retrofitHttpClientModule.getRestClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i164.UserRepository>(() =>

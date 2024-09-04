@@ -1,14 +1,14 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:lifecoach/application_services/authentication/bloc/authentication_bloc.dart';
-import 'package:lifecoach/router/app_route.dart';
-import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifecoach/application_services/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
+import 'package:lifecoach/router/app_route.dart';
+import 'package:lifecoach/router/routes.dart' as routes;
+import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
 import 'package:lifecoach/ui/sign_up/code_page.dart';
 import 'package:lifecoach/ui/splash_page.dart';
-import 'package:lifecoach/res/constants.dart' as constants;
-import 'package:lifecoach/router/routes.dart' as routes;
 
 /// [AppView] is a [StatefulWidget] because it maintains a [GlobalKey] which is
 /// used to access the [NavigatorState]. By default, [AppView] will render the
@@ -42,23 +42,24 @@ class _AppViewState extends State<AppView> {
       builder: (BuildContext context, Widget? child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (BuildContext context, AuthenticationState state) {
-            switch (state.status) {
-              case AuthenticationStatus.code:
+            final AuthenticationStatus status = state.status;
+            switch (status) {
+              case CodeAuthenticationStatus():
                 _navigator.pushAndRemoveUntil<void>(
-                  CodePage.route(),
+                  CodePage.route(email: status.email),
                   (Route<void> route) => false,
                 );
-              case AuthenticationStatus.authenticated:
+              case AuthenticatedStatus():
                 _navigator.pushAndRemoveUntil<void>(
                   GoalsPage.route(),
                   (Route<void> route) => false,
                 );
-              case AuthenticationStatus.unauthenticated:
+              case UnauthenticatedStatus():
                 _navigator.pushAndRemoveUntil<void>(
                   HomePage.route(),
                   (Route<void> route) => false,
                 );
-              case AuthenticationStatus.unknown:
+              case UnknownAuthenticationStatus():
                 break;
             }
           },

@@ -8,8 +8,10 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
+  collection: ^1.18.0
   models:
     path: ../../models
+  retrofit: ^4.2.0
   shared_preferences: ^2.3.2
 
 dev_dependencies:

@@ -25,7 +25,7 @@ void main() {
     // Set up the mock to return a valid stream
     when(() => authenticationRepository.status).thenAnswer(
       (_) => Stream<AuthenticationStatus>.value(
-        AuthenticationStatus.unauthenticated,
+        AuthenticationStatus.unauthenticated(),
       ),
     );
   });

@@ -143,8 +143,6 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
   _i8.Future<_i4.SignUpResponse> signUp(
     String? emailAddress,
     String? password,
-    String? captchaToken,
-    String? captchaWidgetType,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -152,8 +150,6 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
           [
             emailAddress,
             password,
-            captchaToken,
-            captchaWidgetType,
           ],
         ),
         returnValue: _i8.Future<_i4.SignUpResponse>.value(_FakeSignUpResponse_2(
@@ -163,8 +159,6 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             [
               emailAddress,
               password,
-              captchaToken,
-              captchaWidgetType,
             ],
           ),
         )),

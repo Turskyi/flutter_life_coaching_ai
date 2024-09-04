@@ -19,12 +19,22 @@ class AuthenticationRepository {
       StreamController<AuthenticationStatus>();
 
   Stream<AuthenticationStatus> get status async* {
-    final bool isAuthenticated = _checkInitialAuthenticationStatus();
-    if (isAuthenticated) {
-      yield AuthenticationStatus.authenticated;
+    final bool isSignUpSent = canSendCode();
+
+    if (isSignUpSent) {
+      final String email = _preferences.getString(StorageKeys.email.key) ?? '';
+
+      yield AuthenticationStatus.code(email);
     } else {
-      yield AuthenticationStatus.unauthenticated;
+      final bool isAuthenticated = _checkInitialAuthenticationStatus();
+
+      if (isAuthenticated) {
+        yield AuthenticationStatus.authenticated();
+      } else {
+        yield AuthenticationStatus.unauthenticated();
+      }
     }
+
     // Yield the stream of authentication status changes
     yield* _controller.stream;
   }
@@ -38,8 +48,9 @@ class AuthenticationRepository {
       password,
       'password',
     );
+
     await _saveToken(loginResponse.token);
-    _controller.add(AuthenticationStatus.authenticated);
+    _controller.add(AuthenticationStatus.authenticated());
   }
 
   Future<void> signUp({
@@ -49,22 +60,34 @@ class AuthenticationRepository {
     final RegisterResponse signUpResponse = await _restClient.signUp(
       email,
       password,
-      //TODO: get `captchaToken`.
-      'captchaToken',
-      'invisible',
     );
 
     await _restClient.prepare(
       signUpResponse.id,
       'email_code',
     );
+
     await _saveSignUpId(signUpResponse.id);
-    _controller.add(AuthenticationStatus.code);
+    _controller.add(AuthenticationStatus.code(email));
+    await _saveEmail(email);
+  }
+
+  Future<CodeResponse> sendCode() {
+    final String signUpId =
+        _preferences.getString(StorageKeys.signUpId.key) ?? '';
+
+    if (signUpId.isNotEmpty) {
+      return _restClient.prepare(signUpId, 'email_code');
+    } else {
+      //TODO:  this should never happen, so better come up with better handling.
+      throw Exception('Signup id is empty');
+    }
   }
 
   Future<void> verify(String code) async {
     final String signUpId =
         _preferences.getString(StorageKeys.signUpId.key) ?? '';
+
     if (signUpId.isNotEmpty) {
       await _restClient.verify(
         signUpId,
@@ -72,17 +95,19 @@ class AuthenticationRepository {
         // This value is always `email_code`.
         'email_code',
       );
-      _controller.add(AuthenticationStatus.authenticated);
+      _controller.add(AuthenticationStatus.authenticated());
+      await _removeSignUpId();
     } else {
       //TODO:  this should never happen, so better come up with better handling.
-      _controller.add(AuthenticationStatus.unauthenticated);
+      _controller.add(AuthenticationStatus.unauthenticated());
     }
   }
 
   Future<void> signOut() async {
     await _restClient.signOut();
     await _removeToken();
-    _controller.add(AuthenticationStatus.unauthenticated);
+    await _removeEmail();
+    _controller.add(AuthenticationStatus.unauthenticated());
   }
 
   void dispose() => _controller.close();
@@ -93,11 +118,25 @@ class AuthenticationRepository {
     return token.isNotEmpty;
   }
 
+  bool canSendCode() {
+    final String signUpId =
+        _preferences.getString(StorageKeys.signUpId.key) ?? '';
+    return signUpId.isNotEmpty;
+  }
+
   Future<bool> _saveToken(String token) async =>
       _preferences.setString(StorageKeys.authToken.key, token);
 
   Future<bool> _saveSignUpId(String id) async =>
       _preferences.setString(StorageKeys.signUpId.key, id);
 
+  Future<bool> _saveEmail(String email) async =>
+      _preferences.setString(StorageKeys.email.key, email);
+
   Future<bool> _removeToken() => _preferences.remove(StorageKeys.authToken.key);
+
+  Future<bool> _removeSignUpId() =>
+      _preferences.remove(StorageKeys.signUpId.key);
+
+  Future<bool> _removeEmail() => _preferences.remove(StorageKeys.email.key);
 }

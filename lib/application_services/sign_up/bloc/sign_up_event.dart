@@ -41,3 +41,7 @@ final class CodeChanged extends SignUpEvent {
   @override
   List<Object> get props => <Object>[code];
 }
+
+final class ResendCode extends SignUpEvent {
+  const ResendCode();
+}
