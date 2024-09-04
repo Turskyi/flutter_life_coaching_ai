@@ -13,6 +13,8 @@ class LoggingInterceptor extends Interceptor {
     ResponseInterceptorHandler handler,
   ) {
     log('onResponse -------------------');
+    log('STATUS CODE: ${response.statusCode}');
+    log('DATA: ${response.data}');
     log('-----------------------------');
     super.onResponse(response, handler);
   }
@@ -30,8 +32,10 @@ class LoggingInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     log('onRequest --------------------');
     log('URI: ${options.uri.toString()}');
+    log('METHOD: ${options.method}');
     log('PARAMS: ${options.queryParameters.toString()}');
     log('HEADERS: ${options.headers.toString()}');
+    log('BODY: ${options.data.toString()}');
     log('-----------------------------');
     super.onRequest(options, handler);
   }
