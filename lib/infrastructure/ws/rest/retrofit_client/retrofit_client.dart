@@ -27,6 +27,8 @@ abstract class RetrofitClient implements RestClient {
   @GET('https://clerk.turskyi.com/v1/environment?_clerk_js_version=5.14.0')
   Future<SignOutResponse> signOut();
 
+  //TODO: remove due to it is not used.
+  @Deprecated('There is no replacement at this moment.')
   @override
   @POST('https://clerk.turskyi.com/v1/client/sign_ups?_clerk_js_version=5.17.0')
   Future<SignUpResponse> signUp(
@@ -34,11 +36,13 @@ abstract class RetrofitClient implements RestClient {
     @Field('password') String password,
   );
 
+  //TODO: remove due to it is not used.
   /// The [RegisterResponse.id] will be used to call
   /// `https://clerk.turskyi.com/v1/client/sign_ups/[RegisterResponse.id]/
   /// prepare_verification?_clerk_js_version=5.15.0`
   /// it will send a 6 digits code to the `emailAddress` from the
   /// [signUp] form.
+  @Deprecated('There is no replacement at this moment.')
   @override
   @POST(
     'https://clerk.turskyi.com/v1/client/sign_ups/{id}/prepare_verification?'
@@ -50,8 +54,10 @@ abstract class RetrofitClient implements RestClient {
     @Field('strategy') String strategy,
   );
 
+  //TODO: remove due to it is not used.
   /// This call should be called after [prepare] and it will expect the code
   /// received on `emailAddress` from the [signUp] form.
+  @Deprecated('There is no replacement at this moment.')
   @override
   @POST(
     'https://clerk.turskyi.com/v1/client/sign_ups/{id}/attempt_verification?'
