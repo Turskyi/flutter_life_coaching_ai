@@ -44,12 +44,12 @@ folder:
 <details style="border: 1px solid #aaa; border-radius: 4px; padding: 0.5em 0.5em 0;">
   <summary style="font-weight: bold; margin: -0.5em -0.5em 0; padding: 0.5em; border-bottom: 1px solid #aaa;">Architectural pattern:
 
-[Monolithic Onion Architecture](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/)
+[Onion Architecture](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/)
 
   </summary>
 <a href="https://sites.libsyn.com/412964/onion-architecture-episode-2">
 <!--suppress CheckImageSize -->
-<img src="documentation/monolithic_onion_architecture.jpeg" width="800" title="Monolithic Onion Architecture" alt="Image of the Monolithic Onion Architecture Pattern">
+<img src="documentation/onion_architecture.jpeg" width="800" title="Monolithic Onion Architecture" alt="Image of the Monolithic Onion Architecture Pattern">
 </a>
 
 ## Layers

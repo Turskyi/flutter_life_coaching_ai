@@ -1,0 +1,1 @@
+enum MessageOwner { myself, other }

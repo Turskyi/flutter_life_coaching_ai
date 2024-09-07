@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -75,16 +76,36 @@ class SignUpPrompt extends StatelessWidget {
   void _showErrorSnackbar(BuildContext context, Uri url) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          'Unable to open the sign-up page. '
-          'You can copy this link and paste it into your browser:\n$url',
+        content: RichText(
+          text: TextSpan(
+            text: 'Unable to open the sign-up page. ',
+            style: const TextStyle(color: Colors.white),
+            children: <InlineSpan>[
+              const TextSpan(
+                text:
+                    'You can copy this link and paste it into your browser:\n',
+              ),
+              TextSpan(
+                text: url.toString(),
+                style: const TextStyle(
+                  color: Colors.blue,
+                  // Makes the URL look like a clickable link
+                  decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () =>
+                      Clipboard.setData(ClipboardData(text: url.toString())),
+              ),
+            ],
+          ),
         ),
         action: SnackBarAction(
           label: 'Copy',
           onPressed: () =>
               Clipboard.setData(ClipboardData(text: url.toString())),
         ),
-        duration: const Duration(seconds: 8), // Longer duration for readability
+        // Extended duration for readability.
+        duration: const Duration(seconds: 10),
       ),
     );
   }
