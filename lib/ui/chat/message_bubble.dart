@@ -6,12 +6,10 @@ import 'package:models/models.dart';
 class MessageBubble extends StatelessWidget {
   const MessageBubble({
     required this.message,
-    required this.child,
     super.key,
   });
 
   final Message message;
-  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class MessageBubble extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: child,
+                  child: Text('${message.text}'),
                 ),
               ),
             ),

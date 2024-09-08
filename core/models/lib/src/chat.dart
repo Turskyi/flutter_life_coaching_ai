@@ -1,5 +1,4 @@
-import 'package:laozi_ai/entities/enums/language.dart';
-import 'package:laozi_ai/entities/message.dart';
+import 'package:models/models.dart';
 
 class Chat {
   const Chat({required this.messages, this.language = Language.en});

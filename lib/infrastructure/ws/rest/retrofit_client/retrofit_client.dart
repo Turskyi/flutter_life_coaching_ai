@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/prepare_verification_response/prepare_verification_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/sign_in_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_response/sign_up_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/verification_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/sign_out_response/sign_out_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/chat_request/chat_request.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/prepare_verification_response/prepare_verification_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_response/sign_up_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/verification_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/sign_out_response/sign_out_response.dart';
 import 'package:models/models.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -68,5 +69,30 @@ abstract class RetrofitClient implements RestClient {
     @Field('code') String code,
     // This value is always `email_code`.
     @Field('strategy') String strategy,
+  );
+
+  @POST('anonymous-chat-web-en')
+  Stream<String> sendEnglishWebChatMessage(@Body() ChatRequest chatRequest);
+
+  @POST('anonymous-chat-web-ua')
+  Stream<String> sendUkrainianWebChatMessage(@Body() ChatRequest chatRequest);
+
+  @POST('anonymous-chat-android-en')
+  Stream<String> sendEnglishAndroidChatMessage(@Body() ChatRequest chatRequest);
+
+  @POST('anonymous-chat-android-ua')
+  Stream<String> sendUkrainianAndroidChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
+
+  @POST('anonymous-chat-ios-en')
+  Stream<String> sendEnglishIosChatMessage(@Body() ChatRequest chatRequest);
+
+  @POST('anonymous-chat-ios-ua')
+  Stream<String> sendUkrainianIosChatMessage(@Body() ChatRequest chatRequest);
+
+  @POST('anonymous-chat')
+  Stream<String> sendChatMessageOnUnknownPlatform(
+    @Body() ChatRequest chatRequest,
   );
 }

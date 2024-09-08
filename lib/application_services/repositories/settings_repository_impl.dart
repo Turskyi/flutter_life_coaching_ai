@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:laozi_ai/domain_services/settings_repository.dart';
-import 'package:laozi_ai/entities/enums/language.dart';
-import 'package:laozi_ai/res/enums/settings.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
+import 'package:models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @Injectable(as: SettingsRepository)
@@ -14,7 +13,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Language getLanguage() {
     final String? savedLanguageIsoCode = _preferences.getString(
-      Settings.languageIsoCode.key,
+      StorageKeys.languageIsoCode.key,
     );
     if (savedLanguageIsoCode != null) {
       return Language.fromIsoLanguageCode(savedLanguageIsoCode);
@@ -27,5 +26,5 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
   @override
   Future<bool> saveLanguageIsoCode(String languageIsoCode) =>
-      _preferences.setString(Settings.languageIsoCode.key, languageIsoCode);
+      _preferences.setString(StorageKeys.languageIsoCode.key, languageIsoCode);
 }

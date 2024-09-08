@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:lifecoach/application_services/sign_up/bloc/sign_up_bloc.dart';
+import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart';
 
 /// The [SignUpContinueButton] widget is only enabled if the status of the form
 /// is valid and a [CircularProgressIndicator] is shown in its place while the

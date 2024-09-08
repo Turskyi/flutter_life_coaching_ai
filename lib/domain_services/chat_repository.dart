@@ -1,4 +1,4 @@
-import 'package:laozi_ai/entities/chat.dart';
+import 'package:models/models.dart';
 
 abstract interface class ChatRepository {
   const ChatRepository();

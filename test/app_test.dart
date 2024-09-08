@@ -1,7 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/application_services/authentication/authentication.dart';
+import 'package:lifecoach/application_services/blocs/authentication/authentication.dart';
 import 'package:lifecoach/di/injector.dart';
 import 'package:lifecoach/ui/app/app_view.dart';
 import 'package:mocktail/mocktail.dart';

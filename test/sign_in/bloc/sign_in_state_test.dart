@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
-import 'package:lifecoach/application_services/sign_in/sign_in.dart';
+import 'package:lifecoach/application_services/blocs/sign_in/sign_in.dart';
 import 'package:models/models.dart';
 
 void main() {

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_error_response/sign_up_error_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_error_response/sign_up_error_response.dart';
 
 class ApiException extends Equatable implements Exception {
   const ApiException({required this.errorCode, required this.response});

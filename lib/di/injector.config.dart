@@ -13,17 +13,25 @@ import 'package:authentication_repository/authentication_repository.dart'
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
-import 'package:lifecoach/application_services/authentication/bloc/authentication_bloc.dart'
-    as _i698;
-import 'package:lifecoach/application_services/sign_in/bloc/sign_in_bloc.dart'
-    as _i1032;
-import 'package:lifecoach/application_services/sign_up/bloc/sign_up_bloc.dart'
-    as _i85;
+import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart'
+    as _i73;
+import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart'
+    as _i489;
+import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart'
+    as _i270;
+import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart'
+    as _i829;
+import 'package:lifecoach/application_services/repositories/chat_repository_impl.dart'
+    as _i518;
+import 'package:lifecoach/application_services/repositories/settings_repository_impl.dart'
+    as _i767;
 import 'package:lifecoach/di/authentication_repository_module.dart' as _i413;
 import 'package:lifecoach/di/dio_http_client_module.dart' as _i1000;
 import 'package:lifecoach/di/preferences_module.dart' as _i78;
 import 'package:lifecoach/di/retrofit_http_client_module.dart' as _i696;
 import 'package:lifecoach/di/user_repository_module.dart' as _i960;
+import 'package:lifecoach/domain_services/chat_repository.dart' as _i737;
+import 'package:lifecoach/domain_services/settings_repository.dart' as _i912;
 import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_interceptor.dart'
     as _i284;
 import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart'
@@ -53,6 +61,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i284.LoggingInterceptor>(
         () => const _i284.LoggingInterceptor());
+    gh.factory<_i912.SettingsRepository>(
+        () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()));
     await gh.factoryAsync<_i361.Dio>(
       () =>
           dioHttpClientModule.getDioHttpClient(gh<_i284.LoggingInterceptor>()),
@@ -67,13 +77,19 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i1073.RetrofitClient>(),
               gh<_i460.SharedPreferences>(),
             ));
-    gh.factory<_i698.AuthenticationBloc>(() => _i698.AuthenticationBloc(
+    gh.factory<_i737.ChatRepository>(
+        () => _i518.ChatRepositoryImpl(gh<_i1073.RetrofitClient>()));
+    gh.factory<_i489.ChatBloc>(() => _i489.ChatBloc(
+          gh<_i737.ChatRepository>(),
+          gh<_i912.SettingsRepository>(),
+        ));
+    gh.factory<_i73.AuthenticationBloc>(() => _i73.AuthenticationBloc(
           authenticationRepository: gh<_i223.AuthenticationRepository>(),
           userRepository: gh<_i164.UserRepository>(),
         ));
-    gh.factory<_i1032.SignInBloc>(() => _i1032.SignInBloc(
+    gh.factory<_i270.SignInBloc>(() => _i270.SignInBloc(
         authenticationRepository: gh<_i223.AuthenticationRepository>()));
-    gh.factory<_i85.SignUpBloc>(() => _i85.SignUpBloc(
+    gh.factory<_i829.SignUpBloc>(() => _i829.SignUpBloc(
         authenticationRepository: gh<_i223.AuthenticationRepository>()));
     return this;
   }

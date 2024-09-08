@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:laozi_ai/entities/enums/language.dart';
+import 'package:models/models.dart';
 
 Future<LocalizationDelegate> getLocalizationDelegate() async {
   // Get the singleton instance of the `PlatformDispatcher`.

@@ -36,7 +36,11 @@ final class UpdateAiMessageEvent extends ChatEvent {
 
   @override
   String toString() {
-    return 'UpdateAiMessageEvent{pieceOfMessage: $pieceOfMessage}';
+    if (kDebugMode) {
+      return 'UpdateAiMessageEvent{pieceOfMessage: $pieceOfMessage}';
+    } else {
+      return super.toString();
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lifecoach/application_services/sign_in/bloc/sign_in_bloc.dart';
+import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
 

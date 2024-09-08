@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/api_exception.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/api_exception.dart';
 import 'package:models/models.dart';
 
 part 'sign_up_event.dart';

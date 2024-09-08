@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/sign_in_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/error_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
 
-import '../../error_response.dart';
 import 'meta_response.dart';
 
 part 'sign_in_error_response.g.dart';

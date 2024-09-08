@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/client_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/session_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/sign_in_success_response/user_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_form_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/client_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/session_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_success_response/user_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_form_response.dart';
 
 void main() {
   group('ClientResponse', () {

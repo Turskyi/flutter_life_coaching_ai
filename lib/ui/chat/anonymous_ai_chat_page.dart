@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
 import 'package:lifecoach/ui/chat/message_bubble.dart';
 import 'package:models/models.dart';
 
@@ -10,102 +12,149 @@ class AnonymousAiChatPage extends StatefulWidget {
 }
 
 class _AnonymousAiChatPageState extends State<AnonymousAiChatPage> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final List<Message> _messages = <Message>[];
-  bool _isLoading = false;
+
   final String _error = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(title: const Text('Anonymous AI Chat')),
-      body: Column(
-        children: <Widget>[
-          if (_messages.isNotEmpty)
-            Expanded(
-              child: ListView.builder(
-                controller: _scrollController,
-                itemCount: _messages.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final Message message = _messages[index];
-                  return MessageBubble(
-                    message: message,
-                    child: Text(message.text),
-                  );
-                },
-              ),
-            ),
-          if (_isLoading)
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: CircularProgressIndicator(),
-            ),
-          if (_error.isNotEmpty)
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                '😨 Something went wrong. Please try again.',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          if (_messages.isEmpty && _error.isEmpty)
-            Expanded(
-              child: Padding(
+      body: BlocBuilder<ChatBloc, ChatState>(
+        builder: (BuildContext context, ChatState state) {
+          final int itemCount = state is ChatError || state is SentMessageState
+              // Add extra space for the error message or thinking message.
+              ? state.messages.length + 1
+              : state.messages.length;
+          return Column(
+            children: <Widget>[
+              if (state.messages.isNotEmpty)
+                Expanded(
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: itemCount,
+                    itemBuilder: (_, int index) {
+                      // Check if the current item is the last one and the state
+                      // is `ChatError`.
+                      if (index == state.messages.length &&
+                          state is ChatError) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 15.0,
+                          ),
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.redAccent, // Improved contrast
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              state.errorMessage,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(
+                                Icons.refresh,
+                                color: Colors.white,
+                              ),
+                              onPressed: () => context
+                                  .read<ChatBloc>()
+                                  .add(const RetrySendMessageEvent()),
+                            ),
+                          ),
+                        );
+                      }
+                      // Handle the extra message for `SentMessageState`.
+                      if (index == state.messages.length &&
+                          state is SentMessageState) {
+                        return MessageBubble(
+                          message: Message(
+                            owner: MessageOwner.other,
+                            text: StringBuffer('🤔 Thinking...'),
+                          ),
+                        );
+                      }
+
+                      final Message message = state.messages[index];
+                      return MessageBubble(message: message);
+                    },
+                  ),
+                ),
+              if (state is SentMessageState)
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(),
+                ),
+              if (_error.isNotEmpty)
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '😨 Something went wrong. Please try again.',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              if (state.messages.isEmpty && _error.isEmpty)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Icon(Icons.chat_bubble_outline),
+                        const SizedBox(width: 8.0),
+                        Text(
+                          _randomEmptyStateMessage,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Icon(Icons.chat_bubble_outline),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      _randomEmptyStateMessage,
-                      style: const TextStyle(fontSize: 18),
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () => setState(state.messages.clear),
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: _textEditingController,
+                        decoration: InputDecoration(
+                          hintText: _randomPlaceholder,
+                          hintStyle: const TextStyle(color: Colors.grey),
+                        ),
+                        onSubmitted: (String value) => _sendMessage(),
+                      ),
+                    ),
+                    ValueListenableBuilder<TextEditingValue>(
+                      valueListenable: _textEditingController,
+                      child: const Icon(Icons.send),
+                      builder: (
+                        _,
+                        TextEditingValue value,
+                        Widget? iconWidget,
+                      ) {
+                        return IconButton(
+                          icon: iconWidget ?? const SizedBox(),
+                          onPressed:
+                              value.text.isNotEmpty ? _sendMessage : null,
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
-            ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    setState(() {
-                      _messages.clear();
-                    });
-                  },
-                ),
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      hintText: _randomPlaceholder,
-                      hintStyle: const TextStyle(color: Colors.grey),
-                    ),
-                    onSubmitted: (String value) => _sendMessage(),
-                  ),
-                ),
-                ValueListenableBuilder<TextEditingValue>(
-                  valueListenable: _controller,
-                  child: const Icon(Icons.send),
-                  builder: (
-                    _,
-                    TextEditingValue value,
-                    Widget? iconWidget,
-                  ) {
-                    return IconButton(
-                      icon: iconWidget ?? const SizedBox(),
-                      onPressed: value.text.isNotEmpty ? _sendMessage : null,
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }
@@ -149,32 +198,21 @@ class _AnonymousAiChatPageState extends State<AnonymousAiChatPage> {
       .toInt()];
 
   void _sendMessage() {
-    if (_controller.text.isEmpty) return;
+    if (_textEditingController.text.isEmpty) return;
+    context.read<ChatBloc>().add(SendMessageEvent(_textEditingController.text));
 
-    setState(() {
-      _messages
-          .add(Message(owner: MessageOwner.myself, text: _controller.text));
-      _isLoading = true;
-    });
+    _scrollToBottom();
 
-    // Simulate a network call
-    Future<void>.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _messages.add(
-          const Message(owner: MessageOwner.other, text: '🤔 Thinking...'),
-        );
-        _isLoading = false;
-      });
-      _scrollToBottom();
-    });
-    _controller.clear();
+    _textEditingController.clear();
   }
 
   void _scrollToBottom() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
   }
 }

@@ -3,12 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:laozi_ai/domain_services/chat_repository.dart';
-import 'package:laozi_ai/entities/chat.dart';
-import 'package:laozi_ai/entities/message.dart';
-import 'package:laozi_ai/infrastructure/web_services/models/chat_request/chat_request.dart';
-import 'package:laozi_ai/infrastructure/web_services/models/chat_request/message_request.dart';
-import 'package:laozi_ai/infrastructure/web_services/rest/retrofit_client/retrofit_client.dart';
+import 'package:lifecoach/domain_services/chat_repository.dart';
+import 'package:lifecoach/infrastructure/ws/models/chat_request/chat_request.dart';
+import 'package:lifecoach/infrastructure/ws/models/chat_request/message_request.dart';
+import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart';
+import 'package:models/models.dart';
 
 @Injectable(as: ChatRepository)
 class ChatRepositoryImpl implements ChatRepository {
@@ -22,8 +21,8 @@ class ChatRepositoryImpl implements ChatRepository {
       messages: chat.messages
           .map(
             (Message message) => MessageRequest(
-              role: message.role.name,
-              content: '${message.content}',
+              role: message.owner.role,
+              content: '${message.text}',
             ),
           )
           .toList(),

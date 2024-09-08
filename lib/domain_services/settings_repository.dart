@@ -1,4 +1,4 @@
-import 'package:laozi_ai/entities/enums/language.dart';
+import 'package:models/models.dart';
 
 abstract interface class SettingsRepository {
   const SettingsRepository();

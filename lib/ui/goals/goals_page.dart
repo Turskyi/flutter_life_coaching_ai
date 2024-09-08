@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lifecoach/application_services/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/ui/goals/goal_widget.dart';
 import 'package:models/models.dart';
 

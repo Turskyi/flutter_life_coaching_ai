@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lifecoach/application_services/sign_up/bloc/sign_up_bloc.dart';
+import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart';
 
 class CodeInput extends StatefulWidget {
   const CodeInput({super.key});

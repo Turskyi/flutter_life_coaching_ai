@@ -1,18 +1,29 @@
-import 'package:laozi_ai/entities/enums/feedback_rating.dart';
-import 'package:laozi_ai/entities/enums/feedback_type.dart';
+import 'package:models/src/enums/feedback_rating.dart';
+import 'package:models/src/enums/feedback_type.dart';
 
 /// A data type holding user feedback consisting of a feedback type, free from
 /// feedback text, and a sentiment rating.
 class FeedbackDetails {
-  FeedbackDetails({
+  const FeedbackDetails({
     this.feedbackType,
     this.feedbackText,
     this.rating,
   });
 
-  FeedbackType? feedbackType;
-  String? feedbackText;
-  FeedbackRating? rating;
+  final FeedbackType? feedbackType;
+  final String? feedbackText;
+  final FeedbackRating? rating;
+
+  FeedbackDetails copyWith({
+    FeedbackType? feedbackType,
+    String? feedbackText,
+    FeedbackRating? rating,
+  }) =>
+      FeedbackDetails(
+        feedbackType: feedbackType ?? this.feedbackType,
+        feedbackText: feedbackText ?? this.feedbackText,
+        rating: rating ?? this.rating,
+      );
 
   @override
   String toString() {

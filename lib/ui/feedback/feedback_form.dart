@@ -1,9 +1,7 @@
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:laozi_ai/entities/enums/feedback_rating.dart';
-import 'package:laozi_ai/entities/enums/feedback_type.dart';
-import 'package:laozi_ai/entities/feedback_details.dart';
+import 'package:models/models.dart';
 
 /// A form that prompts the user for the type of feedback they want to give,
 /// free form text feedback, and a sentiment rating.
@@ -24,7 +22,7 @@ class FeedbackForm extends StatefulWidget {
 }
 
 class _CustomFeedbackFormState extends State<FeedbackForm> {
-  final FeedbackDetails _customFeedback = FeedbackDetails();
+  FeedbackDetails _customFeedback = const FeedbackDetails();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +64,9 @@ class _CustomFeedbackFormState extends State<FeedbackForm> {
                               )
                               .toList(),
                           onChanged: (FeedbackType? feedbackType) => setState(
-                            () => _customFeedback.feedbackType = feedbackType,
+                            () => _customFeedback = _customFeedback.copyWith(
+                              feedbackType: feedbackType,
+                            ),
                           ),
                         ),
                       ),
@@ -75,8 +75,8 @@ class _CustomFeedbackFormState extends State<FeedbackForm> {
                   const SizedBox(height: 16),
                   Text(translate('feedback.whatIsYourFeedback')),
                   TextField(
-                    onChanged: (String newFeedback) =>
-                        _customFeedback.feedbackText = newFeedback,
+                    onChanged: (String newFeedback) => _customFeedback =
+                        _customFeedback.copyWith(feedbackText: newFeedback),
                   ),
                   const SizedBox(height: 16),
                   Text(translate('feedback.howDoesThisFeel')),
@@ -120,7 +120,9 @@ class _CustomFeedbackFormState extends State<FeedbackForm> {
     }
     return IconButton(
       color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.grey,
-      onPressed: () => setState(() => _customFeedback.rating = rating),
+      onPressed: () => setState(
+        () => _customFeedback = _customFeedback.copyWith(rating: rating),
+      ),
       icon: Icon(icon),
       iconSize: 36,
     );

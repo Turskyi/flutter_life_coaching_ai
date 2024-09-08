@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_form_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_form_response.dart';
 
 import 'sign_in_response/session_response.dart';
 

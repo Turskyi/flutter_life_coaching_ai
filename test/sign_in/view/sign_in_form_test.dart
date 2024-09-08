@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
-import 'package:lifecoach/application_services/sign_in/sign_in.dart';
+import 'package:lifecoach/application_services/blocs/sign_in/sign_in.dart';
 import 'package:lifecoach/ui/sign_in/sign_in_form.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:lifecoach/application_services/sign_in/bloc/sign_in_bloc.dart';
+import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart';
 import 'package:lifecoach/ui/sign_in/continue_button.dart';
 import 'package:lifecoach/ui/sign_in/email_input.dart';
 import 'package:lifecoach/ui/sign_in/password_input.dart';

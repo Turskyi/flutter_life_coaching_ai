@@ -5,15 +5,17 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i8;
 
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/prepare_verification_response/prepare_verification_response.dart'
+import 'package:lifecoach/infrastructure/ws/models/chat_request/chat_request.dart'
+    as _i9;
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/prepare_verification_response/prepare_verification_response.dart'
     as _i5;
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_in_response/sign_in_response.dart'
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart'
     as _i2;
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/sign_up_response/sign_up_response.dart'
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_response/sign_up_response.dart'
     as _i4;
-import 'package:lifecoach/infrastructure/ws/models/authentication_response/verification_response.dart'
+import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/verification_response.dart'
     as _i6;
-import 'package:lifecoach/infrastructure/ws/models/sign_out_response/sign_out_response.dart'
+import 'package:lifecoach/infrastructure/ws/models/responses/sign_out_response/sign_out_response.dart'
     as _i3;
 import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart'
     as _i7;
@@ -218,4 +220,79 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
           ),
         )),
       ) as _i8.Future<_i6.VerificationResponse>);
+
+  @override
+  _i8.Stream<String> sendEnglishWebChatMessage(_i9.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendEnglishWebChatMessage,
+          [chatRequest],
+        ),
+        returnValue: _i8.Stream<String>.empty(),
+      ) as _i8.Stream<String>);
+
+  @override
+  _i8.Stream<String> sendUkrainianWebChatMessage(
+          _i9.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendUkrainianWebChatMessage,
+          [chatRequest],
+        ),
+        returnValue: _i8.Stream<String>.empty(),
+      ) as _i8.Stream<String>);
+
+  @override
+  _i8.Stream<String> sendEnglishAndroidChatMessage(
+          _i9.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendEnglishAndroidChatMessage,
+          [chatRequest],
+        ),
+        returnValue: _i8.Stream<String>.empty(),
+      ) as _i8.Stream<String>);
+
+  @override
+  _i8.Stream<String> sendUkrainianAndroidChatMessage(
+          _i9.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendUkrainianAndroidChatMessage,
+          [chatRequest],
+        ),
+        returnValue: _i8.Stream<String>.empty(),
+      ) as _i8.Stream<String>);
+
+  @override
+  _i8.Stream<String> sendEnglishIosChatMessage(_i9.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendEnglishIosChatMessage,
+          [chatRequest],
+        ),
+        returnValue: _i8.Stream<String>.empty(),
+      ) as _i8.Stream<String>);
+
+  @override
+  _i8.Stream<String> sendUkrainianIosChatMessage(
+          _i9.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendUkrainianIosChatMessage,
+          [chatRequest],
+        ),
+        returnValue: _i8.Stream<String>.empty(),
+      ) as _i8.Stream<String>);
+
+  @override
+  _i8.Stream<String> sendChatMessageOnUnknownPlatform(
+          _i9.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendChatMessageOnUnknownPlatform,
+          [chatRequest],
+        ),
+        returnValue: _i8.Stream<String>.empty(),
+      ) as _i8.Stream<String>);
 }

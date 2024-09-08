@@ -2,7 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
-import 'package:lifecoach/application_services/sign_in/sign_in.dart';
+import 'package:lifecoach/application_services/blocs/sign_in/sign_in.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
 
