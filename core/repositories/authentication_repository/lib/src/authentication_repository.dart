@@ -43,6 +43,8 @@ class AuthenticationRepository {
     required String email,
     required String password,
   }) async {
+    await _restClient.signEmail(email);
+
     final LoginResponse loginResponse = await _restClient.signIn(
       email,
       password,

@@ -3,6 +3,8 @@ import 'package:models/models.dart';
 abstract interface class RestClient {
   const RestClient();
 
+  Future<LoginResponse> signEmail(String identifier);
+
   Future<LoginResponse> signIn(
     String identifier,
     String password,

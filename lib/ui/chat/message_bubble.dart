@@ -14,7 +14,7 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Alignment messageAlignment =
-        message.isMine ? Alignment.topLeft : Alignment.topRight;
+        message.isMine ? Alignment.topRight : Alignment.topLeft;
 
     return FractionallySizedBox(
       alignment: messageAlignment,

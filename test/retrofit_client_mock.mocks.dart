@@ -98,6 +98,22 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
   }
 
   @override
+  _i8.Future<_i2.SignInResponse> signEmail(String? identifier) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signEmail,
+          [identifier],
+        ),
+        returnValue: _i8.Future<_i2.SignInResponse>.value(_FakeSignInResponse_0(
+          this,
+          Invocation.method(
+            #signEmail,
+            [identifier],
+          ),
+        )),
+      ) as _i8.Future<_i2.SignInResponse>);
+
+  @override
   _i8.Future<_i2.SignInResponse> signIn(
     String? identifier,
     String? password,

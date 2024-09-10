@@ -3,8 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart';
 import 'package:models/models.dart';
 
-class PasswordInput extends StatelessWidget {
+class PasswordInput extends StatefulWidget {
   const PasswordInput({super.key});
+
+  @override
+  State<PasswordInput> createState() => _PasswordInputState();
+}
+
+class _PasswordInputState extends State<PasswordInput> {
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +24,19 @@ class PasswordInput extends StatelessWidget {
       keyboardType: TextInputType.visiblePassword,
       onChanged: (String password) =>
           context.read<SignInBloc>().add(SignInPasswordChanged(password)),
-      obscureText: true,
+      obscureText: _obscureText,
       decoration: InputDecoration(
         labelText: 'Password',
         errorText: displayError != null ? 'invalid password' : null,
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: _toggleVisibility,
+        ),
       ),
     );
   }
+
+  void _toggleVisibility() => setState(() => _obscureText = !_obscureText);
 }

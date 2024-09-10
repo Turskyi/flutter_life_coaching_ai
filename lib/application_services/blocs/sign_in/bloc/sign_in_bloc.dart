@@ -38,8 +38,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   ) {
     final EmailAddress email = EmailAddress.dirty(event.email);
     emit(
-      state.copyWith(
+      SignInState(
         email: email,
+        password: state.password,
         isValid: Formz.validate(<FormzInput<String, ValidationError>>[
           state.password,
           email,
@@ -53,8 +54,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     Emitter<SignInState> emit,
   ) {
     final Password password = Password.dirty(event.password);
+
     emit(
-      state.copyWith(
+      SignInState(
+        email: state.email,
         password: password,
         isValid: Formz.validate(
           <FormzInput<String, ValidationError>>[password, state.email],

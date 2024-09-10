@@ -15,7 +15,7 @@ class _AnonymousAiChatPageState extends State<AnonymousAiChatPage> {
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
-  final String _error = '';
+  String _error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,11 @@ class _AnonymousAiChatPageState extends State<AnonymousAiChatPage> {
               // Add extra space for the error message or thinking message.
               ? state.messages.length + 1
               : state.messages.length;
+          if (state is ChatError) {
+            _error = state.errorMessage;
+          } else {
+            _error = '';
+          }
           return Column(
             children: <Widget>[
               if (state.messages.isNotEmpty)

@@ -16,7 +16,13 @@ abstract class RetrofitClient implements RestClient {
   factory RetrofitClient(Dio dio, {String baseUrl}) = _RetrofitClient;
 
   @override
+  @POST('https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.20.0')
+  @FormUrlEncoded()
+  Future<SignInResponse> signEmail(@Field('identifier') String identifier);
+
+  @override
   @POST('https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.14.0')
+  @FormUrlEncoded()
   Future<SignInResponse> signIn(
     @Field('identifier') String identifier,
     @Field('password') String password,
@@ -32,6 +38,7 @@ abstract class RetrofitClient implements RestClient {
   @Deprecated('There is no replacement at this moment.')
   @override
   @POST('https://clerk.turskyi.com/v1/client/sign_ups?_clerk_js_version=5.17.0')
+  @FormUrlEncoded()
   Future<SignUpResponse> signUp(
     @Field('email_address') String emailAddress,
     @Field('password') String password,
@@ -49,6 +56,7 @@ abstract class RetrofitClient implements RestClient {
     'https://clerk.turskyi.com/v1/client/sign_ups/{id}/prepare_verification?'
     '_clerk_js_version=5.17.0',
   )
+  @FormUrlEncoded()
   Future<PrepareVerificationResponse> prepare(
     @Path() String id,
     // This value is always `email_code`.
@@ -64,6 +72,7 @@ abstract class RetrofitClient implements RestClient {
     'https://clerk.turskyi.com/v1/client/sign_ups/{id}/attempt_verification?'
     '_clerk_js_version=5.15.0',
   )
+  @FormUrlEncoded()
   Future<VerificationResponse> verify(
     @Path() String id,
     @Field('code') String code,
