@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i8;
+import 'dart:async' as _i9;
 
 import 'package:lifecoach/infrastructure/ws/models/chat_request/chat_request.dart'
-    as _i9;
+    as _i10;
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/prepare_verification_response/prepare_verification_response.dart'
     as _i5;
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart'
@@ -15,10 +15,12 @@ import 'package:lifecoach/infrastructure/ws/models/responses/authentication_resp
     as _i4;
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/verification_response.dart'
     as _i6;
+import 'package:lifecoach/infrastructure/ws/models/responses/goals_response/goals_response.dart'
+    as _i7;
 import 'package:lifecoach/infrastructure/ws/models/responses/sign_out_response/sign_out_response.dart'
     as _i3;
 import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart'
-    as _i7;
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -89,32 +91,42 @@ class _FakeVerificationResponse_4 extends _i1.SmartFake
         );
 }
 
+class _FakeGoalsResponse_5 extends _i1.SmartFake implements _i7.GoalsResponse {
+  _FakeGoalsResponse_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [RetrofitClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
+class MockRetrofitClient extends _i1.Mock implements _i8.RetrofitClient {
   MockRetrofitClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i8.Future<_i2.SignInResponse> signEmail(String? identifier) =>
+  _i9.Future<_i2.SignInResponse> signEmail(String? identifier) =>
       (super.noSuchMethod(
         Invocation.method(
           #signEmail,
           [identifier],
         ),
-        returnValue: _i8.Future<_i2.SignInResponse>.value(_FakeSignInResponse_0(
+        returnValue: _i9.Future<_i2.SignInResponse>.value(_FakeSignInResponse_0(
           this,
           Invocation.method(
             #signEmail,
             [identifier],
           ),
         )),
-      ) as _i8.Future<_i2.SignInResponse>);
+      ) as _i9.Future<_i2.SignInResponse>);
 
   @override
-  _i8.Future<_i2.SignInResponse> signIn(
+  _i9.Future<_i2.SignInResponse> signIn(
     String? identifier,
     String? password,
     String? strategy,
@@ -128,7 +140,7 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             strategy,
           ],
         ),
-        returnValue: _i8.Future<_i2.SignInResponse>.value(_FakeSignInResponse_0(
+        returnValue: _i9.Future<_i2.SignInResponse>.value(_FakeSignInResponse_0(
           this,
           Invocation.method(
             #signIn,
@@ -139,26 +151,26 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             ],
           ),
         )),
-      ) as _i8.Future<_i2.SignInResponse>);
+      ) as _i9.Future<_i2.SignInResponse>);
 
   @override
-  _i8.Future<_i3.SignOutResponse> signOut() => (super.noSuchMethod(
+  _i9.Future<_i3.SignOutResponse> signOut() => (super.noSuchMethod(
         Invocation.method(
           #signOut,
           [],
         ),
         returnValue:
-            _i8.Future<_i3.SignOutResponse>.value(_FakeSignOutResponse_1(
+            _i9.Future<_i3.SignOutResponse>.value(_FakeSignOutResponse_1(
           this,
           Invocation.method(
             #signOut,
             [],
           ),
         )),
-      ) as _i8.Future<_i3.SignOutResponse>);
+      ) as _i9.Future<_i3.SignOutResponse>);
 
   @override
-  _i8.Future<_i4.SignUpResponse> signUp(
+  _i9.Future<_i4.SignUpResponse> signUp(
     String? emailAddress,
     String? password,
   ) =>
@@ -170,7 +182,7 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             password,
           ],
         ),
-        returnValue: _i8.Future<_i4.SignUpResponse>.value(_FakeSignUpResponse_2(
+        returnValue: _i9.Future<_i4.SignUpResponse>.value(_FakeSignUpResponse_2(
           this,
           Invocation.method(
             #signUp,
@@ -180,10 +192,10 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             ],
           ),
         )),
-      ) as _i8.Future<_i4.SignUpResponse>);
+      ) as _i9.Future<_i4.SignUpResponse>);
 
   @override
-  _i8.Future<_i5.PrepareVerificationResponse> prepare(
+  _i9.Future<_i5.PrepareVerificationResponse> prepare(
     String? id,
     String? strategy,
   ) =>
@@ -195,7 +207,7 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             strategy,
           ],
         ),
-        returnValue: _i8.Future<_i5.PrepareVerificationResponse>.value(
+        returnValue: _i9.Future<_i5.PrepareVerificationResponse>.value(
             _FakePrepareVerificationResponse_3(
           this,
           Invocation.method(
@@ -206,10 +218,10 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             ],
           ),
         )),
-      ) as _i8.Future<_i5.PrepareVerificationResponse>);
+      ) as _i9.Future<_i5.PrepareVerificationResponse>);
 
   @override
-  _i8.Future<_i6.VerificationResponse> verify(
+  _i9.Future<_i6.VerificationResponse> verify(
     String? id,
     String? code,
     String? strategy,
@@ -223,7 +235,7 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             strategy,
           ],
         ),
-        returnValue: _i8.Future<_i6.VerificationResponse>.value(
+        returnValue: _i9.Future<_i6.VerificationResponse>.value(
             _FakeVerificationResponse_4(
           this,
           Invocation.method(
@@ -235,80 +247,105 @@ class MockRetrofitClient extends _i1.Mock implements _i7.RetrofitClient {
             ],
           ),
         )),
-      ) as _i8.Future<_i6.VerificationResponse>);
+      ) as _i9.Future<_i6.VerificationResponse>);
 
   @override
-  _i8.Stream<String> sendEnglishWebChatMessage(_i9.ChatRequest? chatRequest) =>
+  _i9.Stream<String> sendEnglishWebChatMessage(_i10.ChatRequest? chatRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendEnglishWebChatMessage,
           [chatRequest],
         ),
-        returnValue: _i8.Stream<String>.empty(),
-      ) as _i8.Stream<String>);
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
 
   @override
-  _i8.Stream<String> sendUkrainianWebChatMessage(
-          _i9.ChatRequest? chatRequest) =>
+  _i9.Stream<String> sendUkrainianWebChatMessage(
+          _i10.ChatRequest? chatRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendUkrainianWebChatMessage,
           [chatRequest],
         ),
-        returnValue: _i8.Stream<String>.empty(),
-      ) as _i8.Stream<String>);
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
 
   @override
-  _i8.Stream<String> sendEnglishAndroidChatMessage(
-          _i9.ChatRequest? chatRequest) =>
+  _i9.Stream<String> sendEnglishAndroidChatMessage(
+          _i10.ChatRequest? chatRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendEnglishAndroidChatMessage,
           [chatRequest],
         ),
-        returnValue: _i8.Stream<String>.empty(),
-      ) as _i8.Stream<String>);
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
 
   @override
-  _i8.Stream<String> sendUkrainianAndroidChatMessage(
-          _i9.ChatRequest? chatRequest) =>
+  _i9.Stream<String> sendUkrainianAndroidChatMessage(
+          _i10.ChatRequest? chatRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendUkrainianAndroidChatMessage,
           [chatRequest],
         ),
-        returnValue: _i8.Stream<String>.empty(),
-      ) as _i8.Stream<String>);
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
 
   @override
-  _i8.Stream<String> sendEnglishIosChatMessage(_i9.ChatRequest? chatRequest) =>
+  _i9.Stream<String> sendEnglishIosChatMessage(_i10.ChatRequest? chatRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendEnglishIosChatMessage,
           [chatRequest],
         ),
-        returnValue: _i8.Stream<String>.empty(),
-      ) as _i8.Stream<String>);
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
 
   @override
-  _i8.Stream<String> sendUkrainianIosChatMessage(
-          _i9.ChatRequest? chatRequest) =>
+  _i9.Stream<String> sendUkrainianIosChatMessage(
+          _i10.ChatRequest? chatRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendUkrainianIosChatMessage,
           [chatRequest],
         ),
-        returnValue: _i8.Stream<String>.empty(),
-      ) as _i8.Stream<String>);
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
 
   @override
-  _i8.Stream<String> sendChatMessageOnUnknownPlatform(
-          _i9.ChatRequest? chatRequest) =>
+  _i9.Stream<String> sendChatMessageOnUnknownPlatform(
+          _i10.ChatRequest? chatRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendChatMessageOnUnknownPlatform,
           [chatRequest],
         ),
-        returnValue: _i8.Stream<String>.empty(),
-      ) as _i8.Stream<String>);
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
+
+  @override
+  _i9.Future<_i7.GoalsResponse> getGoals(
+    String? userId,
+    int? page,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getGoals,
+          [
+            userId,
+            page,
+          ],
+        ),
+        returnValue: _i9.Future<_i7.GoalsResponse>.value(_FakeGoalsResponse_5(
+          this,
+          Invocation.method(
+            #getGoals,
+            [
+              userId,
+              page,
+            ],
+          ),
+        )),
+      ) as _i9.Future<_i7.GoalsResponse>);
 }

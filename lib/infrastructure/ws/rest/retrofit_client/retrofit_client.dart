@@ -4,6 +4,7 @@ import 'package:lifecoach/infrastructure/ws/models/responses/authentication_resp
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_response/sign_up_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/verification_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/goals_response/goals_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/sign_out_response/sign_out_response.dart';
 import 'package:models/models.dart';
 import 'package:retrofit/retrofit.dart';
@@ -103,5 +104,11 @@ abstract class RetrofitClient implements RestClient {
   @POST('anonymous-chat')
   Stream<String> sendChatMessageOnUnknownPlatform(
     @Body() ChatRequest chatRequest,
+  );
+
+  @GET('goals')
+  Future<GoalsResponse> getGoals(
+    @Query('userId') String userId,
+    @Query('page') int? page,
   );
 }
