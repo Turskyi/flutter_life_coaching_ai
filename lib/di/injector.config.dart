@@ -17,12 +17,16 @@ import 'package:lifecoach/application_services/blocs/authentication/bloc/authent
     as _i73;
 import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart'
     as _i489;
+import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart'
+    as _i989;
 import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart'
     as _i270;
 import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart'
     as _i829;
 import 'package:lifecoach/application_services/repositories/chat_repository_impl.dart'
     as _i518;
+import 'package:lifecoach/application_services/repositories/goals_repository_impl.dart'
+    as _i500;
 import 'package:lifecoach/application_services/repositories/settings_repository_impl.dart'
     as _i767;
 import 'package:lifecoach/di/authentication_repository_module.dart' as _i413;
@@ -31,6 +35,7 @@ import 'package:lifecoach/di/preferences_module.dart' as _i78;
 import 'package:lifecoach/di/retrofit_http_client_module.dart' as _i696;
 import 'package:lifecoach/di/user_repository_module.dart' as _i960;
 import 'package:lifecoach/domain_services/chat_repository.dart' as _i737;
+import 'package:lifecoach/domain_services/goals_repository.dart' as _i109;
 import 'package:lifecoach/domain_services/settings_repository.dart' as _i912;
 import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_interceptor.dart'
     as _i284;
@@ -77,6 +82,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i1073.RetrofitClient>(),
               gh<_i460.SharedPreferences>(),
             ));
+    gh.factory<_i109.GoalsRepository>(
+        () => _i500.GoalsRepositoryImpl(gh<_i1073.RetrofitClient>()));
     gh.factory<_i737.ChatRepository>(
         () => _i518.ChatRepositoryImpl(gh<_i1073.RetrofitClient>()));
     gh.factory<_i489.ChatBloc>(() => _i489.ChatBloc(
@@ -91,6 +98,10 @@ extension GetItInjectableX on _i174.GetIt {
         authenticationRepository: gh<_i223.AuthenticationRepository>()));
     gh.factory<_i829.SignUpBloc>(() => _i829.SignUpBloc(
         authenticationRepository: gh<_i223.AuthenticationRepository>()));
+    gh.factory<_i989.GoalsBloc>(() => _i989.GoalsBloc(
+          gh<_i109.GoalsRepository>(),
+          gh<_i73.AuthenticationBloc>(),
+        ));
     return this;
   }
 }

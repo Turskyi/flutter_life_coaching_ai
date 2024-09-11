@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'goal.dart';
+import 'goal_response.dart';
 
 part 'goals_response.g.dart';
 
@@ -14,7 +14,8 @@ class GoalsResponse {
     return _$GoalsResponseFromJson(json);
   }
 
-  final List<Goal> goals;
+  @JsonKey(name: 'goals')
+  final List<GoalResponse> goals;
 
   @override
   String toString() {
@@ -28,7 +29,7 @@ class GoalsResponse {
   Map<String, dynamic> toJson() => _$GoalsResponseToJson(this);
 
   GoalsResponse copyWith({
-    List<Goal>? goals,
+    List<GoalResponse>? goals,
   }) {
     return GoalsResponse(
       goals: goals ?? this.goals,

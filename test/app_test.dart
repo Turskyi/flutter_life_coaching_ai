@@ -31,16 +31,18 @@ void main() {
   });
 
   testWidgets('App initializes correctly', (WidgetTester tester) async {
+    final AuthenticationBloc authenticationBloc = AuthenticationBloc(
+      authenticationRepository: authenticationRepository,
+      userRepository: userRepository,
+    );
     await tester.pumpWidget(
       RepositoryProvider<AuthenticationRepository>.value(
         value: authenticationRepository,
         child: BlocProvider<AuthenticationBloc>(
           lazy: false,
-          create: (_) => AuthenticationBloc(
-            authenticationRepository: authenticationRepository,
-            userRepository: userRepository,
-          )..add(const AuthenticationSubscriptionRequested()),
-          child: const AppView(),
+          create: (_) => authenticationBloc
+            ..add(const AuthenticationSubscriptionRequested()),
+          child: AppView(authenticationBloc: authenticationBloc),
         ),
       ),
     );

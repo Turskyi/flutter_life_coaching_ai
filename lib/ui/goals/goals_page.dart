@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
+import 'package:lifecoach/domain_services/goals_repository.dart';
 import 'package:lifecoach/ui/goals/goal_widget.dart';
 import 'package:models/models.dart';
 
@@ -14,15 +17,19 @@ import 'package:models/models.dart';
 class GoalsPage extends StatelessWidget {
   const GoalsPage({super.key});
 
-  static Route<void> route() =>
-      MaterialPageRoute<void>(builder: (_) => const GoalsPage());
+  static Route<void> route(AuthenticationBloc authenticationBloc) =>
+      MaterialPageRoute<void>(
+        builder: (_) => BlocProvider<GoalsBloc>(
+          create: (_) => GoalsBloc(
+            GetIt.I.get<GoalsRepository>(),
+            authenticationBloc,
+          )..add(const LoadGoals()),
+          child: const GoalsPage(),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Use userId to get user's goals.
-    // final String userId = context.select(
-    //   (AuthenticationBloc bloc) => bloc.state.user.id,
-    // );
     return Scaffold(
       appBar: AppBar(title: const Text('Goals')),
       drawer: Drawer(
@@ -44,30 +51,27 @@ class GoalsPage extends StatelessWidget {
           ],
         ),
       ),
-      body: FutureBuilder<List<Goal>>(
-        //TODO: Replace with future: DBService().getGoals(userId),
-        future: Future<List<Goal>>.value(<Goal>[
-          Goal(
-            id: 'testId',
-            title: 'test title',
-            content: 'test description',
-            createdAt: DateTime.now().subtract(const Duration(hours: 1)),
-            updatedAt: DateTime.now().subtract(const Duration(minutes: 1)),
-          ),
-        ]),
-        builder: (BuildContext context, AsyncSnapshot<List<Goal>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+      body: BlocConsumer<GoalsBloc, GoalsState>(
+        listener: (BuildContext context, GoalsState state) {
+          if (state is GoalsError) {
+            context
+                .read<AuthenticationBloc>()
+                .add(const AuthenticationSignOutPressed());
+          }
+        },
+        builder: (BuildContext context, GoalsState state) {
+          if (state is GoalsInitial) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          } else if (state is GoalsError) {
+            return Center(child: Text('Error: ${state.error}'));
+          } else if (state.goals.isEmpty) {
             return const Center(
               child: Text(
                 "You don't have any goals yet. Why don't you create one?",
               ),
             );
           } else {
-            final List<Goal> allGoals = snapshot.data!;
+            final List<Goal> allGoals = state.goals;
             return GridView.builder(
               padding: const EdgeInsets.all(16.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -76,7 +80,7 @@ class GoalsPage extends StatelessWidget {
                 mainAxisSpacing: 16.0,
               ),
               itemCount: allGoals.length,
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (_, int index) {
                 final Goal goal = allGoals[index];
                 return GoalWidget(goal: goal);
               },

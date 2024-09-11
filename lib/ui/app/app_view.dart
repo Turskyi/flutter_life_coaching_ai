@@ -20,7 +20,9 @@ import 'package:lifecoach/ui/splash_page.dart';
 /// sign out.
 @immutable
 class AppView extends StatefulWidget {
-  const AppView({super.key});
+  const AppView({required this.authenticationBloc, super.key});
+
+  final AuthenticationBloc authenticationBloc;
 
   @override
   State<AppView> createState() => _AppViewState();
@@ -51,7 +53,7 @@ class _AppViewState extends State<AppView> {
                 );
               case AuthenticatedStatus():
                 _navigator.pushAndRemoveUntil<void>(
-                  GoalsPage.route(),
+                  GoalsPage.route(widget.authenticationBloc),
                   (Route<void> route) => false,
                 );
               case UnauthenticatedStatus():

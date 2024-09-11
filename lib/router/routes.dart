@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
+import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/chat/anonymous_ai_chat_page.dart';
 import 'package:lifecoach/ui/goals/goals_page.dart';
@@ -39,7 +40,10 @@ Map<String, WidgetBuilder> routeMap = <String, WidgetBuilder>{
           child: const AnonymousAiChatPage(),
         ),
       ),
-  AppRoute.goals.path: (_) => const GoalsPage(),
+  AppRoute.goals.path: (_) => BlocProvider<GoalsBloc>(
+        create: (_) => GetIt.I.get<GoalsBloc>()..add(const LoadGoals()),
+        child: const GoalsPage(),
+      ),
   AppRoute.signIn.path: (_) => const SignInPage(),
   AppRoute.signUp.path: (_) => const SignUpPage(),
   AppRoute.code.path: (_) => const CodePage(),

@@ -2,11 +2,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'goal.g.dart';
+part 'goal_response.g.dart';
 
 @JsonSerializable()
-class Goal {
-  const Goal({
+class GoalResponse {
+  const GoalResponse({
     required this.id,
     required this.title,
     required this.content,
@@ -15,7 +15,8 @@ class Goal {
     required this.updatedAt,
   });
 
-  factory Goal.fromJson(Map<String, dynamic> json) => _$GoalFromJson(json);
+  factory GoalResponse.fromJson(Map<String, dynamic> json) =>
+      _$GoalResponseFromJson(json);
 
   final String id;
   final String title;
@@ -27,7 +28,7 @@ class Goal {
   @override
   String toString() {
     if (kDebugMode) {
-      return 'Goal('
+      return 'GoalResponse('
           'id: $id, '
           'title: $title, '
           'content: $content, '
@@ -39,9 +40,9 @@ class Goal {
     }
   }
 
-  Map<String, dynamic> toJson() => _$GoalToJson(this);
+  Map<String, dynamic> toJson() => _$GoalResponseToJson(this);
 
-  Goal copyWith({
+  GoalResponse copyWith({
     String? id,
     String? title,
     String? content,
@@ -49,7 +50,7 @@ class Goal {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
-      Goal(
+      GoalResponse(
         id: id ?? this.id,
         title: title ?? this.title,
         content: content ?? this.content,
@@ -61,7 +62,7 @@ class Goal {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Goal) return false;
+    if (other is! GoalResponse) return false;
     final bool Function(Object? e1, Object? e2) mapEquals =
         const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());

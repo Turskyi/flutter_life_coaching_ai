@@ -46,7 +46,7 @@ class _AppState extends State<App> {
         lazy: false,
         create: (_) => widget.authenticationBloc
           ..add(const AuthenticationSubscriptionRequested()),
-        child: const AppView(),
+        child: AppView(authenticationBloc: widget.authenticationBloc),
       ),
     );
   }

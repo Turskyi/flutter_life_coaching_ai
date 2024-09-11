@@ -10,5 +10,5 @@ class User extends Equatable {
   @override
   List<Object> get props => <Object>[id];
 
-  static const User empty = User('-');
+  static const User empty = User('');
 }

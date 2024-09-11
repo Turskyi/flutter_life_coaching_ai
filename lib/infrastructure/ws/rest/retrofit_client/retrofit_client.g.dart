@@ -508,7 +508,7 @@ class _RetrofitClient implements RetrofitClient {
     )
         .compose(
           _dio.options,
-          'goals}',
+          'goals',
           queryParameters: queryParameters,
           data: _data,
         )

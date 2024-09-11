@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'goal.dart';
+part of 'goal_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Goal _$GoalFromJson(Map<String, dynamic> json) => Goal(
+GoalResponse _$GoalResponseFromJson(Map<String, dynamic> json) => GoalResponse(
       id: json['id'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
@@ -15,7 +15,8 @@ Goal _$GoalFromJson(Map<String, dynamic> json) => Goal(
       updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$GoalToJson(Goal instance) => <String, dynamic>{
+Map<String, dynamic> _$GoalResponseToJson(GoalResponse instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'content': instance.content,

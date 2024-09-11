@@ -9,7 +9,7 @@ part of 'goals_response.dart';
 GoalsResponse _$GoalsResponseFromJson(Map<String, dynamic> json) =>
     GoalsResponse(
       goals: (json['goals'] as List<dynamic>)
-          .map((e) => Goal.fromJson(e as Map<String, dynamic>))
+          .map((e) => GoalResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
