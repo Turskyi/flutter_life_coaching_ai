@@ -88,10 +88,20 @@ abstract class RetrofitClient implements RestClient {
   Stream<String> sendUkrainianWebChatMessage(@Body() ChatRequest chatRequest);
 
   @POST('anonymous-chat-android-en')
+  Stream<String> sendEnglishAndroidAnonymousChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
+
+  @POST('chat-android-en')
   Stream<String> sendEnglishAndroidChatMessage(@Body() ChatRequest chatRequest);
 
-  @POST('anonymous-chat-android-ua')
+  @POST('chat-android-ua')
   Stream<String> sendUkrainianAndroidChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
+
+  @POST('anonymous-chat-android-ua')
+  Stream<String> sendUkrainianAndroidAnonymousChatMessage(
     @Body() ChatRequest chatRequest,
   );
 

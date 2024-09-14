@@ -18,6 +18,7 @@ class ChatRepositoryImpl implements ChatRepository {
   @override
   Stream<String> sendChat(Chat chat) {
     final ChatRequest request = ChatRequest(
+      userId: chat.user.id,
       messages: chat.messages
           .map(
             (Message message) => MessageRequest(
@@ -33,11 +34,23 @@ class ChatRepositoryImpl implements ChatRepository {
           ? _processResponse(_restClient.sendEnglishWebChatMessage(request))
           : _processResponse(_restClient.sendUkrainianWebChatMessage(request));
     } else if (Platform.isAndroid) {
-      return chat.usesEnglishLanguage
-          ? _processResponse(_restClient.sendEnglishAndroidChatMessage(request))
-          : _processResponse(
-              _restClient.sendUkrainianAndroidChatMessage(request),
-            );
+      if (chat.user.isNotEmpty) {
+        return chat.usesEnglishLanguage
+            ? _processResponse(
+                _restClient.sendEnglishAndroidChatMessage(request),
+              )
+            : _processResponse(
+                _restClient.sendUkrainianAndroidChatMessage(request),
+              );
+      } else {
+        return chat.usesEnglishLanguage
+            ? _processResponse(
+                _restClient.sendEnglishAndroidAnonymousChatMessage(request),
+              )
+            : _processResponse(
+                _restClient.sendUkrainianAndroidAnonymousChatMessage(request),
+              );
+      }
     } else if (Platform.isIOS) {
       return chat.usesEnglishLanguage
           ? _processResponse(_restClient.sendEnglishIosChatMessage(request))

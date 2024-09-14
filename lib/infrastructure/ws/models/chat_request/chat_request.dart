@@ -7,13 +7,14 @@ part 'chat_request.g.dart';
 
 @JsonSerializable()
 class ChatRequest {
-  const ChatRequest({required this.messages});
+  const ChatRequest({required this.messages, this.userId = ''});
 
   factory ChatRequest.fromJson(Map<String, dynamic> json) {
     return _$ChatRequestFromJson(json);
   }
 
   final List<MessageRequest> messages;
+  final String userId;
 
   @override
   String toString() => 'ChatRequest(messages: $messages)';

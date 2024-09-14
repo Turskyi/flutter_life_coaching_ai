@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
 import 'package:lifecoach/domain_services/goals_repository.dart';
+import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/goals/goal_widget.dart';
 import 'package:models/models.dart';
 
@@ -31,7 +32,19 @@ class GoalsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Goals')),
+      appBar: AppBar(
+        title: const Text('Goals'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.chat_bubble_outline),
+            tooltip: 'Life-Coach AI',
+            onPressed: () => Navigator.pushNamed(
+              context,
+              AppRoute.anonymousChat.path,
+            ),
+          ),
+        ],
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -47,7 +60,6 @@ class GoalsPage extends StatelessWidget {
                   .read<AuthenticationBloc>()
                   .add(const AuthenticationSignOutPressed()),
             ),
-            // const _SignOutButton(),
           ],
         ),
       ),
@@ -81,6 +93,13 @@ class GoalsPage extends StatelessWidget {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // TODO: Handle adding a new goal
+        },
+        tooltip: 'Add Goal',
+        child: const Icon(Icons.add),
       ),
     );
   }

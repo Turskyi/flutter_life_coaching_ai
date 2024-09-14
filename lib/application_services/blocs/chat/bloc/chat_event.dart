@@ -5,8 +5,8 @@ sealed class ChatEvent {
   const ChatEvent();
 }
 
-final class LoadHomeEvent extends ChatEvent {
-  const LoadHomeEvent();
+final class LoadingInitialChatStateEvent extends ChatEvent {
+  const LoadingInitialChatStateEvent();
 }
 
 final class SendMessageEvent extends ChatEvent {

@@ -89,6 +89,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i489.ChatBloc>(() => _i489.ChatBloc(
           gh<_i737.ChatRepository>(),
           gh<_i912.SettingsRepository>(),
+          gh<_i164.UserRepository>(),
         ));
     gh.factory<_i73.AuthenticationBloc>(() => _i73.AuthenticationBloc(
           authenticationRepository: gh<_i223.AuthenticationRepository>(),

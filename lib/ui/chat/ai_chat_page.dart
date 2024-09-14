@@ -4,14 +4,14 @@ import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
 import 'package:lifecoach/ui/chat/message_bubble.dart';
 import 'package:models/models.dart';
 
-class AnonymousAiChatPage extends StatefulWidget {
-  const AnonymousAiChatPage({super.key});
+class AiChatPage extends StatefulWidget {
+  const AiChatPage({super.key});
 
   @override
-  State<AnonymousAiChatPage> createState() => _AnonymousAiChatPageState();
+  State<AiChatPage> createState() => _AiChatPageState();
 }
 
-class _AnonymousAiChatPageState extends State<AnonymousAiChatPage> {
+class _AiChatPageState extends State<AiChatPage> {
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
@@ -21,7 +21,7 @@ class _AnonymousAiChatPageState extends State<AnonymousAiChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(title: const Text('Anonymous AI Chat')),
+      appBar: AppBar(title: const Text('Life-Coach AI Chat')),
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (BuildContext context, ChatState state) {
           final int itemCount = state is ChatError || state is SentMessageState
@@ -136,7 +136,7 @@ class _AnonymousAiChatPageState extends State<AnonymousAiChatPage> {
                           hintText: _randomPlaceholder,
                           hintStyle: const TextStyle(color: Colors.grey),
                         ),
-                        onSubmitted: (String value) => _sendMessage(),
+                        onSubmitted: (_) => _sendMessage(),
                       ),
                     ),
                     ValueListenableBuilder<TextEditingValue>(

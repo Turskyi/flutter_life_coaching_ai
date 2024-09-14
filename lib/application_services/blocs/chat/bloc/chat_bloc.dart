@@ -14,6 +14,7 @@ import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
@@ -23,8 +24,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc(
     this._chatRepository,
     this._settingsRepository,
-  ) : super(const LoadingHomeState()) {
-    on<LoadHomeEvent>(
+    this._userRepository,
+  ) : super(const LoadingChatState()) {
+    on<LoadingInitialChatStateEvent>(
       (_, Emitter<ChatState> emit) {
         final Language savedLanguage = _settingsRepository.getLanguage();
         emit(ChatInitial(language: savedLanguage, messages: state.messages));
@@ -48,8 +50,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         SentMessageState(messages: updatedMessages, language: state.language),
       );
       try {
+        final User user = _getUser();
         _chatRepository
-            .sendChat(Chat(messages: updatedMessages, language: state.language))
+            .sendChat(
+          Chat(
+            user: user,
+            messages: updatedMessages,
+            language: state.language,
+          ),
+        )
             .listen(
           (String line) => add(UpdateAiMessageEvent(line)),
           onError: (Object error, StackTrace stackTrace) {
@@ -136,8 +145,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                   (state as SentMessageState).copyWith(language: language),
                 AiMessageUpdated() =>
                   (state as AiMessageUpdated).copyWith(language: language),
-                LoadingHomeState() =>
-                  (state as LoadingHomeState).copyWith(language: language),
+                LoadingChatState() =>
+                  (state as LoadingChatState).copyWith(language: language),
                 FeedbackState() =>
                   (state as FeedbackState).copyWith(language: language),
                 FeedbackSent() =>
@@ -145,7 +154,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
               },
             );
           } else {
-            add(const LoadHomeEvent());
+            add(const LoadingInitialChatStateEvent());
           }
         }
       },
@@ -171,7 +180,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       Emitter<ChatState> emit,
     ) async {
       emit(
-        LoadingHomeState(messages: state.messages, language: state.language),
+        LoadingChatState(messages: state.messages, language: state.language),
       );
       final UserFeedback feedback = event.feedback;
       try {
@@ -237,7 +246,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ),
       );
       _chatRepository
-          .sendChat(Chat(messages: currentMessages, language: state.language))
+          .sendChat(
+        Chat(
+          user: _getUser(),
+          messages: currentMessages,
+          language: state.language,
+        ),
+      )
           .listen(
         (String line) => add(UpdateAiMessageEvent(line)),
         onError: (Object error, StackTrace stackTrace) {
@@ -267,6 +282,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   final ChatRepository _chatRepository;
   final SettingsRepository _settingsRepository;
+  final UserRepository _userRepository;
 
   Future<String> _writeImageToStorage(Uint8List feedbackScreenshot) async {
     final Directory output = await getTemporaryDirectory();
@@ -274,5 +290,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     final File screenshotFile = File(screenshotFilePath);
     await screenshotFile.writeAsBytes(feedbackScreenshot);
     return screenshotFilePath;
+  }
+
+  User _getUser() {
+    final User user = _userRepository.getUser();
+    return user;
   }
 }

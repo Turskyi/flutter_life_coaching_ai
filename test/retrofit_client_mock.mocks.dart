@@ -271,6 +271,17 @@ class MockRetrofitClient extends _i1.Mock implements _i8.RetrofitClient {
       ) as _i9.Stream<String>);
 
   @override
+  _i9.Stream<String> sendEnglishAndroidAnonymousChatMessage(
+          _i10.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendEnglishAndroidAnonymousChatMessage,
+          [chatRequest],
+        ),
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
+
+  @override
   _i9.Stream<String> sendEnglishAndroidChatMessage(
           _i10.ChatRequest? chatRequest) =>
       (super.noSuchMethod(
@@ -287,6 +298,17 @@ class MockRetrofitClient extends _i1.Mock implements _i8.RetrofitClient {
       (super.noSuchMethod(
         Invocation.method(
           #sendUkrainianAndroidChatMessage,
+          [chatRequest],
+        ),
+        returnValue: _i9.Stream<String>.empty(),
+      ) as _i9.Stream<String>);
+
+  @override
+  _i9.Stream<String> sendUkrainianAndroidAnonymousChatMessage(
+          _i10.ChatRequest? chatRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendUkrainianAndroidAnonymousChatMessage,
           [chatRequest],
         ),
         returnValue: _i9.Stream<String>.empty(),

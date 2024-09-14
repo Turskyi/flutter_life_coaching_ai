@@ -41,14 +41,14 @@ final class ChatInitial extends ChatState {
   String toString() => 'ChatInitial(messages: $messages, language: $language)';
 }
 
-final class LoadingHomeState extends ChatState {
-  const LoadingHomeState({super.messages, super.language});
+final class LoadingChatState extends ChatState {
+  const LoadingChatState({super.messages, super.language});
 
-  LoadingHomeState copyWith({
+  LoadingChatState copyWith({
     List<Message>? messages,
     Language? language,
   }) =>
-      LoadingHomeState(
+      LoadingChatState(
         messages: messages ?? this.messages,
         language: language ?? this.language,
       );
