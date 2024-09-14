@@ -7,7 +7,7 @@ part 'sign_in_response.g.dart';
 
 @JsonSerializable()
 class SignInResponse extends LoginResponse {
-  const SignInResponse(super.token);
+  const SignInResponse({required super.userId, required super.token});
 
   factory SignInResponse.fromJson(Map<String, dynamic> json) {
     if (json.containsKey('errors')) {

@@ -56,9 +56,9 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final sharedPreferencesModule = _$SharedPreferencesModule();
+    final userRepositoryModule = _$UserRepositoryModule();
     final dioHttpClientModule = _$DioHttpClientModule();
     final retrofitHttpClientModule = _$RetrofitHttpClientModule();
-    final userRepositoryModule = _$UserRepositoryModule();
     final authenticationRepositoryModule = _$AuthenticationRepositoryModule();
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => sharedPreferencesModule.prefs,
@@ -66,6 +66,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i284.LoggingInterceptor>(
         () => const _i284.LoggingInterceptor());
+    gh.lazySingleton<_i164.UserRepository>(() =>
+        userRepositoryModule.getUserRepository(gh<_i460.SharedPreferences>()));
     gh.factory<_i912.SettingsRepository>(
         () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()));
     await gh.factoryAsync<_i361.Dio>(
@@ -75,8 +77,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i1073.RetrofitClient>(
         () => retrofitHttpClientModule.getRestClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i164.UserRepository>(() =>
-        userRepositoryModule.getUserRepository(gh<_i1073.RetrofitClient>()));
     gh.lazySingleton<_i223.AuthenticationRepository>(
         () => authenticationRepositoryModule.getAuthenticationRepository(
               gh<_i1073.RetrofitClient>(),
@@ -108,11 +108,11 @@ extension GetItInjectableX on _i174.GetIt {
 
 class _$SharedPreferencesModule extends _i78.SharedPreferencesModule {}
 
+class _$UserRepositoryModule extends _i960.UserRepositoryModule {}
+
 class _$DioHttpClientModule extends _i1000.DioHttpClientModule {}
 
 class _$RetrofitHttpClientModule extends _i696.RetrofitHttpClientModule {}
-
-class _$UserRepositoryModule extends _i960.UserRepositoryModule {}
 
 class _$AuthenticationRepositoryModule
     extends _i413.AuthenticationRepositoryModule {}

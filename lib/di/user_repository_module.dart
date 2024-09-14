@@ -1,10 +1,10 @@
 import 'package:injectable/injectable.dart';
-import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
 @module
 abstract class UserRepositoryModule {
   @lazySingleton
-  UserRepository getUserRepository(RetrofitClient httpClient) =>
-      UserRepository();
+  UserRepository getUserRepository(SharedPreferences preferences) =>
+      UserRepository(preferences);
 }

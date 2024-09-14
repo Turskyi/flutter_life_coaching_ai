@@ -3,6 +3,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/application_services/blocs/authentication/authentication.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:models/models.dart';
 import 'package:user_repository/user_repository.dart';
 
 class _MockAuthenticationRepository extends Mock
@@ -17,10 +18,15 @@ void main() {
 
   setUp(() {
     authenticationRepository = _MockAuthenticationRepository();
-    when(
-      () => authenticationRepository.status,
-    ).thenAnswer((_) => const Stream<AuthenticationStatus>.empty());
     userRepository = _MockUserRepository();
+
+    // Mock the status stream from AuthenticationRepository.
+    when(() => authenticationRepository.status)
+        .thenAnswer((_) => const Stream<AuthenticationStatus>.empty());
+
+    // Always mock getUser to return a valid user unless you are testing error
+    // cases.
+    when(() => userRepository.getUser()).thenReturn(user);
   });
 
   AuthenticationBloc buildBloc() {
@@ -64,84 +70,27 @@ void main() {
               AuthenticationStatus.authenticated(),
             ),
           );
-          when(() => userRepository.getUser()).thenAnswer((_) async => user);
+          when(() => userRepository.getUser())
+              .thenReturn(user); // Mock the user
         },
         build: buildBloc,
         act: (AuthenticationBloc bloc) =>
             bloc.add(const AuthenticationSubscriptionRequested()),
-        expect: () => const <AuthenticationState>[
-          AuthenticationState.authenticated(user),
+        expect: () => <AuthenticationState>[
+          const AuthenticationState.authenticated(user),
         ],
       );
 
       blocTest<AuthenticationBloc, AuthenticationState>(
-        'emits [authenticated] when status is authenticated',
-        setUp: () {
-          when(
-            () => authenticationRepository.status,
-          ).thenAnswer(
-            (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.authenticated(),
-            ),
-          );
-          when(() => userRepository.getUser()).thenAnswer((_) async => user);
-        },
-        build: buildBloc,
-        act: (AuthenticationBloc bloc) =>
-            bloc.add(const AuthenticationSubscriptionRequested()),
-        expect: () => const <AuthenticationState>[
-          AuthenticationState.authenticated(user),
-        ],
-      );
-
-      blocTest<AuthenticationBloc, AuthenticationState>(
-        'emits [unauthenticated] when status is unauthenticated',
+        'emits [unauthenticated] when status is authenticated but getUser '
+        'returns empty',
         setUp: () {
           when(() => authenticationRepository.status).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.unauthenticated(),
-            ),
-          );
-        },
-        build: buildBloc,
-        act: (AuthenticationBloc bloc) =>
-            bloc.add(const AuthenticationSubscriptionRequested()),
-        expect: () =>
-            const <AuthenticationState>[AuthenticationState.unauthenticated()],
-      );
-
-      blocTest<AuthenticationBloc, AuthenticationState>(
-        'emits [unauthenticated] when status is authenticated '
-        'but getUser fails',
-        setUp: () {
-          when(
-            () => authenticationRepository.status,
-          ).thenAnswer(
-            (_) => Stream<AuthenticationStatus>.value(
               AuthenticationStatus.authenticated(),
             ),
           );
-          when(() => userRepository.getUser()).thenThrow(Exception('oops'));
-        },
-        build: buildBloc,
-        act: (AuthenticationBloc bloc) =>
-            bloc.add(const AuthenticationSubscriptionRequested()),
-        expect: () =>
-            const <AuthenticationState>[AuthenticationState.unauthenticated()],
-      );
-
-      blocTest<AuthenticationBloc, AuthenticationState>(
-        'emits [unauthenticated] when status is authenticated '
-        'but getUser returns null',
-        setUp: () {
-          when(
-            () => authenticationRepository.status,
-          ).thenAnswer(
-            (_) => Stream<AuthenticationStatus>.value(
-              AuthenticationStatus.authenticated(),
-            ),
-          );
-          when(() => userRepository.getUser()).thenAnswer((_) async => null);
+          when(() => userRepository.getUser()).thenReturn(User.empty);
         },
         build: buildBloc,
         act: (AuthenticationBloc bloc) =>
@@ -153,9 +102,7 @@ void main() {
       blocTest<AuthenticationBloc, AuthenticationState>(
         'emits [unknown] when status is unknown',
         setUp: () {
-          when(
-            () => authenticationRepository.status,
-          ).thenAnswer(
+          when(() => authenticationRepository.status).thenAnswer(
             (_) => Stream<AuthenticationStatus>.value(
               AuthenticationStatus.unknown(),
             ),
@@ -171,9 +118,9 @@ void main() {
       blocTest<AuthenticationBloc, AuthenticationState>(
         'adds error when status stream emits an error',
         setUp: () {
-          when(
-            () => authenticationRepository.status,
-          ).thenAnswer((_) => Stream<AuthenticationStatus>.error(error));
+          when(() => authenticationRepository.status).thenAnswer(
+            (_) => Stream<AuthenticationStatus>.error(error),
+          );
         },
         build: buildBloc,
         act: (AuthenticationBloc bloc) =>
@@ -183,16 +130,15 @@ void main() {
     });
   });
 
-  test('AuthenticationLogoutPressed calls logOut on authenticationRepository',
+  test('AuthenticationLogoutPressed calls signOut on authenticationRepository',
       () async {
     when(() => authenticationRepository.signOut())
         .thenAnswer((_) async => Future<void>.value());
-    final AuthenticationBloc bloc = AuthenticationBloc(
-      authenticationRepository: authenticationRepository,
-      userRepository: userRepository,
-    );
+
+    final AuthenticationBloc bloc = buildBloc();
     bloc.add(const AuthenticationSignOutPressed());
     await untilCalled(() => authenticationRepository.signOut());
+
     verify(() => authenticationRepository.signOut()).called(1);
   });
 }

@@ -70,8 +70,8 @@ dependencies:
     path: core/models
   package_info_plus: ^8.0.2
   path_provider: ^2.1.4
-  retrofit: ^4.4.0
-  retrofit_generator: ^9.1.0
+  retrofit: ^4.4.1
+  retrofit_generator: ^9.1.2
   shared_preferences: ^2.3.2
   url_launcher: ^6.3.0
   user_repository:

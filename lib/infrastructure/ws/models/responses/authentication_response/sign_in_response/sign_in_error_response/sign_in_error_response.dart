@@ -32,6 +32,10 @@ class SignInErrorResponse implements SignInResponse {
       '';
 
   @override
+  String get userId =>
+      metaResponse?.clientResponse?.sessions.firstOrNull?.userResponse.id ?? '';
+
+  @override
   String toString() => 'SignInErrorResponse('
       'errors: $errors, '
       'meta: $metaResponse, '

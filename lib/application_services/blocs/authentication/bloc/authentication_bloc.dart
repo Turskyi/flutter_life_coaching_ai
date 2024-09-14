@@ -4,6 +4,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:models/models.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'authentication_event.dart';
@@ -67,9 +68,10 @@ class AuthenticationBloc
             case UnauthenticatedStatus():
               return emit(const AuthenticationState.unauthenticated());
             case AuthenticatedStatus():
-              final User? user = await _tryGetUser();
+              final User user = _getUser();
+
               return emit(
-                user != null
+                user.isNotEmpty
                     ? AuthenticationState.authenticated(user)
                     : const AuthenticationState.unauthenticated(),
               );
@@ -84,17 +86,11 @@ class AuthenticationBloc
 
   void _onLogoutPressed(
     AuthenticationSignOutPressed event,
-    Emitter<AuthenticationState> emit,
-  ) {
-    _authenticationRepository.signOut();
-  }
+    Emitter<AuthenticationState> emit,) =>
+      _authenticationRepository.signOut();
 
-  Future<User?> _tryGetUser() async {
-    try {
-      final User? user = await _userRepository.getUser();
-      return user;
-    } catch (_) {
-      return null;
-    }
+  User _getUser() {
+    final User user = _userRepository.getUser();
+    return user;
   }
 }

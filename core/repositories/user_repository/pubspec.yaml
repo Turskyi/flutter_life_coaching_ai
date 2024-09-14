@@ -9,7 +9,9 @@ environment:
 
 dependencies:
   equatable: ^2.0.5
-  uuid: ^4.4.2
+  models:
+    path: ../../models
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   lints: ^4.0.0

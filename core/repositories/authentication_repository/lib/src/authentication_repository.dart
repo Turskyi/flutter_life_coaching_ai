@@ -52,6 +52,7 @@ class AuthenticationRepository {
     );
 
     await _saveToken(loginResponse.token);
+    await _saveUserId(loginResponse.userId);
     _controller.add(AuthenticationStatus.authenticated());
   }
 
@@ -109,6 +110,7 @@ class AuthenticationRepository {
     await _restClient.signOut();
     await _removeToken();
     await _removeEmail();
+    await _removeUserId();
     _controller.add(AuthenticationStatus.unauthenticated());
   }
 
@@ -129,6 +131,9 @@ class AuthenticationRepository {
   Future<bool> _saveToken(String token) async =>
       _preferences.setString(StorageKeys.authToken.key, token);
 
+  Future<bool> _saveUserId(String userId) async =>
+      _preferences.setString(StorageKeys.userId.key, userId);
+
   Future<bool> _saveSignUpId(String id) async =>
       _preferences.setString(StorageKeys.signUpId.key, id);
 
@@ -141,4 +146,6 @@ class AuthenticationRepository {
       _preferences.remove(StorageKeys.signUpId.key);
 
   Future<bool> _removeEmail() => _preferences.remove(StorageKeys.email.key);
+
+  Future<bool> _removeUserId() => _preferences.remove(StorageKeys.userId.key);
 }

@@ -29,6 +29,10 @@ class SignInSuccessResponse implements SignInResponse {
       clientResponse?.sessions.firstOrNull?.lastActiveToken?.jwt ?? '';
 
   @override
+  String get userId =>
+      clientResponse?.sessions.firstOrNull?.userResponse.id ?? '';
+
+  @override
   String toString() {
     if (kDebugMode) {
       return 'SignInSuccessResponse('
