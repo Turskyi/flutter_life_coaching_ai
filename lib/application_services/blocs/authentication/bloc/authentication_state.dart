@@ -25,9 +25,6 @@ class AuthenticationState extends Equatable {
   const AuthenticationState.unauthenticated()
       : this._(status: const UnauthenticatedStatus());
 
-  AuthenticationState.code(String email)
-      : this._(status: CodeAuthenticationStatus(email));
-
   final AuthenticationStatus status;
   final User user;
 

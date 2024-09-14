@@ -54,3 +54,4 @@ env.g.dart
 /ios/Podfile.lock
 /coverage/
 coverage/lcov.info
+coverage

@@ -75,8 +75,6 @@ class AuthenticationBloc
                     ? AuthenticationState.authenticated(user)
                     : const AuthenticationState.unauthenticated(),
               );
-            case CodeAuthenticationStatus():
-              return emit(AuthenticationState.code(status.email));
             case UnknownAuthenticationStatus():
               return emit(const AuthenticationState.unknown());
           }

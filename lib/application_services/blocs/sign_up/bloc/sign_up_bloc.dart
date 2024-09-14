@@ -31,7 +31,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpSubmitted>(_onSubmitted);
     on<CodeChanged>(_onCodeChanged);
     on<CodeSubmitted>(_onCodeSubmitted);
-    on<ResendCode>(_onResendCode);
   }
 
   final AuthenticationRepository _authenticationRepository;
@@ -96,22 +95,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(state.copyWith(status: FormzSubmissionStatus.success));
       } on ApiException catch (e) {
         _handleError(error: e, emitter: emit);
-      } catch (e) {
-        _handleError(error: e, emitter: emit);
-      }
-    }
-  }
-
-  Future<void> _onResendCode(
-    ResendCode event,
-    Emitter<SignUpState> emit,
-  ) async {
-    if (_authenticationRepository.canSendCode()) {
-      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-      try {
-        await _authenticationRepository.sendCode();
-
-        emit(state.copyWith(status: FormzSubmissionStatus.success));
       } catch (e) {
         _handleError(error: e, emitter: emit);
       }

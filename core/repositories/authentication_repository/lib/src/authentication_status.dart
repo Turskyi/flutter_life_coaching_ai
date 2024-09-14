@@ -6,9 +6,6 @@ sealed class AuthenticationStatus {
   factory AuthenticationStatus.authenticated() = AuthenticatedStatus;
 
   factory AuthenticationStatus.unauthenticated() = UnauthenticatedStatus;
-
-  factory AuthenticationStatus.code(String email) =>
-      CodeAuthenticationStatus(email);
 }
 
 class UnknownAuthenticationStatus extends AuthenticationStatus {
@@ -21,10 +18,4 @@ class AuthenticatedStatus extends AuthenticationStatus {
 
 class UnauthenticatedStatus extends AuthenticationStatus {
   const UnauthenticatedStatus();
-}
-
-class CodeAuthenticationStatus extends AuthenticationStatus {
-  const CodeAuthenticationStatus(this.email);
-
-  final String email;
 }

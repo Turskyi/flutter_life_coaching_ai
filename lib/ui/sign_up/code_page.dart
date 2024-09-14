@@ -6,7 +6,7 @@ import 'package:lifecoach/ui/sign_up/code_form.dart';
 
 class CodePage extends StatelessWidget {
   const CodePage({
-    this.email = '',
+    required this.email,
     super.key,
   });
 

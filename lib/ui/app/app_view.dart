@@ -7,7 +7,6 @@ import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/router/routes.dart' as routes;
 import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
-import 'package:lifecoach/ui/sign_up/code_page.dart';
 import 'package:lifecoach/ui/splash_page.dart';
 
 /// [AppView] is a [StatefulWidget] because it maintains a [GlobalKey] which is
@@ -46,11 +45,6 @@ class _AppViewState extends State<AppView> {
           listener: (BuildContext context, AuthenticationState state) {
             final AuthenticationStatus status = state.status;
             switch (status) {
-              case CodeAuthenticationStatus():
-                _navigator.pushAndRemoveUntil<void>(
-                  CodePage.route(email: status.email),
-                  (Route<void> route) => false,
-                );
               case AuthenticatedStatus():
                 _navigator.pushAndRemoveUntil<void>(
                   GoalsPage.route(widget.authenticationBloc),

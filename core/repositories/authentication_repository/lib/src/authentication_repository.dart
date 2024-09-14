@@ -19,20 +19,12 @@ class AuthenticationRepository {
       StreamController<AuthenticationStatus>();
 
   Stream<AuthenticationStatus> get status async* {
-    final bool isSignUpSent = canSendCode();
+    final bool isAuthenticated = _checkInitialAuthenticationStatus();
 
-    if (isSignUpSent) {
-      final String email = _preferences.getString(StorageKeys.email.key) ?? '';
-
-      yield AuthenticationStatus.code(email);
+    if (isAuthenticated) {
+      yield AuthenticationStatus.authenticated();
     } else {
-      final bool isAuthenticated = _checkInitialAuthenticationStatus();
-
-      if (isAuthenticated) {
-        yield AuthenticationStatus.authenticated();
-      } else {
-        yield AuthenticationStatus.unauthenticated();
-      }
+      yield AuthenticationStatus.unauthenticated();
     }
 
     // Yield the stream of authentication status changes
@@ -71,7 +63,7 @@ class AuthenticationRepository {
     );
 
     await _saveSignUpId(signUpResponse.id);
-    _controller.add(AuthenticationStatus.code(email));
+
     await _saveEmail(email);
   }
 
@@ -120,12 +112,6 @@ class AuthenticationRepository {
     final String token =
         _preferences.getString(StorageKeys.authToken.key) ?? '';
     return token.isNotEmpty;
-  }
-
-  bool canSendCode() {
-    final String signUpId =
-        _preferences.getString(StorageKeys.signUpId.key) ?? '';
-    return signUpId.isNotEmpty;
   }
 
   Future<bool> _saveToken(String token) async =>
