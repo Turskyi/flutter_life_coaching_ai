@@ -86,7 +86,8 @@ class AuthenticationBloc
 
   void _onLogoutPressed(
     AuthenticationSignOutPressed event,
-    Emitter<AuthenticationState> emit,) =>
+    Emitter<AuthenticationState> emit,
+  ) =>
       _authenticationRepository.signOut();
 
   User _getUser() {
