@@ -52,13 +52,7 @@ class GoalsPage extends StatelessWidget {
         ),
       ),
       body: BlocConsumer<GoalsBloc, GoalsState>(
-        listener: (BuildContext context, GoalsState state) {
-          if (state is GoalsError) {
-            context
-                .read<AuthenticationBloc>()
-                .add(const AuthenticationSignOutPressed());
-          }
-        },
+        listener: _handleGoalsState,
         builder: (BuildContext context, GoalsState state) {
           if (state is GoalsInitial) {
             return const Center(child: CircularProgressIndicator());
@@ -89,5 +83,13 @@ class GoalsPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _handleGoalsState(BuildContext context, GoalsState state) {
+    if (state is GoalsError) {
+      context
+          .read<AuthenticationBloc>()
+          .add(const AuthenticationSignOutPressed());
+    }
   }
 }
