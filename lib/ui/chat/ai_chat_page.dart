@@ -1,5 +1,7 @@
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
 import 'package:lifecoach/ui/chat/message_bubble.dart';
 import 'package:models/models.dart';
@@ -14,6 +16,13 @@ class AiChatPage extends StatefulWidget {
 class _AiChatPageState extends State<AiChatPage> {
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  FeedbackController? _feedbackController;
+
+  @override
+  void didChangeDependencies() {
+    _feedbackController = BetterFeedback.of(context);
+    super.didChangeDependencies();
+  }
 
   String _error = '';
 
@@ -21,7 +30,30 @@ class _AiChatPageState extends State<AiChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(title: const Text('Life-Coach AI Chat')),
+      appBar: AppBar(
+        title: const Text('Life-Coach AI Chat'),
+        actions: <Widget>[
+          BlocConsumer<ChatBloc, ChatState>(
+            listener: (_, ChatState state) {
+              if (state is FeedbackState) {
+                _showFeedbackUi();
+              } else if (state is FeedbackSent) {
+                _notifyFeedbackSent();
+              }
+            },
+            builder: (BuildContext context, ChatState state) {
+              if (state.messages.isNotEmpty) {
+                return IconButton(
+                  icon: const Icon(Icons.feedback),
+                  onPressed: _showFeedbackDialog,
+                );
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+        ],
+      ),
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (BuildContext context, ChatState state) {
           final int itemCount = state is ChatError || state is SentMessageState
@@ -164,6 +196,68 @@ class _AiChatPageState extends State<AiChatPage> {
     );
   }
 
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    _feedbackController?.dispose();
+    super.dispose();
+  }
+
+  String get _randomPlaceholder => _placeholders[(_placeholders.length *
+          (0.5 + 0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
+      .toInt()];
+
+  String get _randomEmptyStateMessage => emptyStateMessages[(emptyStateMessages
+              .length *
+          (0.5 + 0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
+      .toInt()];
+
+  void _sendMessage() {
+    if (_textEditingController.text.isEmpty) return;
+    context.read<ChatBloc>().add(SendMessageEvent(_textEditingController.text));
+
+    _scrollToBottom();
+
+    _textEditingController.clear();
+  }
+
+  void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+  void _showFeedbackUi() {
+    _feedbackController?.show(
+      (UserFeedback feedback) =>
+          context.read<ChatBloc>().add(SubmitFeedbackEvent(feedback)),
+    );
+    _feedbackController?.addListener(_onFeedbackChanged);
+  }
+
+  void _onFeedbackChanged() {
+    final bool? isVisible = _feedbackController?.isVisible;
+    if (isVisible == false) {
+      _feedbackController?.removeListener(_onFeedbackChanged);
+      context.read<ChatBloc>().add(const ClosingFeedbackEvent());
+    }
+  }
+
+  void _notifyFeedbackSent() {
+    BetterFeedback.of(context).hide();
+    // Let user know that his feedback is sent.
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(translate('feedback.feedbackSent')),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   static const List<String> _placeholders = <String>[
     'Share your thoughts...',
     "What's on your mind?",
@@ -193,31 +287,6 @@ class _AiChatPageState extends State<AiChatPage> {
     "Let's explore your dreams together.",
   ];
 
-  String get _randomPlaceholder => _placeholders[(_placeholders.length *
-          (0.5 + 0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
-      .toInt()];
-
-  String get _randomEmptyStateMessage => emptyStateMessages[(emptyStateMessages
-              .length *
-          (0.5 + 0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
-      .toInt()];
-
-  void _sendMessage() {
-    if (_textEditingController.text.isEmpty) return;
-    context.read<ChatBloc>().add(SendMessageEvent(_textEditingController.text));
-
-    _scrollToBottom();
-
-    _textEditingController.clear();
-  }
-
-  void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    }
-  }
+  void _showFeedbackDialog() =>
+      context.read<ChatBloc>().add(const BugReportPressedEvent());
 }
