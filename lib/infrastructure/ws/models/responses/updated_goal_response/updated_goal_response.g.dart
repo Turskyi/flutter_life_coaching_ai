@@ -8,13 +8,11 @@ part of 'updated_goal_response.dart';
 
 UpdatedGoalResponse _$UpdatedGoalResponseFromJson(Map<String, dynamic> json) =>
     UpdatedGoalResponse(
-      updatedGoal: json['updatedGoal'] == null
-          ? null
-          : UpdatedGoal.fromJson(json['updatedGoal'] as Map<String, dynamic>),
+      goal: GoalResponse.fromJson(json['updatedGoal'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UpdatedGoalResponseToJson(
         UpdatedGoalResponse instance) =>
     <String, dynamic>{
-      'updatedGoal': instance.updatedGoal,
+      'updatedGoal': instance.goal,
     };

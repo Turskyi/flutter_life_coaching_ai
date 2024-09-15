@@ -34,8 +34,6 @@ class GoalResponse extends Goal {
     }
   }
 
-  Map<String, dynamic> toJson() => _$GoalResponseToJson(this);
-
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;

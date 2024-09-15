@@ -8,7 +8,7 @@ part of 'delete_goal_response.dart';
 
 DeleteGoalResponse _$DeleteGoalResponseFromJson(Map<String, dynamic> json) =>
     DeleteGoalResponse(
-      message: json['message'] as String?,
+      message: json['message'] as String,
     );
 
 Map<String, dynamic> _$DeleteGoalResponseToJson(DeleteGoalResponse instance) =>

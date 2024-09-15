@@ -1,6 +1,6 @@
 enum AppRoute {
   home('/'),
-  anonymousChat('/anonymous-chat'),
+  chat('/chat'),
   goals('/goals'),
   signIn('/sign-in'),
   code('/code'),

@@ -1,5 +1,5 @@
-import 'package:json_annotation/json_annotation.dart';
 import 'package:collection/collection.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'goal.g.dart';
 
@@ -14,8 +14,7 @@ class Goal {
     this.updatedAt,
   });
 
-  factory Goal.fromJson(Map<String, dynamic> json) =>
-      _$GoalFromJson(json);
+  factory Goal.fromJson(Map<String, dynamic> json) => _$GoalFromJson(json);
 
   @JsonKey(name: 'userId')
   final String userId;

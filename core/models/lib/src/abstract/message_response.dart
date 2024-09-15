@@ -1,5 +1,5 @@
 abstract interface class MessageResponse {
-  const Message(this.message);
+  const MessageResponse(this.message);
 
   final String message;
 }

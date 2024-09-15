@@ -14,7 +14,7 @@ import 'package:models/models.dart';
 
 Map<String, WidgetBuilder> routeMap = <String, WidgetBuilder>{
   AppRoute.home.path: (_) => const HomePage(),
-  AppRoute.anonymousChat.path: (_) => BlocProvider<ChatBloc>(
+  AppRoute.chat.path: (_) => BlocProvider<ChatBloc>(
         create: (_) =>
             GetIt.I.get<ChatBloc>()..add(const LoadingInitialChatStateEvent()),
         child: BlocListener<ChatBloc, ChatState>(

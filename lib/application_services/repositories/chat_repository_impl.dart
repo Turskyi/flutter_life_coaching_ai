@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lifecoach/domain_services/chat_repository.dart';
-import 'package:lifecoach/infrastructure/ws/models/chat_request/chat_request.dart';
-import 'package:lifecoach/infrastructure/ws/models/chat_request/message_request.dart';
+import 'package:lifecoach/infrastructure/ws/models/requests/chat_request/chat_request.dart';
+import 'package:lifecoach/infrastructure/ws/models/requests/chat_request/message_request.dart';
 import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart';
 import 'package:models/models.dart';
 

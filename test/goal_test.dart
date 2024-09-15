@@ -10,6 +10,7 @@ void main() {
         content: 'This is a test goal.',
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
+        userId: '1',
       );
 
       expect(goal.id, '1');
@@ -26,14 +27,15 @@ void main() {
         content: 'This is a test goal.',
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
+        userId: '1',
       );
 
       final Map<String, String> json = <String, String>{
         'id': goal.id,
         'title': goal.title,
         'content': goal.content,
-        'createdAt': goal.createdAt.toIso8601String(),
-        'updatedAt': goal.updatedAt.toIso8601String(),
+        'createdAt': goal.createdAt?.toIso8601String() ?? '',
+        'updatedAt': goal.updatedAt?.toIso8601String() ?? '',
       };
 
       final Goal deserializedGoal = Goal(
@@ -42,6 +44,7 @@ void main() {
         content: json['content'] ?? '',
         createdAt: DateTime.parse(json['createdAt'] ?? ''),
         updatedAt: DateTime.parse(json['updatedAt'] ?? ''),
+        userId: json['userId'] ?? '',
       );
 
       expect(deserializedGoal.id, goal.id);

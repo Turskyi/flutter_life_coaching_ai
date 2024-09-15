@@ -1,19 +1,21 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:models/models.dart';
 
-import 'goal_response.dart';
+import '../goal_response/goal_response.dart';
 
 part 'goals_response.g.dart';
 
 @JsonSerializable()
-class GoalsResponse {
+class GoalsResponse implements Goals {
   const GoalsResponse({required this.goals});
 
   factory GoalsResponse.fromJson(Map<String, dynamic> json) {
     return _$GoalsResponseFromJson(json);
   }
 
+  @override
   @JsonKey(name: 'goals')
   final List<GoalResponse> goals;
 

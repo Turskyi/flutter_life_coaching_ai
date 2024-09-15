@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
 import 'package:lifecoach/domain_services/goals_repository.dart';
-import 'package:lifecoach/router/app_route.dart';
+import 'package:lifecoach/ui/goals/add_edit_goal_dialog.dart';
+import 'package:lifecoach/ui/goals/app_drawer.dart';
 import 'package:lifecoach/ui/goals/goal_widget.dart';
+import 'package:lifecoach/ui/goals/goals_app_bar.dart';
+import 'package:lifecoach/ui/goals/shimmer_goal.dart';
 import 'package:models/models.dart';
 
 /// The [GoalsPage] can access the current user id via
@@ -32,37 +36,8 @@ class GoalsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Goals'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.chat_bubble_outline),
-            tooltip: 'Life-Coach AI',
-            onPressed: () => Navigator.pushNamed(
-              context,
-              AppRoute.anonymousChat.path,
-            ),
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(),
-              child: Text('Menu'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Sign out'),
-              onTap: () => context
-                  .read<AuthenticationBloc>()
-                  .add(const AuthenticationSignOutPressed()),
-            ),
-          ],
-        ),
-      ),
+      appBar: const GoalsAppBar(),
+      drawer: const AppDrawer(),
       body: BlocConsumer<GoalsBloc, GoalsState>(
         listener: _handleGoalsState,
         builder: (BuildContext context, GoalsState state) {
@@ -78,15 +53,20 @@ class GoalsPage extends StatelessWidget {
             );
           } else {
             final List<Goal> allGoals = state.goals;
+            const double axisSpacing = 16.0;
             return GridView.builder(
               padding: const EdgeInsets.all(16.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-                crossAxisSpacing: 16.0,
-                mainAxisSpacing: 16.0,
+                crossAxisSpacing: axisSpacing,
+                mainAxisSpacing: axisSpacing,
               ),
-              itemCount: allGoals.length,
+              itemCount:
+                  state is CreatingGoal ? allGoals.length + 1 : allGoals.length,
               itemBuilder: (_, int index) {
+                if (state is CreatingGoal && index == allGoals.length) {
+                  return const ShimmerGoal();
+                }
                 final Goal goal = allGoals[index];
                 return GoalWidget(goal: goal);
               },
@@ -95,9 +75,13 @@ class GoalsPage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Handle adding a new goal
-        },
+        onPressed: () => showDialog(
+          context: context,
+          builder: (_) => BlocProvider<GoalsBloc>.value(
+            value: context.read<GoalsBloc>(),
+            child: const AddEditGoalDialog(),
+          ),
+        ),
         tooltip: 'Add Goal',
         child: const Icon(Icons.add),
       ),
@@ -105,10 +89,19 @@ class GoalsPage extends StatelessWidget {
   }
 
   void _handleGoalsState(BuildContext context, GoalsState state) {
-    if (state is GoalsError) {
+    if (state is UnauthenticatedGoalsAccessState) {
       context
           .read<AuthenticationBloc>()
           .add(const AuthenticationSignOutPressed());
+    } else if (state is GoalDeleted) {
+      final String message = state.message;
+      Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        fontSize: 16.0,
+      );
     }
   }
 }

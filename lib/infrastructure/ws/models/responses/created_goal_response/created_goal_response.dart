@@ -1,42 +1,44 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/goal_response/goal_response.dart';
+import 'package:models/models.dart';
 
-part 'goal_result.g.dart';
+part 'created_goal_response.g.dart';
 
 @JsonSerializable()
-class GoalResult {
-  factory GoalResult.fromJson(Map<String, dynamic> json) {
-    return _$GoalResultFromJson(json);
+class CreatedGoalResponse implements GoalResult {
+  factory CreatedGoalResponse.fromJson(Map<String, dynamic> json) {
+    return _$CreatedGoalResponseFromJson(json);
   }
 
-  const GoalResult({this.goalResponse});
-
-  @JsonKey(name: 'goal')
-  final GoalResponse? goalResponse;
+  const CreatedGoalResponse({required this.goal});
 
   @override
-  String toString() => 'GoalResult(goal: $goalResponse)';
+  @JsonKey(name: 'goal')
+  final GoalResponse goal;
 
-  Map<String, dynamic> toJson() => _$GoalResultToJson(this);
+  @override
+  String toString() => 'GoalResult(goal: $goal)';
 
-  GoalResult copyWith({
-    GoalResponse? goalResponse,
+  Map<String, dynamic> toJson() => _$CreatedGoalResponseToJson(this);
+
+  CreatedGoalResponse copyWith({
+    GoalResponse? goal,
   }) {
-    return GoalResult(
-      goalResponse: goalResponse ?? this.goalResponse,
+    return CreatedGoalResponse(
+      goal: goal ?? this.goal,
     );
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! GoalResult) return false;
+    if (other is! CreatedGoalResponse) return false;
     final bool Function(Object? e1, Object? e2) mapEquals =
         const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
 
   @override
-  int get hashCode => goalResponse.hashCode;
+  int get hashCode => goal.hashCode;
 }

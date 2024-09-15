@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:lifecoach/infrastructure/ws/models/chat_request/chat_request.dart';
+import 'package:lifecoach/infrastructure/ws/models/requests/chat_request/chat_request.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/prepare_verification_response/prepare_verification_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_response/sign_up_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/verification_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/created_goal_response/created_goal_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/delete_goal_response/delete_goal_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/goals_response/goals_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/sign_out_response/sign_out_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/updated_goal_response/updated_goal_response.dart';
 import 'package:models/models.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -116,9 +119,22 @@ abstract class RetrofitClient implements RestClient {
     @Body() ChatRequest chatRequest,
   );
 
+  @override
   @GET('goals')
   Future<GoalsResponse> getGoals(
     @Query('userId') String userId,
     @Query('page') int? page,
   );
+
+  @override
+  @POST('goals')
+  Future<CreatedGoalResponse> createGoal(@Body() Goal goal);
+
+  @override
+  @PUT('goals')
+  Future<UpdatedGoalResponse> updateGoal(@Body() Goal goal);
+
+  @override
+  @DELETE('goals')
+  Future<DeleteGoalResponse> deleteGoal(@Body() Goal goal);
 }

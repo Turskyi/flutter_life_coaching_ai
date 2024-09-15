@@ -8,11 +8,11 @@ part of 'created_goal_response.dart';
 
 CreatedGoalResponse _$CreatedGoalResponseFromJson(Map<String, dynamic> json) =>
     CreatedGoalResponse(
-      goalResponse: GoalResponse.fromJson(json['goal'] as Map<String, dynamic>),
+      goal: GoalResponse.fromJson(json['goal'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CreatedGoalResponseToJson(
         CreatedGoalResponse instance) =>
     <String, dynamic>{
-      'goal': instance.goalResponse,
+      'goal': instance.goal,
     };

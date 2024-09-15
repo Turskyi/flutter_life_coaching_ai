@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
 import 'package:models/models.dart';
 
 class AddEditGoalDialog extends StatefulWidget {
@@ -34,70 +36,42 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
   }
 
   Future<void> _onSubmit() async {
-    if (!_formKey.currentState!.validate()) return;
+    final FormState? formState = _formKey.currentState;
+    if (formState != null && !formState.validate()) return;
 
-    setState(() {
-      _isSubmitting = true;
-    });
+    setState(() => _isSubmitting = true);
+    final Goal? goal = widget.goal;
 
-    try {
-      if (widget.goal != null) {
-        //TODO:
-        // await DBService().updateGoal(
-        //   widget.goal!.id,
-        //   _titleController.text,
-        //   _contentController.text,
-        // );
-      } else {
-        //TODO:
-        // await DBService().createGoal(
-        //   _titleController.text,
-        //   _contentController.text,
-        // );
-      }
-      Navigator.of(context).pop(true);
-    } catch (error, stackTrace) {
-      debugPrint(
-        'Error in $runtimeType in `_onSubmit`: $error.\n'
-        'Stacktrace: $stackTrace',
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Something went wrong. Please try again.'),
-        ),
-      );
-    } finally {
-      setState(() {
-        _isSubmitting = false;
-      });
+    if (goal != null) {
+      context.read<GoalsBloc>().add(
+            UpdateGoalEvent(
+              goal.copyWith(
+                title: _titleController.text,
+                content: _contentController.text,
+              ),
+            ),
+          );
+    } else {
+      context.read<GoalsBloc>().add(
+            CreateGoalEvent(
+              title: _titleController.text,
+              content: _contentController.text,
+            ),
+          );
     }
+    setState(() => _isSubmitting = false);
+    Navigator.of(context).pop(true);
   }
 
   Future<void> _deleteGoal() async {
-    if (widget.goal == null) return;
+    final Goal? goal = widget.goal;
+    if (goal == null) return;
 
-    setState(() {
-      _deleteInProgress = true;
-    });
+    setState(() => _deleteInProgress = true);
 
-    try {
-      //TODO: await DBService().deleteGoal(widget.goal!.id);
-      Navigator.of(context).pop(true);
-    } catch (error, stackTrace) {
-      debugPrint(
-        'Error in $runtimeType in `_deleteGoal`: $error.\n'
-        'Stacktrace: $stackTrace',
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Something went wrong. Please try again.'),
-        ),
-      );
-    } finally {
-      setState(() {
-        _deleteInProgress = false;
-      });
-    }
+    context.read<GoalsBloc>().add(DeleteGoalEvent(goal));
+    setState(() => _deleteInProgress = false);
+    Navigator.of(context).pop(true);
   }
 
   @override
@@ -144,16 +118,32 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
                   ),
           ),
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: Navigator.of(context).pop,
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
-          onPressed: _isSubmitting ? null : _onSubmit,
-          child: _isSubmitting
-              ? const CircularProgressIndicator()
-              : const Text('Submit'),
+        ValueListenableBuilder<TextEditingValue>(
+          valueListenable: _titleController,
+          child: const Text('Submit'),
+          builder: (
+            _,
+            TextEditingValue titleValue,
+            Widget? submitText,
+          ) {
+            const double progressIndicatorSize = 24.0;
+            return ElevatedButton(
+              onPressed:
+                  (_isSubmitting || titleValue.text.isEmpty) ? null : _onSubmit,
+              child: _isSubmitting
+                  ? const SizedBox(
+                      width: progressIndicatorSize,
+                      height: progressIndicatorSize,
+                      child: Center(
+                        child: CircularProgressIndicator(strokeWidth: 2.0),
+                      ),
+                    )
+                  : submitText,
+            );
+          },
         ),
       ],
     );

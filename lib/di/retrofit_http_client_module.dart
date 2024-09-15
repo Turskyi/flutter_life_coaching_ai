@@ -6,6 +6,6 @@ import 'package:lifecoach/res/constants.dart' as constants;
 @module
 abstract class RetrofitHttpClientModule {
   @lazySingleton
-  RetrofitClient getRestClient(Dio dio) =>
+  RetrofitClient getRetrofitHttpClient(Dio dio) =>
       RetrofitClient(dio, baseUrl: constants.baseUrl);
 }

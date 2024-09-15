@@ -12,7 +12,7 @@ class AnonymousAiChatButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => Navigator.pushNamed(
           context,
-          AppRoute.anonymousChat.path,
+          AppRoute.chat.path,
         ),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,

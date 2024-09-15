@@ -32,6 +32,7 @@ import 'package:lifecoach/application_services/repositories/settings_repository_
 import 'package:lifecoach/di/authentication_repository_module.dart' as _i413;
 import 'package:lifecoach/di/dio_http_client_module.dart' as _i1000;
 import 'package:lifecoach/di/preferences_module.dart' as _i78;
+import 'package:lifecoach/di/rest_client_module.dart' as _i868;
 import 'package:lifecoach/di/retrofit_http_client_module.dart' as _i696;
 import 'package:lifecoach/di/user_repository_module.dart' as _i960;
 import 'package:lifecoach/domain_services/chat_repository.dart' as _i737;
@@ -41,6 +42,7 @@ import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_intercepto
     as _i284;
 import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart'
     as _i1073;
+import 'package:models/models.dart' as _i669;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:user_repository/user_repository.dart' as _i164;
 
@@ -59,6 +61,7 @@ extension GetItInjectableX on _i174.GetIt {
     final userRepositoryModule = _$UserRepositoryModule();
     final dioHttpClientModule = _$DioHttpClientModule();
     final retrofitHttpClientModule = _$RetrofitHttpClientModule();
+    final restClientModule = _$RestClientModule();
     final authenticationRepositoryModule = _$AuthenticationRepositoryModule();
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => sharedPreferencesModule.prefs,
@@ -76,14 +79,16 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.lazySingleton<_i1073.RetrofitClient>(
-        () => retrofitHttpClientModule.getRestClient(gh<_i361.Dio>()));
+        () => retrofitHttpClientModule.getRetrofitHttpClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i669.RestClient>(
+        () => restClientModule.getRestClient(gh<_i361.Dio>()));
+    gh.factory<_i109.GoalsRepository>(
+        () => _i500.GoalsRepositoryImpl(gh<_i669.RestClient>()));
     gh.lazySingleton<_i223.AuthenticationRepository>(
         () => authenticationRepositoryModule.getAuthenticationRepository(
               gh<_i1073.RetrofitClient>(),
               gh<_i460.SharedPreferences>(),
             ));
-    gh.factory<_i109.GoalsRepository>(
-        () => _i500.GoalsRepositoryImpl(gh<_i1073.RetrofitClient>()));
     gh.factory<_i737.ChatRepository>(
         () => _i518.ChatRepositoryImpl(gh<_i1073.RetrofitClient>()));
     gh.factory<_i489.ChatBloc>(() => _i489.ChatBloc(
@@ -114,6 +119,8 @@ class _$UserRepositoryModule extends _i960.UserRepositoryModule {}
 class _$DioHttpClientModule extends _i1000.DioHttpClientModule {}
 
 class _$RetrofitHttpClientModule extends _i696.RetrofitHttpClientModule {}
+
+class _$RestClientModule extends _i868.RestClientModule {}
 
 class _$AuthenticationRepositoryModule
     extends _i413.AuthenticationRepositoryModule {}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lifecoach/ui/chat/bubble_background.dart';
+import 'package:lifecoach/ui/chat/markdown_text.dart';
 import 'package:models/models.dart';
 
 @immutable
@@ -42,7 +43,7 @@ class MessageBubble extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Text('${message.text}'),
+                  child: MarkdownText(text: '${message.text}'),
                 ),
               ),
             ),

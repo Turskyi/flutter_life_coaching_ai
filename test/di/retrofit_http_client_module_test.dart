@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/di/retrofit_http_client_module.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
-import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart';
 import 'package:mockito/mockito.dart';
+import 'package:models/models.dart';
 
 import '../retrofit_client_test/retrofit_client_test.mocks.dart';
 
@@ -13,7 +12,7 @@ void main() {
   group('RetrofitHttpClientModule', () {
     late TestRetrofitHttpClientModule retrofitHttpClientModule;
     late MockDio mockDio;
-    late RetrofitClient client;
+    late RestClient client;
 
     setUp(() {
       retrofitHttpClientModule = TestRetrofitHttpClientModule();
@@ -25,7 +24,7 @@ void main() {
           data: <String, String>{'token': 'dummy_token'},
         ),
       );
-      client = retrofitHttpClientModule.getRestClient(mockDio);
+      client = retrofitHttpClientModule.getRetrofitHttpClient(mockDio);
     });
 
     test('should call signIn with correct parameters', () async {
@@ -36,7 +35,7 @@ void main() {
         ),
       );
 
-      final SignInResponse response =
+      final LoginResponse response =
           await client.signIn('identifier', 'password', 'password');
 
       expect(response.token, '');

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lifecoach/ui/goals/add_edit_goal_dialog.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
+import 'package:lifecoach/ui/goals/goal_card.dart';
 import 'package:models/models.dart';
 
 class GoalWidget extends StatelessWidget {
@@ -9,49 +11,26 @@ class GoalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool wasUpdated = goal.updatedAt.isAfter(goal.createdAt);
-    final String createdUpdatedAtTimestamp = wasUpdated
-        ? goal.updatedAt.toLocal().toString().split(' ')[0]
-        : goal.createdAt.toLocal().toString().split(' ')[0];
-
-    return GestureDetector(
-      onTap: () => showDialog(
-        context: context,
-        builder: (_) => AddEditGoalDialog(goal: goal),
-      ),
-      child: Card(
-        elevation: 4.0,
-        margin: const EdgeInsets.all(8.0),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                goal.title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+    return Stack(
+      children: <Widget>[
+        GoalCard(goal: goal),
+        BlocBuilder<GoalsBloc, GoalsState>(
+          builder: (_, GoalsState state) {
+            if (state is SubmittingGoal && state.goalId == goal.id) {
+              return Positioned.fill(
+                child: Card(
+                  color: Colors.black.withOpacity(0.5),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                '$createdUpdatedAtTimestamp${wasUpdated ? ' (updated)' : ''}',
-                style: const TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                goal.content,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
+              );
+            } else {
+              return const SizedBox();
+            }
+          },
         ),
-      ),
+      ],
     );
   }
 }

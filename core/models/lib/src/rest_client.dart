@@ -39,4 +39,12 @@ abstract interface class RestClient {
     // This value is always `email_code`.
     String strategy,
   );
+
+  Future<GoalResult> createGoal(Goal goal);
+
+  Future<GoalResult> updateGoal(Goal goal);
+
+  Future<MessageResponse> deleteGoal(Goal goal);
+
+  Future<Goals> getGoals(String userId, int? page);
 }
