@@ -17,10 +17,10 @@ GoalResponse _$GoalResponseFromJson(Map<String, dynamic> json) => GoalResponse(
 
 Map<String, dynamic> _$GoalResponseToJson(GoalResponse instance) =>
     <String, dynamic>{
+      'userId': instance.userId,
       'id': instance.id,
       'title': instance.title,
       'content': instance.content,
-      'userId': instance.userId,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
     };
