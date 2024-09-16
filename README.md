@@ -4,13 +4,19 @@
 [![codecov](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai/graph/badge.svg?token=U26RQJ7H44)](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai)
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Turskyi/flutter_life_coaching_ai">
 
-# Life-Coaching AI (Flutter Version. In progress...)
+# Life-Coaching AI (Flutter Version).
 
 Life-Coaching AI is a mobile application designed to help users explore their
 true potential and set personal goals. This project is built using Flutter and
 provides a seamless experience on both Android and iOS platforms. Users can
 interact with an AI representation of a professional life coach, save their
 goals, and have private access to their personalized coaching experience.
+
+### Testing the App:
+
+Join our testing program and provide valuable feedback:
+
+- [Android App Distribution Tester Invite](https://appdistribution.firebase.dev/i/3371db95e2dc305b)
 
 ## Features
 

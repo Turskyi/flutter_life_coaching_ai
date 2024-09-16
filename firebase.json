@@ -1,0 +1,32 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "life-coaching-ai",
+          "appId": "1:917469553417:android:8daa8350181490038aa9d8",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "life-coaching-ai",
+          "appId": "1:917469553417:ios:932d0720197b596d8aa9d8",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "life-coaching-ai",
+          "configurations": {
+            "android": "1:917469553417:android:8daa8350181490038aa9d8",
+            "ios": "1:917469553417:ios:932d0720197b596d8aa9d8",
+            "web": "1:917469553417:web:11df5a3fa941a2c68aa9d8",
+            "windows": "1:917469553417:web:6daece695edfde718aa9d8"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+name: Upload Android build to App Tester.
+on: [ push ]
+
+jobs:
+  build_apk:
+    name: Build Flutter (Android)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Write google-services.json file
+        run: |
+          cd android/app
+          echo $GOOGLE_SERVICES | base64 -d > google-services.json
+        shell: bash
+        env:
+          GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
+
+      - name: Write key.properties file
+        run: |
+          echo $KEY_PROPERTIES | base64 -d > android/key.properties
+        shell: bash
+        env:
+          KEY_PROPERTIES: ${{ secrets.KEY_PROPERTIES }}
+
+      - name: Create keystore folder
+        run: mkdir -p android/keystore
+
+      - name: Write lifecoach_release.keystore file
+        env:
+          RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+        run: |
+          echo $RELEASE_KEYSTORE | base64 --decode > android/keystore/lifecoach_release.keystore
+
+      - name: Write lifecoach_debug.keystore file
+        run: |
+          echo $DEBUG_KEYSTORE | base64 -d > android/keystore/lifecoach_debug.keystore
+        shell: bash
+        env:
+          DEBUG_KEYSTORE: ${{ secrets.DEBUG_KEYSTORE }}
+
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+
+      - run: flutter build apk --release
+      - name: Upload APK
+        uses: actions/upload-artifact@master
+        with:
+          name: apk-build
+          path: build/app/outputs/apk/release
+  beta_apk:
+    name: Upload Android Beta version to Firebase App Distribution
+    needs: [ build_apk ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: apk-build
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: testers
+          file: app-release.apk
