@@ -55,3 +55,5 @@ env.g.dart
 /coverage/
 coverage/lcov.info
 coverage
+/ios/Runner/GoogleService-Info.plist
+ios/Runner/GoogleService-Info.plist
