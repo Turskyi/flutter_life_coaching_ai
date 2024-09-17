@@ -96,6 +96,7 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
                   return null;
                 },
               ),
+              const SizedBox(height: 12),
               TextFormField(
                 controller: _contentController,
                 // Allows for multiline input
