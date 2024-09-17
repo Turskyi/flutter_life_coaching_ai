@@ -465,6 +465,8 @@ For any inquiries, please contact support@turskyi.com.
 <img src="screenshots/HomeScreenshot.png" width="400"  alt="screenshot">
 <!--suppress CheckImageSize -->
 <img src="screenshots/AnonymousChatEmptyStateScreenshot.png" width="400"  alt="screenshot">
+<!--suppress CheckImageSize -->
+<img src="screenshots/Screenshot_chat_2024.png" width="400"  alt="screenshot">
 
 ## Credits
 

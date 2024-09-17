@@ -78,32 +78,45 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.goal == null ? 'Add Goal' : 'Edit Goal'),
-      content: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            TextFormField(
-              controller: _titleController,
-              decoration: const InputDecoration(labelText: 'Goal title'),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a title';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _contentController,
-              decoration: const InputDecoration(labelText: 'Goal content'),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter content';
-                }
-                return null;
-              },
-            ),
-          ],
+      content: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                controller: _titleController,
+                maxLines: 3,
+                minLines: 2,
+                decoration: const InputDecoration(labelText: 'Goal title'),
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a title';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _contentController,
+                // Allows for multiline input
+                maxLines: 6,
+                minLines: 3,
+                decoration: const InputDecoration(
+                  labelText: 'Goal content',
+                  // Align label with multiline input
+                  alignLabelWithHint: true,
+                  // Add border for better UX.
+                  border: OutlineInputBorder(),
+                ),
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter content';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
         ),
       ),
       actions: <Widget>[
