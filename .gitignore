@@ -57,3 +57,9 @@ coverage/lcov.info
 coverage
 /ios/Runner/GoogleService-Info.plist
 ios/Runner/GoogleService-Info.plist
+/android/fastlane/metadata/android/fr-FR/images/
+/android/fastlane/metadata/android/en-US/images/
+/android/google-play-store.json
+
+/ios/fastlane/screenshots
+/ios/app_store_connect.json

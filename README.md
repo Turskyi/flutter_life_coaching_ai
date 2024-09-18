@@ -462,7 +462,7 @@ For any inquiries, please contact support@turskyi.com.
 ## Screenshots:
 
 <!--suppress CheckImageSize -->
-<img src="screenshots/HomeScreenshot.png" width="400"  alt="screenshot">
+<img src="screenshots/HomeScreenshot_2024.png" width="400"  alt="screenshot">
 <!--suppress CheckImageSize -->
 <img src="screenshots/AnonymousChatEmptyStateScreenshot.png" width="400"  alt="screenshot">
 <!--suppress CheckImageSize -->
