@@ -6,10 +6,10 @@ import 'package:lifecoach/application_services/blocs/authentication/bloc/authent
 import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
 import 'package:lifecoach/domain_services/goals_repository.dart';
 import 'package:lifecoach/ui/goals/add_edit_goal_dialog.dart';
-import 'package:lifecoach/ui/goals/app_drawer.dart';
 import 'package:lifecoach/ui/goals/goal_widget.dart';
 import 'package:lifecoach/ui/goals/goals_app_bar.dart';
 import 'package:lifecoach/ui/goals/shimmer_goal.dart';
+import 'package:lifecoach/ui/menu/app_drawer.dart';
 import 'package:models/models.dart';
 
 /// The [GoalsPage] can access the current user id via
