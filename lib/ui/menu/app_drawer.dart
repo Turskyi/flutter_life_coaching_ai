@@ -23,7 +23,7 @@ class AppDrawer extends StatelessWidget {
                 colors: <Color>[
                   theme.colorScheme.onPrimary,
                   theme.colorScheme.onSecondaryFixed,
-                  theme.scaffoldBackgroundColor
+                  theme.scaffoldBackgroundColor,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,

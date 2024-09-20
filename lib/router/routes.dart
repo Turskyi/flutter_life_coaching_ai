@@ -8,6 +8,7 @@ import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/chat/ai_chat_page.dart';
 import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
+import 'package:lifecoach/ui/privacy/privacy_policy_page.dart';
 import 'package:lifecoach/ui/sign_in/sign_in_page.dart';
 import 'package:lifecoach/ui/sign_up/sign_up_page.dart';
 import 'package:models/models.dart';
@@ -46,4 +47,5 @@ Map<String, WidgetBuilder> routeMap = <String, WidgetBuilder>{
       ),
   AppRoute.signIn.path: (_) => const SignInPage(),
   AppRoute.signUp.path: (_) => const SignUpPage(),
+  AppRoute.privacyPolity.path: (_) => const PrivacyPolicyPage(),
 };

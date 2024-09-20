@@ -130,9 +130,13 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('continue button is enabled when status is validated',
+    testWidgets(
+        'continue button is enabled when status is validated and consent given',
         (WidgetTester tester) async {
+      // Mock the SignInBloc state where the form is valid
       when(() => loginBloc.state).thenReturn(const SignInState(isValid: true));
+
+      // Build the widget tree with the SignInForm
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -143,16 +147,32 @@ void main() {
           ),
         ),
       );
-      final ElevatedButton button = tester.widget<ElevatedButton>(
+
+      // Check that the button is initially disabled since the consent checkbox
+      // is unchecked.
+      final ElevatedButton buttonBefore = tester.widget<ElevatedButton>(
         find.byKey(const Key('signInForm_continue_raisedButton')),
       );
-      expect(button.enabled, isTrue);
+      expect(buttonBefore.enabled, isFalse);
+
+      // Simulate the user tapping the checkbox
+      await tester.tap(find.byType(CheckboxListTile));
+      await tester.pumpAndSettle(); // Let the widget rebuild after interaction
+
+      // Find the button again and check if it is now enabled
+      final ElevatedButton buttonAfter = tester.widget<ElevatedButton>(
+        find.byKey(const Key('signInForm_continue_raisedButton')),
+      );
+      expect(buttonAfter.enabled, isTrue);
     });
 
     testWidgets(
-        'SignInSubmitted is added to SignInBloc when continue is tapped',
-        (WidgetTester tester) async {
+        'SignInSubmitted is added to SignInBloc when continue is tapped after '
+        'consent', (WidgetTester tester) async {
+      // Mock the SignInBloc state where the form is valid
       when(() => loginBloc.state).thenReturn(const SignInState(isValid: true));
+
+      // Build the widget tree with the SignInForm
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -163,9 +183,18 @@ void main() {
           ),
         ),
       );
+
+      // Tap the checkbox to give consent
+      await tester.tap(find.byType(CheckboxListTile));
+      await tester.pumpAndSettle(); // Let the widget rebuild after interaction.
+
+      // Now tap the continue button
       await tester.tap(
         find.byKey(const Key('signInForm_continue_raisedButton')),
       );
+      await tester.pumpAndSettle();
+
+      // Verify that the SignInSubmitted event was added to the SignInBloc
       verify(() => loginBloc.add(const SignInSubmitted())).called(1);
     });
 

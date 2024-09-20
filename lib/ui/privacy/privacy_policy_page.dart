@@ -9,6 +9,7 @@ class PrivacyPolicyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color linkColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Privacy Policy'),
@@ -54,7 +55,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                 children: <InlineSpan>[
                   TextSpan(
                     text: constants.authServiceName,
-                    style: const TextStyle(color: Colors.blue),
+                    style: TextStyle(color: linkColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => _launchURL(
                             context: context,
@@ -73,7 +74,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                 children: <InlineSpan>[
                   TextSpan(
                     text: constants.authServiceName,
-                    style: const TextStyle(color: Colors.blue),
+                    style: TextStyle(color: linkColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => _launchURL(
                             context: context,
@@ -102,7 +103,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                 children: <InlineSpan>[
                   TextSpan(
                     text: constants.remoteDbServiceName,
-                    style: const TextStyle(color: Colors.blue),
+                    style: TextStyle(color: linkColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => _launchURL(
                             context: context,
@@ -125,7 +126,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                 children: <InlineSpan>[
                   TextSpan(
                     text: 'Account Deletion Instructions',
-                    style: const TextStyle(color: Colors.blue),
+                    style: TextStyle(color: linkColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => _launchURL(
                             context: context,
@@ -208,9 +209,10 @@ class PrivacyPolicyPage extends StatelessWidget {
                 children: <InlineSpan>[
                   TextSpan(
                     text: 'privacy@${constants.companyDomain}',
-                    style: const TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline),
+                    style: TextStyle(
+                      color: linkColor,
+                      decoration: TextDecoration.underline,
+                    ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         final Uri emailLaunchUri = Uri(
@@ -263,8 +265,8 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               TextSpan(
                 text: url.toString(),
-                style: const TextStyle(
-                  color: Colors.blue,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
                   decoration: TextDecoration.underline,
                 ),
                 recognizer: TapGestureRecognizer()

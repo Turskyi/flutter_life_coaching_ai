@@ -7,7 +7,9 @@ import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.d
 /// valid and a [CircularProgressIndicator] is shown in its place while the
 /// form is being submitted.
 class ContinueButton extends StatelessWidget {
-  const ContinueButton({super.key});
+  const ContinueButton({required this.onPressed, super.key});
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,7 @@ class ContinueButton extends StatelessWidget {
 
     return ElevatedButton(
       key: const Key('signInForm_continue_raisedButton'),
-      onPressed: isValid
-          ? () => context.read<SignInBloc>().add(const SignInSubmitted())
-          : null,
+      onPressed: isValid ? onPressed : null,
       child: const Text('Continue'),
     );
   }
