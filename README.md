@@ -2,6 +2,7 @@
 [![Upload Android build to App Tester.](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/flutter_android_ci.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/flutter_android_ci.yml)
 [![style: flutter lints](https://img.shields.io/badge/style-flutter__lints-blue)](https://pub.dev/packages/flutter_lints)
 [![Code Quality](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/code_quality_tests.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/code_quality_tests.yml)
+[![Codemagic build status](https://api.codemagic.io/apps/66e784cdef3637270bef138a/66e784cdef3637270bef1389/status_badge.svg)](https://codemagic.io/app/66e784cdef3637270bef138a/66e784cdef3637270bef1389/latest_build)
 [![codecov](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai/graph/badge.svg?token=U26RQJ7H44)](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai)
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Turskyi/flutter_life_coaching_ai">
 
