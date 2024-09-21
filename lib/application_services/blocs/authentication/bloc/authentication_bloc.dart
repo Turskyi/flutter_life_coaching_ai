@@ -40,6 +40,7 @@ class AuthenticationBloc
         super(const AuthenticationState.unknown()) {
     on<AuthenticationSubscriptionRequested>(_onSubscriptionRequested);
     on<AuthenticationSignOutPressed>(_onLogoutPressed);
+    on<AuthenticationAccountDeletionRequested>(_onAccountDeletionRequested);
   }
 
   final AuthenticationRepository _authenticationRepository;
@@ -77,6 +78,8 @@ class AuthenticationBloc
               );
             case UnknownAuthenticationStatus():
               return emit(const AuthenticationState.unknown());
+            case DeletingAuthenticatedUserStatus():
+              emit(AuthenticationState.accountDeleting(state.user));
           }
         },
         onError: addError,
@@ -87,6 +90,17 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) =>
       _authenticationRepository.signOut();
+
+  Future<void> _onAccountDeletionRequested(
+    AuthenticationAccountDeletionRequested event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    final MessageResponse response =
+        await _authenticationRepository.deleteAccount(
+      state.user.id,
+    );
+    emit(AuthenticationState.accountDeleted(response.message));
+  }
 
   User _getUser() {
     final User user = _userRepository.getUser();

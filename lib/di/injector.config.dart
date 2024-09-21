@@ -60,8 +60,8 @@ extension GetItInjectableX on _i174.GetIt {
     final sharedPreferencesModule = _$SharedPreferencesModule();
     final userRepositoryModule = _$UserRepositoryModule();
     final dioHttpClientModule = _$DioHttpClientModule();
-    final retrofitHttpClientModule = _$RetrofitHttpClientModule();
     final restClientModule = _$RestClientModule();
+    final retrofitHttpClientModule = _$RetrofitHttpClientModule();
     final authenticationRepositoryModule = _$AuthenticationRepositoryModule();
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => sharedPreferencesModule.prefs,
@@ -78,10 +78,10 @@ extension GetItInjectableX on _i174.GetIt {
           dioHttpClientModule.getDioHttpClient(gh<_i284.LoggingInterceptor>()),
       preResolve: true,
     );
-    gh.lazySingleton<_i1073.RetrofitClient>(
-        () => retrofitHttpClientModule.getRetrofitHttpClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i669.RestClient>(
         () => restClientModule.getRestClient(gh<_i361.Dio>()));
+    gh.lazySingleton<_i1073.RetrofitClient>(
+        () => retrofitHttpClientModule.getRetrofitHttpClient(gh<_i361.Dio>()));
     gh.factory<_i109.GoalsRepository>(
         () => _i500.GoalsRepositoryImpl(gh<_i669.RestClient>()));
     gh.lazySingleton<_i223.AuthenticationRepository>(
@@ -118,9 +118,9 @@ class _$UserRepositoryModule extends _i960.UserRepositoryModule {}
 
 class _$DioHttpClientModule extends _i1000.DioHttpClientModule {}
 
-class _$RetrofitHttpClientModule extends _i696.RetrofitHttpClientModule {}
-
 class _$RestClientModule extends _i868.RestClientModule {}
+
+class _$RetrofitHttpClientModule extends _i696.RetrofitHttpClientModule {}
 
 class _$AuthenticationRepositoryModule
     extends _i413.AuthenticationRepositoryModule {}

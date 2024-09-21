@@ -1,6 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
@@ -45,6 +46,12 @@ class _AppViewState extends State<AppView> {
           listener: (BuildContext context, AuthenticationState state) {
             final AuthenticationStatus status = state.status;
             switch (status) {
+              case DeletingAuthenticatedUserStatus():
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Account deletion in progress...'),
+                  ),
+                );
               case AuthenticatedStatus():
                 _navigator.pushAndRemoveUntil<void>(
                   GoalsPage.route(widget.authenticationBloc),
@@ -55,6 +62,16 @@ class _AppViewState extends State<AppView> {
                   HomePage.route(),
                   (Route<void> route) => false,
                 );
+                if (status.message.isNotEmpty) {
+                  final String message = status.message;
+                  Fluttertoast.showToast(
+                    msg: message,
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    fontSize: 16.0,
+                  );
+                }
               case UnknownAuthenticationStatus():
                 break;
             }

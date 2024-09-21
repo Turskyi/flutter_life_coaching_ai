@@ -466,4 +466,21 @@ class MockRetrofitClient extends _i1.Mock implements _i11.RetrofitClient {
           ),
         )),
       ) as _i12.Future<_i10.DeleteGoalResponse>);
+
+  @override
+  _i12.Future<_i10.DeleteGoalResponse> deleteAccount(String? userId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteAccount,
+          [userId],
+        ),
+        returnValue: _i12.Future<_i10.DeleteGoalResponse>.value(
+            _FakeDeleteGoalResponse_8(
+          this,
+          Invocation.method(
+            #deleteAccount,
+            [userId],
+          ),
+        )),
+      ) as _i12.Future<_i10.DeleteGoalResponse>);
 }

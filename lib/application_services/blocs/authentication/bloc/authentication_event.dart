@@ -13,3 +13,7 @@ final class AuthenticationSubscriptionRequested extends AuthenticationEvent {
 final class AuthenticationSignOutPressed extends AuthenticationEvent {
   const AuthenticationSignOutPressed();
 }
+
+final class AuthenticationAccountDeletionRequested extends AuthenticationEvent {
+  const AuthenticationAccountDeletionRequested();
+}

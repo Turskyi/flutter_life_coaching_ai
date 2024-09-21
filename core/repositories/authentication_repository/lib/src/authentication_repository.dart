@@ -128,10 +128,16 @@ class AuthenticationRepository {
 
   Future<bool> _removeToken() => _preferences.remove(StorageKeys.authToken.key);
 
-  Future<bool> _removeSignUpId() =>
-      _preferences.remove(StorageKeys.signUpId.key);
+  Future<bool> _removeSignUpId() => _preferences.remove(
+        StorageKeys.signUpId.key,
+      );
 
   Future<bool> _removeEmail() => _preferences.remove(StorageKeys.email.key);
 
   Future<bool> _removeUserId() => _preferences.remove(StorageKeys.userId.key);
+
+  Future<MessageResponse> deleteAccount(String userId) {
+    _controller.add(AuthenticationStatus.deleting());
+    return signOut().then((_) => _restClient.deleteAccount(userId));
+  }
 }

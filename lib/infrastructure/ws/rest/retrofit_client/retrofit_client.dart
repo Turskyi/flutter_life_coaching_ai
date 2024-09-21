@@ -137,4 +137,8 @@ abstract class RetrofitClient implements RestClient {
   @override
   @DELETE('goals')
   Future<DeleteGoalResponse> deleteGoal(@Body() Goal goal);
+
+  @override
+  @DELETE('delete-user')
+  Future<DeleteGoalResponse> deleteAccount(@Query('userId') String userId);
 }

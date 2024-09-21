@@ -47,4 +47,6 @@ abstract interface class RestClient {
   Future<MessageResponse> deleteGoal(Goal goal);
 
   Future<Goals> getGoals(String userId, int? page);
+
+  Future<MessageResponse> deleteAccount(String userId);
 }
