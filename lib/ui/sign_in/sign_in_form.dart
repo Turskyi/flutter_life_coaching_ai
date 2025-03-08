@@ -24,7 +24,7 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  // Tracks whether the user has checked the box
+  // Tracks whether the user has checked the box.
   bool _isConsentGiven = false;
 
   @override

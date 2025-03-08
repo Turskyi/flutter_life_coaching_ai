@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/di/injector.dart';
 import 'package:lifecoach/localization/localization_delelegate_getter.dart'
-    as locale;
+    as localization;
 import 'package:lifecoach/ui/app/app.dart';
 import 'package:lifecoach/ui/feedback/feedback_form.dart';
 
@@ -16,7 +16,7 @@ import 'package:lifecoach/ui/feedback/feedback_form.dart';
 /// Here we should [injectDependencies] by a dependency injection framework.
 /// The [main] is a dirty low-level module in the outermost circle of the onion
 /// architecture.
-/// Think of [main] as a plugin to the [LifeCoachingAiApp] — a plugin that sets
+/// Think of [main] as a plugin to the [App] — a plugin that sets
 /// up the initial conditions and configurations, gathers all the outside
 /// resources, and then hands control over to the high-level policy of the
 /// [App].
@@ -32,7 +32,7 @@ Future<void> main() async {
   await injectDependencies();
 
   final LocalizationDelegate localizationDelegate =
-      await locale.getLocalizationDelegate();
+      await localization.getLocalizationDelegate();
 
   final AuthenticationRepository authenticationRepository =
       GetIt.instance<AuthenticationRepository>();

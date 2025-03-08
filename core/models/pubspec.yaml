@@ -10,11 +10,11 @@ dependencies:
   collection: any
   equatable: ^2.0.5
   flutter_translate: ^4.1.0
-  formz: ^0.7.0
+  formz: ^0.8.0
   json_annotation: ^4.9.0
 
 dev_dependencies:
-  build_runner: ^2.4.12
+  build_runner: ^2.4.13
   json_serializable: ^6.8.0
-  lints: ^4.0.0
+  lints: ^5.0.0
   test: ^1.25.8

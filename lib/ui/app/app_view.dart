@@ -31,7 +31,7 @@ class AppView extends StatefulWidget {
 class _AppViewState extends State<AppView> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  NavigatorState get _navigator => _navigatorKey.currentState!;
+  NavigatorState? get _navigator => _navigatorKey.currentState;
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +53,12 @@ class _AppViewState extends State<AppView> {
                   ),
                 );
               case AuthenticatedStatus():
-                _navigator.pushAndRemoveUntil<void>(
+                _navigator?.pushAndRemoveUntil<void>(
                   GoalsPage.route(widget.authenticationBloc),
                   (Route<void> route) => false,
                 );
               case UnauthenticatedStatus():
-                _navigator.pushAndRemoveUntil<void>(
+                _navigator?.pushAndRemoveUntil<void>(
                   HomePage.route(),
                   (Route<void> route) => false,
                 );
