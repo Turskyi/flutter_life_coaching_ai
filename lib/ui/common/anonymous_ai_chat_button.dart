@@ -7,7 +7,7 @@ class AnonymousAiChatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
+      width: 208,
       height: 60,
       child: ElevatedButton(
         onPressed: () => Navigator.pushNamed(
@@ -19,7 +19,12 @@ class AnonymousAiChatButton extends StatelessWidget {
           children: <Widget>[
             Icon(Icons.chat, size: 20),
             SizedBox(width: 8),
-            Expanded(child: Text('Chat Anonymously with Life-Coach AI')),
+            Expanded(
+              child: Text(
+                'Chat Anonymously\nwith Life-Coach AI',
+                textAlign: TextAlign.center,
+              ),
+            ),
           ],
         ),
       ),

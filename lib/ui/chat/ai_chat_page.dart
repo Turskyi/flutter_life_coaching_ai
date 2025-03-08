@@ -199,6 +199,8 @@ class _AiChatPageState extends State<AiChatPage> {
   @override
   void dispose() {
     _textEditingController.dispose();
+    // Remove the listener FIRST.
+    _feedbackController?.removeListener(_onFeedbackChanged);
     _feedbackController?.dispose();
     super.dispose();
   }
