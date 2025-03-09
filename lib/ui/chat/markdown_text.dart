@@ -81,16 +81,16 @@ class MarkdownText extends StatelessWidget {
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri);
       } else if (context.mounted) {
-        _showErrorSnackbar(context: context, url: uri);
+        _showErrorSnackBar(context: context, url: uri);
       }
     } catch (e) {
       if (context.mounted) {
-        _showErrorSnackbar(context: context, url: uri);
+        _showErrorSnackBar(context: context, url: uri);
       }
     }
   }
 
-  void _showErrorSnackbar({required BuildContext context, required Uri url}) {
+  void _showErrorSnackBar({required BuildContext context, required Uri url}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: RichText(

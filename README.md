@@ -143,7 +143,7 @@ lib/
 
 - Flutter SDK
 - Android Studio
-- A device or emulator for testing
+- A device or emulator for testing.
 
 ### Installation
 

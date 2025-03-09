@@ -50,12 +50,14 @@ def signingKeyReleaseKeyPassword = keyProperties.getProperty('production.SIGNING
 android {
     namespace = rootProject.applicationId
     compileSdk = flutter.compileSdkVersion
-    //TODO: change back to dynamic "flutter.ndkVersion" version, when the error "One or more plugins require a higher Android NDK version." is gone.
-    ndkVersion = "26.1.10909125"
+    //TODO: change back to dynamic "flutter.ndkVersion" version, when the
+    // error "One or more plugins require a higher Android NDK version." is
+    // gone.
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     defaultConfig {
@@ -71,10 +73,15 @@ android {
     signingConfigs {
         production {
             // FCI_BUILD_ID is exported by Codemagic
+            //noinspection GroovyAssignabilityCheck
             if (System.getenv()["FCI_BUILD_ID"] != null) {
+                //noinspection GroovyAssignabilityCheck
                 storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+                //noinspection GroovyAssignabilityCheck
                 storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+                //noinspection GroovyAssignabilityCheck
                 keyAlias System.getenv()["CM_KEY_ALIAS"]
+                //noinspection GroovyAssignabilityCheck
                 keyPassword System.getenv()["CM_KEY_PASSWORD"]
             } else {
                 storeFile file(signingKeyReleasePath)
@@ -83,12 +90,18 @@ android {
                 keyPassword signingKeyReleaseKeyPassword
             }
         }
+
         dev {
             // FCI_BUILD_ID is exported by Codemagic
+            //noinspection GroovyAssignabilityCheck
             if (System.getenv()["FCI_BUILD_ID"] != null) {
+                //noinspection GroovyAssignabilityCheck
                 storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+                //noinspection GroovyAssignabilityCheck
                 storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+                //noinspection GroovyAssignabilityCheck
                 keyAlias System.getenv()["CM_KEY_ALIAS"]
+                //noinspection GroovyAssignabilityCheck
                 keyPassword System.getenv()["CM_KEY_PASSWORD"]
             } else {
                 storeFile file(signingKeyDebugPath)
@@ -123,5 +136,5 @@ configurations {
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-crashlytics:19.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics:19.4.1'
 }

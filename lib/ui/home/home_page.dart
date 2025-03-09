@@ -13,14 +13,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO:
-    // final String? userId = AuthService().getUserId();
-    //
-    // if (userId != null) {
-    //   WidgetsBinding.instance.addPostFrameCallback((_) {
-    //     Navigator.pushReplacementNamed(context, AppRoute.goals.path);
-    //   });
-    // }
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -75,7 +67,7 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
-                  width: 200,
+                  width: 208,
                   height: 60,
                   child: ElevatedButton(
                     onPressed: () => Navigator.pushNamed(

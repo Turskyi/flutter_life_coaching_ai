@@ -5,6 +5,7 @@ import 'package:lifecoach/infrastructure/ws/models/responses/authentication_resp
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_response/sign_up_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/verification_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/created_goal_response/created_goal_response.dart';
+import 'package:lifecoach/infrastructure/ws/models/responses/delete_account_response/delete_account_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_goal_response/delete_goal_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/goals_response/goals_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/sign_out_response/sign_out_response.dart';
@@ -140,5 +141,5 @@ abstract class RetrofitClient implements RestClient {
 
   @override
   @DELETE('delete-user')
-  Future<DeleteGoalResponse> deleteAccount(@Query('userId') String userId);
+  Future<DeleteAccountResponse> deleteAccount(@Query('userId') String userId);
 }

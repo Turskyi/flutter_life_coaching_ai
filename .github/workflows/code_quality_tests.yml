@@ -21,6 +21,9 @@ jobs:
       - name: Check format errors
         run: dart format --set-exit-if-changed .
 
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Check lint errors
         run: flutter analyze .
 

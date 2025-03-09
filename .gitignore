@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -63,3 +65,14 @@ ios/Runner/GoogleService-Info.plist
 
 /ios/fastlane/screenshots
 /ios/app_store_connect.json
+test/mocks/retrofit_client_mock.mocks.dart
+android/app/.cxx
+/android/app/.cxx/Debug/
+test/infrastrucutre/dio_mock.mocks.dart
+test/infrastrucutre/logging_interceptor_test.mocks.dart
+test/mocks/retrofit_client_test.mocks.dart
+/test/mocks/
+test/infrastructure/dio_mock.mocks.dart
+test/infrastructure/logging_interceptor_test.mocks.dart
+test/retrofit_client_mock.mocks.dart
+test/retrofit_client_test/retrofit_client_test.mocks.dart
