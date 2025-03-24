@@ -20,6 +20,7 @@ goals, and have private access to their personalized coaching experience.
 Join our testing program and provide valuable feedback:
 
 - [Android App Distribution Tester Invite](https://appdistribution.firebase.dev/i/3371db95e2dc305b)
+- [iOS TestFlight Tester Invite](https://testflight.apple.com/join/sdC8NYkb)
 
 ## Features
 
