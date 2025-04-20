@@ -90,7 +90,7 @@ void main() {
               AuthenticationStatus.authenticated(),
             ),
           );
-          when(() => userRepository.getUser()).thenReturn(User.empty);
+          when(() => userRepository.getUser()).thenReturn(User.anonymous);
         },
         build: buildBloc,
         act: (AuthenticationBloc bloc) =>

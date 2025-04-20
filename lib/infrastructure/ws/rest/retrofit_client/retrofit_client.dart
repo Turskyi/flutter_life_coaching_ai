@@ -110,10 +110,24 @@ abstract class RetrofitClient implements RestClient {
   );
 
   @POST('anonymous-chat-ios-en')
-  Stream<String> sendEnglishIosChatMessage(@Body() ChatRequest chatRequest);
+  Stream<String> sendAnonymousEnglishIosChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
+
+  @POST('chat-ios-en')
+  Stream<String> sendEnglishIosChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
 
   @POST('anonymous-chat-ios-ua')
-  Stream<String> sendUkrainianIosChatMessage(@Body() ChatRequest chatRequest);
+  Stream<String> sendAnonymousUkrainianIosChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
+
+  @POST('chat-ios-ua')
+  Stream<String> sendUkrainianIosChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
 
   @POST('anonymous-chat')
   Stream<String> sendChatMessageOnUnknownPlatform(

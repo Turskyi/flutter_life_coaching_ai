@@ -112,7 +112,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       const String messageKey = 'long_message';
       final String errorMessage = (data != null &&
               data.containsKey(errorsKey) &&
-              data[errorsKey].isNotEmpty &&
+              data[errorsKey].isNotAnonymous &&
               data[errorsKey].first.containsKey(messageKey))
           ? data[errorsKey][0][messageKey]
           : 'Unknown error';

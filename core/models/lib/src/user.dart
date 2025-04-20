@@ -8,9 +8,9 @@ class User extends Equatable {
   @override
   List<Object> get props => <Object>[id];
 
-  static const User empty = User('');
+  static const User anonymous = User('');
 
-  bool get isEmpty => this == empty || id.isEmpty;
+  bool get isAnonymous => this == anonymous || id.isEmpty;
 
-  bool get isNotEmpty => this != empty && id.isNotEmpty;
+  bool get isNotAnonymous => this != anonymous && id.isNotEmpty;
 }

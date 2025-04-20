@@ -25,11 +25,17 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     this._chatRepository,
     this._settingsRepository,
     this._userRepository,
-  ) : super(const LoadingChatState()) {
+  ) : super(const LoadingChatState(user: User(''))) {
     on<LoadingInitialChatStateEvent>(
       (_, Emitter<ChatState> emit) {
         final Language savedLanguage = _settingsRepository.getLanguage();
-        emit(ChatInitial(language: savedLanguage, messages: state.messages));
+        emit(
+          ChatInitial(
+            language: savedLanguage,
+            messages: state.messages,
+            user: _getUser(),
+          ),
+        );
       },
     );
     on<SendMessageEvent>((
@@ -47,7 +53,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         );
       // Emit a new state with the updated list of messages.
       emit(
-        SentMessageState(messages: updatedMessages, language: state.language),
+        SentMessageState(
+          messages: updatedMessages,
+          language: state.language,
+          user: _getUser(),
+        ),
       );
       try {
         final User user = _getUser();
@@ -104,6 +114,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           AiMessageUpdated(
             messages: updatedMessages,
             language: state.language,
+            user: _getUser(),
           ),
         );
       } else {
@@ -120,6 +131,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           AiMessageUpdated(
             messages: updatedMessages,
             language: state.language,
+            user: _getUser(),
           ),
         );
       }
@@ -165,13 +177,18 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         FeedbackState(
           messages: state.messages,
           language: state.language,
+          user: _getUser(),
         ),
       );
     });
 
     on<ClosingFeedbackEvent>((_, Emitter<ChatState> emit) {
       emit(
-        AiMessageUpdated(messages: state.messages, language: state.language),
+        AiMessageUpdated(
+          messages: state.messages,
+          language: state.language,
+          user: _getUser(),
+        ),
       );
     });
 
@@ -180,7 +197,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       Emitter<ChatState> emit,
     ) async {
       emit(
-        LoadingChatState(messages: state.messages, language: state.language),
+        LoadingChatState(
+          messages: state.messages,
+          language: state.language,
+          user: _getUser(),
+        ),
       );
       final UserFeedback feedback = event.feedback;
       try {
@@ -233,7 +254,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         add(ErrorEvent(translate('error.unexpectedError')));
       }
       emit(
-        AiMessageUpdated(messages: state.messages, language: state.language),
+        AiMessageUpdated(
+          messages: state.messages,
+          language: state.language,
+          user: _getUser(),
+        ),
       );
     });
 
@@ -243,6 +268,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         SentMessageState(
           messages: currentMessages,
           language: state.language,
+          user: _getUser(),
         ),
       );
       _chatRepository
@@ -275,6 +301,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           errorMessage: event.error,
           messages: state.messages,
           language: state.language,
+          user: _getUser(),
         ),
       );
     });

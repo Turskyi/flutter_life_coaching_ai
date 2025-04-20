@@ -36,6 +36,7 @@ class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: constants.appName,
       initialRoute: AppRoute.home.path,
       routes: routes.routeMap,

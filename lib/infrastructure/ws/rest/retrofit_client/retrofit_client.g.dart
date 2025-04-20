@@ -394,7 +394,9 @@ class _RetrofitClient implements RetrofitClient {
   }
 
   @override
-  Stream<String> sendEnglishIosChatMessage(ChatRequest chatRequest) async* {
+  Stream<String> sendAnonymousEnglishIosChatMessage(
+    ChatRequest chatRequest,
+  ) async* {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -422,7 +424,37 @@ class _RetrofitClient implements RetrofitClient {
   }
 
   @override
-  Stream<String> sendUkrainianIosChatMessage(ChatRequest chatRequest) async* {
+  Stream<String> sendEnglishIosChatMessage(ChatRequest chatRequest) async* {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(chatRequest.toJson());
+    final _options = _setStreamType<String>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'chat-ios-en',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<String>(_options);
+    late String _value;
+    try {
+      _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    yield _value;
+  }
+
+  @override
+  Stream<String> sendAnonymousUkrainianIosChatMessage(
+    ChatRequest chatRequest,
+  ) async* {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -433,6 +465,34 @@ class _RetrofitClient implements RetrofitClient {
           .compose(
             _dio.options,
             'anonymous-chat-ios-ua',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<String>(_options);
+    late String _value;
+    try {
+      _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    yield _value;
+  }
+
+  @override
+  Stream<String> sendUkrainianIosChatMessage(ChatRequest chatRequest) async* {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(chatRequest.toJson());
+    final _options = _setStreamType<String>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'chat-ios-ua',
             queryParameters: queryParameters,
             data: _data,
           )

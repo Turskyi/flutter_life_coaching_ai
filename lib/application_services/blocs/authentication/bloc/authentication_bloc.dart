@@ -72,7 +72,7 @@ class AuthenticationBloc
               final User user = _getUser();
 
               return emit(
-                user.isNotEmpty
+                user.isNotAnonymous
                     ? AuthenticationState.authenticated(user)
                     : const AuthenticationState.unauthenticated(),
               );
