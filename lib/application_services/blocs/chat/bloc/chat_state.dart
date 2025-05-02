@@ -245,3 +245,40 @@ final class FeedbackSent extends ChatState {
       'user: $user'
       ')';
 }
+
+final class FeedbackError extends FeedbackState {
+  const FeedbackError({
+    required super.user,
+    required this.errorMessage,
+    required super.language,
+    required super.messages,
+  });
+
+  final String errorMessage;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ChatError &&
+        other.errorMessage == errorMessage &&
+        other.language == language &&
+        other.user == user &&
+        other.messages == messages;
+  }
+
+  @override
+  int get hashCode =>
+      errorMessage.hashCode ^
+      language.hashCode ^
+      messages.hashCode ^
+      user.hashCode;
+
+  @override
+  String toString() => 'FeedbackError('
+      'errorMessage: $errorMessage, '
+      'messages: $messages, '
+      'language: $language,'
+      'user: $user'
+      ')';
+}

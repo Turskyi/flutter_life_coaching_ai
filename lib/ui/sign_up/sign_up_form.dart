@@ -20,21 +20,7 @@ class SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
-      listener: (BuildContext context, SignUpState state) {
-        if (state.status.isFailure || state is SignUpErrorState) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(
-                  state is SignUpErrorState
-                      ? state.errorMessage
-                      : 'Sign Up Failure',
-                ),
-              ),
-            );
-        }
-      },
+      listener: _signUpStateListener,
       child: Align(
         alignment: const Alignment(0, -1 / 3),
         child: SingleChildScrollView(
@@ -71,5 +57,21 @@ class SignUpForm extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _signUpStateListener(BuildContext context, SignUpState state) {
+    if (state.status.isFailure || state is SignUpErrorState) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              state is SignUpErrorState
+                  ? state.errorMessage
+                  : 'Sign Up Failure',
+            ),
+          ),
+        );
+    }
   }
 }

@@ -18,12 +18,6 @@ class _AiChatPageState extends State<AiChatPage> {
   final ScrollController _scrollController = ScrollController();
   FeedbackController? _feedbackController;
 
-  @override
-  void didChangeDependencies() {
-    _feedbackController = BetterFeedback.of(context);
-    super.didChangeDependencies();
-  }
-
   String _error = '';
 
   @override
@@ -213,6 +207,7 @@ class _AiChatPageState extends State<AiChatPage> {
     // Remove the listener FIRST.
     _feedbackController?.removeListener(_onFeedbackChanged);
     _feedbackController?.dispose();
+    _feedbackController = null;
     super.dispose();
   }
 
@@ -245,6 +240,8 @@ class _AiChatPageState extends State<AiChatPage> {
   }
 
   void _showFeedbackUi() {
+    _feedbackController ??= BetterFeedback.of(context);
+
     _feedbackController?.show(
       (UserFeedback feedback) =>
           context.read<ChatBloc>().add(SubmitFeedbackEvent(feedback)),
@@ -253,6 +250,8 @@ class _AiChatPageState extends State<AiChatPage> {
   }
 
   void _onFeedbackChanged() {
+    _feedbackController ??= BetterFeedback.of(context);
+
     final bool? isVisible = _feedbackController?.isVisible;
     if (isVisible == false) {
       _feedbackController?.removeListener(_onFeedbackChanged);
@@ -300,6 +299,7 @@ class _AiChatPageState extends State<AiChatPage> {
     "Let's explore your dreams together.",
   ];
 
-  void _showFeedbackDialog() =>
-      context.read<ChatBloc>().add(const BugReportPressedEvent());
+  void _showFeedbackDialog() {
+    context.read<ChatBloc>().add(const BugReportPressedEvent());
+  }
 }

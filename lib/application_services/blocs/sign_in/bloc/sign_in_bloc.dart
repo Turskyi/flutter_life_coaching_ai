@@ -85,7 +85,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           const String messageKey = 'message';
           final String errorMessage = (data != null &&
                   data.containsKey(errorsKey) &&
-                  data[errorsKey].isNotAnonymous &&
+                  data[errorsKey].isNotEmpty &&
                   data[errorsKey].first.containsKey(messageKey))
               ? data[errorsKey][0][messageKey]
               : 'Unknown error';

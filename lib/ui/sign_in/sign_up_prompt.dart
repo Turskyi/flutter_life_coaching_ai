@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lifecoach/ui/sign_up/sign_up_modal.dart';
+import 'package:lifecoach/ui/sign_up/sign_up_page.dart';
 
 class SignUpPrompt extends StatelessWidget {
   const SignUpPrompt({
@@ -19,17 +19,12 @@ class SignUpPrompt extends StatelessWidget {
         const SizedBox(height: 8),
         ElevatedButton(
           key: const Key('signInForm_sigh_up_raisedButton'),
-          onPressed: () => _showSignUpModal(context),
+          onPressed: () => Navigator.of(context).push<void>(
+            SignUpPage.route(email: email, password: password),
+          ),
           child: const Text('Sign up'),
         ),
       ],
-    );
-  }
-
-  Future<void> _showSignUpModal(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (_) => const SignUpModal(),
     );
   }
 }
