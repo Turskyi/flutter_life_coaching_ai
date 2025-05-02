@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:lifecoach/infrastructure/ws/models/requests/chat_request/chat_request.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/prepare_verification_response/prepare_verification_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_response/sign_up_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/verification_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/created_goal_response/created_goal_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_account_response/delete_account_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_goal_response/delete_goal_response.dart';
