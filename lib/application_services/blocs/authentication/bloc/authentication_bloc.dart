@@ -72,10 +72,12 @@ class AuthenticationBloc
               final User user = _getUser();
 
               return emit(
-                user.isNotEmpty
+                user.isNotAnonymous
                     ? AuthenticationState.authenticated(user)
                     : const AuthenticationState.unauthenticated(),
               );
+            case CodeAuthenticationStatus():
+              return emit(AuthenticationState.code(status.email));
             case UnknownAuthenticationStatus():
               return emit(const AuthenticationState.unknown());
             case DeletingAuthenticatedUserStatus():
@@ -104,6 +106,7 @@ class AuthenticationBloc
 
   User _getUser() {
     final User user = _userRepository.getUser();
+
     return user;
   }
 }

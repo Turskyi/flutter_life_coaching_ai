@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  'assets/images/logo-no-bg.png',
+                  '${constants.imagePath}logo-no-bg.png',
                   width: 200,
                   height: 200,
                 ),
@@ -40,11 +41,14 @@ class HomePage extends StatelessWidget {
                     animatedTexts: <AnimatedText>[
                       TypewriterAnimatedText(
                         constants.appName,
-                        textStyle: const TextStyle(
-                          fontSize: 40,
+                        textStyle: TextStyle(
+                          fontSize: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.fontSize,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'Pacifico',
-                          // This color will be masked by the gradient
+                          fontFamily: constants.fontFamily,
+                          // This color will be masked by the gradient.
                           color: Colors.white,
                         ),
                         speed: const Duration(milliseconds: 200),

@@ -64,8 +64,14 @@ final class SubmitFeedbackEvent extends ChatEvent {
   final UserFeedback feedback;
 }
 
-final class ErrorEvent extends ChatEvent {
-  const ErrorEvent(this.error);
+final class ChatErrorEvent extends ChatEvent {
+  const ChatErrorEvent(this.error);
+
+  final String error;
+}
+
+final class FeedbackErrorEvent extends ChatEvent {
+  const FeedbackErrorEvent(this.error);
 
   final String error;
 }

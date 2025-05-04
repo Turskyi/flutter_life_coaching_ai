@@ -34,7 +34,7 @@ class ChatRepositoryImpl implements ChatRepository {
           ? _processResponse(_restClient.sendEnglishWebChatMessage(request))
           : _processResponse(_restClient.sendUkrainianWebChatMessage(request));
     } else if (Platform.isAndroid) {
-      if (chat.user.isNotEmpty) {
+      if (chat.user.isNotAnonymous) {
         return chat.usesEnglishLanguage
             ? _processResponse(
                 _restClient.sendEnglishAndroidChatMessage(request),
@@ -52,11 +52,21 @@ class ChatRepositoryImpl implements ChatRepository {
               );
       }
     } else if (Platform.isIOS) {
-      return chat.usesEnglishLanguage
-          ? _processResponse(_restClient.sendEnglishIosChatMessage(request))
-          : _processResponse(
-              _restClient.sendUkrainianIosChatMessage(request),
-            );
+      if (chat.user.isAnonymous) {
+        return chat.usesEnglishLanguage
+            ? _processResponse(
+                _restClient.sendAnonymousEnglishIosChatMessage(request),
+              )
+            : _processResponse(
+                _restClient.sendAnonymousUkrainianIosChatMessage(request),
+              );
+      } else {
+        return chat.usesEnglishLanguage
+            ? _processResponse(_restClient.sendEnglishIosChatMessage(request))
+            : _processResponse(
+                _restClient.sendUkrainianIosChatMessage(request),
+              );
+      }
     } else {
       return _processResponse(
         _restClient.sendChatMessageOnUnknownPlatform(request),

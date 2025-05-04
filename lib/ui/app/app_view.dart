@@ -8,6 +8,7 @@ import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/router/routes.dart' as routes;
 import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
+import 'package:lifecoach/ui/sign_up/code_page.dart';
 import 'package:lifecoach/ui/splash_page.dart';
 
 /// [AppView] is a [StatefulWidget] because it maintains a [GlobalKey] which is
@@ -36,50 +37,62 @@ class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: constants.appName,
       initialRoute: AppRoute.home.path,
       routes: routes.routeMap,
       theme: ThemeData.dark(),
       navigatorKey: _navigatorKey,
-      builder: (BuildContext context, Widget? child) {
+      builder: (_, Widget? child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: (BuildContext context, AuthenticationState state) {
-            final AuthenticationStatus status = state.status;
-            switch (status) {
-              case DeletingAuthenticatedUserStatus():
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Account deletion in progress...'),
-                  ),
-                );
-              case AuthenticatedStatus():
-                _navigator?.pushAndRemoveUntil<void>(
-                  GoalsPage.route(widget.authenticationBloc),
-                  (Route<void> route) => false,
-                );
-              case UnauthenticatedStatus():
-                _navigator?.pushAndRemoveUntil<void>(
-                  HomePage.route(),
-                  (Route<void> route) => false,
-                );
-                if (status.message.isNotEmpty) {
-                  final String message = status.message;
-                  Fluttertoast.showToast(
-                    msg: message,
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    fontSize: 16.0,
-                  );
-                }
-              case UnknownAuthenticationStatus():
-                break;
-            }
-          },
+          listener: _authenticationBlocStateListener,
           child: child,
         );
       },
       onGenerateRoute: (_) => SplashPage.route(),
     );
+  }
+
+  void _authenticationBlocStateListener(
+    BuildContext context,
+    AuthenticationState state,
+  ) {
+    final AuthenticationStatus status = state.status;
+
+    switch (status) {
+      case CodeAuthenticationStatus():
+        _navigator?.pushAndRemoveUntil<void>(
+          CodePage.route(email: status.email),
+          (_) => false,
+        );
+      case DeletingAuthenticatedUserStatus():
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Account deletion in progress...'),
+          ),
+        );
+      case AuthenticatedStatus():
+        _navigator?.pushAndRemoveUntil<void>(
+          GoalsPage.route(widget.authenticationBloc),
+          (Route<void> _) => false,
+        );
+      case UnauthenticatedStatus():
+        _navigator?.pushAndRemoveUntil<void>(
+          HomePage.route(),
+          (Route<void> _) => false,
+        );
+        if (status.message.isNotEmpty) {
+          final String message = status.message;
+          Fluttertoast.showToast(
+            msg: message,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+          );
+        }
+      case UnknownAuthenticationStatus():
+        break;
+    }
   }
 }

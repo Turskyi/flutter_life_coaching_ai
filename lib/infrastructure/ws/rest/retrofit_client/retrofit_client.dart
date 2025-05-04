@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:lifecoach/infrastructure/ws/models/requests/chat_request/chat_request.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/prepare_verification_response/prepare_verification_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_response/sign_up_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/verification_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/created_goal_response/created_goal_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_account_response/delete_account_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_goal_response/delete_goal_response.dart';
@@ -39,52 +36,6 @@ abstract class RetrofitClient implements RestClient {
   @GET('https://clerk.turskyi.com/v1/environment?_clerk_js_version=5.14.0')
   Future<SignOutResponse> signOut();
 
-  //TODO: remove due to it is not used.
-  @Deprecated('There is no replacement at this moment.')
-  @override
-  @POST('https://clerk.turskyi.com/v1/client/sign_ups?_clerk_js_version=5.17.0')
-  @FormUrlEncoded()
-  Future<SignUpResponse> signUp(
-    @Field('email_address') String emailAddress,
-    @Field('password') String password,
-  );
-
-  //TODO: remove due to it is not used.
-  /// The [RegisterResponse.id] will be used to call
-  /// `https://clerk.turskyi.com/v1/client/sign_ups/[RegisterResponse.id]/
-  /// prepare_verification?_clerk_js_version=5.15.0`
-  /// it will send a 6 digits code to the `emailAddress` from the
-  /// [signUp] form.
-  @Deprecated('There is no replacement at this moment.')
-  @override
-  @POST(
-    'https://clerk.turskyi.com/v1/client/sign_ups/{id}/prepare_verification?'
-    '_clerk_js_version=5.17.0',
-  )
-  @FormUrlEncoded()
-  Future<PrepareVerificationResponse> prepare(
-    @Path() String id,
-    // This value is always `email_code`.
-    @Field('strategy') String strategy,
-  );
-
-  //TODO: remove due to it is not used.
-  /// This call should be called after [prepare] and it will expect the code
-  /// received on `emailAddress` from the [signUp] form.
-  @Deprecated('There is no replacement at this moment.')
-  @override
-  @POST(
-    'https://clerk.turskyi.com/v1/client/sign_ups/{id}/attempt_verification?'
-    '_clerk_js_version=5.15.0',
-  )
-  @FormUrlEncoded()
-  Future<VerificationResponse> verify(
-    @Path() String id,
-    @Field('code') String code,
-    // This value is always `email_code`.
-    @Field('strategy') String strategy,
-  );
-
   @POST('anonymous-chat-web-en')
   Stream<String> sendEnglishWebChatMessage(@Body() ChatRequest chatRequest);
 
@@ -110,10 +61,24 @@ abstract class RetrofitClient implements RestClient {
   );
 
   @POST('anonymous-chat-ios-en')
-  Stream<String> sendEnglishIosChatMessage(@Body() ChatRequest chatRequest);
+  Stream<String> sendAnonymousEnglishIosChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
+
+  @POST('chat-ios-en')
+  Stream<String> sendEnglishIosChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
 
   @POST('anonymous-chat-ios-ua')
-  Stream<String> sendUkrainianIosChatMessage(@Body() ChatRequest chatRequest);
+  Stream<String> sendAnonymousUkrainianIosChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
+
+  @POST('chat-ios-ua')
+  Stream<String> sendUkrainianIosChatMessage(
+    @Body() ChatRequest chatRequest,
+  );
 
   @POST('anonymous-chat')
   Stream<String> sendChatMessageOnUnknownPlatform(

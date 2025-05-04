@@ -11,14 +11,15 @@ class SignUpContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isUpProgressOrSuccess = context.select(
+    final bool isSignUpInProgressOrSuccess = context.select(
       (SignUpBloc bloc) => bloc.state.status.isInProgressOrSuccess,
     );
 
-    if (isUpProgressOrSuccess) return const CircularProgressIndicator();
+    if (isSignUpInProgressOrSuccess) return const CircularProgressIndicator();
 
-    final bool isValid =
-        context.select((SignUpBloc bloc) => bloc.state.isValid);
+    final bool isValid = context.select(
+      (SignUpBloc bloc) => bloc.state.isValid,
+    );
 
     return ElevatedButton(
       key: const Key('signUpForm_continue_raisedButton'),

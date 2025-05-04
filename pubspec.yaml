@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.5+5
+version: 1.0.6+6
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
@@ -37,18 +37,18 @@ dependencies:
     path: core/repositories/authentication_repository
   bloc: ^9.0.0
   bloc_test: ^10.0.0
+  clerk_auth: ^0.0.9-beta
   collection: ^1.19.1
   cookie_jar: ^4.0.8
   dio: ^5.8.0+1
   dio_cookie_manager: ^3.2.0
-  envied: ^1.1.1
   equatable: ^2.0.7
   feedback: ^3.1.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.0
   flutter_email_sender: ^7.0.0
-  flutter_markdown: ^0.7.6+2
+  flutter_markdown: ^0.7.7
   flutter_spinkit: ^5.2.1
   flutter_translate: ^4.1.0
   fluttertoast: ^8.2.12
@@ -60,7 +60,7 @@ dependencies:
   json_annotation: ^4.9.0
   logger: ^2.5.0
   meta: ^1.16.0
-  mockito: ^5.4.5
+  mockito: ^5.4.6
   mocktail: ^1.0.4
   models:
     path: core/models
@@ -68,7 +68,7 @@ dependencies:
   path_provider: ^2.1.5
   retrofit: ^4.4.2
   retrofit_generator: ^9.1.9
-  shared_preferences: ^2.5.2
+  shared_preferences: ^2.5.3
   shimmer: ^3.0.0
   url_launcher: ^6.3.1
   user_repository:
@@ -76,7 +76,6 @@ dependencies:
 
 dev_dependencies:
   build_runner: any
-  envied_generator: ^1.1.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -85,7 +84,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.9.4
+  json_serializable: ^6.9.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

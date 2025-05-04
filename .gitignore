@@ -62,14 +62,11 @@ ios/Runner/GoogleService-Info.plist
 /android/fastlane/metadata/android/fr-FR/images/
 /android/fastlane/metadata/android/en-US/images/
 /android/google-play-store.json
-
 /ios/fastlane/screenshots
 /ios/app_store_connect.json
 test/mocks/retrofit_client_mock.mocks.dart
 android/app/.cxx
 /android/app/.cxx/Debug/
-test/infrastrucutre/dio_mock.mocks.dart
-test/infrastrucutre/logging_interceptor_test.mocks.dart
 test/mocks/retrofit_client_test.mocks.dart
 /test/mocks/
 test/infrastructure/dio_mock.mocks.dart

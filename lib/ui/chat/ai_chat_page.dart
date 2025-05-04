@@ -18,12 +18,6 @@ class _AiChatPageState extends State<AiChatPage> {
   final ScrollController _scrollController = ScrollController();
   FeedbackController? _feedbackController;
 
-  @override
-  void didChangeDependencies() {
-    _feedbackController = BetterFeedback.of(context);
-    super.didChangeDependencies();
-  }
-
   String _error = '';
 
   @override
@@ -31,7 +25,13 @@ class _AiChatPageState extends State<AiChatPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Life-Coach AI Chat'),
+        title: BlocBuilder<ChatBloc, ChatState>(
+          builder: (_, ChatState state) {
+            return Text(
+              '${state.user.isAnonymous ? 'Anonymous' : ''} Life-Coach AI Chat',
+            );
+          },
+        ),
         actions: <Widget>[
           BlocConsumer<ChatBloc, ChatState>(
             listener: (_, ChatState state) {
@@ -65,131 +65,136 @@ class _AiChatPageState extends State<AiChatPage> {
           } else {
             _error = '';
           }
-          return Column(
-            children: <Widget>[
-              if (state.messages.isNotEmpty)
-                Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: itemCount,
-                    itemBuilder: (_, int index) {
-                      // Check if the current item is the last one and the state
-                      // is `ChatError`.
-                      if (index == state.messages.length &&
-                          state is ChatError) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 10.0,
-                            horizontal: 15.0,
-                          ),
-                          padding: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.redAccent, // Improved contrast
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: ListTile(
-                            title: Text(
-                              state.errorMessage,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+          return Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).padding.bottom,
+            ),
+            child: Column(
+              children: <Widget>[
+                if (state.messages.isNotEmpty)
+                  Expanded(
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      itemCount: itemCount,
+                      itemBuilder: (_, int index) {
+                        // Check if the current item is the last one and the
+                        // state is `ChatError`.
+                        if (index == state.messages.length &&
+                            state is ChatError) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 15.0,
+                            ),
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              color: Colors.redAccent,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: ListTile(
+                              title: Text(
+                                state.errorMessage,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              trailing: IconButton(
+                                icon: const Icon(
+                                  Icons.refresh,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () => context
+                                    .read<ChatBloc>()
+                                    .add(const RetrySendMessageEvent()),
                               ),
                             ),
-                            trailing: IconButton(
-                              icon: const Icon(
-                                Icons.refresh,
-                                color: Colors.white,
-                              ),
-                              onPressed: () => context
-                                  .read<ChatBloc>()
-                                  .add(const RetrySendMessageEvent()),
+                          );
+                        }
+                        // Handle the extra message for `SentMessageState`.
+                        if (index == state.messages.length &&
+                            state is SentMessageState) {
+                          return MessageBubble(
+                            message: Message(
+                              owner: MessageOwner.other,
+                              text: StringBuffer('🤔 Thinking...'),
                             ),
-                          ),
-                        );
-                      }
-                      // Handle the extra message for `SentMessageState`.
-                      if (index == state.messages.length &&
-                          state is SentMessageState) {
-                        return MessageBubble(
-                          message: Message(
-                            owner: MessageOwner.other,
-                            text: StringBuffer('🤔 Thinking...'),
-                          ),
-                        );
-                      }
+                          );
+                        }
 
-                      final Message message = state.messages[index];
-                      return MessageBubble(message: message);
-                    },
-                  ),
-                ),
-              if (state is SentMessageState)
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CircularProgressIndicator(),
-                ),
-              if (_error.isNotEmpty)
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    '😨 Something went wrong. Please try again.',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
-              if (state.messages.isEmpty && _error.isEmpty)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Icon(Icons.chat_bubble_outline),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          _randomEmptyStateMessage,
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () => setState(state.messages.clear),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _textEditingController,
-                        decoration: InputDecoration(
-                          hintText: _randomPlaceholder,
-                          hintStyle: const TextStyle(color: Colors.grey),
-                        ),
-                        onSubmitted: (_) => _sendMessage(),
-                      ),
-                    ),
-                    ValueListenableBuilder<TextEditingValue>(
-                      valueListenable: _textEditingController,
-                      child: const Icon(Icons.send),
-                      builder: (
-                        _,
-                        TextEditingValue value,
-                        Widget? iconWidget,
-                      ) {
-                        return IconButton(
-                          icon: iconWidget ?? const SizedBox(),
-                          onPressed:
-                              value.text.isNotEmpty ? _sendMessage : null,
-                        );
+                        final Message message = state.messages[index];
+                        return MessageBubble(message: message);
                       },
                     ),
-                  ],
+                  ),
+                if (state is SentMessageState)
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircularProgressIndicator(),
+                  ),
+                if (_error.isNotEmpty)
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      '😨 Something went wrong. Please try again.',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                if (state.messages.isEmpty && _error.isEmpty)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Icon(Icons.chat_bubble_outline),
+                          const SizedBox(width: 8.0),
+                          Text(
+                            _randomEmptyStateMessage,
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () => setState(state.messages.clear),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _textEditingController,
+                          decoration: InputDecoration(
+                            hintText: _randomPlaceholder,
+                            hintStyle: const TextStyle(color: Colors.grey),
+                          ),
+                          onSubmitted: (_) => _sendMessage(),
+                        ),
+                      ),
+                      ValueListenableBuilder<TextEditingValue>(
+                        valueListenable: _textEditingController,
+                        child: const Icon(Icons.send),
+                        builder: (
+                          _,
+                          TextEditingValue value,
+                          Widget? iconWidget,
+                        ) {
+                          return IconButton(
+                            icon: iconWidget ?? const SizedBox(),
+                            onPressed:
+                                value.text.isNotEmpty ? _sendMessage : null,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
@@ -202,6 +207,7 @@ class _AiChatPageState extends State<AiChatPage> {
     // Remove the listener FIRST.
     _feedbackController?.removeListener(_onFeedbackChanged);
     _feedbackController?.dispose();
+    _feedbackController = null;
     super.dispose();
   }
 
@@ -234,6 +240,8 @@ class _AiChatPageState extends State<AiChatPage> {
   }
 
   void _showFeedbackUi() {
+    _feedbackController ??= BetterFeedback.of(context);
+
     _feedbackController?.show(
       (UserFeedback feedback) =>
           context.read<ChatBloc>().add(SubmitFeedbackEvent(feedback)),
@@ -242,6 +250,8 @@ class _AiChatPageState extends State<AiChatPage> {
   }
 
   void _onFeedbackChanged() {
+    _feedbackController ??= BetterFeedback.of(context);
+
     final bool? isVisible = _feedbackController?.isVisible;
     if (isVisible == false) {
       _feedbackController?.removeListener(_onFeedbackChanged);
@@ -289,6 +299,7 @@ class _AiChatPageState extends State<AiChatPage> {
     "Let's explore your dreams together.",
   ];
 
-  void _showFeedbackDialog() =>
-      context.read<ChatBloc>().add(const BugReportPressedEvent());
+  void _showFeedbackDialog() {
+    context.read<ChatBloc>().add(const BugReportPressedEvent());
+  }
 }

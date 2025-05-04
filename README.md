@@ -4,6 +4,7 @@
 [![Code Quality](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/code_quality_tests.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/code_quality_tests.yml)
 [![Codemagic build status](https://api.codemagic.io/apps/66e784cdef3637270bef138a/66e784cdef3637270bef1389/status_badge.svg)](https://codemagic.io/app/66e784cdef3637270bef138a/66e784cdef3637270bef1389/latest_build)
 [![codecov](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai/graph/badge.svg?token=U26RQJ7H44)](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Turskyi/flutter_life_coaching_ai)
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Turskyi/flutter_life_coaching_ai">
 
 # Life-Coaching AI (Flutter Version).
@@ -19,6 +20,7 @@ goals, and have private access to their personalized coaching experience.
 Join our testing program and provide valuable feedback:
 
 - [Android App Distribution Tester Invite](https://appdistribution.firebase.dev/i/3371db95e2dc305b)
+- [iOS TestFlight Tester Invite](https://testflight.apple.com/join/sdC8NYkb)
 
 ## Features
 
@@ -62,23 +64,25 @@ folder:
 
 ## Layers
 
-#### APPLICATION CORE - `models`, `domain_services` and `application_services` (`core`)
+#### APPLICATION CORE - `models`, `domain_services` and
 
-The number of layers in the application `core` will vary, but remember that
-the `Domain Models` is the very center, and since all couplings are toward the
-center, the `Domain Models` is only coupled to itself.
+`application_services` (`core`)
+
+The number of layers in the application's `core` will vary, but remember that
+the `Domain Models` is the very centre, and since all couplings are toward the
+centre, the `Domain Models` is only coupled to itself.
 
 #### Domain Models - `models`
 
-In the very center, we see the `Models`, which represents the state and
-behavior combination that models truth for the organization.
-Around the `Models` are other layers with more behavior.
+In the very centre, we see the `Models`, which represent the state and
+behaviour combination that models truth for the organization.
+Around the `Models` are other layers with more behaviour.
 
 #### DOMAIN SERVICES - `domain_services`
 
 The first layer around the Models is typically where we would find
 interfaces that provide object saving and retrieving behaviour, called
-`repository` interfaces. The implementation of the object-saving behavior is
+`repository` interfaces. The implementation of the object-saving behaviour is
 not in the application core, however, because it typically involves a database.
 Only the interface is in the application core.
 
@@ -90,12 +94,13 @@ Only the interface is in the application core.
 Using **polymorphism**, `Application Services` communicates with
 `Domain Services` using inherited classes: classes that implement
 or extend the `repository` presented in the `Domain Services` layer.
-Since `polymorphism` is used, the `repository` passed to `Application Services`
-still adhere to the **Dependency Rule** since as far as `Application Services`
+Since `polymorphism` is used, the `repository` is passed to
+`Application Services`
+still adhere to the **Dependency Rule** since, as far as `Application Services`
 is concerned, they are abstract. The implementation is hidden behind the
 `polymorphism`.
 
-#### UI, INFRASTRUCTURE, TESTS – `ui`, `infrastructure`, `android`, `ios` etc.
+#### UI, INFRASTRUCTURE, TESTS – `ui`, `infrastructure`, `android`, `ios`, etc.
 
 The outer layer is reserved for things that change often.
 These things should be intentionally isolated from the application `core`.
@@ -206,7 +211,8 @@ tabs to report bugs, request features, or give feedback.
 
 - [DON'T cast a nullable value to a non-nullable type. This hides a null check and most of the time it is not what is expected.](https://dart-lang.github.io/linter/lints/avoid_as.html)
 
-- [PREFER using `const` for instantiating constant constructors](https://dart-lang.github.io/linter/lints/prefer_const_constructors.html)
+- [PREFER using
+  `const` for instantiating constant constructors](https://dart-lang.github.io/linter/lints/prefer_const_constructors.html)
 
 If a constructor can be invoked as const to produce a canonicalized instance,
 it's preferable to do so.
@@ -481,8 +487,15 @@ I only followed along and made some minor changes.
 
 ## Download
 
-<a href="https://play.google.com/store/apps/details?id=com.turskyi.lifecoach" target="_blank">
-<img src="https://play.google.com/intl/en_gb/badges/static/images/badges/en_badge_web_generic.png" width=240  alt="google play badge"/>
-</a>
-
-
+<!--suppress HtmlDeprecatedAttribute -->
+<div align="center">
+  <!-- Google Play Store -->
+  <a href="https://play.google.com/store/apps/details?id=com.turskyi.lifecoach" target="_blank">
+    <img src="https://play.google.com/intl/en_gb/badges/static/images/badges/en_badge_web_generic.png" width="240" alt="google play badge" style="vertical-align: middle;"/>
+  </a>
+  &nbsp;
+  <!-- App Store -->
+  <a href="https://apps.apple.com/ca/app/life-coaching-ai/id6743688857" target="_blank">
+    <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred.png" width="180" alt="Download on the App Store" style="vertical-align: middle;"/>
+  </a>
+</div>

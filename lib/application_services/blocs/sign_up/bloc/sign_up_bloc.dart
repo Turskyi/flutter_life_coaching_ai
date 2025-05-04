@@ -1,5 +1,6 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:clerk_auth/clerk_auth.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
@@ -31,6 +32,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpSubmitted>(_onSubmitted);
     on<CodeChanged>(_onCodeChanged);
     on<CodeSubmitted>(_onCodeSubmitted);
+    on<ResendCode>(_onResendCode);
   }
 
   final AuthenticationRepository _authenticationRepository;
@@ -86,13 +88,23 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Emitter<SignUpState> emit,
   ) async {
     if (state.isValid) {
-      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      emit(
+        SignUpProgressState(
+          email: state.email,
+          password: state.password,
+          isValid: state.isValid,
+          code: state.code,
+        ),
+      );
       try {
         await _authenticationRepository.signUp(
           email: state.email.value,
           password: state.password.value,
         );
-        emit(state.copyWith(status: FormzSubmissionStatus.success));
+
+        emit(
+          state.copyWith(status: FormzSubmissionStatus.success),
+        );
       } on ApiException catch (e) {
         _handleError(error: e, emitter: emit);
       } catch (e) {
@@ -106,16 +118,32 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     required Emitter<SignUpState> emitter,
   }) {
     if (error is DioException) {
-      final dynamic data = error.response?.data;
+      final Object? responseBody = error.response?.data;
 
       const String errorsKey = 'errors';
       const String messageKey = 'long_message';
-      final String errorMessage = (data != null &&
-              data.containsKey(errorsKey) &&
-              data[errorsKey].isNotEmpty &&
-              data[errorsKey].first.containsKey(messageKey))
-          ? data[errorsKey][0][messageKey]
-          : 'Unknown error';
+      String errorMessage = 'Unknown error';
+
+      if (responseBody is Map<String, Object?>) {
+        final bool isDataContainsErrorKey = responseBody.containsKey(errorsKey);
+
+        if (isDataContainsErrorKey) {
+          final Object? errors = responseBody[errorsKey];
+
+          if (errors is List<Object?> && errors.isNotEmpty) {
+            final Object? errorEntry = errors.first;
+
+            if (errorEntry is Map<String, Object?> &&
+                errorEntry.containsKey(messageKey)) {
+              final Object? message = errorEntry[messageKey];
+
+              if (message is String && message.isNotEmpty) {
+                errorMessage = message;
+              }
+            }
+          }
+        }
+      }
 
       emitter(
         SignUpErrorState(
@@ -124,6 +152,17 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: state.password,
           isValid: state.isValid,
           errorMessage: errorMessage,
+          code: state.code,
+        ),
+      );
+    } else if (error is AuthError) {
+      emitter(
+        SignUpErrorState(
+          status: FormzSubmissionStatus.failure,
+          email: state.email,
+          password: state.password,
+          isValid: state.isValid,
+          errorMessage: error.message,
         ),
       );
     } else {
@@ -136,11 +175,51 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Emitter<SignUpState> emit,
   ) async {
     if (state.isValid) {
-      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      emit(
+        SignUpProgressState(
+          email: state.email,
+          password: state.password,
+          isValid: state.isValid,
+          code: state.code,
+        ),
+      );
       try {
-        await _authenticationRepository.verify(state.code.value);
+        final String code = state.code.value;
+
+        if (code.isNotEmpty) {
+          await _authenticationRepository.verify(code);
+        }
 
         emit(state.copyWith(status: FormzSubmissionStatus.success));
+      } catch (e) {
+        _handleError(error: e, emitter: emit);
+      }
+    }
+  }
+
+  Future<void> _onResendCode(
+    ResendCode event,
+    Emitter<SignUpState> emit,
+  ) async {
+    if (_authenticationRepository.canSendCode()) {
+      emit(
+        SignUpProgressState(
+          email: state.email,
+          password: state.password,
+          isValid: state.isValid,
+          code: state.code,
+        ),
+      );
+
+      try {
+        await _authenticationRepository.sendCodeToUser();
+
+        emit(
+          state.copyWith(
+            status: FormzSubmissionStatus.success,
+            code: const Code.pure(),
+          ),
+        );
       } catch (e) {
         _handleError(error: e, emitter: emit);
       }

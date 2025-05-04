@@ -14,18 +14,16 @@ void main() {
   late Dio dio;
   late MockLoggingInterceptor mockLoggingInterceptor;
 
-  setUp(() {
+  setUp(() async {
     mockLoggingInterceptor = MockLoggingInterceptor();
 
     GetIt.I.reset();
-    GetIt.I.registerSingleton<LoggingInterceptor>(mockLoggingInterceptor);
+    // Ensure the module bindings are registered.
+    await injectDependencies();
   });
 
   test('Dio is correctly configured with LoggingInterceptor and timeouts',
       () async {
-    // Ensure the module bindings are registered.
-    await injectDependencies();
-
     dio = GetIt.I<Dio>();
 
     // Verify that the LoggingInterceptor is added.

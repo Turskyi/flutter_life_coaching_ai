@@ -117,109 +117,6 @@ class _RetrofitClient implements RetrofitClient {
   }
 
   @override
-  Future<SignUpResponse> signUp(String emailAddress, String password) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = {'email_address': emailAddress, 'password': password};
-    final _options = _setStreamType<SignUpResponse>(
-      Options(
-        method: 'POST',
-        headers: _headers,
-        extra: _extra,
-        contentType: 'application/x-www-form-urlencoded',
-      )
-          .compose(
-            _dio.options,
-            'https://clerk.turskyi.com/v1/client/sign_ups?_clerk_js_version=5.17.0',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SignUpResponse _value;
-    try {
-      _value = SignUpResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<PrepareVerificationResponse> prepare(
-    String id,
-    String strategy,
-  ) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = {'strategy': strategy};
-    final _options = _setStreamType<PrepareVerificationResponse>(
-      Options(
-        method: 'POST',
-        headers: _headers,
-        extra: _extra,
-        contentType: 'application/x-www-form-urlencoded',
-      )
-          .compose(
-            _dio.options,
-            'https://clerk.turskyi.com/v1/client/sign_ups/${id}/prepare_verification?_clerk_js_version=5.17.0',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late PrepareVerificationResponse _value;
-    try {
-      _value = PrepareVerificationResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<VerificationResponse> verify(
-    String id,
-    String code,
-    String strategy,
-  ) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = {'code': code, 'strategy': strategy};
-    final _options = _setStreamType<VerificationResponse>(
-      Options(
-        method: 'POST',
-        headers: _headers,
-        extra: _extra,
-        contentType: 'application/x-www-form-urlencoded',
-      )
-          .compose(
-            _dio.options,
-            'https://clerk.turskyi.com/v1/client/sign_ups/${id}/attempt_verification?_clerk_js_version=5.15.0',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late VerificationResponse _value;
-    try {
-      _value = VerificationResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
   Stream<String> sendEnglishWebChatMessage(ChatRequest chatRequest) async* {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -394,7 +291,9 @@ class _RetrofitClient implements RetrofitClient {
   }
 
   @override
-  Stream<String> sendEnglishIosChatMessage(ChatRequest chatRequest) async* {
+  Stream<String> sendAnonymousEnglishIosChatMessage(
+    ChatRequest chatRequest,
+  ) async* {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -422,7 +321,37 @@ class _RetrofitClient implements RetrofitClient {
   }
 
   @override
-  Stream<String> sendUkrainianIosChatMessage(ChatRequest chatRequest) async* {
+  Stream<String> sendEnglishIosChatMessage(ChatRequest chatRequest) async* {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(chatRequest.toJson());
+    final _options = _setStreamType<String>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'chat-ios-en',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<String>(_options);
+    late String _value;
+    try {
+      _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    yield _value;
+  }
+
+  @override
+  Stream<String> sendAnonymousUkrainianIosChatMessage(
+    ChatRequest chatRequest,
+  ) async* {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -433,6 +362,34 @@ class _RetrofitClient implements RetrofitClient {
           .compose(
             _dio.options,
             'anonymous-chat-ios-ua',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<String>(_options);
+    late String _value;
+    try {
+      _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    yield _value;
+  }
+
+  @override
+  Stream<String> sendUkrainianIosChatMessage(ChatRequest chatRequest) async* {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(chatRequest.toJson());
+    final _options = _setStreamType<String>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'chat-ios-ua',
             queryParameters: queryParameters,
             data: _data,
           )

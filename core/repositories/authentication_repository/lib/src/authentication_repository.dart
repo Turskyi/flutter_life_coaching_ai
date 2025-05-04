@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:authentication_repository/src/authentication_status.dart';
+import 'package:authentication_repository/src/env/env.dart';
+import 'package:clerk_auth/clerk_auth.dart' as clerk;
 import 'package:models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,6 +20,10 @@ class AuthenticationRepository {
 
   final StreamController<AuthenticationStatus> _controller =
       StreamController<AuthenticationStatus>();
+
+  clerk.DefaultPersistor? _persistor;
+
+  clerk.Auth? _auth;
 
   Stream<AuthenticationStatus> get status async* {
     final bool isAuthenticated = _checkInitialAuthenticationStatus();
@@ -52,27 +59,39 @@ class AuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    final RegisterResponse signUpResponse = await _restClient.signUp(
-      email,
-      password,
+    await _authInit();
+
+    final clerk.Client? signUpResponse = await _auth?.attemptSignUp(
+      strategy: clerk.Strategy.password,
+      emailAddress: email,
+      password: password,
+      passwordConfirmation: password,
     );
 
-    await _restClient.prepare(
-      signUpResponse.id,
-      'email_code',
-    );
+    final String? signUpId = signUpResponse?.id;
 
-    await _saveSignUpId(signUpResponse.id);
+    if (signUpId?.isNotEmpty == true) {
+      await _saveSignUpId(signUpId ?? '');
+
+      _controller.add(AuthenticationStatus.code(email));
+    }
 
     await _saveEmail(email);
   }
 
-  Future<CodeResponse> sendCode() {
-    final String signUpId =
-        _preferences.getString(StorageKeys.signUpId.key) ?? '';
+  Future<void> sendCodeToUser() async {
+    final String signUpId = _preferences.getString(
+          StorageKeys.signUpId.key,
+        ) ??
+        '';
 
     if (signUpId.isNotEmpty) {
-      return _restClient.prepare(signUpId, 'email_code');
+      await _authInit();
+
+      await _auth?.attemptSignUp(
+        strategy: clerk.Strategy.resetPasswordEmailCode,
+        emailAddress: _email,
+      );
     } else {
       //TODO:  this should never happen, so better come up with better handling.
       throw Exception('Signup id is empty');
@@ -80,18 +99,24 @@ class AuthenticationRepository {
   }
 
   Future<void> verify(String code) async {
-    final String signUpId =
-        _preferences.getString(StorageKeys.signUpId.key) ?? '';
+    final String signUpId = _preferences.getString(
+          StorageKeys.signUpId.key,
+        ) ??
+        '';
 
     if (signUpId.isNotEmpty) {
-      await _restClient.verify(
-        signUpId,
-        code,
-        // This value is always `email_code`.
-        'email_code',
+      await _authInit();
+
+      final clerk.Client? clerkClient = await _auth?.attemptSignUp(
+        strategy: clerk.Strategy.emailCode,
+        code: code,
       );
-      _controller.add(AuthenticationStatus.authenticated());
-      await _removeSignUpId();
+      final String? userId = clerkClient?.user?.id;
+      if (userId?.isNotEmpty == true) {
+        await _saveUserId(userId ?? '');
+        _controller.add(AuthenticationStatus.authenticated());
+        await _removeSignUpId();
+      }
     } else {
       //TODO:  this should never happen, so better come up with better handling.
       _controller.add(AuthenticationStatus.unauthenticated());
@@ -99,32 +124,48 @@ class AuthenticationRepository {
   }
 
   Future<void> signOut() async {
+    await _auth?.signOut();
+    _auth?.terminate();
+
     await _restClient.signOut();
+
     await _removeToken();
     await _removeEmail();
     await _removeUserId();
     _controller.add(AuthenticationStatus.unauthenticated());
   }
 
-  void dispose() => _controller.close();
+  void dispose() {
+    _auth?.terminate();
+    _controller.close();
+  }
 
   bool _checkInitialAuthenticationStatus() {
-    final String token =
-        _preferences.getString(StorageKeys.authToken.key) ?? '';
+    final String token = _preferences.getString(
+          StorageKeys.authToken.key,
+        ) ??
+        '';
+
     return token.isNotEmpty;
   }
 
-  Future<bool> _saveToken(String token) async =>
-      _preferences.setString(StorageKeys.authToken.key, token);
+  Future<bool> _saveToken(String token) {
+    return _preferences.setString(StorageKeys.authToken.key, token);
+  }
 
-  Future<bool> _saveUserId(String userId) async =>
-      _preferences.setString(StorageKeys.userId.key, userId);
+  Future<bool> _saveUserId(String userId) {
+    return _preferences.setString(StorageKeys.userId.key, userId);
+  }
 
-  Future<bool> _saveSignUpId(String id) async =>
-      _preferences.setString(StorageKeys.signUpId.key, id);
+  Future<bool> _saveSignUpId(String id) {
+    return _preferences.setString(StorageKeys.signUpId.key, id);
+  }
 
-  Future<bool> _saveEmail(String email) async =>
-      _preferences.setString(StorageKeys.email.key, email);
+  Future<bool> _saveEmail(String email) {
+    return _preferences.setString(StorageKeys.email.key, email);
+  }
+
+  String get _email => _preferences.getString(StorageKeys.email.key) ?? '';
 
   Future<bool> _removeToken() => _preferences.remove(StorageKeys.authToken.key);
 
@@ -139,5 +180,29 @@ class AuthenticationRepository {
   Future<MessageResponse> deleteAccount(String userId) {
     _controller.add(AuthenticationStatus.deleting());
     return signOut().then((_) => _restClient.deleteAccount(userId));
+  }
+
+  bool canSendCode() {
+    final String signUpId = _preferences.getString(
+          StorageKeys.signUpId.key,
+        ) ??
+        '';
+    return signUpId.isNotEmpty;
+  }
+
+  Future<void> _authInit() async {
+    _persistor ??= await clerk.DefaultPersistor.create(
+      storageDirectory: Directory.current,
+    );
+    if (_auth == null && _persistor != null) {
+      _auth = clerk.Auth(
+        persistor: _persistor!,
+        config: const clerk.AuthConfig(
+          publishableKey: Env.clerkPublishableKey,
+        ),
+      );
+
+      await _auth?.initialize();
+    }
   }
 }

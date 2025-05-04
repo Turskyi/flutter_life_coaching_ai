@@ -16,29 +16,13 @@ import 'package:models/models.dart';
 Map<String, WidgetBuilder> routeMap = <String, WidgetBuilder>{
   AppRoute.home.path: (_) => const HomePage(),
   AppRoute.chat.path: (_) => BlocProvider<ChatBloc>(
-        create: (_) =>
-            GetIt.I.get<ChatBloc>()..add(const LoadingInitialChatStateEvent()),
-        child: BlocListener<ChatBloc, ChatState>(
-          listener: (BuildContext context, ChatState state) {
-            if (state is ChatInitial) {
-              final Language currentLanguage = Language.fromIsoLanguageCode(
-                LocalizedApp.of(context).delegate.currentLocale.languageCode,
-              );
-              final Language savedLanguage = state.language;
-              if (currentLanguage != savedLanguage) {
-                changeLocale(context, savedLanguage.isoLanguageCode)
-                    // The returned value in `then` is always `null`.
-                    .then((_) {
-                  if (context.mounted) {
-                    context
-                        .read<ChatBloc>()
-                        .add(ChangeLanguageEvent(savedLanguage));
-                  }
-                });
-              }
-            }
-          },
-          child: const AiChatPage(),
+        create: (_) {
+          return GetIt.I.get<ChatBloc>()
+            ..add(const LoadingInitialChatStateEvent());
+        },
+        child: const BlocListener<ChatBloc, ChatState>(
+          listener: _chatStateListener,
+          child: AiChatPage(),
         ),
       ),
   AppRoute.goals.path: (_) => BlocProvider<GoalsBloc>(
@@ -49,3 +33,28 @@ Map<String, WidgetBuilder> routeMap = <String, WidgetBuilder>{
   AppRoute.signUp.path: (_) => const SignUpPage(),
   AppRoute.privacyPolity.path: (_) => const PrivacyPolicyPage(),
 };
+
+void _chatStateListener(BuildContext context, ChatState state) {
+  if (state is ChatInitial) {
+    final Language currentLanguage = Language.fromIsoLanguageCode(
+      LocalizedApp.of(context).delegate.currentLocale.languageCode,
+    );
+    final Language savedLanguage = state.language;
+    if (currentLanguage != savedLanguage) {
+      changeLocale(context, savedLanguage.isoLanguageCode)
+          // The returned value in `then` is always `null`.
+          .then((_) {
+        if (context.mounted) {
+          context.read<ChatBloc>().add(ChangeLanguageEvent(savedLanguage));
+        }
+      });
+    }
+  } else if (state is FeedbackError) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(state.errorMessage),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+}

@@ -18,7 +18,9 @@ class CodeForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (BuildContext context, SignUpState state) {
-        if (state.status.isFailure || state is SignUpErrorState) {
+        final FormzSubmissionStatus status = state.status;
+
+        if (status.isFailure || state is SignUpErrorState) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -73,7 +75,9 @@ class CodeForm extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             const CodeInput(),
-            const Padding(padding: EdgeInsets.all(12)),
+            const Padding(padding: EdgeInsets.all(24)),
+            const CodeContinueButton(),
+            const Padding(padding: EdgeInsets.all(24)),
             const Text('Didn\'t receive a code?'),
             const SizedBox(height: 8),
             ElevatedButton(
@@ -81,8 +85,6 @@ class CodeForm extends StatelessWidget {
                   context.read<SignUpBloc>().add(const ResendCode()),
               child: const Text('Resend'),
             ),
-            const Padding(padding: EdgeInsets.all(24)),
-            const CodeContinueButton(),
           ],
         ),
       ),
