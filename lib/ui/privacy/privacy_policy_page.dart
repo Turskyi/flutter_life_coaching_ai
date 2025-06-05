@@ -208,7 +208,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.bold),
                 children: <InlineSpan>[
                   TextSpan(
-                    text: 'privacy@${constants.companyDomain}',
+                    text: constants.privacyEmail,
                     style: TextStyle(
                       color: linkColor,
                       decoration: TextDecoration.underline,
@@ -217,7 +217,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                       ..onTap = () {
                         final Uri emailLaunchUri = Uri(
                           scheme: 'mailto',
-                          path: 'privacy@${constants.companyDomain}',
+                          path: constants.privacyEmail,
                         );
                         launchUrl(emailLaunchUri);
                       },
