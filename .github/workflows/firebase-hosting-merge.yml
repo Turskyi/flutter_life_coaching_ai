@@ -17,6 +17,20 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Write .env to nested directory
+        run: |
+          mkdir -p core/repositories/authentication_repository
+          echo "$ENV" | base64 -d > core/repositories/authentication_repository/.env
+        shell: bash
+        env:
+          ENV: ${{ secrets.ENV }}
+
+      - name: Write env.g.dart file
+        run: |
+          cd core/repositories/authentication_repository
+          dart run build_runner build --delete-conflicting-outputs
+        shell: bash
+
       - name: Install dependencies and Build Web
         run: >-
           flutter pub get && dart run build_runner build
