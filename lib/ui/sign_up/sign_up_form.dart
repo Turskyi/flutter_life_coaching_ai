@@ -1,11 +1,15 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/sign_up/sign_up_continue_button.dart';
 import 'package:lifecoach/ui/sign_up/sign_up_email_input.dart';
 import 'package:lifecoach/ui/sign_up/sign_up_password_input.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
@@ -61,15 +65,53 @@ class SignUpForm extends StatelessWidget {
 
   void _signUpStateListener(BuildContext context, SignUpState state) {
     if (state.status.isFailure || state is SignUpErrorState) {
+      Widget contentWidget;
+      const String officialWebsiteUrl = constants.website;
+      if (kIsWeb) {
+        contentWidget = SelectableText.rich(
+          TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children: <TextSpan>[
+              const TextSpan(
+                text: 'Sign up is not available here. Please use our official '
+                    'website: ',
+                style: TextStyle(color: Colors.black),
+              ),
+              TextSpan(
+                text: officialWebsiteUrl,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () async {
+                    final Uri url = Uri.parse(officialWebsiteUrl);
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, webOnlyWindowName: '_blank');
+                    } else {
+                      debugPrint('Could not launch $officialWebsiteUrl');
+                    }
+                  },
+              ),
+            ],
+          ),
+        );
+      } else {
+        String errorMessage;
+        if (state is SignUpErrorState) {
+          errorMessage = state.errorMessage;
+        } else {
+          errorMessage = 'Sign Up Failure';
+        }
+        contentWidget = SelectableText(errorMessage);
+      }
+
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
           SnackBar(
-            content: Text(
-              state is SignUpErrorState
-                  ? state.errorMessage
-                  : 'Sign Up Failure',
-            ),
+            content: contentWidget,
+            duration: const Duration(seconds: 10),
           ),
         );
     }

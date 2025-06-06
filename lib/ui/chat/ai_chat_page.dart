@@ -1,10 +1,14 @@
 import 'package:feedback/feedback.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/ui/chat/message_bubble.dart';
 import 'package:models/models.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AiChatPage extends StatefulWidget {
   const AiChatPage({super.key});
@@ -65,6 +69,47 @@ class _AiChatPageState extends State<AiChatPage> {
           } else {
             _error = '';
           }
+
+          Widget errorDisplayWidget;
+          const String officialWebsiteUrl = constants.website;
+
+          if (kIsWeb) {
+            errorDisplayWidget = SelectableText.rich(
+              textAlign: TextAlign.center,
+              TextSpan(
+                style: DefaultTextStyle.of(context).style.copyWith(
+                      color: Colors.red,
+                    ),
+                children: <TextSpan>[
+                  const TextSpan(text: '😨 Something went wrong. '),
+                  const TextSpan(text: 'Please use our official website: '),
+                  TextSpan(
+                    text: officialWebsiteUrl,
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        final Uri url = Uri.parse(officialWebsiteUrl);
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url, webOnlyWindowName: '_blank');
+                        } else {
+                          debugPrint('Could not launch $officialWebsiteUrl');
+                        }
+                      },
+                  ),
+                ],
+              ),
+            );
+          } else {
+            errorDisplayWidget = const SelectableText(
+              '😨 Something went wrong. Please try again.',
+              style: TextStyle(color: Colors.red),
+              textAlign: TextAlign.center,
+            );
+          }
+
           return Padding(
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).padding.bottom,
@@ -92,7 +137,7 @@ class _AiChatPageState extends State<AiChatPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: ListTile(
-                              title: Text(
+                              title: SelectableText(
                                 state.errorMessage,
                                 style: const TextStyle(
                                   color: Colors.white,
@@ -133,12 +178,9 @@ class _AiChatPageState extends State<AiChatPage> {
                     child: CircularProgressIndicator(),
                   ),
                 if (_error.isNotEmpty)
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      '😨 Something went wrong. Please try again.',
-                      style: TextStyle(color: Colors.red),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: errorDisplayWidget,
                   ),
                 if (state.messages.isEmpty && _error.isEmpty)
                   Expanded(

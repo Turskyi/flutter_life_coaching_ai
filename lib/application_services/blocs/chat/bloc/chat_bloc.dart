@@ -120,6 +120,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           if (error is DioException) {
             if (kIsWeb && kDebugMode) {
               add(ChatErrorEvent(translate('error.cors')));
+            } else if (kIsWeb) {
+              add(
+                ChatErrorEvent(
+                  translate(
+                    'error.useWebsite',
+                    args: <String, Object?>{'websiteUrl': constants.website},
+                  ),
+                ),
+              );
             } else {
               add(ChatErrorEvent(translate('error.pleaseCheckInternet')));
             }
