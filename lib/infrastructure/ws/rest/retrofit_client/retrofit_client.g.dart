@@ -90,33 +90,6 @@ class _RetrofitClient implements RetrofitClient {
   }
 
   @override
-  Future<SignOutResponse> signOut() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<SignOutResponse>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'https://clerk.lifecoaching-ai/v1/environment?_clerk_js_version=5.14.0',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SignOutResponse _value;
-    try {
-      _value = SignOutResponse.fromJson(_result.data!);
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
   Stream<String> sendEnglishWebChatMessage(ChatRequest chatRequest) async* {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

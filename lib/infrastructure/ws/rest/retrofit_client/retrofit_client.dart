@@ -5,7 +5,6 @@ import 'package:lifecoach/infrastructure/ws/models/responses/created_goal_respon
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_account_response/delete_account_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_goal_response/delete_goal_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/goals_response/goals_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/sign_out_response/sign_out_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/updated_goal_response/updated_goal_response.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
