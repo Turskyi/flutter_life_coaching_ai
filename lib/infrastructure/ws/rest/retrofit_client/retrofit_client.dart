@@ -20,13 +20,15 @@ abstract class RetrofitClient implements RestClient {
 
   @override
   @POST(
-      'https://clerk.${constants.domain}/v1/client/sign_ins?_clerk_js_version=5.20.0')
+    'https://clerk.${constants.domain}/v1/client/sign_ins?_clerk_js_version=5.20.0',
+  )
   @FormUrlEncoded()
   Future<SignInResponse> signEmail(@Field('identifier') String identifier);
 
   @override
   @POST(
-      'https://clerk.${constants.domain}/v1/client/sign_ins?_clerk_js_version=5.14.0')
+    'https://clerk.${constants.domain}/v1/client/sign_ins?_clerk_js_version=5.14.0',
+  )
   @FormUrlEncoded()
   Future<SignInResponse> signIn(
     @Field('identifier') String identifier,
