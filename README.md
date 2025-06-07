@@ -466,7 +466,7 @@ more expression and flexibility.
 
 ## Contact
 
-For any inquiries, please contact support@turskyi.com.
+For any inquiries, please contact support@lifecoaching-ai.com.
 
 ## Screenshots:
 

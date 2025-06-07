@@ -32,7 +32,7 @@ class _RetrofitClient implements RetrofitClient {
       )
           .compose(
             _dio.options,
-            'https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.20.0',
+            'https://clerk.lifecoaching-ai.com/v1/client/sign_ins?_clerk_js_version=5.20.0',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -72,7 +72,7 @@ class _RetrofitClient implements RetrofitClient {
       )
           .compose(
             _dio.options,
-            'https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.14.0',
+            'https://clerk.lifecoaching-ai.com/v1/client/sign_ins?_clerk_js_version=5.14.0',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -99,7 +99,7 @@ class _RetrofitClient implements RetrofitClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://clerk.turskyi.com/v1/environment?_clerk_js_version=5.14.0',
+            'https://clerk.lifecoaching-ai/v1/environment?_clerk_js_version=5.14.0',
             queryParameters: queryParameters,
             data: _data,
           )

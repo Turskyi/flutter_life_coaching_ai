@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/sign_in.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/ui/sign_in/sign_in_form.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -20,7 +21,7 @@ void main() {
 
     testWidgets('adds SignInEmailChanged to SignInBloc when email is updated',
         (WidgetTester tester) async {
-      const String email = 'test@turskyi.com';
+      const String email = 'test@${constants.domain}';
       when(() => loginBloc.state).thenReturn(const SignInState());
       await tester.pumpWidget(
         MaterialApp(

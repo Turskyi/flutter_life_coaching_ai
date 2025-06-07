@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/sign_in.dart';
 
 void main() {
-  const String email = 'test@turskyi.com';
+  const String email = 'test@lifecoaching-ai.com';
   const String password = 'mock-password';
   group('SignInEvent', () {
     group('SignInEmailChanged', () {
