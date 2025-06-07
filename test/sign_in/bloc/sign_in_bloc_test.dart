@@ -41,7 +41,8 @@ void main() {
           authenticationRepository: authenticationRepository,
         ),
         act: (SignInBloc bloc) {
-          bloc..add(const SignInEmailChanged('test@${constants.domain}'))
+          bloc
+            ..add(const SignInEmailChanged('test@${constants.domain}'))
             ..add(
               const SignInPasswordChanged('password'),
             )
@@ -85,7 +86,8 @@ void main() {
           authenticationRepository: authenticationRepository,
         ),
         act: (dynamic bloc) {
-          bloc..add(const SignInEmailChanged('test@${constants.domain}'))
+          bloc
+            ..add(const SignInEmailChanged('test@${constants.domain}'))
             ..add(
               const SignInPasswordChanged('password'),
             )
