@@ -35,10 +35,6 @@ abstract class RetrofitClient implements RestClient {
     @Field('strategy') String strategy,
   );
 
-  @override
-  @GET('https://clerk.lifecoaching-ai/v1/environment?_clerk_js_version=5.14.0')
-  Future<SignOutResponse> signOut();
-
   @POST('anonymous-chat-web-en')
   Stream<String> sendEnglishWebChatMessage(@Body() ChatRequest chatRequest);
 
