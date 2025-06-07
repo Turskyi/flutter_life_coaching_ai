@@ -5,8 +5,8 @@ import 'package:lifecoach/infrastructure/ws/models/responses/created_goal_respon
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_account_response/delete_account_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/delete_goal_response/delete_goal_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/goals_response/goals_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/sign_out_response/sign_out_response.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/updated_goal_response/updated_goal_response.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -18,12 +18,16 @@ abstract class RetrofitClient implements RestClient {
   factory RetrofitClient(Dio dio, {String baseUrl}) = _RetrofitClient;
 
   @override
-  @POST('https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.20.0')
+  @POST(
+    'https://clerk.${constants.domain}/v1/client/sign_ins?_clerk_js_version=5.20.0',
+  )
   @FormUrlEncoded()
   Future<SignInResponse> signEmail(@Field('identifier') String identifier);
 
   @override
-  @POST('https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.14.0')
+  @POST(
+    'https://clerk.${constants.domain}/v1/client/sign_ins?_clerk_js_version=5.14.0',
+  )
   @FormUrlEncoded()
   Future<SignInResponse> signIn(
     @Field('identifier') String identifier,
@@ -31,10 +35,6 @@ abstract class RetrofitClient implements RestClient {
     // This always will be of value `password`.
     @Field('strategy') String strategy,
   );
-
-  @override
-  @GET('https://clerk.turskyi.com/v1/environment?_clerk_js_version=5.14.0')
-  Future<SignOutResponse> signOut();
 
   @POST('anonymous-chat-web-en')
   Stream<String> sendEnglishWebChatMessage(@Body() ChatRequest chatRequest);

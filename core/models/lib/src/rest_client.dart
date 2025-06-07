@@ -11,8 +11,6 @@ abstract interface class RestClient {
     String strategy,
   );
 
-  Future<LogoutResponse> signOut();
-
   Future<GoalResult> createGoal(Goal goal);
 
   Future<GoalResult> updateGoal(Goal goal);

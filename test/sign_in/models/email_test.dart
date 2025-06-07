@@ -1,8 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
 
 void main() {
-  const String emailString = 'test@turskyi.com';
+  const String emailString = 'test@${constants.domain}';
   group('Email', () {
     group('constructors', () {
       test('pure creates correct instance', () {

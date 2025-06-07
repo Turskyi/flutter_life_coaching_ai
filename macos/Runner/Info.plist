@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Life-Coaching AI</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,7 +29,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
     <key>CFBundleDisplayName</key>
-    <string>Life-Coaching AI</string>
+    <string>$(PRODUCT_NAME)</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.lifestyle</string>
     <key>ITSAppUsesNonExemptEncryption</key>

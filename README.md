@@ -5,6 +5,8 @@
 [![Codemagic build status](https://api.codemagic.io/apps/66e784cdef3637270bef138a/66e784cdef3637270bef1389/status_badge.svg)](https://codemagic.io/app/66e784cdef3637270bef138a/66e784cdef3637270bef1389/latest_build)
 [![codecov](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai/graph/badge.svg?token=U26RQJ7H44)](https://codecov.io/gh/Turskyi/flutter_life_coaching_ai)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Turskyi/flutter_life_coaching_ai)
+[![Deploy to Firebase Hosting on merge](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/firebase-hosting-merge.yml)
+[![Deploy to Firebase Hosting on PR](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/firebase-hosting-pull-request.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/firebase-hosting-pull-request.yml)
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Turskyi/flutter_life_coaching_ai">
 
 # Life-Coaching AI (Flutter Version).
@@ -464,7 +466,7 @@ more expression and flexibility.
 
 ## Contact
 
-For any inquiries, please contact support@turskyi.com.
+For any inquiries, please contact support@lifecoaching-ai.com.
 
 ## Screenshots:
 
@@ -488,14 +490,15 @@ I only followed along and made some minor changes.
 ## Download
 
 <!--suppress HtmlDeprecatedAttribute -->
-<div align="center">
+<p align="center">
   <!-- Google Play Store -->
   <a href="https://play.google.com/store/apps/details?id=com.turskyi.lifecoach" target="_blank">
-    <img src="https://play.google.com/intl/en_gb/badges/static/images/badges/en_badge_web_generic.png" width="240" alt="google play badge" style="vertical-align: middle;"/>
+    <img src="https://play.google.com/intl/en_gb/badges/static/images/badges/en_badge_web_generic.png" height="80" alt="google play badge"/>
   </a>
   &nbsp;
   <!-- App Store -->
   <a href="https://apps.apple.com/ca/app/life-coaching-ai/id6743688857" target="_blank">
-    <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred.png" width="180" alt="Download on the App Store" style="vertical-align: middle;"/>
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" height="80" alt="app store badge"/>
   </a>
-</div>
+</p>
+

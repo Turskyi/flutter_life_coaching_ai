@@ -26,6 +26,6 @@
     "unexpectedError": "An unexpected error occurred. Please try again.",
     "oops": "Oops! Something went wrong. Please try again later.",
     "cors": "Error: Local Environment Setup Required\nTo run this application locally on web, please use the following command:\nflutter run -d chrome --web-browser-flag \"--disable-web-security\"\nThis step is necessary to bypass CORS restrictions during local development. Please note that this flag should only be used in a development environment and never in production.",
-    "useWebsite": "Chat is not available here. Please use our official website: {{websiteUrl}}"
+    "useWebsite": "Chat is not available here. Please use our official website: {websiteUrl}."
   }
 }

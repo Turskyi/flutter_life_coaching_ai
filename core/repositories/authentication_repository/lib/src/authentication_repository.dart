@@ -127,8 +127,6 @@ class AuthenticationRepository {
     await _auth?.signOut();
     _auth?.terminate();
 
-    await _restClient.signOut();
-
     await _removeToken();
     await _removeEmail();
     await _removeUserId();

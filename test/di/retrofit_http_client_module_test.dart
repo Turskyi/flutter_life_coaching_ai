@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/di/retrofit_http_client_module.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:mockito/mockito.dart';
 import 'package:models/models.dart';
 
@@ -41,7 +42,7 @@ void main() {
       expect(response.token, '');
       verifyNever(
         mockDio.post(
-          'https://clerk.turskyi.com/v1/client/sign_ins?_clerk_js_version=5.14.0',
+          'https://clerk.${constants.domain}/v1/client/sign_ins?_clerk_js_version=5.14.0',
           data: <String, String>{
             'identifier': 'identifier',
             'password': 'password',
@@ -82,7 +83,7 @@ void main() {
 
       verifyNever(
         mockDio.get(
-          'https://clerk.turskyi.com/v1/environment?_clerk_js_version=5.14.0',
+          'https://clerk.${constants.domain}/v1/environment?_clerk_js_version=5.14.0',
         ),
       ).called(0);
     });
