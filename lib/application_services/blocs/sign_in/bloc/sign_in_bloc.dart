@@ -84,27 +84,33 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           final Object? data = e.response?.data;
           const String errorsKey = 'errors';
           const String messageKey = 'message';
+
           String errorMessage = 'Unknown error';
 
           // Check if data is a Map.
           if (data is Map<String, Object?>) {
             // Check if 'errors' key exists and its value is a List.
-            if (data.containsKey(errorsKey) &&
-                data[errorsKey] is List<Object?>) {
-              final List<Object?> errorsList = data[errorsKey] as List<Object?>;
+            if (data.containsKey(errorsKey)) {
+              final Object? errors = data[errorsKey];
+              if (errors is List<Object?>) {
+                final List<Object?> errorsList = errors;
 
-              // Check if the errors list is not empty and its first element is
-              // a Map.
-              if (errorsList.isNotEmpty &&
-                  errorsList.first is Map<String, Object?>) {
-                final Map<String, Object?> firstError =
-                    errorsList.first as Map<String, Object?>;
+                // Check if the errors list is not empty and its first element is
+                // a Map.
+                if (errorsList.isNotEmpty) {
+                  final Object? firstObject = errorsList.first;
+                  if (firstObject is Map<String, Object?>) {
+                    final Map<String, Object?> firstError = firstObject;
 
-                // Check if the 'message' key exists in the first error and its
-                // value is a String.
-                if (firstError.containsKey(messageKey) &&
-                    firstError[messageKey] is String) {
-                  errorMessage = firstError[messageKey] as String;
+                    // Check if the 'message' key exists in the first error and its
+                    // value is a String.
+                    if (firstError.containsKey(messageKey)) {
+                      final Object? message = firstError[messageKey];
+                      if (message is String) {
+                        errorMessage = message;
+                      }
+                    }
+                  }
                 }
               }
             }

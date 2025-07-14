@@ -10,25 +10,25 @@ import 'package:user_repository/user_repository.dart';
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
-/// The AuthenticationBloc is responsible for reacting to changes in the
-/// authentication state (exposed by the AuthenticationRepository) and will
+/// The [AuthenticationBloc] is responsible for reacting to changes in the
+/// authentication state (exposed by the [AuthenticationRepository]) and will
 /// emit states we can react to in the ui component.
-/// The AuthenticationBloc will be reacting to two different events:
-/// • AuthenticationSubscriptionRequested: initial event that notifies the bloc
-/// to subscribe to the AuthenticationStatus stream
-/// • AuthenticationLogoutPressed: notifies the bloc of a user logout action.
-/// The AuthenticationBloc manages the authentication state of the application
+/// The [AuthenticationBloc] will be reacting to two different events:
+/// • [AuthenticationSubscriptionRequested]: initial event that notifies the bloc
+/// to subscribe to the [AuthenticationStatus] stream
+/// • [AuthenticationLogoutPressed]: notifies the bloc of a user logout action.
+/// The [AuthenticationBloc] manages the authentication state of the application
 /// which is used to determine things like whether or not to start the user at
 /// a goals page or a home page.
 /// The AuthenticationBloc has a dependency on both the
-/// AuthenticationRepository and UserRepository and defines the initial state
-/// as AuthenticationState.unknown().
-/// In the constructor body, AuthenticationEvent subclasses are mapped to
+/// [AuthenticationRepository] and [UserRepository] and defines the initial
+/// state as `AuthenticationState.unknown()`.
+/// In the constructor body, [AuthenticationEvent] subclasses are mapped to
 /// their corresponding event handlers.
-/// In the _onSubscriptionRequested event handler, the AuthenticationBloc uses
-/// emit.onEach to subscribe to the status stream of the
-/// AuthenticationRepository and emit a state in response to each
-/// AuthenticationStatus.
+/// In the `_onSubscriptionRequested` event handler, the [AuthenticationBloc]
+/// uses `emit.onEach` to subscribe to the status stream of the
+/// [AuthenticationRepository] and emit a state in response to each
+/// [AuthenticationStatus].
 @injectable
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
