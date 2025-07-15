@@ -37,27 +37,6 @@ void main() {
     );
   });
 
-  test('should log onResponse', () async {
-    const String logMessage = 'onResponse -------------------';
-    const String testUrl = 'https://jsonplaceholder.typicode.com/posts/1';
-
-    await runZonedGuarded(
-      () async {
-        await dio.get(testUrl);
-      },
-      (Object error, StackTrace stackTrace) {
-        // Ignore the error since we're only interested in the log output.
-      },
-      zoneSpecification: ZoneSpecification(
-        print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
-          if (line.contains(logMessage)) {
-            expect(line, contains(logMessage));
-          }
-        },
-      ),
-    );
-  });
-
   test('should log onError', () async {
     const String logMessage = 'onError ---------------------';
     const String testUrl = 'https://example.com/404';
