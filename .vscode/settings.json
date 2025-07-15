@@ -1,13 +1,13 @@
 {
   "prettier.singleQuote": true,
   "editor.formatOnSave": true,
+  "prettier.trailingComma": "all",
   "editor.rulers": [
     80
   ],
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.trailingComma": "all",
   "spellright.language": [
     "en"
   ],

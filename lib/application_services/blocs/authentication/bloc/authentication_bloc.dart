@@ -14,8 +14,8 @@ part 'authentication_state.dart';
 /// authentication state (exposed by the [AuthenticationRepository]) and will
 /// emit states we can react to in the ui component.
 /// The [AuthenticationBloc] will be reacting to two different events:
-/// • [AuthenticationSubscriptionRequested]: initial event that notifies the bloc
-/// to subscribe to the [AuthenticationStatus] stream
+/// • [AuthenticationSubscriptionRequested]: initial event that notifies the
+/// bloc to subscribe to the [AuthenticationStatus] stream
 /// • [AuthenticationLogoutPressed]: notifies the bloc of a user logout action.
 /// The [AuthenticationBloc] manages the authentication state of the application
 /// which is used to determine things like whether or not to start the user at
@@ -46,46 +46,47 @@ class AuthenticationBloc
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
 
-  /// emit.onEach creates a stream subscription internally and takes care of
-  /// canceling it when either AuthenticationBloc or the status stream is
+  /// `emit.onEach` creates a stream subscription internally and takes care of
+  /// canceling it when either [AuthenticationBloc] or the status stream is
   /// closed.
-  /// If the status stream emits an error, addError forwards the error and
-  /// stackTrace to any BlocObserver listening.
-  /// If onError is omitted, any errors on the status stream are considered
+  /// If the status stream emits an error, `addError` forwards the error and
+  /// stackTrace to any [BlocObserver] listening.
+  /// If `onError` is omitted, any errors on the status stream are considered
   /// unhandled, and will be thrown by onEach. As a result, the subscription
   /// to the status stream will be canceled.
-  /// When the status stream emits AuthenticationStatus.unknown or
-  /// unauthenticated, the corresponding AuthenticationState is emitted.
-  /// When AuthenticationStatus.authenticated is emitted, the
-  /// AuthenticationBloc queries the user via the UserRepository.
+  /// When the status stream emits [AuthenticationStatus.unknown] or
+  /// unauthenticated, the corresponding [AuthenticationState] is emitted.
+  /// When [AuthenticationStatus.authenticated] is emitted, the
+  /// [AuthenticationBloc] queries the user via the [UserRepository].
   Future<void> _onSubscriptionRequested(
     AuthenticationSubscriptionRequested event,
     Emitter<AuthenticationState> emit,
-  ) =>
-      emit.onEach(
-        _authenticationRepository.status,
-        onData: (AuthenticationStatus status) async {
-          switch (status) {
-            case UnauthenticatedStatus():
-              return emit(const AuthenticationState.unauthenticated());
-            case AuthenticatedStatus():
-              final User user = _getUser();
+  ) {
+    return emit.onEach(
+      _authenticationRepository.status,
+      onData: (AuthenticationStatus status) async {
+        switch (status) {
+          case UnauthenticatedStatus():
+            return emit(const AuthenticationState.unauthenticated());
+          case AuthenticatedStatus():
+            final User user = _getUser();
 
-              return emit(
-                user.isNotAnonymous
-                    ? AuthenticationState.authenticated(user)
-                    : const AuthenticationState.unauthenticated(),
-              );
-            case CodeAuthenticationStatus():
-              return emit(AuthenticationState.code(status.email));
-            case UnknownAuthenticationStatus():
-              return emit(const AuthenticationState.unknown());
-            case DeletingAuthenticatedUserStatus():
-              emit(AuthenticationState.accountDeleting(state.user));
-          }
-        },
-        onError: addError,
-      );
+            return emit(
+              user.isNotAnonymous
+                  ? AuthenticationState.authenticated(user)
+                  : const AuthenticationState.unauthenticated(),
+            );
+          case CodeAuthenticationStatus():
+            return emit(AuthenticationState.code(status.email));
+          case UnknownAuthenticationStatus():
+            return emit(const AuthenticationState.unknown());
+          case DeletingAuthenticatedUserStatus():
+            emit(AuthenticationState.accountDeleting(state.user));
+        }
+      },
+      onError: addError,
+    );
+  }
 
   void _onLogoutPressed(
     AuthenticationSignOutPressed event,

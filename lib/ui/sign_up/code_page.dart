@@ -12,8 +12,11 @@ class CodePage extends StatelessWidget {
 
   final String email;
 
-  static Route<void> route({required String email}) =>
-      MaterialPageRoute<void>(builder: (_) => CodePage(email: email));
+  static Route<void> route({required String email}) {
+    return MaterialPageRoute<void>(
+      builder: (BuildContext _) => CodePage(email: email),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

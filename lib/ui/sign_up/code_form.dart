@@ -16,39 +16,29 @@ class CodeForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final double? titleFontSize = textTheme.titleMedium?.fontSize;
+    final double? headlineFontSize = textTheme.headlineSmall?.fontSize;
     return BlocListener<SignUpBloc, SignUpState>(
-      listener: (BuildContext context, SignUpState state) {
-        final FormzSubmissionStatus status = state.status;
-
-        if (status.isFailure || state is SignUpErrorState) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(
-                  state is SignUpErrorState
-                      ? state.errorMessage
-                      : 'Sign Up Failure',
-                ),
-              ),
-            );
-        }
-      },
+      listener: _signUpStateListener,
       child: Align(
         alignment: const Alignment(0, -1 / 3),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text(
+            Text(
               'Verify your email',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: headlineFontSize,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Enter the verification code sent to your email',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: titleFontSize,
               ),
             ),
             const SizedBox(height: 8),
@@ -58,18 +48,19 @@ class CodeForm extends StatelessWidget {
               children: <Widget>[
                 Text(
                   email,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: titleFontSize,
                     decoration: TextDecoration.underline,
                   ),
                 ),
                 IconButton(
                   icon: const Icon(Icons.edit),
-                  onPressed: () =>
-                      Navigator.of(context).pushAndRemoveUntil<void>(
-                    SignUpPage.route(email: email),
-                    (Route<dynamic> route) => false,
-                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil<void>(
+                      SignUpPage.route(email: email),
+                      (Route<void> route) => false,
+                    );
+                  },
                 ),
               ],
             ),
@@ -81,13 +72,32 @@ class CodeForm extends StatelessWidget {
             const Text('Didn\'t receive a code?'),
             const SizedBox(height: 8),
             ElevatedButton(
-              onPressed: () =>
-                  context.read<SignUpBloc>().add(const ResendCode()),
+              onPressed: () {
+                context.read<SignUpBloc>().add(const ResendCode());
+              },
               child: const Text('Resend'),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _signUpStateListener(BuildContext context, SignUpState state) {
+    final FormzSubmissionStatus status = state.status;
+
+    if (status.isFailure || state is SignUpErrorState) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              state is SignUpErrorState
+                  ? state.errorMessage
+                  : 'Sign Up Failure',
+            ),
+          ),
+        );
+    }
   }
 }

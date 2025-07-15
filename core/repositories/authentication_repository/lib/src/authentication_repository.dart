@@ -7,10 +7,10 @@ import 'package:clerk_auth/clerk_auth.dart' as clerk;
 import 'package:models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// The AuthenticationRepository exposes a Stream of AuthenticationStatus
+/// The [AuthenticationRepository] exposes a [Stream] of [AuthenticationStatus]
 /// updates which will be used to notify the application when a user signs in
 /// or out.
-/// Since we are maintaining a StreamController internally, a dispose method
+/// Since we are maintaining a [StreamController] internally, a dispose method
 /// is exposed so that the controller can be closed when it is no longer needed.
 class AuthenticationRepository {
   AuthenticationRepository(this._restClient, this._preferences);
@@ -20,8 +20,6 @@ class AuthenticationRepository {
 
   final StreamController<AuthenticationStatus> _controller =
       StreamController<AuthenticationStatus>();
-
-  clerk.DefaultPersistor? _persistor;
 
   clerk.Auth? _auth;
 
@@ -111,11 +109,16 @@ class AuthenticationRepository {
         strategy: clerk.Strategy.emailCode,
         code: code,
       );
+
       final String? userId = clerkClient?.user?.id;
+
       if (userId?.isNotEmpty == true) {
         await _saveUserId(userId ?? '');
         _controller.add(AuthenticationStatus.authenticated());
         await _removeSignUpId();
+      } else {
+        //TODO: come up with better handling.
+        throw Exception('User id is empty');
       }
     } else {
       //TODO:  this should never happen, so better come up with better handling.
@@ -189,14 +192,13 @@ class AuthenticationRepository {
   }
 
   Future<void> _authInit() async {
-    _persistor ??= await clerk.DefaultPersistor.create(
-      storageDirectory: Directory.current,
-    );
-    if (_auth == null && _persistor != null) {
+    if (_auth == null) {
       _auth = clerk.Auth(
-        persistor: _persistor!,
-        config: const clerk.AuthConfig(
+        config: clerk.AuthConfig(
           publishableKey: Env.clerkPublishableKey,
+          persistor: clerk.DefaultPersistor(
+            getCacheDirectory: () => Directory.current,
+          ),
         ),
       );
 

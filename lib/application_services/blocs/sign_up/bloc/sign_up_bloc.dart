@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:clerk_auth/clerk_auth.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/api_exception.dart';
 import 'package:models/models.dart';
@@ -94,6 +95,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: state.password,
           isValid: state.isValid,
           code: state.code,
+          status: FormzSubmissionStatus.inProgress,
         ),
       );
       try {
@@ -122,6 +124,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       const String errorsKey = 'errors';
       const String messageKey = 'long_message';
+
       String errorMessage = 'Unknown error';
 
       if (responseBody is Map<String, Object?>) {
@@ -131,7 +134,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           final Object? errors = responseBody[errorsKey];
 
           if (errors is List<Object?> && errors.isNotEmpty) {
-            final Object? errorEntry = errors.first;
+            final Object? errorEntry = errors.firstOrNull;
 
             if (errorEntry is Map<String, Object?> &&
                 errorEntry.containsKey(messageKey)) {
@@ -181,6 +184,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: state.password,
           isValid: state.isValid,
           code: state.code,
+          status: FormzSubmissionStatus.inProgress,
         ),
       );
       try {
@@ -188,6 +192,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
         if (code.isNotEmpty) {
           await _authenticationRepository.verify(code);
+        } else {
+          // TODO: find a better way to handle this case.
+          debugPrint('Code is empty in `_onCodeSubmitted` of $runtimeType');
         }
 
         emit(state.copyWith(status: FormzSubmissionStatus.success));

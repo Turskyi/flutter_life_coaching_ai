@@ -8,14 +8,14 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
-  clerk_auth: ^0.0.9-beta
+  clerk_auth: ^0.0.10-beta
   envied: ^1.1.1
   models:
     path: ../../models
   shared_preferences: ^2.5.3
 
 dev_dependencies:
-  build_runner: ^2.4.15
+  build_runner: ^2.5.4
   envied_generator: ^1.1.1
   lints: ^6.0.0
   test: ^1.26.2

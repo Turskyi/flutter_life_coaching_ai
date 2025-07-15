@@ -95,15 +95,15 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
               if (errors is List<Object?>) {
                 final List<Object?> errorsList = errors;
 
-                // Check if the errors list is not empty and its first element is
-                // a Map.
+                // Check if the errors list is not empty and its first element
+                // is a `Map`.
                 if (errorsList.isNotEmpty) {
                   final Object? firstObject = errorsList.first;
                   if (firstObject is Map<String, Object?>) {
                     final Map<String, Object?> firstError = firstObject;
 
-                    // Check if the 'message' key exists in the first error and its
-                    // value is a String.
+                    // Check if the 'message' key exists in the first error and
+                    // its value is a `String`.
                     if (firstError.containsKey(messageKey)) {
                       final Object? message = firstError[messageKey];
                       if (message is String) {

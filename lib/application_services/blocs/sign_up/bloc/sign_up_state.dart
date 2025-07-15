@@ -93,12 +93,13 @@ final class SignUpProgressState extends SignUpState {
     Password? password,
     Code? code,
     bool? isValid,
-  }) =>
-      SignUpProgressState(
-        status: status ?? this.status,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        code: code ?? this.code,
-        isValid: isValid ?? this.isValid,
-      );
+  }) {
+    return SignUpProgressState(
+      status: status ?? this.status,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      code: code ?? this.code,
+      isValid: isValid ?? this.isValid,
+    );
+  }
 }

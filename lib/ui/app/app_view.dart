@@ -35,7 +35,7 @@ class _AppViewState extends State<AppView> {
   NavigatorState? get _navigator => _navigatorKey.currentState;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: constants.appName,
@@ -43,13 +43,13 @@ class _AppViewState extends State<AppView> {
       routes: routes.routeMap,
       theme: ThemeData.dark(),
       navigatorKey: _navigatorKey,
-      builder: (_, Widget? child) {
+      builder: (BuildContext _, Widget? child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: _authenticationBlocStateListener,
           child: child,
         );
       },
-      onGenerateRoute: (_) => SplashPage.route(),
+      onGenerateRoute: (RouteSettings _) => SplashPage.route(),
     );
   }
 
@@ -63,7 +63,7 @@ class _AppViewState extends State<AppView> {
       case CodeAuthenticationStatus():
         _navigator?.pushAndRemoveUntil<void>(
           CodePage.route(email: status.email),
-          (_) => false,
+          (Route<void> _) => false,
         );
       case DeletingAuthenticatedUserStatus():
         ScaffoldMessenger.of(context).showSnackBar(
