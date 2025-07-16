@@ -47,14 +47,15 @@ Future<void> main() async {
       localizationDelegate,
       BetterFeedback(
         feedbackBuilder: (
-          BuildContext context,
+          BuildContext _,
           OnSubmit onSubmit,
           ScrollController? scrollController,
-        ) =>
-            FeedbackForm(
-          onSubmit: onSubmit,
-          scrollController: scrollController,
-        ),
+        ) {
+          return FeedbackForm(
+            onSubmit: onSubmit,
+            scrollController: scrollController,
+          );
+        },
         child: App(
           authenticationRepository: authenticationRepository,
           authenticationBloc: authenticationBloc,
