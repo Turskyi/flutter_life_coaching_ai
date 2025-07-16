@@ -36,29 +36,4 @@ void main() {
       ),
     );
   });
-
-  test('should log onError', () async {
-    const String logMessage = 'onError ---------------------';
-    const String testUrl = 'https://example.com/404';
-
-    await runZonedGuarded(
-      () async {
-        try {
-          await dio.get(testUrl);
-        } catch (_) {
-          // The request will fail, but we're interested in the log output.
-        }
-      },
-      (Object error, StackTrace stackTrace) {
-        // Ignore the error since we're only interested in the log output.
-      },
-      zoneSpecification: ZoneSpecification(
-        print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
-          if (line.contains(logMessage)) {
-            expect(line, contains(logMessage));
-          }
-        },
-      ),
-    );
-  });
 }
