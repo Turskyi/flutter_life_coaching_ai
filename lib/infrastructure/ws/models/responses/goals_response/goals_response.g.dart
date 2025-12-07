@@ -14,6 +14,4 @@ GoalsResponse _$GoalsResponseFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$GoalsResponseToJson(GoalsResponse instance) =>
-    <String, dynamic>{
-      'goals': instance.goals,
-    };
+    <String, dynamic>{'goals': instance.goals};

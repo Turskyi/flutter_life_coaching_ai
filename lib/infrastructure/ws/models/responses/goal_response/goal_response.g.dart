@@ -7,13 +7,13 @@ part of 'goal_response.dart';
 // **************************************************************************
 
 GoalResponse _$GoalResponseFromJson(Map<String, dynamic> json) => GoalResponse(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      content: json['content'] as String,
-      userId: json['userId'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
-    );
+  id: json['id'] as String,
+  title: json['title'] as String,
+  content: json['content'] as String,
+  userId: json['userId'] as String,
+  createdAt: DateTime.parse(json['createdAt'] as String),
+  updatedAt: DateTime.parse(json['updatedAt'] as String),
+);
 
 Map<String, dynamic> _$GoalResponseToJson(GoalResponse instance) =>
     <String, dynamic>{

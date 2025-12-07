@@ -19,14 +19,8 @@ class MessageRequest {
 
   Map<String, dynamic> toJson() => _$MessageRequestToJson(this);
 
-  MessageRequest copyWith({
-    String? role,
-    String? content,
-  }) =>
-      MessageRequest(
-        role: role ?? this.role,
-        content: content ?? this.content,
-      );
+  MessageRequest copyWith({String? role, String? content}) =>
+      MessageRequest(role: role ?? this.role, content: content ?? this.content);
 
   @override
   bool operator ==(Object other) {

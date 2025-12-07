@@ -20,13 +20,15 @@ SessionResponse _$SessionResponseFromJson(Map<String, dynamic> json) =>
       publicUserData: json['public_user_data'] == null
           ? null
           : PublicUserResponse.fromJson(
-              json['public_user_data'] as Map<String, dynamic>),
+              json['public_user_data'] as Map<String, dynamic>,
+            ),
       createdAt: (json['created_at'] as num?)?.toInt(),
       updatedAt: (json['updated_at'] as num?)?.toInt(),
       lastActiveToken: json['last_active_token'] == null
           ? null
           : LastActiveTokenResponse.fromJson(
-              json['last_active_token'] as Map<String, dynamic>),
+              json['last_active_token'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$SessionResponseToJson(SessionResponse instance) =>

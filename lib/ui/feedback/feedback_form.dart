@@ -58,9 +58,9 @@ class _CustomFeedbackFormState extends State<FeedbackForm> {
                               .map(
                                 (FeedbackType type) =>
                                     DropdownMenuItem<FeedbackType>(
-                                  value: type,
-                                  child: Text(type.value),
-                                ),
+                                      value: type,
+                                      child: Text(type.value),
+                                    ),
                               )
                               .toList(),
                           onChanged: (FeedbackType? feedbackType) => setState(
@@ -93,9 +93,9 @@ class _CustomFeedbackFormState extends State<FeedbackForm> {
           // disable this button until the user has specified a feedback type
           onPressed: _customFeedback.feedbackType != null
               ? () => widget.onSubmit(
-                    _customFeedback.feedbackText ?? '',
-                    extras: _customFeedback.toMap(),
-                  )
+                  _customFeedback.feedbackText ?? '',
+                  extras: _customFeedback.toMap(),
+                )
               : null,
           child: Text(translate('submit')),
         ),

@@ -5,9 +5,7 @@ import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_intercepto
 @module
 abstract class DioHttpClientModule {
   @preResolve
-  Future<Dio> getDioHttpClient(
-    LoggingInterceptor loggingInterceptor,
-  ) async {
+  Future<Dio> getDioHttpClient(LoggingInterceptor loggingInterceptor) async {
     final Dio dio = Dio()
       ..interceptors.addAll(<Interceptor>[loggingInterceptor])
       ..options.connectTimeout = const Duration(minutes: 1)

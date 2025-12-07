@@ -24,10 +24,9 @@ part 'sign_up_state.dart';
 /// form is valid, the bloc makes a call to `signIn` and updates the status
 /// based on the outcome of the request.
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  SignUpBloc({
-    required AuthenticationRepository authenticationRepository,
-  })  : _authenticationRepository = authenticationRepository,
-        super(const SignUpState()) {
+  SignUpBloc({required AuthenticationRepository authenticationRepository})
+    : _authenticationRepository = authenticationRepository,
+      super(const SignUpState()) {
     on<SignUpEmailChanged>(_onEmailChanged);
     on<SignUpPasswordChanged>(_onPasswordChanged);
     on<SignUpSubmitted>(_onSubmitted);
@@ -38,10 +37,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   final AuthenticationRepository _authenticationRepository;
 
-  void _onEmailChanged(
-    SignUpEmailChanged event,
-    Emitter<SignUpState> emit,
-  ) {
+  void _onEmailChanged(SignUpEmailChanged event, Emitter<SignUpState> emit) {
     final EmailAddress email = EmailAddress.dirty(event.email);
     emit(
       state.copyWith(
@@ -62,24 +58,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(
       state.copyWith(
         password: password,
-        isValid: Formz.validate(
-          <FormzInput<String, ValidationError>>[password, state.email],
-        ),
+        isValid: Formz.validate(<FormzInput<String, ValidationError>>[
+          password,
+          state.email,
+        ]),
       ),
     );
   }
 
-  void _onCodeChanged(
-    CodeChanged event,
-    Emitter<SignUpState> emit,
-  ) {
+  void _onCodeChanged(CodeChanged event, Emitter<SignUpState> emit) {
     final Code code = Code.dirty(event.code);
     emit(
       state.copyWith(
         code: code,
-        isValid: Formz.validate(
-          <FormzInput<String, ValidationError>>[code],
-        ),
+        isValid: Formz.validate(<FormzInput<String, ValidationError>>[code]),
       ),
     );
   }
@@ -104,9 +96,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: state.password.value,
         );
 
-        emit(
-          state.copyWith(status: FormzSubmissionStatus.success),
-        );
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
       } on ApiException catch (e) {
         _handleError(error: e, emitter: emit);
       } catch (e) {

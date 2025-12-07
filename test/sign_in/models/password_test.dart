@@ -27,10 +27,7 @@ void main() {
       });
 
       test('is valid when password is not empty', () {
-        expect(
-          const Password.dirty(passwordString).error,
-          isNull,
-        );
+        expect(const Password.dirty(passwordString).error, isNull);
       });
     });
   });

@@ -38,11 +38,10 @@ class AttemptVerificationResponse {
   AttemptVerificationResponse copyWith({
     SignUpFormResponse? signUpFormResponse,
     ClientResponse? clientResponse,
-  }) =>
-      AttemptVerificationResponse(
-        signUpFormResponse: signUpFormResponse ?? this.signUpFormResponse,
-        clientResponse: clientResponse ?? this.clientResponse,
-      );
+  }) => AttemptVerificationResponse(
+    signUpFormResponse: signUpFormResponse ?? this.signUpFormResponse,
+    clientResponse: clientResponse ?? this.clientResponse,
+  );
 
   @override
   bool operator ==(Object other) {

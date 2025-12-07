@@ -13,7 +13,4 @@ MessageRequest _$MessageRequestFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$MessageRequestToJson(MessageRequest instance) =>
-    <String, dynamic>{
-      'role': instance.role,
-      'content': instance.content,
-    };
+    <String, dynamic>{'role': instance.role, 'content': instance.content};

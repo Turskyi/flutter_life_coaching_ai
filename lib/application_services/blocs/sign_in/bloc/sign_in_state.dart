@@ -20,13 +20,12 @@ final class SignInState extends Equatable {
     EmailAddress? email,
     Password? password,
     bool? isValid,
-  }) =>
-      SignInState(
-        status: status ?? this.status,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        isValid: isValid ?? this.isValid,
-      );
+  }) => SignInState(
+    status: status ?? this.status,
+    email: email ?? this.email,
+    password: password ?? this.password,
+    isValid: isValid ?? this.isValid,
+  );
 
   @override
   List<Object> get props => <Object>[status, email, password];
@@ -50,21 +49,20 @@ final class SignInErrorState extends SignInState {
     Password? password,
     bool? isValid,
     String? errorMessage,
-  }) =>
-      SignInErrorState(
-        status: status ?? this.status,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        isValid: isValid ?? this.isValid,
-        errorMessage: errorMessage ?? this.errorMessage,
-      );
+  }) => SignInErrorState(
+    status: status ?? this.status,
+    email: email ?? this.email,
+    password: password ?? this.password,
+    isValid: isValid ?? this.isValid,
+    errorMessage: errorMessage ?? this.errorMessage,
+  );
 
   @override
   List<Object> get props => <Object>[
-        status,
-        email,
-        password,
-        isValid,
-        errorMessage,
-      ];
+    status,
+    email,
+    password,
+    isValid,
+    errorMessage,
+  ];
 }

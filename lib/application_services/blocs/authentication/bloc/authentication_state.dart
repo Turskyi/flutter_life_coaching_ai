@@ -20,19 +20,19 @@ class AuthenticationState extends Equatable {
   const AuthenticationState.unknown() : this._();
 
   const AuthenticationState.authenticated(User user)
-      : this._(status: const AuthenticatedStatus(), user: user);
+    : this._(status: const AuthenticatedStatus(), user: user);
 
   const AuthenticationState.accountDeleting(User user)
-      : this._(status: const DeletingAuthenticatedUserStatus(), user: user);
+    : this._(status: const DeletingAuthenticatedUserStatus(), user: user);
 
   AuthenticationState.accountDeleted(String message)
-      : this._(status: UnauthenticatedStatus(message: message));
+    : this._(status: UnauthenticatedStatus(message: message));
 
   const AuthenticationState.unauthenticated()
-      : this._(status: const UnauthenticatedStatus());
+    : this._(status: const UnauthenticatedStatus());
 
   AuthenticationState.code(String email)
-      : this._(status: CodeAuthenticationStatus(email));
+    : this._(status: CodeAuthenticationStatus(email));
 
   final AuthenticationStatus status;
   final User user;

@@ -30,12 +30,8 @@ class GoalsResponse implements Goals {
 
   Map<String, dynamic> toJson() => _$GoalsResponseToJson(this);
 
-  GoalsResponse copyWith({
-    List<GoalResponse>? goals,
-  }) {
-    return GoalsResponse(
-      goals: goals ?? this.goals,
-    );
+  GoalsResponse copyWith({List<GoalResponse>? goals}) {
+    return GoalsResponse(goals: goals ?? this.goals);
   }
 
   @override

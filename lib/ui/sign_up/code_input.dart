@@ -49,7 +49,8 @@ class _CodeInputState extends State<CodeInput> {
             onChanged: (String value) => _onChanged(value, index),
             decoration: InputDecoration(
               counterText: '',
-              errorText: context.select(
+              errorText:
+                  context.select(
                         (SignUpBloc bloc) => bloc.state.code.displayError,
                       ) !=
                       null

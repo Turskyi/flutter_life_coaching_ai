@@ -51,9 +51,9 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Sign out'),
-            onTap: () => context
-                .read<AuthenticationBloc>()
-                .add(const AuthenticationSignOutPressed()),
+            onTap: () => context.read<AuthenticationBloc>().add(
+              const AuthenticationSignOutPressed(),
+            ),
           ),
           BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (BuildContext context, AuthenticationState state) {
@@ -74,13 +74,11 @@ class AppDrawer extends StatelessWidget {
                     ? null
                     : () async {
                         final bool? confirmed =
-                            await _showDeleteAccountConfirmationDialog(
-                          context,
-                        );
+                            await _showDeleteAccountConfirmationDialog(context);
                         if (context.mounted && confirmed == true) {
                           context.read<AuthenticationBloc>().add(
-                                const AuthenticationAccountDeletionRequested(),
-                              );
+                            const AuthenticationAccountDeletionRequested(),
+                          );
                         }
                       },
               );

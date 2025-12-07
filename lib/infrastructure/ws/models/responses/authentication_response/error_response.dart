@@ -16,18 +16,15 @@ class ErrorResponse {
   final String? code;
 
   @override
-  String toString() => 'ErrorResponse('
+  String toString() =>
+      'ErrorResponse('
       'message: $message, '
       'longMessage: $longMessage, '
       'code: $code)';
 
   Map<String, dynamic> toJson() => _$ErrorResponseToJson(this);
 
-  ErrorResponse copyWith({
-    String? message,
-    String? longMessage,
-    String? code,
-  }) {
+  ErrorResponse copyWith({String? message, String? longMessage, String? code}) {
     return ErrorResponse(
       message: message ?? this.message,
       longMessage: longMessage ?? this.longMessage,

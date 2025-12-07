@@ -7,10 +7,10 @@ class BubblePainter extends CustomPainter {
     required ScrollableState scrollable,
     required BuildContext bubbleContext,
     required List<Color> colors,
-  })  : _scrollable = scrollable,
-        _bubbleContext = bubbleContext,
-        _colors = colors,
-        super(repaint: scrollable.position);
+  }) : _scrollable = scrollable,
+       _bubbleContext = bubbleContext,
+       _colors = colors,
+       super(repaint: scrollable.position);
 
   final ScrollableState _scrollable;
   final BuildContext _bubbleContext;
@@ -23,8 +23,10 @@ class BubblePainter extends CustomPainter {
     final Rect scrollableRect = Offset.zero & scrollableBox.size;
     final RenderBox bubbleBox = _bubbleContext.findRenderObject() as RenderBox;
 
-    final Offset origin =
-        bubbleBox.localToGlobal(Offset.zero, ancestor: scrollableBox);
+    final Offset origin = bubbleBox.localToGlobal(
+      Offset.zero,
+      ancestor: scrollableBox,
+    );
     final Paint paint = Paint()
       ..shader = ui.Gradient.linear(
         scrollableRect.topCenter,

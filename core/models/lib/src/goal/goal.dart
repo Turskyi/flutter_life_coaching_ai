@@ -36,15 +36,14 @@ class Goal {
     String? content,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) =>
-      Goal(
-        userId: userId ?? this.userId,
-        id: id ?? this.id,
-        title: title ?? this.title,
-        content: content ?? this.content,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-      );
+  }) => Goal(
+    userId: userId ?? this.userId,
+    id: id ?? this.id,
+    title: title ?? this.title,
+    content: content ?? this.content,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
 
   Map<String, dynamic> toJson() => _$GoalToJson(this);
 

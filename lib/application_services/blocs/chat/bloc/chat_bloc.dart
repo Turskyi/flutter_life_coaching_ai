@@ -22,11 +22,8 @@ part 'chat_state.dart';
 
 @injectable
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  ChatBloc(
-    this._chatRepository,
-    this._settingsRepository,
-    this._userRepository,
-  ) : super(const LoadingChatState(user: User(''))) {
+  ChatBloc(this._chatRepository, this._settingsRepository, this._userRepository)
+    : super(const LoadingChatState(user: User(''))) {
     on<LoadingInitialChatStateEvent>(_onLoadingInitialChatState);
 
     on<SendMessageEvent>(_onSendMessage);
@@ -87,10 +84,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     // existing list.
     final List<Message> updatedMessages = List<Message>.from(state.messages)
       ..add(
-        Message(
-          owner: MessageOwner.myself,
-          text: StringBuffer(event.message),
-        ),
+        Message(owner: MessageOwner.myself, text: StringBuffer(event.message)),
       );
     // Emit a new state with the updated list of messages.
     emit(
@@ -104,39 +98,41 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       final User user = _getUser();
       _chatRepository
           .sendChat(
-        Chat(
-          user: user,
-          messages: updatedMessages,
-          language: state.language,
-        ),
-      )
+            Chat(
+              user: user,
+              messages: updatedMessages,
+              language: state.language,
+            ),
+          )
           .listen(
-        (String line) => add(UpdateAiMessageEvent(line)),
-        onError: (Object error, StackTrace stackTrace) {
-          debugPrint(
-            'Error in $runtimeType in `onError`: $error.\n'
-            'Stacktrace: $stackTrace',
-          );
-          if (error is DioException) {
-            if (kIsWeb && kDebugMode) {
-              add(ChatErrorEvent(translate('error.cors')));
-            } else if (kIsWeb) {
-              add(
-                ChatErrorEvent(
-                  translate(
-                    'error.useWebsite',
-                    args: <String, Object?>{'websiteUrl': constants.website},
-                  ),
-                ),
+            (String line) => add(UpdateAiMessageEvent(line)),
+            onError: (Object error, StackTrace stackTrace) {
+              debugPrint(
+                'Error in $runtimeType in `onError`: $error.\n'
+                'Stacktrace: $stackTrace',
               );
-            } else {
-              add(ChatErrorEvent(translate('error.pleaseCheckInternet')));
-            }
-          } else {
-            add(ChatErrorEvent(translate('error.unexpectedError')));
-          }
-        },
-      );
+              if (error is DioException) {
+                if (kIsWeb && kDebugMode) {
+                  add(ChatErrorEvent(translate('error.cors')));
+                } else if (kIsWeb) {
+                  add(
+                    ChatErrorEvent(
+                      translate(
+                        'error.useWebsite',
+                        args: <String, Object?>{
+                          'websiteUrl': constants.website,
+                        },
+                      ),
+                    ),
+                  );
+                } else {
+                  add(ChatErrorEvent(translate('error.pleaseCheckInternet')));
+                }
+              } else {
+                add(ChatErrorEvent(translate('error.unexpectedError')));
+              }
+            },
+          );
     } catch (error, stackTrace) {
       debugPrint(
         'Error in $runtimeType in `catch`: $error.\nStacktrace: $stackTrace',
@@ -154,9 +150,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       final List<Message> updatedMessages = List<Message>.from(state.messages);
       final Message lastMessage = updatedMessages.removeLast();
       final Message updatedLastMessage = lastMessage.copyWith(
-        text: StringBuffer(
-          lastMessage.text.toString() + event.pieceOfMessage,
-        ),
+        text: StringBuffer(lastMessage.text.toString() + event.pieceOfMessage),
       );
       updatedMessages.add(updatedLastMessage);
 
@@ -193,26 +187,29 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ) async {
     final Language language = event.language;
     if (language != state.language) {
-      final bool isSaved = await _settingsRepository
-          .saveLanguageIsoCode(language.isoLanguageCode);
+      final bool isSaved = await _settingsRepository.saveLanguageIsoCode(
+        language.isoLanguageCode,
+      );
       if (isSaved) {
-        emit(
-          switch (state) {
-            ChatInitial() =>
-              (state as ChatInitial).copyWith(language: language),
-            ChatError() => (state as ChatError).copyWith(language: language),
-            SentMessageState() =>
-              (state as SentMessageState).copyWith(language: language),
-            AiMessageUpdated() =>
-              (state as AiMessageUpdated).copyWith(language: language),
-            LoadingChatState() =>
-              (state as LoadingChatState).copyWith(language: language),
-            FeedbackState() =>
-              (state as FeedbackState).copyWith(language: language),
-            FeedbackSent() =>
-              (state as FeedbackSent).copyWith(language: language),
-          },
-        );
+        emit(switch (state) {
+          ChatInitial() => (state as ChatInitial).copyWith(language: language),
+          ChatError() => (state as ChatError).copyWith(language: language),
+          SentMessageState() => (state as SentMessageState).copyWith(
+            language: language,
+          ),
+          AiMessageUpdated() => (state as AiMessageUpdated).copyWith(
+            language: language,
+          ),
+          LoadingChatState() => (state as LoadingChatState).copyWith(
+            language: language,
+          ),
+          FeedbackState() => (state as FeedbackState).copyWith(
+            language: language,
+          ),
+          FeedbackSent() => (state as FeedbackSent).copyWith(
+            language: language,
+          ),
+        });
       } else {
         add(const LoadingInitialChatStateEvent());
       }
@@ -258,8 +255,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     );
     final UserFeedback feedback = event.feedback;
     try {
-      final String screenshotFilePath =
-          await _writeImageToStorage(feedback.screenshot);
+      final String screenshotFilePath = await _writeImageToStorage(
+        feedback.screenshot,
+      );
 
       final PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
@@ -269,8 +267,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       // Construct the feedback text with details from `extra'.
       final StringBuffer feedbackBody = StringBuffer()
-        ..writeln('${type is FeedbackType ? translate('feedback.type') : ''}:'
-            ' ${type is FeedbackType ? type.value : ''}')
+        ..writeln(
+          '${type is FeedbackType ? translate('feedback.type') : ''}:'
+          ' ${type is FeedbackType ? type.value : ''}',
+        )
         ..writeln()
         ..writeln(feedback.text)
         ..writeln()
@@ -279,13 +279,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ..writeln('${translate('buildNumber')}: ${packageInfo.buildNumber}')
         ..writeln()
         ..writeln(
-            '${rating is FeedbackRating ? translate('feedback.rating') : ''}'
-            '${rating is FeedbackRating ? ':' : ''}'
-            ' ${rating is FeedbackRating ? rating.value : ''}');
+          '${rating is FeedbackRating ? translate('feedback.rating') : ''}'
+          '${rating is FeedbackRating ? ':' : ''}'
+          ' ${rating is FeedbackRating ? rating.value : ''}',
+        );
 
       final Email email = Email(
         body: feedbackBody.toString(),
-        subject: '${translate('feedback.appFeedback')}: '
+        subject:
+            '${translate('feedback.appFeedback')}: '
             '${packageInfo.appName}',
         recipients: <String>[constants.supportEmail],
         attachmentPaths: <String>[screenshotFilePath],
@@ -337,26 +339,26 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     );
     _chatRepository
         .sendChat(
-      Chat(
-        user: _getUser(),
-        messages: currentMessages,
-        language: state.language,
-      ),
-    )
+          Chat(
+            user: _getUser(),
+            messages: currentMessages,
+            language: state.language,
+          ),
+        )
         .listen(
-      (String line) => add(UpdateAiMessageEvent(line)),
-      onError: (Object error, StackTrace stackTrace) {
-        if (error is DioException) {
-          add(ChatErrorEvent(translate('error.pleaseCheckInternet')));
-        } else {
-          debugPrint(
-            'Error in $runtimeType in `onError`: $error.\n'
-            'Stacktrace: $stackTrace',
-          );
-          add(ChatErrorEvent(translate('error.unexpectedError')));
-        }
-      },
-    );
+          (String line) => add(UpdateAiMessageEvent(line)),
+          onError: (Object error, StackTrace stackTrace) {
+            if (error is DioException) {
+              add(ChatErrorEvent(translate('error.pleaseCheckInternet')));
+            } else {
+              debugPrint(
+                'Error in $runtimeType in `onError`: $error.\n'
+                'Stacktrace: $stackTrace',
+              );
+              add(ChatErrorEvent(translate('error.unexpectedError')));
+            }
+          },
+        );
   }
 
   FutureOr<void> _onChatError(ChatErrorEvent event, Emitter<ChatState> emit) {

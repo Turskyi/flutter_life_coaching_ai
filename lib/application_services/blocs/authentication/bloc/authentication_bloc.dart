@@ -35,9 +35,9 @@ class AuthenticationBloc
   AuthenticationBloc({
     required AuthenticationRepository authenticationRepository,
     required UserRepository userRepository,
-  })  : _authenticationRepository = authenticationRepository,
-        _userRepository = userRepository,
-        super(const AuthenticationState.unknown()) {
+  }) : _authenticationRepository = authenticationRepository,
+       _userRepository = userRepository,
+       super(const AuthenticationState.unknown()) {
     on<AuthenticationSubscriptionRequested>(_onSubscriptionRequested);
     on<AuthenticationSignOutPressed>(_onLogoutPressed);
     on<AuthenticationAccountDeletionRequested>(_onAccountDeletionRequested);
@@ -99,10 +99,8 @@ class AuthenticationBloc
     AuthenticationAccountDeletionRequested event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final MessageResponse response =
-        await _authenticationRepository.deleteAccount(
-      state.user.id,
-    );
+    final MessageResponse response = await _authenticationRepository
+        .deleteAccount(state.user.id);
     emit(AuthenticationState.accountDeleted(response.message));
   }
 

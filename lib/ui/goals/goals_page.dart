@@ -25,10 +25,9 @@ class GoalsPage extends StatelessWidget {
   static Route<void> route(AuthenticationBloc authenticationBloc) =>
       MaterialPageRoute<void>(
         builder: (_) => BlocProvider<GoalsBloc>(
-          create: (_) => GoalsBloc(
-            GetIt.I.get<GoalsRepository>(),
-            authenticationBloc,
-          )..add(const LoadGoals()),
+          create: (_) =>
+              GoalsBloc(GetIt.I.get<GoalsRepository>(), authenticationBloc)
+                ..add(const LoadGoals()),
           child: const GoalsPage(),
         ),
       );
@@ -61,8 +60,9 @@ class GoalsPage extends StatelessWidget {
                 crossAxisSpacing: axisSpacing,
                 mainAxisSpacing: axisSpacing,
               ),
-              itemCount:
-                  state is CreatingGoal ? allGoals.length + 1 : allGoals.length,
+              itemCount: state is CreatingGoal
+                  ? allGoals.length + 1
+                  : allGoals.length,
               itemBuilder: (_, int index) {
                 if (state is CreatingGoal && index == allGoals.length) {
                   return const ShimmerGoal();
@@ -90,9 +90,9 @@ class GoalsPage extends StatelessWidget {
 
   void _handleGoalsState(BuildContext context, GoalsState state) {
     if (state is UnauthenticatedGoalsAccessState) {
-      context
-          .read<AuthenticationBloc>()
-          .add(const AuthenticationSignOutPressed());
+      context.read<AuthenticationBloc>().add(
+        const AuthenticationSignOutPressed(),
+      );
     } else if (state is GoalDeleted) {
       final String message = state.message;
       Fluttertoast.showToast(

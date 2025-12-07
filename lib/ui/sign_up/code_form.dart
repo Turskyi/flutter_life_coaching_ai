@@ -7,10 +7,7 @@ import 'package:lifecoach/ui/sign_up/code_input.dart';
 import 'package:lifecoach/ui/sign_up/sign_up_page.dart';
 
 class CodeForm extends StatelessWidget {
-  const CodeForm({
-    required this.email,
-    super.key,
-  });
+  const CodeForm({required this.email, super.key});
 
   final String email;
 
@@ -37,9 +34,7 @@ class CodeForm extends StatelessWidget {
             Text(
               'Enter the verification code sent to your email',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: titleFontSize,
-              ),
+              style: TextStyle(fontSize: titleFontSize),
             ),
             const SizedBox(height: 8),
             Row(

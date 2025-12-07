@@ -74,8 +74,8 @@ class _SignInFormState extends State<SignInForm> {
                 ContinueButton(
                   onPressed: _isConsentGiven
                       ? () => context.read<SignInBloc>().add(
-                            const SignInSubmitted(),
-                          )
+                          const SignInSubmitted(),
+                        )
                       : null, // Disable button if consent is not given
                 ),
                 const Padding(padding: EdgeInsets.all(12)),
@@ -101,7 +101,8 @@ class _SignInFormState extends State<SignInForm> {
             style: DefaultTextStyle.of(context).style,
             children: <TextSpan>[
               const TextSpan(
-                text: 'Sign in is not available here. Please use our official '
+                text:
+                    'Sign in is not available here. Please use our official '
                     'website: ',
                 style: TextStyle(color: Colors.black),
               ),

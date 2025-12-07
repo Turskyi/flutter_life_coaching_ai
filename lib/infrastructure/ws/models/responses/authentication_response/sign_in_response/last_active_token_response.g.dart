@@ -7,15 +7,12 @@ part of 'last_active_token_response.dart';
 // **************************************************************************
 
 LastActiveTokenResponse _$LastActiveTokenResponseFromJson(
-        Map<String, dynamic> json) =>
-    LastActiveTokenResponse(
-      object: json['object'] as String?,
-      jwt: json['jwt'] as String?,
-    );
+  Map<String, dynamic> json,
+) => LastActiveTokenResponse(
+  object: json['object'] as String?,
+  jwt: json['jwt'] as String?,
+);
 
 Map<String, dynamic> _$LastActiveTokenResponseToJson(
-        LastActiveTokenResponse instance) =>
-    <String, dynamic>{
-      'object': instance.object,
-      'jwt': instance.jwt,
-    };
+  LastActiveTokenResponse instance,
+) => <String, dynamic>{'object': instance.object, 'jwt': instance.jwt};

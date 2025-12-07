@@ -2,11 +2,13 @@
 
 part of 'retrofit_client.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
 class _RetrofitClient implements RetrofitClient {
   _RetrofitClient(this._dio, {this.baseUrl, this.errorLogger});
@@ -25,11 +27,11 @@ class _RetrofitClient implements RetrofitClient {
     final _data = {'identifier': identifier};
     final _options = _setStreamType<SignInResponse>(
       Options(
-        method: 'POST',
-        headers: _headers,
-        extra: _extra,
-        contentType: 'application/x-www-form-urlencoded',
-      )
+            method: 'POST',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+          )
           .compose(
             _dio.options,
             'https://clerk.lifecoaching-ai.com/v1/client/sign_ins?_clerk_js_version=5.20.0',
@@ -43,7 +45,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = SignInResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
@@ -65,11 +67,11 @@ class _RetrofitClient implements RetrofitClient {
     };
     final _options = _setStreamType<SignInResponse>(
       Options(
-        method: 'POST',
-        headers: _headers,
-        extra: _extra,
-        contentType: 'application/x-www-form-urlencoded',
-      )
+            method: 'POST',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+          )
           .compose(
             _dio.options,
             'https://clerk.lifecoaching-ai.com/v1/client/sign_ins?_clerk_js_version=5.14.0',
@@ -83,7 +85,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = SignInResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
@@ -111,7 +113,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -139,7 +141,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -169,7 +171,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -197,7 +199,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -227,7 +229,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -257,7 +259,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -287,7 +289,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -315,7 +317,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -345,7 +347,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -373,7 +375,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -403,7 +405,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     yield _value;
@@ -431,7 +433,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = GoalsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
@@ -459,7 +461,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = CreatedGoalResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
@@ -487,7 +489,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = UpdatedGoalResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
@@ -515,7 +517,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = DeleteGoalResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
@@ -542,7 +544,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = DeleteAccountResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, _result);
       rethrow;
     }
     return _value;
@@ -575,3 +577,5 @@ class _RetrofitClient implements RetrofitClient {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

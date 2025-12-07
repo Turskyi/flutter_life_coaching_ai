@@ -25,7 +25,8 @@ sealed class ChatState {
   int get hashCode => language.hashCode ^ messages.hashCode;
 
   @override
-  String toString() => 'ChatState('
+  String toString() =>
+      'ChatState('
       'messages: $messages, '
       'language: $language,'
       'user: $user'
@@ -43,15 +44,15 @@ final class ChatInitial extends ChatState {
     List<Message>? messages,
     Language? language,
     User? user,
-  }) =>
-      ChatInitial(
-        messages: messages ?? this.messages,
-        language: language ?? this.language,
-        user: user ?? this.user,
-      );
+  }) => ChatInitial(
+    messages: messages ?? this.messages,
+    language: language ?? this.language,
+    user: user ?? this.user,
+  );
 
   @override
-  String toString() => 'ChatInitial('
+  String toString() =>
+      'ChatInitial('
       'messages: $messages, '
       'language: $language,'
       'user: $user'
@@ -65,15 +66,15 @@ final class LoadingChatState extends ChatState {
     List<Message>? messages,
     Language? language,
     User? user,
-  }) =>
-      LoadingChatState(
-        messages: messages ?? this.messages,
-        language: language ?? this.language,
-        user: user ?? this.user,
-      );
+  }) => LoadingChatState(
+    messages: messages ?? this.messages,
+    language: language ?? this.language,
+    user: user ?? this.user,
+  );
 
   @override
-  String toString() => 'LoadingHomeState('
+  String toString() =>
+      'LoadingHomeState('
       'messages: $messages, '
       'language: $language,'
       'user: $user'
@@ -95,13 +96,12 @@ final class ChatError extends ChatState {
     String? errorMessage,
     List<Message>? messages,
     Language? language,
-  }) =>
-      ChatError(
-        user: user ?? this.user,
-        errorMessage: errorMessage ?? this.errorMessage,
-        messages: messages ?? this.messages,
-        language: language ?? this.language,
-      );
+  }) => ChatError(
+    user: user ?? this.user,
+    errorMessage: errorMessage ?? this.errorMessage,
+    messages: messages ?? this.messages,
+    language: language ?? this.language,
+  );
 
   @override
   bool operator ==(Object other) {
@@ -122,7 +122,8 @@ final class ChatError extends ChatState {
       user.hashCode;
 
   @override
-  String toString() => 'ChatError('
+  String toString() =>
+      'ChatError('
       'errorMessage: $errorMessage, '
       'messages: $messages, '
       'language: $language,'
@@ -153,15 +154,15 @@ final class AiMessageUpdated extends ChatState {
     List<Message>? messages,
     Language? language,
     User? user,
-  }) =>
-      AiMessageUpdated(
-        messages: messages ?? this.messages,
-        language: language ?? this.language,
-        user: user ?? this.user,
-      );
+  }) => AiMessageUpdated(
+    messages: messages ?? this.messages,
+    language: language ?? this.language,
+    user: user ?? this.user,
+  );
 
   @override
-  String toString() => 'AiMessageUpdated('
+  String toString() =>
+      'AiMessageUpdated('
       'messages: $messages, '
       'language: $language,'
       'user: $user'
@@ -179,15 +180,15 @@ final class SentMessageState extends ChatState {
     List<Message>? messages,
     Language? language,
     User? user,
-  }) =>
-      SentMessageState(
-        messages: messages ?? this.messages,
-        language: language ?? this.language,
-        user: user ?? this.user,
-      );
+  }) => SentMessageState(
+    messages: messages ?? this.messages,
+    language: language ?? this.language,
+    user: user ?? this.user,
+  );
 
   @override
-  String toString() => 'SentMessageState('
+  String toString() =>
+      'SentMessageState('
       'messages: $messages, '
       'language: $language,'
       'user: $user'
@@ -205,15 +206,15 @@ final class FeedbackState extends ChatState {
     List<Message>? messages,
     Language? language,
     User? user,
-  }) =>
-      FeedbackState(
-        messages: messages ?? this.messages,
-        language: language ?? this.language,
-        user: user ?? this.user,
-      );
+  }) => FeedbackState(
+    messages: messages ?? this.messages,
+    language: language ?? this.language,
+    user: user ?? this.user,
+  );
 
   @override
-  String toString() => 'FeedbackState('
+  String toString() =>
+      'FeedbackState('
       'messages: $messages, '
       'language: $language,'
       'user: $user'
@@ -231,15 +232,15 @@ final class FeedbackSent extends ChatState {
     List<Message>? messages,
     Language? language,
     User? user,
-  }) =>
-      FeedbackSent(
-        messages: messages ?? this.messages,
-        language: language ?? this.language,
-        user: user ?? this.user,
-      );
+  }) => FeedbackSent(
+    messages: messages ?? this.messages,
+    language: language ?? this.language,
+    user: user ?? this.user,
+  );
 
   @override
-  String toString() => 'FeedbackSent('
+  String toString() =>
+      'FeedbackSent('
       'messages: $messages, '
       'language: $language,'
       'user: $user'
@@ -275,7 +276,8 @@ final class FeedbackError extends FeedbackState {
       user.hashCode;
 
   @override
-  String toString() => 'FeedbackError('
+  String toString() =>
+      'FeedbackError('
       'errorMessage: $errorMessage, '
       'messages: $messages, '
       'language: $language,'

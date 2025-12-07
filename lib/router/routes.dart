@@ -16,19 +16,18 @@ import 'package:models/models.dart';
 Map<String, WidgetBuilder> routeMap = <String, WidgetBuilder>{
   AppRoute.home.path: (_) => const HomePage(),
   AppRoute.chat.path: (_) => BlocProvider<ChatBloc>(
-        create: (_) {
-          return GetIt.I.get<ChatBloc>()
-            ..add(const LoadingInitialChatStateEvent());
-        },
-        child: const BlocListener<ChatBloc, ChatState>(
-          listener: _chatStateListener,
-          child: AiChatPage(),
-        ),
-      ),
+    create: (_) {
+      return GetIt.I.get<ChatBloc>()..add(const LoadingInitialChatStateEvent());
+    },
+    child: const BlocListener<ChatBloc, ChatState>(
+      listener: _chatStateListener,
+      child: AiChatPage(),
+    ),
+  ),
   AppRoute.goals.path: (_) => BlocProvider<GoalsBloc>(
-        create: (_) => GetIt.I.get<GoalsBloc>()..add(const LoadGoals()),
-        child: const GoalsPage(),
-      ),
+    create: (_) => GetIt.I.get<GoalsBloc>()..add(const LoadGoals()),
+    child: const GoalsPage(),
+  ),
   AppRoute.signIn.path: (_) => const SignInPage(),
   AppRoute.signUp.path: (_) => const SignUpPage(),
   AppRoute.privacyPolity.path: (_) => const PrivacyPolicyPage(),
@@ -42,8 +41,8 @@ void _chatStateListener(BuildContext context, ChatState state) {
     final Language savedLanguage = state.language;
     if (currentLanguage != savedLanguage) {
       changeLocale(context, savedLanguage.isoLanguageCode)
-          // The returned value in `then` is always `null`.
-          .then((_) {
+      // The returned value in `then` is always `null`.
+      .then((_) {
         if (context.mounted) {
           context.read<ChatBloc>().add(ChangeLanguageEvent(savedLanguage));
         }
@@ -51,10 +50,7 @@ void _chatStateListener(BuildContext context, ChatState state) {
     }
   } else if (state is FeedbackError) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(state.errorMessage),
-        backgroundColor: Colors.red,
-      ),
+      SnackBar(content: Text(state.errorMessage), backgroundColor: Colors.red),
     );
   }
 }

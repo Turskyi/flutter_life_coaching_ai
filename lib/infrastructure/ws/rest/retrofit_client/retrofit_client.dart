@@ -66,9 +66,7 @@ abstract class RetrofitClient implements RestClient {
   );
 
   @POST('chat-ios-en')
-  Stream<String> sendEnglishIosChatMessage(
-    @Body() ChatRequest chatRequest,
-  );
+  Stream<String> sendEnglishIosChatMessage(@Body() ChatRequest chatRequest);
 
   @POST('anonymous-chat-ios-ua')
   Stream<String> sendAnonymousUkrainianIosChatMessage(
@@ -76,9 +74,7 @@ abstract class RetrofitClient implements RestClient {
   );
 
   @POST('chat-ios-ua')
-  Stream<String> sendUkrainianIosChatMessage(
-    @Body() ChatRequest chatRequest,
-  );
+  Stream<String> sendUkrainianIosChatMessage(@Body() ChatRequest chatRequest);
 
   @POST('anonymous-chat')
   Stream<String> sendChatMessageOnUnknownPlatform(

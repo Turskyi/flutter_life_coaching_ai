@@ -12,11 +12,7 @@ import 'package:lifecoach/ui/sign_up/sign_up_password_input.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SignUpForm extends StatelessWidget {
-  const SignUpForm({
-    required this.email,
-    required this.password,
-    super.key,
-  });
+  const SignUpForm({required this.email, required this.password, super.key});
 
   final String email;
   final String password;
@@ -73,7 +69,8 @@ class SignUpForm extends StatelessWidget {
             style: DefaultTextStyle.of(context).style,
             children: <TextSpan>[
               const TextSpan(
-                text: 'Sign up is not available here. Please use our official '
+                text:
+                    'Sign up is not available here. Please use our official '
                     'website: ',
                 style: TextStyle(color: Colors.black),
               ),

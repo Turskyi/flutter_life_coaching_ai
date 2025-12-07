@@ -77,9 +77,9 @@ class _AiChatPageState extends State<AiChatPage> {
             errorDisplayWidget = SelectableText.rich(
               textAlign: TextAlign.center,
               TextSpan(
-                style: DefaultTextStyle.of(context).style.copyWith(
-                      color: Colors.red,
-                    ),
+                style: DefaultTextStyle.of(
+                  context,
+                ).style.copyWith(color: Colors.red),
                 children: <TextSpan>[
                   const TextSpan(text: '😨 Something went wrong. '),
                   const TextSpan(text: 'Please use our official website: '),
@@ -149,9 +149,9 @@ class _AiChatPageState extends State<AiChatPage> {
                                   Icons.refresh,
                                   color: Colors.white,
                                 ),
-                                onPressed: () => context
-                                    .read<ChatBloc>()
-                                    .add(const RetrySendMessageEvent()),
+                                onPressed: () => context.read<ChatBloc>().add(
+                                  const RetrySendMessageEvent(),
+                                ),
                               ),
                             ),
                           );
@@ -220,17 +220,15 @@ class _AiChatPageState extends State<AiChatPage> {
                       ValueListenableBuilder<TextEditingValue>(
                         valueListenable: _textEditingController,
                         child: const Icon(Icons.send),
-                        builder: (
-                          _,
-                          TextEditingValue value,
-                          Widget? iconWidget,
-                        ) {
-                          return IconButton(
-                            icon: iconWidget ?? const SizedBox(),
-                            onPressed:
-                                value.text.isNotEmpty ? _sendMessage : null,
-                          );
-                        },
+                        builder:
+                            (_, TextEditingValue value, Widget? iconWidget) {
+                              return IconButton(
+                                icon: iconWidget ?? const SizedBox(),
+                                onPressed: value.text.isNotEmpty
+                                    ? _sendMessage
+                                    : null,
+                              );
+                            },
                       ),
                     ],
                   ),
@@ -253,14 +251,17 @@ class _AiChatPageState extends State<AiChatPage> {
     super.dispose();
   }
 
-  String get _randomPlaceholder => _placeholders[(_placeholders.length *
-          (0.5 + 0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
-      .toInt()];
+  String get _randomPlaceholder =>
+      _placeholders[(_placeholders.length *
+              (0.5 +
+                  0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
+          .toInt()];
 
-  String get _randomEmptyStateMessage => emptyStateMessages[(emptyStateMessages
-              .length *
-          (0.5 + 0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
-      .toInt()];
+  String get _randomEmptyStateMessage =>
+      emptyStateMessages[(emptyStateMessages.length *
+              (0.5 +
+                  0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
+          .toInt()];
 
   void _sendMessage() {
     if (_textEditingController.text.isEmpty) return;

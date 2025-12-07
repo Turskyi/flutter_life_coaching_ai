@@ -11,7 +11,7 @@ part 'goals_state.dart';
 @injectable
 class GoalsBloc extends Bloc<GoalsEvent, GoalsState> {
   GoalsBloc(this._goalsRepository, this._authenticationBloc)
-      : super(const GoalsInitial()) {
+    : super(const GoalsInitial()) {
     on<LoadGoals>((_, Emitter<GoalsState> emit) async {
       // Access the user ID from the AuthenticationBloc's state.
       final String userId = _authenticationBloc.state.user.id;
@@ -52,8 +52,9 @@ class GoalsBloc extends Bloc<GoalsEvent, GoalsState> {
       // Get the user ID from the authentication bloc.
       final String userId = _authenticationBloc.state.user.id;
 
-      final MessageResponse response =
-          await _goalsRepository.delete(goal.copyWith(userId: userId));
+      final MessageResponse response = await _goalsRepository.delete(
+        goal.copyWith(userId: userId),
+      );
       // Remove the goal from the existing list of goals.
       final List<Goal> updatedGoals = List<Goal>.from(state.goals)
         ..remove(goal);
@@ -84,8 +85,9 @@ class GoalsBloc extends Bloc<GoalsEvent, GoalsState> {
       final Goal updatedGoal = await _goalsRepository.update(goal);
 
       // Update the goal in the existing list of goals.
-      final int index = goals
-          .indexWhere((Goal existingGoal) => existingGoal.id == updatedGoal.id);
+      final int index = goals.indexWhere(
+        (Goal existingGoal) => existingGoal.id == updatedGoal.id,
+      );
       if (index != -1) {
         goals[index] = updatedGoal;
       }

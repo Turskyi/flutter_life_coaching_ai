@@ -22,7 +22,8 @@ SignUpFormResponse _$SignUpFormResponseFromJson(Map<String, dynamic> json) =>
       verifications: json['verifications'] == null
           ? null
           : VerificationsResponse.fromJson(
-              json['verifications'] as Map<String, dynamic>),
+              json['verifications'] as Map<String, dynamic>,
+            ),
       username: json['username'],
       emailAddress: json['email_address'] as String?,
       phoneNumber: json['phone_number'],

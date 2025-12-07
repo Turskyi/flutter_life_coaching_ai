@@ -9,6 +9,5 @@ abstract class AuthenticationRepositoryModule {
   AuthenticationRepository getAuthenticationRepository(
     RetrofitClient httpClient,
     SharedPreferences preferences,
-  ) =>
-      AuthenticationRepository(httpClient, preferences);
+  ) => AuthenticationRepository(httpClient, preferences);
 }

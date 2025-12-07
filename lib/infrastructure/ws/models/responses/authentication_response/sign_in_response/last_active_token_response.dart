@@ -19,10 +19,7 @@ class LastActiveTokenResponse {
 
   Map<String, dynamic> toJson() => _$LastActiveTokenResponseToJson(this);
 
-  LastActiveTokenResponse copyWith({
-    String? object,
-    String? jwt,
-  }) {
+  LastActiveTokenResponse copyWith({String? object, String? jwt}) {
     return LastActiveTokenResponse(
       object: object ?? this.object,
       jwt: jwt ?? this.jwt,

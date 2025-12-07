@@ -15,10 +15,9 @@ class CodeContinueButton extends StatelessWidget {
       (SignUpBloc bloc) => bloc.state.isValid,
     );
 
-    final bool isInProgress = isValid &&
-        context.select(
-          (SignUpBloc bloc) => bloc.state.status.isInProgress,
-        );
+    final bool isInProgress =
+        isValid &&
+        context.select((SignUpBloc bloc) => bloc.state.status.isInProgress);
 
     if (isInProgress) return const CircularProgressIndicator();
 

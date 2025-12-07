@@ -22,12 +22,8 @@ class UpdatedGoalResponse implements GoalResult {
 
   Map<String, dynamic> toJson() => _$UpdatedGoalResponseToJson(this);
 
-  UpdatedGoalResponse copyWith({
-    GoalResponse? goal,
-  }) {
-    return UpdatedGoalResponse(
-      goal: goal ?? this.goal,
-    );
+  UpdatedGoalResponse copyWith({GoalResponse? goal}) {
+    return UpdatedGoalResponse(goal: goal ?? this.goal);
   }
 
   @override

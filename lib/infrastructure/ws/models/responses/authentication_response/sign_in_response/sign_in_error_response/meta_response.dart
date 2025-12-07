@@ -19,12 +19,8 @@ class MetaResponse {
 
   Map<String, dynamic> toJson() => _$MetaResponseToJson(this);
 
-  MetaResponse copyWith({
-    ClientResponse? clientResponse,
-  }) =>
-      MetaResponse(
-        clientResponse: clientResponse ?? this.clientResponse,
-      );
+  MetaResponse copyWith({ClientResponse? clientResponse}) =>
+      MetaResponse(clientResponse: clientResponse ?? this.clientResponse);
 
   @override
   bool operator ==(Object other) {

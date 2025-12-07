@@ -42,10 +42,9 @@ class HomePage extends StatelessWidget {
                       TypewriterAnimatedText(
                         constants.appName,
                         textStyle: TextStyle(
-                          fontSize: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.fontSize,
+                          fontSize: Theme.of(
+                            context,
+                          ).textTheme.displayMedium?.fontSize,
                           fontWeight: FontWeight.bold,
                           fontFamily: constants.fontFamily,
                           // This color will be masked by the gradient.
@@ -74,10 +73,8 @@ class HomePage extends StatelessWidget {
                   width: 208,
                   height: 60,
                   child: ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(
-                      context,
-                      AppRoute.signIn.path,
-                    ),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, AppRoute.signIn.path),
                     child: const Text('View Goals'),
                   ),
                 ),

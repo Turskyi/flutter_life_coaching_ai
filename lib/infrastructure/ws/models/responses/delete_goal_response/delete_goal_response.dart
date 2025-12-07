@@ -21,12 +21,8 @@ class DeleteGoalResponse implements MessageResponse {
 
   Map<String, dynamic> toJson() => _$DeleteGoalResponseToJson(this);
 
-  DeleteGoalResponse copyWith({
-    String? message,
-  }) =>
-      DeleteGoalResponse(
-        message: message ?? this.message,
-      );
+  DeleteGoalResponse copyWith({String? message}) =>
+      DeleteGoalResponse(message: message ?? this.message);
 
   @override
   bool operator ==(Object other) {

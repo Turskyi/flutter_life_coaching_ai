@@ -18,9 +18,9 @@ SignInErrorResponse _$SignInErrorResponseFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$SignInErrorResponseToJson(
-        SignInErrorResponse instance) =>
-    <String, dynamic>{
-      'errors': instance.errors,
-      'meta': instance.metaResponse,
-      'clerk_trace_id': instance.clerkTraceId,
-    };
+  SignInErrorResponse instance,
+) => <String, dynamic>{
+  'errors': instance.errors,
+  'meta': instance.metaResponse,
+  'clerk_trace_id': instance.clerkTraceId,
+};

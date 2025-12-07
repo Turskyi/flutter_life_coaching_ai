@@ -10,10 +10,7 @@ class AnonymousAiChatButton extends StatelessWidget {
       width: 208,
       height: 60,
       child: ElevatedButton(
-        onPressed: () => Navigator.pushNamed(
-          context,
-          AppRoute.chat.path,
-        ),
+        onPressed: () => Navigator.pushNamed(context, AppRoute.chat.path),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

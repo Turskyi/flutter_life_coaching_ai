@@ -44,8 +44,9 @@ class _AppState extends State<App> {
         // the AuthenticationSubscriptionRequested event), we can explicitly
         // opt out of this behavior by setting `lazy: false`.
         lazy: false,
-        create: (_) => widget.authenticationBloc
-          ..add(const AuthenticationSubscriptionRequested()),
+        create: (_) =>
+            widget.authenticationBloc
+              ..add(const AuthenticationSubscriptionRequested()),
         child: AppView(authenticationBloc: widget.authenticationBloc),
       ),
     );

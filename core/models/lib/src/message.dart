@@ -1,10 +1,7 @@
 import 'package:models/models.dart';
 
 class Message {
-  const Message({
-    required this.owner,
-    required this.text,
-  });
+  const Message({required this.owner, required this.text});
 
   final MessageOwner owner;
   final StringBuffer text;

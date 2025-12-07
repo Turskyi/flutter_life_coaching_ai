@@ -28,12 +28,8 @@ class DeleteAccountResponse implements MessageResponse {
 
   Map<String, dynamic> toJson() => _$DeleteAccountResponseToJson(this);
 
-  DeleteAccountResponse copyWith({
-    String? message,
-  }) =>
-      DeleteAccountResponse(
-        message: message ?? this.message,
-      );
+  DeleteAccountResponse copyWith({String? message}) =>
+      DeleteAccountResponse(message: message ?? this.message);
 
   @override
   bool operator ==(Object other) {

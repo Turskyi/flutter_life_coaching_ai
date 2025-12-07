@@ -28,10 +28,7 @@ void main() {
       });
 
       test('is valid when email is not empty', () {
-        expect(
-          const EmailAddress.dirty(emailString).error,
-          isNull,
-        );
+        expect(const EmailAddress.dirty(emailString).error, isNull);
       });
     });
   });

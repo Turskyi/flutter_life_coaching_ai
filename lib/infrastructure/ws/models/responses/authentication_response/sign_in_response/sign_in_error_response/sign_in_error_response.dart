@@ -28,7 +28,11 @@ class SignInErrorResponse implements SignInResponse {
   @override
   String get token =>
       metaResponse
-          ?.clientResponse?.sessions.firstOrNull?.lastActiveToken?.jwt ??
+          ?.clientResponse
+          ?.sessions
+          .firstOrNull
+          ?.lastActiveToken
+          ?.jwt ??
       '';
 
   @override
@@ -36,7 +40,8 @@ class SignInErrorResponse implements SignInResponse {
       metaResponse?.clientResponse?.sessions.firstOrNull?.userResponse.id ?? '';
 
   @override
-  String toString() => 'SignInErrorResponse('
+  String toString() =>
+      'SignInErrorResponse('
       'errors: $errors, '
       'meta: $metaResponse, '
       'clerkTraceId: $clerkTraceId,'

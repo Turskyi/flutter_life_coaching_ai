@@ -23,11 +23,7 @@ class ShimmerGoal extends StatelessWidget {
                 color: Colors.white,
               ),
               const SizedBox(height: 8),
-              Container(
-                width: 100.0,
-                height: 20.0,
-                color: Colors.white,
-              ),
+              Container(width: 100.0, height: 20.0, color: Colors.white),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,

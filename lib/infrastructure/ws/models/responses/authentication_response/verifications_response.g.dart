@@ -7,22 +7,23 @@ part of 'verifications_response.dart';
 // **************************************************************************
 
 VerificationsResponse _$VerificationsResponseFromJson(
-        Map<String, dynamic> json) =>
-    VerificationsResponse(
-      emailAddress: json['email_address'] == null
-          ? null
-          : VerificationsResponse.fromJson(
-              json['email_address'] as Map<String, dynamic>),
-      phoneNumber: json['phone_number'],
-      web3Wallet: json['web3_wallet'],
-      externalAccount: json['external_account'],
-    );
+  Map<String, dynamic> json,
+) => VerificationsResponse(
+  emailAddress: json['email_address'] == null
+      ? null
+      : VerificationsResponse.fromJson(
+          json['email_address'] as Map<String, dynamic>,
+        ),
+  phoneNumber: json['phone_number'],
+  web3Wallet: json['web3_wallet'],
+  externalAccount: json['external_account'],
+);
 
 Map<String, dynamic> _$VerificationsResponseToJson(
-        VerificationsResponse instance) =>
-    <String, dynamic>{
-      'email_address': instance.emailAddress,
-      'phone_number': instance.phoneNumber,
-      'web3_wallet': instance.web3Wallet,
-      'external_account': instance.externalAccount,
-    };
+  VerificationsResponse instance,
+) => <String, dynamic>{
+  'email_address': instance.emailAddress,
+  'phone_number': instance.phoneNumber,
+  'web3_wallet': instance.web3Wallet,
+  'external_account': instance.externalAccount,
+};

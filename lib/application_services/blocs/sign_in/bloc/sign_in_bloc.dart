@@ -21,10 +21,9 @@ part 'sign_in_state.dart';
 /// form is valid, the bloc makes a call to `signIn` and updates the status
 /// based on the outcome of the request.
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  SignInBloc({
-    required AuthenticationRepository authenticationRepository,
-  })  : _authenticationRepository = authenticationRepository,
-        super(const SignInState()) {
+  SignInBloc({required AuthenticationRepository authenticationRepository})
+    : _authenticationRepository = authenticationRepository,
+      super(const SignInState()) {
     on<SignInEmailChanged>(_onEmailChanged);
     on<SignInPasswordChanged>(_onPasswordChanged);
     on<SignInSubmitted>(_onSubmitted);
@@ -32,10 +31,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   final AuthenticationRepository _authenticationRepository;
 
-  void _onEmailChanged(
-    SignInEmailChanged event,
-    Emitter<SignInState> emit,
-  ) {
+  void _onEmailChanged(SignInEmailChanged event, Emitter<SignInState> emit) {
     final EmailAddress email = EmailAddress.dirty(event.email);
     emit(
       SignInState(
@@ -59,9 +55,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       SignInState(
         email: state.email,
         password: password,
-        isValid: Formz.validate(
-          <FormzInput<String, ValidationError>>[password, state.email],
-        ),
+        isValid: Formz.validate(<FormzInput<String, ValidationError>>[
+          password,
+          state.email,
+        ]),
       ),
     );
   }

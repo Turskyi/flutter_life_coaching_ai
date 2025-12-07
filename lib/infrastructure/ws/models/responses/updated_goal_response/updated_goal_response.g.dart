@@ -12,7 +12,5 @@ UpdatedGoalResponse _$UpdatedGoalResponseFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$UpdatedGoalResponseToJson(
-        UpdatedGoalResponse instance) =>
-    <String, dynamic>{
-      'updatedGoal': instance.goal,
-    };
+  UpdatedGoalResponse instance,
+) => <String, dynamic>{'updatedGoal': instance.goal};

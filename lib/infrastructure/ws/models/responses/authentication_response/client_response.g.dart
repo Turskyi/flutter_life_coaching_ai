@@ -17,7 +17,8 @@ ClientResponse _$ClientResponseFromJson(Map<String, dynamic> json) =>
       signUp: json['sign_up'] == null
           ? null
           : SignUpFormResponse.fromJson(
-              json['sign_up'] as Map<String, dynamic>),
+              json['sign_up'] as Map<String, dynamic>,
+            ),
       lastActiveSessionId: json['last_active_session_id'] as String?,
       createdAt: (json['created_at'] as num?)?.toInt(),
       updatedAt: (json['updated_at'] as num?)?.toInt(),

@@ -20,8 +20,9 @@ class EmailInput extends StatelessWidget {
         LengthLimitingTextInputFormatter(constants.emailMaxLength),
       ],
       key: const Key('signInForm_emailInput_textField'),
-      onChanged: (String email) =>
-          context.read<SignInBloc>().add(SignInEmailChanged(email)),
+      onChanged: (String email) {
+        context.read<SignInBloc>().add(SignInEmailChanged(email));
+      },
       decoration: InputDecoration(
         labelText: 'Email address',
         errorText: displayError != null ? 'invalid email' : null,

@@ -40,8 +40,9 @@ void main() {
         value: authenticationRepository,
         child: BlocProvider<AuthenticationBloc>(
           lazy: false,
-          create: (_) => authenticationBloc
-            ..add(const AuthenticationSubscriptionRequested()),
+          create: (_) =>
+              authenticationBloc
+                ..add(const AuthenticationSubscriptionRequested()),
           child: AppView(authenticationBloc: authenticationBloc),
         ),
       ),

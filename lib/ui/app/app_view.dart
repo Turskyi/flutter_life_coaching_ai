@@ -67,9 +67,7 @@ class _AppViewState extends State<AppView> {
         );
       case DeletingAuthenticatedUserStatus():
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Account deletion in progress...'),
-          ),
+          const SnackBar(content: Text('Account deletion in progress...')),
         );
       case AuthenticatedStatus():
         _navigator?.pushAndRemoveUntil<void>(

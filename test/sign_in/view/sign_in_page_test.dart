@@ -25,9 +25,7 @@ void main() {
       await tester.pumpWidget(
         RepositoryProvider<AuthenticationRepository>.value(
           value: authenticationRepository,
-          child: const MaterialApp(
-            home: Scaffold(body: SignInPage()),
-          ),
+          child: const MaterialApp(home: Scaffold(body: SignInPage())),
         ),
       );
       expect(find.byType(SignInForm), findsOneWidget);
