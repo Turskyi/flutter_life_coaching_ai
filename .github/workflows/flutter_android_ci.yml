@@ -78,14 +78,14 @@ jobs:
           dart run build_runner build --delete-conflicting-outputs
         shell: bash
 
-      - name: Flutter pub get
-        run: flutter pub get
-
       - name: Generate code using build_runner
         run: |
           dart pub global activate build_runner
           dart run build_runner build --delete-conflicting-outputs
         shell: bash
+
+      - name: Flutter pub get
+        run: flutter pub get
 
       - run: flutter build apk --release
       - name: Upload APK
