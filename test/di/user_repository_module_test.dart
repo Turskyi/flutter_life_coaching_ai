@@ -18,8 +18,9 @@ void main() {
       SharedPreferences.setMockInitialValues(<String, Object>{});
       await injectDependencies();
       userRepositoryModule = TestUserRepositoryModule();
-      userRepository = userRepositoryModule
-          .getUserRepository(GetIt.instance<SharedPreferences>());
+      userRepository = userRepositoryModule.getUserRepository(
+        GetIt.instance<SharedPreferences>(),
+      );
     });
 
     test('should return a UserRepository instance', () {

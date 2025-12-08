@@ -1,7 +1,11 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/authentication/authentication.dart';
+import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
+import 'package:lifecoach/res/constants.dart' as constants;
+import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/privacy/privacy_policy_page.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -10,6 +14,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -17,13 +22,13 @@ class AppDrawer extends StatelessWidget {
           DrawerHeader(
             decoration: BoxDecoration(
               image: const DecorationImage(
-                image: AssetImage('assets/images/logo-no-bg.png'),
+                image: AssetImage('${constants.imagePath}logo-no-bg.png'),
                 fit: BoxFit.contain,
               ),
               gradient: LinearGradient(
                 colors: <Color>[
-                  theme.colorScheme.onPrimary,
-                  theme.colorScheme.onSecondaryFixed,
+                  colorScheme.onPrimary,
+                  colorScheme.onSecondaryFixed,
                   theme.scaffoldBackgroundColor,
                 ],
                 begin: Alignment.topLeft,
@@ -31,17 +36,22 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Menu',
+              translate('menu.title'),
               style: TextStyle(
-                fontSize: 24,
+                fontSize: theme.textTheme.headlineSmall?.fontSize,
                 fontWeight: FontWeight.bold,
-                color: theme.colorScheme.primary,
+                color: colorScheme.primary,
               ),
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.info),
+            title: Text(translate('menu.about')),
+            onTap: () => _openAbout(context),
+          ),
+          ListTile(
             leading: const Icon(Icons.privacy_tip),
-            title: const Text('Privacy Policy'),
+            title: Text(translate('menu.privacyPolicy')),
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (BuildContext context) => const PrivacyPolicyPage(),
@@ -50,19 +60,29 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.logout),
-            title: const Text('Sign out'),
-            onTap: () => context
-                .read<AuthenticationBloc>()
-                .add(const AuthenticationSignOutPressed()),
+            title: Text(translate('menu.signOut')),
+            onTap: () => context.read<AuthenticationBloc>().add(
+              const AuthenticationSignOutPressed(),
+            ),
           ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.bug_report),
+            title: Text(translate('report_bug')),
+            onTap: () => _onBugReportPressed(context),
+          ),
+          const Divider(),
           BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (BuildContext context, AuthenticationState state) {
               const double progressIndicatorSize = 24.0;
               final AuthenticationStatus status = state.status;
               final bool isDeleting = status is DeletingAuthenticatedUserStatus;
               return ListTile(
-                leading: const Icon(Icons.delete_forever),
-                title: const Text('Delete Account'),
+                leading: Icon(Icons.delete_forever, color: colorScheme.error),
+                title: Text(
+                  translate('menu.deleteAccount'),
+                  style: TextStyle(color: colorScheme.error),
+                ),
                 trailing: isDeleting
                     ? const SizedBox(
                         width: progressIndicatorSize,
@@ -74,13 +94,11 @@ class AppDrawer extends StatelessWidget {
                     ? null
                     : () async {
                         final bool? confirmed =
-                            await _showDeleteAccountConfirmationDialog(
-                          context,
-                        );
+                            await _showDeleteAccountConfirmationDialog(context);
                         if (context.mounted && confirmed == true) {
                           context.read<AuthenticationBloc>().add(
-                                const AuthenticationAccountDeletionRequested(),
-                              );
+                            const AuthenticationAccountDeletionRequested(),
+                          );
                         }
                       },
               );
@@ -96,23 +114,31 @@ class AppDrawer extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Delete Account'),
-          content: const Text(
-            'Are you sure you want to delete your account?\n'
-            'This action cannot be undone.',
-          ),
+          title: Text(translate('menu.deleteAccount')),
+          content: Text(translate('menu.deleteAccountConfirmation')),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child: Text(translate('menu.cancel')),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Delete'),
+              child: Text(translate('menu.delete')),
             ),
           ],
         );
       },
     );
+  }
+
+  void _onBugReportPressed(BuildContext context) {
+    final GoalsState state = context.read<GoalsBloc>().state;
+    context.read<GoalsBloc>().add(
+      BugReportPressedEvent(state is GoalsError ? state.errorText : ''),
+    );
+  }
+
+  void _openAbout(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoute.about.path);
   }
 }

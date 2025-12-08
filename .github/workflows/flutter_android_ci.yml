@@ -1,12 +1,22 @@
 name: Upload Android build to App Tester.
-on: [ push ]
+
+on:
+  workflow_run:
+    workflows:
+      - Code Quality and Tests
+    types:
+      - completed
 
 jobs:
   build_apk:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch != 'master' }}
     name: Build Flutter (Android)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code from triggering workflow
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Write google-services.json file
         run: |
@@ -15,6 +25,13 @@ jobs:
         shell: bash
         env:
           GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
+
+      - name: Write .env file
+        run: |
+          echo $ENV | base64 -d > .env
+        shell: bash
+        env:
+          ENV: ${{ secrets.ENV_ROOT }}
 
       - name: Write .env file to nested directory
         run: |
@@ -61,7 +78,14 @@ jobs:
           dart run build_runner build --delete-conflicting-outputs
         shell: bash
 
-      - run: flutter pub get
+      - name: Generate code using build_runner
+        run: |
+          dart pub global activate build_runner
+          dart run build_runner build --delete-conflicting-outputs
+        shell: bash
+
+      - name: Flutter pub get
+        run: flutter pub get
 
       - run: flutter build apk --release
       - name: Upload APK
@@ -69,10 +93,12 @@ jobs:
         with:
           name: apk-build
           path: build/app/outputs/apk/release
+
   beta_apk:
     name: Upload Android Beta version to Firebase App Distribution
     needs: [ build_apk ]
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v1
       - name: set up JDK 1.8
@@ -83,8 +109,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: apk-build
-      - name: Display structure of downloaded files
-        run: ls -R
+
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:

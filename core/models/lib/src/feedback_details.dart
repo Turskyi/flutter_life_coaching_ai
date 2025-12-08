@@ -4,11 +4,7 @@ import 'package:models/src/enums/feedback_type.dart';
 /// A data type holding user feedback consisting of a feedback type, free from
 /// feedback text, and a sentiment rating.
 class FeedbackDetails {
-  const FeedbackDetails({
-    this.feedbackType,
-    this.feedbackText,
-    this.rating,
-  });
+  const FeedbackDetails({this.feedbackType, this.feedbackText, this.rating});
 
   final FeedbackType? feedbackType;
   final String? feedbackText;
@@ -18,12 +14,11 @@ class FeedbackDetails {
     FeedbackType? feedbackType,
     String? feedbackText,
     FeedbackRating? rating,
-  }) =>
-      FeedbackDetails(
-        feedbackType: feedbackType ?? this.feedbackType,
-        feedbackText: feedbackText ?? this.feedbackText,
-        rating: rating ?? this.rating,
-      );
+  }) => FeedbackDetails(
+    feedbackType: feedbackType ?? this.feedbackType,
+    feedbackText: feedbackText ?? this.feedbackText,
+    rating: rating ?? this.rating,
+  );
 
   @override
   String toString() {

@@ -55,8 +55,10 @@ class MarkdownText extends StatelessWidget {
       } else if (matchText.startsWith('[') && matchText.contains('](')) {
         final int linkTextEnd = matchText.indexOf('](');
         final String linkText = matchText.substring(1, linkTextEnd);
-        final String linkUrl =
-            matchText.substring(linkTextEnd + 2, matchText.length - 1);
+        final String linkUrl = matchText.substring(
+          linkTextEnd + 2,
+          matchText.length - 1,
+        );
         spans.add(
           TextSpan(
             text: linkText,

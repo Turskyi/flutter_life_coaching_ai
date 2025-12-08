@@ -44,20 +44,20 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
 
     if (goal != null) {
       context.read<GoalsBloc>().add(
-            UpdateGoalEvent(
-              goal.copyWith(
-                title: _titleController.text,
-                content: _contentController.text,
-              ),
-            ),
-          );
+        UpdateGoalEvent(
+          goal.copyWith(
+            title: _titleController.text,
+            content: _contentController.text,
+          ),
+        ),
+      );
     } else {
       context.read<GoalsBloc>().add(
-            CreateGoalEvent(
-              title: _titleController.text,
-              content: _contentController.text,
-            ),
-          );
+        CreateGoalEvent(
+          title: _titleController.text,
+          content: _contentController.text,
+        ),
+      );
     }
     setState(() => _isSubmitting = false);
     Navigator.of(context).pop(true);
@@ -138,15 +138,12 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
         ValueListenableBuilder<TextEditingValue>(
           valueListenable: _titleController,
           child: const Text('Submit'),
-          builder: (
-            _,
-            TextEditingValue titleValue,
-            Widget? submitText,
-          ) {
+          builder: (_, TextEditingValue titleValue, Widget? submitText) {
             const double progressIndicatorSize = 24.0;
             return ElevatedButton(
-              onPressed:
-                  (_isSubmitting || titleValue.text.isEmpty) ? null : _onSubmit,
+              onPressed: (_isSubmitting || titleValue.text.isEmpty)
+                  ? null
+                  : _onSubmit,
               child: _isSubmitting
                   ? const SizedBox(
                       width: progressIndicatorSize,

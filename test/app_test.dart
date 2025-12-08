@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/application_services/blocs/authentication/authentication.dart';
 import 'package:lifecoach/di/injector.dart';
+import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/ui/app/app_view.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MockAuthenticationRepository extends Mock
@@ -35,14 +37,22 @@ void main() {
       authenticationRepository: authenticationRepository,
       userRepository: userRepository,
     );
+    SharedPreferences.setMockInitialValues(<String, Object>{});
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    final LocalDataSource localDataSource = LocalDataSource(preferences);
     await tester.pumpWidget(
       RepositoryProvider<AuthenticationRepository>.value(
         value: authenticationRepository,
         child: BlocProvider<AuthenticationBloc>(
           lazy: false,
-          create: (_) => authenticationBloc
-            ..add(const AuthenticationSubscriptionRequested()),
-          child: AppView(authenticationBloc: authenticationBloc),
+          create: (_) =>
+              authenticationBloc
+                ..add(const AuthenticationSubscriptionRequested()),
+          child: AppView(
+            authenticationBloc: authenticationBloc,
+            localDataSource: localDataSource,
+          ),
         ),
       ),
     );

@@ -1,5 +1,7 @@
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
@@ -19,19 +21,31 @@ import 'package:models/models.dart';
 /// [AuthenticationBloc].
 /// `context.select((AuthenticationBloc bloc) => bloc.state.user.id)` will
 /// trigger updates if the user id changes.
-class GoalsPage extends StatelessWidget {
+class GoalsPage extends StatefulWidget {
   const GoalsPage({super.key});
 
   static Route<void> route(AuthenticationBloc authenticationBloc) =>
       MaterialPageRoute<void>(
         builder: (_) => BlocProvider<GoalsBloc>(
-          create: (_) => GoalsBloc(
-            GetIt.I.get<GoalsRepository>(),
-            authenticationBloc,
-          )..add(const LoadGoals()),
+          create: (_) =>
+              GoalsBloc(GetIt.I.get<GoalsRepository>(), authenticationBloc)
+                ..add(const LoadGoals()),
           child: const GoalsPage(),
         ),
       );
+
+  @override
+  State<GoalsPage> createState() => _GoalsPageState();
+}
+
+class _GoalsPageState extends State<GoalsPage> {
+  FeedbackController? _feedbackController;
+
+  @override
+  void didChangeDependencies() {
+    _feedbackController = BetterFeedback.of(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +58,7 @@ class GoalsPage extends StatelessWidget {
           if (state is GoalsInitial) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is GoalsError) {
-            return Center(child: Text('Error: ${state.error}'));
+            return Center(child: Text('Error: ${state.errorText}'));
           } else if (state.goals.isEmpty) {
             return const Center(
               child: Text(
@@ -61,8 +75,9 @@ class GoalsPage extends StatelessWidget {
                 crossAxisSpacing: axisSpacing,
                 mainAxisSpacing: axisSpacing,
               ),
-              itemCount:
-                  state is CreatingGoal ? allGoals.length + 1 : allGoals.length,
+              itemCount: state is CreatingGoal
+                  ? allGoals.length + 1
+                  : allGoals.length,
               itemBuilder: (_, int index) {
                 if (state is CreatingGoal && index == allGoals.length) {
                   return const ShimmerGoal();
@@ -88,11 +103,17 @@ class GoalsPage extends StatelessWidget {
     );
   }
 
+  @override
+  void dispose() {
+    _feedbackController?.removeListener(_onFeedbackChanged);
+    super.dispose();
+  }
+
   void _handleGoalsState(BuildContext context, GoalsState state) {
     if (state is UnauthenticatedGoalsAccessState) {
-      context
-          .read<AuthenticationBloc>()
-          .add(const AuthenticationSignOutPressed());
+      context.read<AuthenticationBloc>().add(
+        const AuthenticationSignOutPressed(),
+      );
     } else if (state is GoalDeleted) {
       final String message = state.message;
       Fluttertoast.showToast(
@@ -102,6 +123,36 @@ class GoalsPage extends StatelessWidget {
         timeInSecForIosWeb: 1,
         fontSize: 16.0,
       );
+    } else if (state is FeedbackState) {
+      _showFeedbackUi();
+    } else if (state is FeedbackSent) {
+      _notifyFeedbackSent();
+    }
+  }
+
+  void _showFeedbackUi() {
+    _feedbackController?.show((UserFeedback feedback) {
+      context.read<GoalsBloc>().add(SubmitFeedbackEvent(feedback: feedback));
+    });
+    _feedbackController?.addListener(_onFeedbackChanged);
+  }
+
+  void _notifyFeedbackSent() {
+    BetterFeedback.of(context).hide();
+    // Let user know that his feedback is sent.
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(translate('feedback.feedbackSent')),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _onFeedbackChanged() {
+    final bool? isVisible = _feedbackController?.isVisible;
+    if (isVisible == false) {
+      _feedbackController?.removeListener(_onFeedbackChanged);
+      context.read<GoalsBloc>().add(const ClosingFeedbackEvent());
     }
   }
 }

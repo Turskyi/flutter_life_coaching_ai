@@ -36,8 +36,11 @@ void main() {
         ),
       );
 
-      final LoginResponse response =
-          await client.signIn('identifier', 'password', 'password');
+      final LoginResponse response = await client.signIn(
+        'identifier',
+        'password',
+        'password',
+      );
 
       expect(response.token, '');
       verifyNever(

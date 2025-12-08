@@ -29,9 +29,7 @@ class _PasswordInputState extends State<PasswordInput> {
         labelText: 'Password',
         errorText: displayError != null ? 'invalid password' : null,
         suffixIcon: IconButton(
-          icon: Icon(
-            _obscureText ? Icons.visibility : Icons.visibility_off,
-          ),
+          icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
           onPressed: _toggleVisibility,
         ),
       ),

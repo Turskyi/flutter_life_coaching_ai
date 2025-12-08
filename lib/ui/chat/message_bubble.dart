@@ -5,17 +5,15 @@ import 'package:models/models.dart';
 
 @immutable
 class MessageBubble extends StatelessWidget {
-  const MessageBubble({
-    required this.message,
-    super.key,
-  });
+  const MessageBubble({required this.message, super.key});
 
   final Message message;
 
   @override
   Widget build(BuildContext context) {
-    final Alignment messageAlignment =
-        message.isMine ? Alignment.topRight : Alignment.topLeft;
+    final Alignment messageAlignment = message.isMine
+        ? Alignment.topRight
+        : Alignment.topLeft;
 
     return FractionallySizedBox(
       alignment: messageAlignment,
@@ -31,16 +29,10 @@ class MessageBubble extends StatelessWidget {
                 if (message.isMine) ...const <Color>[
                   Color(0xFF6C7689),
                   Color(0xFF3A364B),
-                ] else ...const <Color>[
-                  Color(0xFF19B7FF),
-                  Color(0xFF491CCB),
-                ],
+                ] else ...const <Color>[Color(0xFF19B7FF), Color(0xFF491CCB)],
               ],
               child: DefaultTextStyle.merge(
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white,
-                ),
+                style: const TextStyle(fontSize: 18.0, color: Colors.white),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: MarkdownText(text: '${message.text}'),

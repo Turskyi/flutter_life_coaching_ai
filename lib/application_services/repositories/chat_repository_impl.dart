@@ -4,9 +4,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lifecoach/domain_services/chat_repository.dart';
-import 'package:lifecoach/infrastructure/ws/models/requests/chat_request/chat_request.dart';
-import 'package:lifecoach/infrastructure/ws/models/requests/chat_request/message_request.dart';
-import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/models/requests/chat_request/chat_request.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/models/requests/chat_request/message_request.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart';
 import 'package:models/models.dart';
 
 @Injectable(as: ChatRepository)
@@ -19,14 +19,12 @@ class ChatRepositoryImpl implements ChatRepository {
   Stream<String> sendChat(Chat chat) {
     final ChatRequest request = ChatRequest(
       userId: chat.user.id,
-      messages: chat.messages
-          .map(
-            (Message message) => MessageRequest(
-              role: message.owner.role,
-              content: '${message.text}',
-            ),
-          )
-          .toList(),
+      messages: chat.messages.map((Message message) {
+        return MessageRequest(
+          role: message.owner.role,
+          content: '${message.text}',
+        );
+      }).toList(),
     );
 
     if (kIsWeb) {

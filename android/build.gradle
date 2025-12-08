@@ -21,8 +21,8 @@ buildscript {
 }
 
 plugins {
-    id 'com.google.gms.google-services' version '4.4.2' apply false
-    id 'com.google.firebase.crashlytics' version '3.0.3' apply false
+    id("com.google.gms.google-services") version "4.4.4" apply false
+    id 'com.google.firebase.crashlytics' version '3.0.6' apply false
 }
 
 allprojects {
@@ -32,8 +32,10 @@ allprojects {
     }
 }
 
+//noinspection GrDeprecatedAPIUsage
 rootProject.buildDir = "../build"
 subprojects {
+    //noinspection GrDeprecatedAPIUsage
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
@@ -41,5 +43,6 @@ subprojects {
 }
 
 tasks.register("clean", Delete) {
+    //noinspection GrDeprecatedAPIUsage
     delete rootProject.buildDir
 }

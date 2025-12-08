@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lifecoach/router/app_route.dart';
 
 class GoalsAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const GoalsAppBar({
-    super.key,
-  });
+  const GoalsAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

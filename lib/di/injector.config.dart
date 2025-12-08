@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -39,25 +39,21 @@ import 'package:lifecoach/di/user_repository_module.dart' as _i960;
 import 'package:lifecoach/domain_services/chat_repository.dart' as _i737;
 import 'package:lifecoach/domain_services/goals_repository.dart' as _i109;
 import 'package:lifecoach/domain_services/settings_repository.dart' as _i912;
-import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_interceptor.dart'
-    as _i284;
-import 'package:lifecoach/infrastructure/ws/rest/retrofit_client/retrofit_client.dart'
-    as _i1073;
+import 'package:lifecoach/infrastructure/data_sources/remote/rest/interceptors/logging_interceptor.dart'
+    as _i195;
+import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart'
+    as _i1050;
 import 'package:models/models.dart' as _i669;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:user_repository/user_repository.dart' as _i164;
 
 extension GetItInjectableX on _i174.GetIt {
-// initializes the registration of main-scope dependencies inside of GetIt
+  // initializes the registration of main-scope dependencies inside of GetIt
   Future<_i174.GetIt> initDependencyInjection({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) async {
-    final gh = _i526.GetItHelper(
-      this,
-      environment,
-      environmentFilter,
-    );
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final sharedPreferencesModule = _$SharedPreferencesModule();
     final userRepositoryModule = _$UserRepositoryModule();
     final dioHttpClientModule = _$DioHttpClientModule();
@@ -68,47 +64,68 @@ extension GetItInjectableX on _i174.GetIt {
       () => sharedPreferencesModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i284.LoggingInterceptor>(
-        () => const _i284.LoggingInterceptor());
-    gh.lazySingleton<_i164.UserRepository>(() =>
-        userRepositoryModule.getUserRepository(gh<_i460.SharedPreferences>()));
+    gh.factory<_i195.LoggingInterceptor>(
+      () => const _i195.LoggingInterceptor(),
+    );
+    gh.lazySingleton<_i164.UserRepository>(
+      () =>
+          userRepositoryModule.getUserRepository(gh<_i460.SharedPreferences>()),
+    );
     gh.factory<_i912.SettingsRepository>(
-        () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()));
+      () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()),
+    );
     await gh.factoryAsync<_i361.Dio>(
       () =>
-          dioHttpClientModule.getDioHttpClient(gh<_i284.LoggingInterceptor>()),
+          dioHttpClientModule.getDioHttpClient(gh<_i195.LoggingInterceptor>()),
       preResolve: true,
     );
     gh.lazySingleton<_i669.RestClient>(
-        () => restClientModule.getRestClient(gh<_i361.Dio>()));
-    gh.lazySingleton<_i1073.RetrofitClient>(
-        () => retrofitHttpClientModule.getRetrofitHttpClient(gh<_i361.Dio>()));
+      () => restClientModule.getRestClient(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i1050.RetrofitClient>(
+      () => retrofitHttpClientModule.getRetrofitHttpClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i109.GoalsRepository>(
-        () => _i500.GoalsRepositoryImpl(gh<_i669.RestClient>()));
+      () => _i500.GoalsRepositoryImpl(gh<_i669.RestClient>()),
+    );
     gh.lazySingleton<_i223.AuthenticationRepository>(
-        () => authenticationRepositoryModule.getAuthenticationRepository(
-              gh<_i1073.RetrofitClient>(),
-              gh<_i460.SharedPreferences>(),
-            ));
+      () => authenticationRepositoryModule.getAuthenticationRepository(
+        gh<_i1050.RetrofitClient>(),
+        gh<_i460.SharedPreferences>(),
+      ),
+    );
     gh.factory<_i737.ChatRepository>(
-        () => _i518.ChatRepositoryImpl(gh<_i1073.RetrofitClient>()));
-    gh.factory<_i489.ChatBloc>(() => _i489.ChatBloc(
-          gh<_i737.ChatRepository>(),
-          gh<_i912.SettingsRepository>(),
-          gh<_i164.UserRepository>(),
-        ));
-    gh.factory<_i73.AuthenticationBloc>(() => _i73.AuthenticationBloc(
-          authenticationRepository: gh<_i223.AuthenticationRepository>(),
-          userRepository: gh<_i164.UserRepository>(),
-        ));
-    gh.factory<_i270.SignInBloc>(() => _i270.SignInBloc(
-        authenticationRepository: gh<_i223.AuthenticationRepository>()));
-    gh.factory<_i829.SignUpBloc>(() => _i829.SignUpBloc(
-        authenticationRepository: gh<_i223.AuthenticationRepository>()));
-    gh.factory<_i989.GoalsBloc>(() => _i989.GoalsBloc(
-          gh<_i109.GoalsRepository>(),
-          gh<_i73.AuthenticationBloc>(),
-        ));
+      () => _i518.ChatRepositoryImpl(gh<_i1050.RetrofitClient>()),
+    );
+    gh.factory<_i489.ChatBloc>(
+      () => _i489.ChatBloc(
+        gh<_i737.ChatRepository>(),
+        gh<_i912.SettingsRepository>(),
+        gh<_i164.UserRepository>(),
+      ),
+    );
+    gh.factory<_i73.AuthenticationBloc>(
+      () => _i73.AuthenticationBloc(
+        authenticationRepository: gh<_i223.AuthenticationRepository>(),
+        userRepository: gh<_i164.UserRepository>(),
+      ),
+    );
+    gh.factory<_i270.SignInBloc>(
+      () => _i270.SignInBloc(
+        authenticationRepository: gh<_i223.AuthenticationRepository>(),
+      ),
+    );
+    gh.factory<_i829.SignUpBloc>(
+      () => _i829.SignUpBloc(
+        authenticationRepository: gh<_i223.AuthenticationRepository>(),
+      ),
+    );
+    gh.factory<_i989.GoalsBloc>(
+      () => _i989.GoalsBloc(
+        gh<_i109.GoalsRepository>(),
+        gh<_i73.AuthenticationBloc>(),
+      ),
+    );
     return this;
   }
 }

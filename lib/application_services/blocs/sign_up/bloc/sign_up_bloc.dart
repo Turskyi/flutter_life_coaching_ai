@@ -3,8 +3,9 @@ import 'package:bloc/bloc.dart';
 import 'package:clerk_auth/clerk_auth.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/api_exception.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/models/responses/authentication_response/api_exception.dart';
 import 'package:models/models.dart';
 
 part 'sign_up_event.dart';
@@ -23,10 +24,9 @@ part 'sign_up_state.dart';
 /// form is valid, the bloc makes a call to `signIn` and updates the status
 /// based on the outcome of the request.
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  SignUpBloc({
-    required AuthenticationRepository authenticationRepository,
-  })  : _authenticationRepository = authenticationRepository,
-        super(const SignUpState()) {
+  SignUpBloc({required AuthenticationRepository authenticationRepository})
+    : _authenticationRepository = authenticationRepository,
+      super(const SignUpState()) {
     on<SignUpEmailChanged>(_onEmailChanged);
     on<SignUpPasswordChanged>(_onPasswordChanged);
     on<SignUpSubmitted>(_onSubmitted);
@@ -37,10 +37,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   final AuthenticationRepository _authenticationRepository;
 
-  void _onEmailChanged(
-    SignUpEmailChanged event,
-    Emitter<SignUpState> emit,
-  ) {
+  void _onEmailChanged(SignUpEmailChanged event, Emitter<SignUpState> emit) {
     final EmailAddress email = EmailAddress.dirty(event.email);
     emit(
       state.copyWith(
@@ -61,24 +58,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(
       state.copyWith(
         password: password,
-        isValid: Formz.validate(
-          <FormzInput<String, ValidationError>>[password, state.email],
-        ),
+        isValid: Formz.validate(<FormzInput<String, ValidationError>>[
+          password,
+          state.email,
+        ]),
       ),
     );
   }
 
-  void _onCodeChanged(
-    CodeChanged event,
-    Emitter<SignUpState> emit,
-  ) {
+  void _onCodeChanged(CodeChanged event, Emitter<SignUpState> emit) {
     final Code code = Code.dirty(event.code);
     emit(
       state.copyWith(
         code: code,
-        isValid: Formz.validate(
-          <FormzInput<String, ValidationError>>[code],
-        ),
+        isValid: Formz.validate(<FormzInput<String, ValidationError>>[code]),
       ),
     );
   }
@@ -94,6 +87,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: state.password,
           isValid: state.isValid,
           code: state.code,
+          status: FormzSubmissionStatus.inProgress,
         ),
       );
       try {
@@ -102,9 +96,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: state.password.value,
         );
 
-        emit(
-          state.copyWith(status: FormzSubmissionStatus.success),
-        );
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
       } on ApiException catch (e) {
         _handleError(error: e, emitter: emit);
       } catch (e) {
@@ -122,6 +114,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       const String errorsKey = 'errors';
       const String messageKey = 'long_message';
+
       String errorMessage = 'Unknown error';
 
       if (responseBody is Map<String, Object?>) {
@@ -131,7 +124,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           final Object? errors = responseBody[errorsKey];
 
           if (errors is List<Object?> && errors.isNotEmpty) {
-            final Object? errorEntry = errors.first;
+            final Object? errorEntry = errors.firstOrNull;
 
             if (errorEntry is Map<String, Object?> &&
                 errorEntry.containsKey(messageKey)) {
@@ -181,6 +174,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           password: state.password,
           isValid: state.isValid,
           code: state.code,
+          status: FormzSubmissionStatus.inProgress,
         ),
       );
       try {
@@ -188,6 +182,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
         if (code.isNotEmpty) {
           await _authenticationRepository.verify(code);
+        } else {
+          // TODO: find a better way to handle this case.
+          debugPrint('Code is empty in `_onCodeSubmitted` of $runtimeType');
         }
 
         emit(state.copyWith(status: FormzSubmissionStatus.success));

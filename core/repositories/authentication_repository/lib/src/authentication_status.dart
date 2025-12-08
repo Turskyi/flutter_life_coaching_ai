@@ -9,8 +9,9 @@ sealed class AuthenticationStatus {
 
   factory AuthenticationStatus.unauthenticated() = UnauthenticatedStatus;
 
-  factory AuthenticationStatus.code(String email) =>
-      CodeAuthenticationStatus(email);
+  factory AuthenticationStatus.code(String email) {
+    return CodeAuthenticationStatus(email);
+  }
 }
 
 class UnknownAuthenticationStatus extends AuthenticationStatus {

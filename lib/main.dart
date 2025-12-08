@@ -7,11 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/di/injector.dart' as di;
 import 'package:lifecoach/di/injector.dart';
+import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/localization/localization_delelegate_getter.dart'
     as localization;
 import 'package:lifecoach/ui/app/app.dart';
 import 'package:lifecoach/ui/feedback/feedback_form.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The [main] is the ultimate detail — the lowest-level policy.
 /// It is the initial entry point of the system.
@@ -32,10 +35,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize dependency injection and wait for `SharedPreferences`.
-  await injectDependencies();
+  await di.injectDependencies();
 
-  final LocalizationDelegate localizationDelegate =
-      await localization.getLocalizationDelegate();
+  final SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  final LocalDataSource localDataSource = LocalDataSource(preferences);
+
+  final LocalizationDelegate localizationDelegate = await localization
+      .getLocalizationDelegate();
 
   final AuthenticationRepository authenticationRepository =
       GetIt.instance<AuthenticationRepository>();
@@ -46,18 +53,21 @@ Future<void> main() async {
     LocalizedApp(
       localizationDelegate,
       BetterFeedback(
-        feedbackBuilder: (
-          BuildContext context,
-          OnSubmit onSubmit,
-          ScrollController? scrollController,
-        ) =>
-            FeedbackForm(
-          onSubmit: onSubmit,
-          scrollController: scrollController,
-        ),
+        feedbackBuilder:
+            (
+              BuildContext _,
+              OnSubmit onSubmit,
+              ScrollController? scrollController,
+            ) {
+              return FeedbackForm(
+                onSubmit: onSubmit,
+                scrollController: scrollController,
+              );
+            },
         child: App(
           authenticationRepository: authenticationRepository,
           authenticationBloc: authenticationBloc,
+          localDataSource: localDataSource,
         ),
       ),
     ),

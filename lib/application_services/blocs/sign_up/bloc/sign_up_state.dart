@@ -23,14 +23,13 @@ final class SignUpState extends Equatable {
     Password? password,
     Code? code,
     bool? isValid,
-  }) =>
-      SignUpState(
-        status: status ?? this.status,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        code: code ?? this.code,
-        isValid: isValid ?? this.isValid,
-      );
+  }) => SignUpState(
+    status: status ?? this.status,
+    email: email ?? this.email,
+    password: password ?? this.password,
+    code: code ?? this.code,
+    isValid: isValid ?? this.isValid,
+  );
 
   @override
   List<Object> get props => <Object>[status, email, password, code];
@@ -56,25 +55,24 @@ final class SignUpErrorState extends SignUpState {
     Code? code,
     bool? isValid,
     String? errorMessage,
-  }) =>
-      SignUpErrorState(
-        status: status ?? this.status,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        code: code ?? this.code,
-        isValid: isValid ?? this.isValid,
-        errorMessage: errorMessage ?? this.errorMessage,
-      );
+  }) => SignUpErrorState(
+    status: status ?? this.status,
+    email: email ?? this.email,
+    password: password ?? this.password,
+    code: code ?? this.code,
+    isValid: isValid ?? this.isValid,
+    errorMessage: errorMessage ?? this.errorMessage,
+  );
 
   @override
   List<Object> get props => <Object>[
-        status,
-        email,
-        password,
-        isValid,
-        errorMessage,
-        code,
-      ];
+    status,
+    email,
+    password,
+    isValid,
+    errorMessage,
+    code,
+  ];
 }
 
 final class SignUpProgressState extends SignUpState {
@@ -93,12 +91,13 @@ final class SignUpProgressState extends SignUpState {
     Password? password,
     Code? code,
     bool? isValid,
-  }) =>
-      SignUpProgressState(
-        status: status ?? this.status,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        code: code ?? this.code,
-        isValid: isValid ?? this.isValid,
-      );
+  }) {
+    return SignUpProgressState(
+      status: status ?? this.status,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      code: code ?? this.code,
+      isValid: isValid ?? this.isValid,
+    );
+  }
 }

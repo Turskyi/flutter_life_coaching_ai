@@ -5,15 +5,15 @@ import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.d
 import 'package:lifecoach/ui/sign_up/code_form.dart';
 
 class CodePage extends StatelessWidget {
-  const CodePage({
-    required this.email,
-    super.key,
-  });
+  const CodePage({required this.email, super.key});
 
   final String email;
 
-  static Route<void> route({required String email}) =>
-      MaterialPageRoute<void>(builder: (_) => CodePage(email: email));
+  static Route<void> route({required String email}) {
+    return MaterialPageRoute<void>(
+      builder: (BuildContext _) => CodePage(email: email),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -7,21 +7,14 @@ import 'package:lifecoach/ui/sign_up/sign_up_form.dart';
 //TODO: remove due to not used.
 @Deprecated('There is no replacement at this moment.')
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({
-    this.email = '',
-    this.password = '',
-    super.key,
-  });
+  const SignUpPage({this.email = '', this.password = '', super.key});
 
   final String email;
   final String password;
 
   static Route<void> route({required String email, String password = ''}) =>
       MaterialPageRoute<void>(
-        builder: (_) => SignUpPage(
-          email: email,
-          password: password,
-        ),
+        builder: (_) => SignUpPage(email: email, password: password),
       );
 
   @override

@@ -5,6 +5,7 @@ enum AppRoute {
   signIn('/sign-in'),
   code('/code'),
   privacyPolity('/privacy-policy'),
+  about('/about'),
   signUp('/sign-up');
 
   const AppRoute(this.path);

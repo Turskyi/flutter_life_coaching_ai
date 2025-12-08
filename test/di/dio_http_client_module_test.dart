@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lifecoach/di/injector.dart';
-import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_interceptor.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/rest/interceptors/logging_interceptor.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,17 +22,19 @@ void main() {
     await injectDependencies();
   });
 
-  test('Dio is correctly configured with LoggingInterceptor and timeouts',
-      () async {
-    dio = GetIt.I<Dio>();
+  test(
+    'Dio is correctly configured with LoggingInterceptor and timeouts',
+    () async {
+      dio = GetIt.I<Dio>();
 
-    // Verify that the LoggingInterceptor is added.
-    dio.interceptors.add(mockLoggingInterceptor);
-    expect(dio.interceptors.contains(mockLoggingInterceptor), isTrue);
+      // Verify that the LoggingInterceptor is added.
+      dio.interceptors.add(mockLoggingInterceptor);
+      expect(dio.interceptors.contains(mockLoggingInterceptor), isTrue);
 
-    // Verify timeout configurations using Duration.
-    expect(dio.options.connectTimeout, equals(const Duration(minutes: 1)));
-    expect(dio.options.receiveTimeout, equals(const Duration(minutes: 1)));
-    expect(dio.options.sendTimeout, equals(const Duration(minutes: 1)));
-  });
+      // Verify timeout configurations using Duration.
+      expect(dio.options.connectTimeout, equals(const Duration(minutes: 1)));
+      expect(dio.options.receiveTimeout, equals(const Duration(minutes: 1)));
+      expect(dio.options.sendTimeout, equals(const Duration(minutes: 1)));
+    },
+  );
 }

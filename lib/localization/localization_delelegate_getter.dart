@@ -17,10 +17,10 @@ Future<LocalizationDelegate> getLocalizationDelegate() async {
   ).isoLanguageCode;
   final LocalizationDelegate localizationDelegate =
       await LocalizationDelegate.create(
-    fallbackLocale: fallbackLocale,
-    supportedLocales: Language.values
-        .map((Language language) => language.isoLanguageCode)
-        .toList(),
-  );
+        fallbackLocale: fallbackLocale,
+        supportedLocales: Language.values
+            .map((Language language) => language.isoLanguageCode)
+            .toList(),
+      );
   return localizationDelegate;
 }

@@ -4,10 +4,7 @@ import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.d
 import 'package:models/models.dart';
 
 class SignUpPasswordInput extends StatefulWidget {
-  const SignUpPasswordInput({
-    required this.initialValue,
-    super.key,
-  });
+  const SignUpPasswordInput({required this.initialValue, super.key});
 
   final String initialValue;
 
@@ -43,9 +40,7 @@ class _SignUpPasswordInputState extends State<SignUpPasswordInput> {
         labelText: 'Password',
         errorText: displayError != null ? 'invalid password' : null,
         suffixIcon: IconButton(
-          icon: Icon(
-            _obscureText ? Icons.visibility : Icons.visibility_off,
-          ),
+          icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
           onPressed: _toggleVisibility,
         ),
       ),

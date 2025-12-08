@@ -37,18 +37,13 @@ void main() {
             ),
           ).thenAnswer((_) => Future<String>.value('user'));
         },
-        build: () => SignInBloc(
-          authenticationRepository: authenticationRepository,
-        ),
+        build: () =>
+            SignInBloc(authenticationRepository: authenticationRepository),
         act: (SignInBloc bloc) {
           bloc
             ..add(const SignInEmailChanged('test@${constants.domain}'))
-            ..add(
-              const SignInPasswordChanged('password'),
-            )
-            ..add(
-              const SignInSubmitted(),
-            );
+            ..add(const SignInPasswordChanged('password'))
+            ..add(const SignInSubmitted());
         },
         expect: () => const <SignInState>[
           SignInState(email: EmailAddress.dirty('test@${constants.domain}')),
@@ -82,23 +77,16 @@ void main() {
             ),
           ).thenThrow(Exception('oops'));
         },
-        build: () => SignInBloc(
-          authenticationRepository: authenticationRepository,
-        ),
+        build: () =>
+            SignInBloc(authenticationRepository: authenticationRepository),
         act: (dynamic bloc) {
           bloc
             ..add(const SignInEmailChanged('test@${constants.domain}'))
-            ..add(
-              const SignInPasswordChanged('password'),
-            )
-            ..add(
-              const SignInSubmitted(),
-            );
+            ..add(const SignInPasswordChanged('password'))
+            ..add(const SignInSubmitted());
         },
         expect: () => const <SignInState>[
-          SignInState(
-            email: EmailAddress.dirty('test@${constants.domain}'),
-          ),
+          SignInState(email: EmailAddress.dirty('test@${constants.domain}')),
           SignInState(
             email: EmailAddress.dirty('test@${constants.domain}'),
             password: Password.dirty('password'),

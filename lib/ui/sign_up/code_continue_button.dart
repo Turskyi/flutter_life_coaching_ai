@@ -11,13 +11,13 @@ class CodeContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isValid =
-        context.select((SignUpBloc bloc) => bloc.state.isValid);
+    final bool isValid = context.select(
+      (SignUpBloc bloc) => bloc.state.isValid,
+    );
 
-    final bool isInProgress = isValid &&
-        context.select(
-          (SignUpBloc bloc) => bloc.state.status.isInProgress,
-        );
+    final bool isInProgress =
+        isValid &&
+        context.select((SignUpBloc bloc) => bloc.state.status.isInProgress);
 
     if (isInProgress) return const CircularProgressIndicator();
 

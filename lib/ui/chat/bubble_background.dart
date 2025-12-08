@@ -3,11 +3,7 @@ import 'package:lifecoach/ui/chat/bubble_painter.dart';
 
 @immutable
 class BubbleBackground extends StatelessWidget {
-  const BubbleBackground({
-    required this.colors,
-    super.key,
-    this.child,
-  });
+  const BubbleBackground({required this.colors, super.key, this.child});
 
   final List<Color> colors;
   final Widget? child;

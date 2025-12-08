@@ -11,9 +11,7 @@ class PrivacyPolicyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color linkColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Privacy Policy'),
-      ),
+      appBar: AppBar(title: const Text('Privacy Policy')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -58,13 +56,11 @@ class PrivacyPolicyPage extends StatelessWidget {
                     style: TextStyle(color: linkColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => _launchURL(
-                            context: context,
-                            url: constants.authServiceLink,
-                          ),
+                        context: context,
+                        url: constants.authServiceLink,
+                      ),
                   ),
-                  const TextSpan(
-                    text: ' for authentication purposes.',
-                  ),
+                  const TextSpan(text: ' for authentication purposes.'),
                 ],
               ),
             ),
@@ -77,9 +73,9 @@ class PrivacyPolicyPage extends StatelessWidget {
                     style: TextStyle(color: linkColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => _launchURL(
-                            context: context,
-                            url: constants.authServiceLink,
-                          ),
+                        context: context,
+                        url: constants.authServiceLink,
+                      ),
                   ),
                   const TextSpan(
                     text: ' to associate your account with your data.',
@@ -106,12 +102,13 @@ class PrivacyPolicyPage extends StatelessWidget {
                     style: TextStyle(color: linkColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => _launchURL(
-                            context: context,
-                            url: constants.remoteDbServiceLink,
-                          ),
+                        context: context,
+                        url: constants.remoteDbServiceLink,
+                      ),
                   ),
                   const TextSpan(
-                    text: ', a widely used, industry-standard NoSQL database. '
+                    text:
+                        ', a widely used, industry-standard NoSQL database. '
                         'MongoDB is known for its robust security features, '
                         'and we use it to ensure your data is stored safely.',
                   ),
@@ -121,7 +118,8 @@ class PrivacyPolicyPage extends StatelessWidget {
             const SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: 'Additionally, you can delete your data anytime through '
+                text:
+                    'Additionally, you can delete your data anytime through '
                     'the app or by visiting our ',
                 children: <InlineSpan>[
                   TextSpan(
@@ -129,12 +127,13 @@ class PrivacyPolicyPage extends StatelessWidget {
                     style: TextStyle(color: linkColor),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => _launchURL(
-                            context: context,
-                            url: constants.deletionInstructionsLink,
-                          ),
+                        context: context,
+                        url: constants.deletionInstructionsLink,
+                      ),
                   ),
                   const TextSpan(
-                    text: ' page for '
+                    text:
+                        ' page for '
                         'detailed steps on how to delete your account and all '
                         'associated data.',
                   ),

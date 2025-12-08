@@ -45,6 +45,8 @@ linter:
     avoid_void_async: true
     cancel_subscriptions: true
     avoid_print: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
 
 analyzer:
   errors:

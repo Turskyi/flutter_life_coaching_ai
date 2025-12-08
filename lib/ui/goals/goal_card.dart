@@ -5,18 +5,16 @@ import 'package:lifecoach/ui/goals/add_edit_goal_dialog.dart';
 import 'package:models/models.dart';
 
 class GoalCard extends StatelessWidget {
-  const GoalCard({
-    required this.goal,
-    super.key,
-  });
+  const GoalCard({required this.goal, super.key});
 
   final Goal goal;
 
   @override
   Widget build(BuildContext context) {
     final DateTime? createdAt = goal.createdAt;
-    final bool wasUpdated =
-        createdAt != null ? goal.updatedAt?.isAfter(createdAt) ?? false : false;
+    final bool wasUpdated = createdAt != null
+        ? goal.updatedAt?.isAfter(createdAt) ?? false
+        : false;
     final String createdUpdatedAtTimestamp = wasUpdated
         ? goal.updatedAt?.toLocal().toString().split(' ').firstOrNull ?? ''
         : createdAt?.toLocal().toString().split(' ').firstOrNull ?? '';
@@ -54,17 +52,10 @@ class GoalCard extends StatelessWidget {
                       timestamp: createdUpdatedAtTimestamp,
                       wasUpdated: wasUpdated,
                     ),
-                    style: const TextStyle(
-                      color: Colors.grey,
-                    ),
+                    style: const TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    goal.content,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  Text(goal.content, style: const TextStyle(fontSize: 16)),
                 ],
               ),
             ),
@@ -74,9 +65,6 @@ class GoalCard extends StatelessWidget {
     );
   }
 
-  String _getTimeStamp({
-    required String timestamp,
-    required bool wasUpdated,
-  }) =>
+  String _getTimeStamp({required String timestamp, required bool wasUpdated}) =>
       '$timestamp${wasUpdated ? ' (updated)' : ''}';
 }
