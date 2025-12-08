@@ -1,9 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_up_form_response.dart';
-
-import 'sign_in_response/session_response.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/models/responses/authentication_response/sign_in_response/session_response.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/models/responses/authentication_response/sign_up_form_response.dart';
 
 part 'client_response.g.dart';
 
@@ -55,7 +54,7 @@ class ClientResponse {
     }
   }
 
-  Map<String, dynamic> toJson() => _$ClientResponseToJson(this);
+  Map<String, Object?> toJson() => _$ClientResponseToJson(this);
 
   ClientResponse copyWith({
     String? object,

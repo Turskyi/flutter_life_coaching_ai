@@ -27,3 +27,29 @@ final class DeleteGoalEvent extends GoalsEvent {
 
   final Goal goal;
 }
+
+final class BugReportPressedEvent extends GoalsEvent {
+  const BugReportPressedEvent(this.errorText);
+
+  final String errorText;
+}
+
+final class SubmitFeedbackEvent extends GoalsEvent {
+  const SubmitFeedbackEvent({
+    required this.feedback,
+    this.submissionType = FeedbackSubmissionType.manual,
+  });
+
+  final UserFeedback feedback;
+  final FeedbackSubmissionType submissionType;
+}
+
+final class ClosingFeedbackEvent extends GoalsEvent {
+  const ClosingFeedbackEvent();
+}
+
+final class ErrorEvent extends GoalsEvent {
+  const ErrorEvent(this.error);
+
+  final String error;
+}

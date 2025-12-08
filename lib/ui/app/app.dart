@@ -2,6 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/ui/app/app_view.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -22,11 +23,13 @@ class App extends StatefulWidget {
   const App({
     required this.authenticationRepository,
     required this.authenticationBloc,
+    required this.localDataSource,
     super.key,
   });
 
   final AuthenticationRepository authenticationRepository;
   final AuthenticationBloc authenticationBloc;
+  final LocalDataSource localDataSource;
 
   @override
   State<App> createState() => _AppState();
@@ -44,10 +47,14 @@ class _AppState extends State<App> {
         // the AuthenticationSubscriptionRequested event), we can explicitly
         // opt out of this behavior by setting `lazy: false`.
         lazy: false,
-        create: (_) =>
-            widget.authenticationBloc
-              ..add(const AuthenticationSubscriptionRequested()),
-        child: AppView(authenticationBloc: widget.authenticationBloc),
+        create: (_) {
+          return widget.authenticationBloc
+            ..add(const AuthenticationSubscriptionRequested());
+        },
+        child: AppView(
+          authenticationBloc: widget.authenticationBloc,
+          localDataSource: widget.localDataSource,
+        ),
       ),
     );
   }

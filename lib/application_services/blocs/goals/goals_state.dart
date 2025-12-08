@@ -2,9 +2,10 @@ part of 'goals_bloc.dart';
 
 @immutable
 sealed class GoalsState {
-  const GoalsState({this.goals = const <Goal>[]});
+  const GoalsState({this.goals = const <Goal>[], this.language = Language.en});
 
   final List<Goal> goals;
+  final Language language;
 }
 
 final class GoalsInitial extends GoalsState {
@@ -40,15 +41,60 @@ final class GoalDeleted extends GoalsState {
 }
 
 final class GoalsError extends GoalsState {
-  const GoalsError({required this.error, super.goals});
+  const GoalsError({required this.errorText, super.goals, super.language});
 
-  final String error;
+  final String errorText;
 }
 
 final class UnauthenticatedGoalsAccessState extends GoalsError {
-  const UnauthenticatedGoalsAccessState({required super.error});
+  const UnauthenticatedGoalsAccessState({required super.errorText});
 }
 
 final class GoalsLoaded extends GoalsState {
-  const GoalsLoaded({super.goals});
+  const GoalsLoaded({super.goals, super.language});
+}
+
+final class FeedbackState extends GoalsState {
+  const FeedbackState({required super.goals, required super.language});
+
+  FeedbackState copyWith({List<Goal>? goals, Language? language}) =>
+      FeedbackState(
+        goals: goals ?? this.goals,
+        language: language ?? this.language,
+      );
+
+  @override
+  String toString() {
+    if (kDebugMode) {
+      return 'FeedbackState('
+          'goals: $goals, '
+          'language: $language,'
+          ')';
+    } else {
+      return super.toString();
+    }
+  }
+}
+
+final class FeedbackSent extends GoalsState {
+  const FeedbackSent({required super.goals, required super.language});
+
+  FeedbackSent copyWith({List<Goal>? goals, Language? language}) {
+    return FeedbackSent(
+      goals: goals ?? this.goals,
+      language: language ?? this.language,
+    );
+  }
+
+  @override
+  String toString() {
+    if (kDebugMode) {
+      return 'FeedbackSent('
+          'goals: $goals, '
+          'language: $language,'
+          ')';
+    } else {
+      return super.toString();
+    }
+  }
 }

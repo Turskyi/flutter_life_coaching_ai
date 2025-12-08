@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:lifecoach/infrastructure/ws/rest/interceptors/logging_interceptor.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/rest/interceptors/logging_interceptor.dart';
 
 @module
 abstract class DioHttpClientModule {

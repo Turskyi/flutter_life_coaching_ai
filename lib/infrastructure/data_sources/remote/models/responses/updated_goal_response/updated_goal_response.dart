@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/goal_response/goal_response.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/models/responses/goal_response/goal_response.dart';
 import 'package:models/models.dart';
 
 part 'updated_goal_response.g.dart';

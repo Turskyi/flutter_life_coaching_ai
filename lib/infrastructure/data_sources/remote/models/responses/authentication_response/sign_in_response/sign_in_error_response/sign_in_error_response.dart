@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/error_response.dart';
-import 'package:lifecoach/infrastructure/ws/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/models/responses/authentication_response/error_response.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/models/responses/authentication_response/sign_in_response/sign_in_response.dart';
 
 import 'meta_response.dart';
 

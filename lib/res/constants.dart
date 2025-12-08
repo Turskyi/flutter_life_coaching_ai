@@ -15,3 +15,16 @@ const int maxRetries = 1;
 const int retryDelayInMs = 1000;
 const String imagePath = 'assets/images/';
 const String fontFamily = 'Pacifico';
+const String ratingProperty = 'rating';
+const String feedbackTextProperty = 'feedback_text';
+const String feedbackTypeProperty = 'feedback_type';
+const String screenSizeProperty = 'screenSize';
+// Expires Mar 13, 2026.
+const String resendEmailDomain = 'kima.website';
+const String doNotReplySenderName = 'Do Not Reply';
+const String feedbackEmailSender =
+    '$doNotReplySenderName $appName <no-reply@$resendEmailDomain>';
+const String mailToScheme = 'mailto';
+const String subjectParameter = 'subject';
+const String bodyParameter = 'body';
+const String telegramUrl = 'https://t.me/+ooDZkd_gKbFmOGM6';

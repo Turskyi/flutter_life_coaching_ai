@@ -257,10 +257,18 @@ packages:
     source: hosted
     version: "2.1.1"
   envied:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: envied
       sha256: "4cfe31953c13977d1118b4f14cc5dfb683d8bb4c35d5b0c64b29d5b2e30712e8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.2"
+  envied_generator:
+    dependency: "direct dev"
+    description:
+      name: envied_generator
+      sha256: "04467955af3b8f8a249b2f20686f00c89a979cb077aef7d0918642978b28bdeb"
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
@@ -478,7 +486,7 @@ packages:
     source: hosted
     version: "2.9.1"
   intl:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: intl
       sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
@@ -796,6 +804,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  resend:
+    dependency: "direct main"
+    description:
+      name: resend
+      sha256: "2e0532f29a057e8a8f643adb8fc3d882e836d316da07cba821d83da72889c1ab"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   retrofit:
     dependency: "direct main"
     description:
