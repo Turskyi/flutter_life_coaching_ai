@@ -38,7 +38,7 @@ class _AboutPageState extends State<AboutPage> {
         leading: kIsWeb
             ? HomeAppBarButton(language: widget.initialLanguage)
             : null,
-        title: Text(translate('about.title')),
+        title: Text(translate('about.title'), maxLines: 2),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
