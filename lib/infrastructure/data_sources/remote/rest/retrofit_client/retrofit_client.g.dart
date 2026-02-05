@@ -45,7 +45,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = SignInResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -85,7 +85,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = SignInResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -113,7 +113,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -141,7 +141,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -171,7 +171,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -199,7 +199,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -229,7 +229,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -259,7 +259,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -289,7 +289,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -317,7 +317,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -347,7 +347,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -375,7 +375,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -405,7 +405,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = _result.data!;
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     yield _value;
@@ -433,7 +433,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = GoalsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -461,7 +461,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = CreatedGoalResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -489,7 +489,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = UpdatedGoalResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -517,7 +517,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = DeleteGoalResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -544,7 +544,7 @@ class _RetrofitClient implements RetrofitClient {
     try {
       _value = DeleteAccountResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;

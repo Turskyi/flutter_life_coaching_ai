@@ -35,15 +35,15 @@ dependencies:
   animated_text_kit: ^4.3.0
   authentication_repository:
     path: core/repositories/authentication_repository
-  bloc: ^9.1.0
+  bloc: ^9.2.0
   bloc_test: ^10.0.0
   clerk_auth: ^0.0.13-beta
   collection: ^1.19.1
   cookie_jar: ^4.0.8
-  dio: ^5.9.0
+  dio: ^5.9.1
   dio_cookie_manager: ^3.3.0
   envied: ^1.3.2
-  equatable: ^2.0.7
+  equatable: ^2.0.8
   feedback: ^3.2.0
   flutter:
     sdk: flutter
@@ -64,23 +64,23 @@ dependencies:
   formz: ^0.8.0
   get_it: ^9.2.0
   http: ^1.6.0
-  injectable: ^2.7.1+2
+  injectable: ^2.7.1+4
   injectable_generator: any
   intl: ^0.20.2
   json_annotation: ^4.9.0
   logger: ^2.6.2
   # Match the version required by flutter_test.
   meta: any
-  mockito: ^5.6.1
+  mockito: ^5.6.3
   mocktail: ^1.0.4
   models:
     path: core/models
   package_info_plus: ^9.0.0
   path_provider: ^2.1.5
   resend: ^1.0.0
-  retrofit: ^4.9.1
-  retrofit_generator: ^10.2.0
-  shared_preferences: ^2.5.3
+  retrofit: ^4.9.2
+  retrofit_generator: ^10.2.1
+  shared_preferences: ^2.5.4
   shimmer: ^3.0.0
   url_launcher: ^6.3.2
   user_repository:
