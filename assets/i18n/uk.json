@@ -17,6 +17,7 @@
   "linux": "Лінукс",
   "unknown": "Невідомо",
   "screen_size": "Розміри екрану",
+  "account_deletion": "Видалення акаунту в процесі...",
   "feedback": {
     "appFeedback": "Відгук про додаток",
     "app_feedback": "Відгук про додаток",

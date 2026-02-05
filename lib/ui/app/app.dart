@@ -24,12 +24,14 @@ class App extends StatefulWidget {
     required this.authenticationRepository,
     required this.authenticationBloc,
     required this.localDataSource,
+    required this.routeMap,
     super.key,
   });
 
   final AuthenticationRepository authenticationRepository;
   final AuthenticationBloc authenticationBloc;
   final LocalDataSource localDataSource;
+  final Map<String, WidgetBuilder> routeMap;
 
   @override
   State<App> createState() => _AppState();
@@ -54,6 +56,7 @@ class _AppState extends State<App> {
         child: AppView(
           authenticationBloc: widget.authenticationBloc,
           localDataSource: widget.localDataSource,
+          routeMap: widget.routeMap,
         ),
       ),
     );

@@ -17,6 +17,7 @@
   "linux": "Linux",
   "unknown": "Unknown",
   "screen_size": "Screen size",
+  "account_deletion": "Account deletion in progress...",
   "chat": {
     "sendMessageToStartChat": "Send a message to start the chat with Life-Coach AI!"
   },

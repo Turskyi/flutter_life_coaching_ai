@@ -1,9 +1,21 @@
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/application_services/blocs/authentication/authentication.dart';
+import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
+import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
+import 'package:lifecoach/application_services/repositories/chat_repository_impl.dart';
+import 'package:lifecoach/application_services/repositories/goals_repository_impl.dart';
+import 'package:lifecoach/application_services/repositories/settings_repository_impl.dart';
 import 'package:lifecoach/di/injector.dart';
+import 'package:lifecoach/domain_services/chat_repository.dart';
+import 'package:lifecoach/domain_services/goals_repository.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart';
+import 'package:lifecoach/router/router.dart' as router;
 import 'package:lifecoach/ui/app/app_view.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,14 +45,46 @@ void main() {
   });
 
   testWidgets('App initializes correctly', (WidgetTester tester) async {
-    final AuthenticationBloc authenticationBloc = AuthenticationBloc(
-      authenticationRepository: authenticationRepository,
-      userRepository: userRepository,
-    );
     SharedPreferences.setMockInitialValues(<String, Object>{});
     final SharedPreferences preferences = await SharedPreferences.getInstance();
 
     final LocalDataSource localDataSource = LocalDataSource(preferences);
+
+    final SettingsRepository settingsRepository = SettingsRepositoryImpl(
+      preferences,
+    );
+
+    final ChatRepository chatRepository = ChatRepositoryImpl(
+      RetrofitClient(Dio()),
+    );
+    ();
+
+    final AuthenticationRepository authenticationRepository =
+        AuthenticationRepository(RetrofitClient(Dio()), preferences);
+
+    final GoalsRepository goalsRepository = GoalsRepositoryImpl(
+      RetrofitClient(Dio()),
+    );
+
+    final AuthenticationBloc authenticationBloc = AuthenticationBloc(
+      authenticationRepository: authenticationRepository,
+      userRepository: userRepository,
+    );
+
+    final GoalsBloc goalsBloc = GoalsBloc(goalsRepository, authenticationBloc);
+
+    final ChatBloc chatBloc = ChatBloc(
+      chatRepository,
+      settingsRepository,
+      userRepository,
+    );
+
+    final Map<String, WidgetBuilder> routeMap = router.buildAppRoutes(
+      chatBloc: chatBloc,
+      goalsBloc: goalsBloc,
+      localDataSource: localDataSource,
+    );
+
     await tester.pumpWidget(
       RepositoryProvider<AuthenticationRepository>.value(
         value: authenticationRepository,
@@ -52,6 +96,7 @@ void main() {
           child: AppView(
             authenticationBloc: authenticationBloc,
             localDataSource: localDataSource,
+            routeMap: routeMap,
           ),
         ),
       ),

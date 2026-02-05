@@ -6,12 +6,12 @@
     <!-- We need this only for `clerk_auth` to work in release mode. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--suppress AndroidDomInspection -->
+    <!--suppress AndroidDomInspection, AndroidUnknownAttribute -->
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/life_coaching_ai">
-        <!--suppress AndroidDomInspection -->
+        <!--suppress AndroidDomInspection, AndroidUnknownAttribute -->
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -49,15 +49,18 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />
+            <!--suppress AndroidUnknownAttribute -->
             <data android:mimeType="text/plain" />
         </intent>
         <intent>
             <action android:name="android.intent.action.SENDTO" />
+            <!--suppress AndroidUnknownAttribute -->
             <data android:scheme="mailto" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.BROWSABLE" />
+            <!--suppress AndroidUnknownAttribute -->
             <data android:scheme="https" />
         </intent>
     </queries>
