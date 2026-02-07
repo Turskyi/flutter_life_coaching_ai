@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart';
 
@@ -15,6 +16,7 @@ class ResetPasswordForm extends StatefulWidget {
 class _ResetPasswordFormState extends State<ResetPasswordForm> {
   final TextEditingController _codeController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _obscureText = true;
 
   @override
   void dispose() {
@@ -31,7 +33,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Reset Password Failed')),
+              SnackBar(content: Text(translate('reset_password.error'))),
             );
         }
       },
@@ -39,24 +41,33 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
-            'Enter the code sent to ${widget.email} and your new password.',
+            translate(
+              'reset_password.instruction',
+              args: <String, String>{'email': widget.email},
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           TextField(
             controller: _codeController,
-            decoration: const InputDecoration(
-              labelText: 'Verification Code',
-              helperText: 'Enter the code from your email',
+            decoration: InputDecoration(
+              labelText: translate('reset_password.verification_code_label'),
+              helperText: translate('reset_password.verification_code_helper'),
             ),
           ),
           const SizedBox(height: 16),
           TextField(
             controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              labelText: 'New Password',
-              helperText: 'Enter your new password',
+            obscureText: _obscureText,
+            decoration: InputDecoration(
+              labelText: translate('reset_password.new_password_label'),
+              helperText: translate('reset_password.new_password_helper'),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscureText ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: _toggleVisibility,
+              ),
             ),
           ),
           const SizedBox(height: 24),
@@ -73,7 +84,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                           ),
                         );
                       },
-                      child: const Text('Reset Password'),
+                      child: Text(translate('reset_password.submit_button')),
                     );
             },
           ),
@@ -81,4 +92,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
       ),
     );
   }
+
+  void _toggleVisibility() => setState(() => _obscureText = !_obscureText);
 }

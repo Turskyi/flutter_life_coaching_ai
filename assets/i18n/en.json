@@ -56,6 +56,23 @@
     "delete": "Delete",
     "about": "About"
   },
+  "sign_in": {
+    "forgot_password": "Forgot Password?",
+    "reset_action": "RESET",
+    "ok_action": "OK",
+    "consent_message": "I consent to the collection of my data.\n",
+    "learn_more": "Learn more."
+  },
+  "reset_password": {
+    "title": "Reset Password",
+    "error": "Reset Password Failed",
+    "instruction": "Enter the code sent to {email} and your new password.",
+    "verification_code_label": "Verification Code",
+    "verification_code_helper": "Enter the code from your email",
+    "new_password_label": "New Password",
+    "new_password_helper": "Enter your new password",
+    "submit_button": "Reset Password"
+  },
   "about": {
     "title": "About Life-Coaching AI",
     "paragraph1": "Life-Coaching AI gives you a private space to think things through, explore your feelings, and work toward meaningful goals. If you choose to sign in, your goals help the AI understand your direction — so the guidance stays relevant without needing to repeat yourself.",

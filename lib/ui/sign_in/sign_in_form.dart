@@ -143,12 +143,33 @@ class _SignInFormState extends State<SignInForm> {
         } else {
           errorMessage = 'Authentication Failure';
         }
-        contentWidget = SelectableText(errorMessage);
-      }
 
-      final bool isPasswordError =
-          (state is SignInErrorState) &&
-          state.errorMessage.toLowerCase().contains('password');
+        final bool isPasswordError =
+            (state is SignInErrorState) &&
+            state.errorMessage.toLowerCase().contains('password');
+
+        contentWidget = Row(
+          children: <Widget>[
+            Expanded(child: SelectableText(errorMessage)),
+            if (isPasswordError)
+              TextButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  context.read<SignInBloc>().add(
+                    const ForgotPasswordRequested(),
+                  );
+                },
+                child: const Text('RESET'),
+              ),
+            TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      }
 
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
@@ -156,16 +177,6 @@ class _SignInFormState extends State<SignInForm> {
           SnackBar(
             content: contentWidget,
             duration: const Duration(seconds: 10),
-            action: isPasswordError
-                ? SnackBarAction(
-                    label: 'Reset',
-                    onPressed: () {
-                      context.read<SignInBloc>().add(
-                        const ForgotPasswordRequested(),
-                      );
-                    },
-                  )
-                : null,
           ),
         );
     }
