@@ -44,6 +44,17 @@ class _SignInFormState extends State<SignInForm> {
                 const EmailInput(),
                 const Padding(padding: EdgeInsets.all(12)),
                 const PasswordInput(),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: state.email.isValid
+                        ? () => context.read<SignInBloc>().add(
+                            const ForgotPasswordRequested(),
+                          )
+                        : null,
+                    child: const Text('Forgot Password?'),
+                  ),
+                ),
                 const Padding(padding: EdgeInsets.all(12)),
                 CheckboxListTile(
                   title: RichText(
@@ -135,12 +146,26 @@ class _SignInFormState extends State<SignInForm> {
         contentWidget = SelectableText(errorMessage);
       }
 
+      final bool isPasswordError =
+          (state is SignInErrorState) &&
+          state.errorMessage.toLowerCase().contains('password');
+
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
           SnackBar(
             content: contentWidget,
             duration: const Duration(seconds: 10),
+            action: isPasswordError
+                ? SnackBarAction(
+                    label: 'Reset',
+                    onPressed: () {
+                      context.read<SignInBloc>().add(
+                        const ForgotPasswordRequested(),
+                      );
+                    },
+                  )
+                : null,
           ),
         );
     }

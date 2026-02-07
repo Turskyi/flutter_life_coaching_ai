@@ -78,6 +78,8 @@ class AuthenticationBloc
             );
           case CodeAuthenticationStatus():
             return emit(AuthenticationState.code(status.email));
+          case ResetPasswordAuthenticationStatus():
+            return emit(AuthenticationState.resetPassword(status.email));
           case UnknownAuthenticationStatus():
             return emit(const AuthenticationState.unknown());
           case DeletingAuthenticatedUserStatus():

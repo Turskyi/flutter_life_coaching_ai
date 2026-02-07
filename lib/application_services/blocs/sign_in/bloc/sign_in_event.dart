@@ -28,3 +28,17 @@ final class SignInPasswordChanged extends SignInEvent {
 final class SignInSubmitted extends SignInEvent {
   const SignInSubmitted();
 }
+
+final class ForgotPasswordRequested extends SignInEvent {
+  const ForgotPasswordRequested();
+}
+
+final class ResetPasswordSubmitted extends SignInEvent {
+  const ResetPasswordSubmitted({required this.code, required this.newPassword});
+
+  final String code;
+  final String newPassword;
+
+  @override
+  List<Object> get props => <Object>[code, newPassword];
+}

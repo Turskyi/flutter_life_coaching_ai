@@ -73,6 +73,36 @@ class AuthenticationRepository {
     await _saveEmail(email);
   }
 
+  Future<void> forgotPassword(String email) async {
+    await _authInit();
+    await _auth?.attemptSignIn(
+      strategy: clerk.Strategy.resetPasswordEmailCode,
+      identifier: email,
+    );
+    _controller.add(AuthenticationStatus.resetPassword(email));
+  }
+
+  Future<void> resetPassword({
+    required String code,
+    required String newPassword,
+  }) async {
+    await _authInit();
+    await _auth?.attemptSignIn(
+      strategy: clerk.Strategy.resetPasswordEmailCode,
+      code: code,
+      password: newPassword,
+    );
+
+    final String? userId = _auth?.client.user?.id;
+
+    if (userId?.isNotEmpty == true) {
+      await _saveUserId(userId ?? '');
+      _controller.add(AuthenticationStatus.authenticated());
+    } else {
+      throw Exception('Reset password failed');
+    }
+  }
+
   Future<void> sendCodeToUser() async {
     final String signUpId =
         _preferences.getString(StorageKeys.signUpId.key) ?? '';

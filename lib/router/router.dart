@@ -10,6 +10,7 @@ import 'package:lifecoach/ui/chat/ai_chat_page.dart';
 import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
 import 'package:lifecoach/ui/privacy/privacy_policy_page.dart';
+import 'package:lifecoach/ui/sign_in/reset_password_page.dart';
 import 'package:lifecoach/ui/sign_in/sign_in_page.dart';
 import 'package:lifecoach/ui/sign_up/sign_up_page.dart';
 import 'package:models/models.dart';
@@ -36,6 +37,11 @@ Map<String, WidgetBuilder> buildAppRoutes({
     ),
     AppRoute.signIn.path: (BuildContext _) => const SignInPage(),
     AppRoute.signUp.path: (BuildContext _) => const SignUpPage(),
+    AppRoute.resetPassword.path: (BuildContext context) {
+      final Object? args = ModalRoute.of(context)?.settings.arguments;
+      final String email = args is String ? args : '';
+      return ResetPasswordPage(email: email);
+    },
     AppRoute.privacyPolity.path: (BuildContext _) => const PrivacyPolicyPage(),
     AppRoute.about.path: (BuildContext _) {
       final Language savedLanguage = localDataSource.getSavedLanguage();

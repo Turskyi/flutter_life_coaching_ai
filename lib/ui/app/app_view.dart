@@ -10,6 +10,7 @@ import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
+import 'package:lifecoach/ui/sign_in/reset_password_page.dart';
 import 'package:lifecoach/ui/sign_up/code_page.dart';
 import 'package:lifecoach/ui/splash_page.dart';
 import 'package:resend/resend.dart';
@@ -77,6 +78,9 @@ class _AppViewState extends State<AppView> {
           CodePage.route(email: status.email),
           (Route<void> _) => false,
         );
+      case ResetPasswordAuthenticationStatus():
+        _navigator?.push(ResetPasswordPage.route(email: status.email));
+        break;
       case DeletingAuthenticatedUserStatus():
         ScaffoldMessenger.of(
           context,

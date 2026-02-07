@@ -27,6 +27,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     on<SignInEmailChanged>(_onEmailChanged);
     on<SignInPasswordChanged>(_onPasswordChanged);
     on<SignInSubmitted>(_onSubmitted);
+    on<ForgotPasswordRequested>(_onForgotPasswordRequested);
+    on<ResetPasswordSubmitted>(_onResetPasswordSubmitted);
   }
 
   final AuthenticationRepository _authenticationRepository;
@@ -126,6 +128,37 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           emit(state.copyWith(status: FormzSubmissionStatus.failure));
         }
       }
+    }
+  }
+
+  Future<void> _onForgotPasswordRequested(
+    ForgotPasswordRequested event,
+    Emitter<SignInState> emit,
+  ) async {
+    if (state.email.isValid) {
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      try {
+        await _authenticationRepository.forgotPassword(state.email.value);
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
+      } catch (_) {
+        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      }
+    }
+  }
+
+  Future<void> _onResetPasswordSubmitted(
+    ResetPasswordSubmitted event,
+    Emitter<SignInState> emit,
+  ) async {
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+    try {
+      await _authenticationRepository.resetPassword(
+        code: event.code,
+        newPassword: event.newPassword,
+      );
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
+    } catch (_) {
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
 }
