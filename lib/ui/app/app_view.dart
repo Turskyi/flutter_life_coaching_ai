@@ -1,6 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
@@ -46,23 +47,38 @@ class _AppViewState extends State<AppView> {
   NavigatorState? get _navigator => _navigatorKey.currentState;
 
   @override
-  Widget build(BuildContext _) {
+  Widget build(BuildContext context) {
     Resend(apiKey: Env.resendApiKey);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: constants.appName,
-      initialRoute: AppRoute.home.path,
-      routes: widget.routeMap,
-      theme: ThemeData.dark(),
-      navigatorKey: _navigatorKey,
-      builder: (BuildContext _, Widget? child) {
-        return BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: _authenticationBlocStateListener,
-          child: child,
-        );
-      },
-      onGenerateRoute: (RouteSettings _) => SplashPage.route(),
+    final LocalizationDelegate localizationDelegate = LocalizedApp.of(
+      context,
+    ).delegate;
+
+    return LocalizationProvider(
+      state: LocalizationProvider.of(context).state,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: constants.appName,
+        initialRoute: AppRoute.home.path,
+        routes: widget.routeMap,
+        theme: ThemeData.dark(),
+        navigatorKey: _navigatorKey,
+        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          localizationDelegate,
+        ],
+        supportedLocales: localizationDelegate.supportedLocales,
+        locale: localizationDelegate.currentLocale,
+        builder: (BuildContext _, Widget? child) {
+          return BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: _authenticationBlocStateListener,
+            child: child,
+          );
+        },
+        onGenerateRoute: (RouteSettings _) => SplashPage.route(),
+      ),
     );
   }
 

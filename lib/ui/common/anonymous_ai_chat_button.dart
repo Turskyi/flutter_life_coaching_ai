@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/router/app_route.dart';
 
 class AnonymousAiChatButton extends StatelessWidget {
@@ -11,14 +12,14 @@ class AnonymousAiChatButton extends StatelessWidget {
       height: 60,
       child: ElevatedButton(
         onPressed: () => Navigator.pushNamed(context, AppRoute.chat.path),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.chat, size: 20),
-            SizedBox(width: 8),
+            const Icon(Icons.chat, size: 20),
+            const SizedBox(width: 8),
             Expanded(
               child: Text(
-                'Chat Anonymously\nwith Life-Coach AI',
+                translate('chat.anonymous_button'),
                 textAlign: TextAlign.center,
               ),
             ),

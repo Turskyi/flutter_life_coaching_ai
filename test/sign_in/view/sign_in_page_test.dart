@@ -4,10 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifecoach/ui/sign_in/sign_in_form.dart';
 import 'package:lifecoach/ui/sign_in/sign_in_page.dart';
-import 'package:mocktail/mocktail.dart';
 
-class MockAuthenticationRepository extends Mock
-    implements AuthenticationRepository {}
+import '../../test_mocks/mock_authentication_repository.dart';
 
 void main() {
   group('SignInPage', () {

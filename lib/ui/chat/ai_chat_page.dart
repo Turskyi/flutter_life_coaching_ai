@@ -30,9 +30,10 @@ class _AiChatPageState extends State<AiChatPage> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: BlocBuilder<ChatBloc, ChatState>(
-          builder: (_, ChatState state) {
+          builder: (BuildContext _, ChatState state) {
             return Text(
-              '${state.user.isAnonymous ? 'Anonymous' : ''} Life-Coach AI Chat',
+              '${state.user.isAnonymous ? '${translate('chat.anonymous')} ' : ''
+                        ''}${translate('chat.title')}',
             );
           },
         ),
@@ -81,8 +82,8 @@ class _AiChatPageState extends State<AiChatPage> {
                   context,
                 ).style.copyWith(color: Colors.red),
                 children: <TextSpan>[
-                  const TextSpan(text: '😨 Something went wrong. '),
-                  const TextSpan(text: 'Please use our official website: '),
+                  TextSpan(text: translate('chat.something_went_wrong')),
+                  TextSpan(text: translate('chat.please_use_official_website')),
                   TextSpan(
                     text: officialWebsiteUrl,
                     style: TextStyle(
@@ -103,9 +104,10 @@ class _AiChatPageState extends State<AiChatPage> {
               ),
             );
           } else {
-            errorDisplayWidget = const SelectableText(
-              '😨 Something went wrong. Please try again.',
-              style: TextStyle(color: Colors.red),
+            errorDisplayWidget = SelectableText(
+              '${translate('chat.something_went_wrong')}'
+              '${translate('chat.please_try_again')}',
+              style: const TextStyle(color: Colors.red),
               textAlign: TextAlign.center,
             );
           }
@@ -162,7 +164,7 @@ class _AiChatPageState extends State<AiChatPage> {
                           return MessageBubble(
                             message: Message(
                               owner: MessageOwner.other,
-                              text: StringBuffer('🤔 Thinking...'),
+                              text: StringBuffer(translate('chat.thinking')),
                             ),
                           );
                         }
@@ -251,17 +253,52 @@ class _AiChatPageState extends State<AiChatPage> {
     super.dispose();
   }
 
-  String get _randomPlaceholder =>
-      _placeholders[(_placeholders.length *
-              (0.5 +
-                  0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
-          .toInt()];
+  String get _randomPlaceholder {
+    final List<String> placeholders = _placeholders;
+    return placeholders[(_placeholdersCount *
+            (0.5 + 0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
+        .toInt()];
+  }
 
-  String get _randomEmptyStateMessage =>
-      emptyStateMessages[(emptyStateMessages.length *
-              (0.5 +
-                  0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
-          .toInt()];
+  String get _randomEmptyStateMessage {
+    final List<String> messages = _emptyStateMessages;
+    return messages[(_emptyStateMessagesCount *
+            (0.5 + 0.5 * (DateTime.now().millisecondsSinceEpoch % 1000) / 1000))
+        .toInt()];
+  }
+
+  int get _placeholdersCount => _placeholders.length;
+
+  int get _emptyStateMessagesCount => _emptyStateMessages.length;
+
+  List<String> get _placeholders => <String>[
+    translate('chat.placeholders.0'),
+    translate('chat.placeholders.1'),
+    translate('chat.placeholders.2'),
+    translate('chat.placeholders.3'),
+    translate('chat.placeholders.4'),
+    translate('chat.placeholders.5'),
+    translate('chat.placeholders.6'),
+    translate('chat.placeholders.7'),
+    translate('chat.placeholders.8'),
+    translate('chat.placeholders.9'),
+    translate('chat.placeholders.10'),
+    translate('chat.placeholders.11'),
+    translate('chat.placeholders.12'),
+  ];
+
+  List<String> get _emptyStateMessages => <String>[
+    translate('chat.empty_state_messages.0'),
+    translate('chat.empty_state_messages.1'),
+    translate('chat.empty_state_messages.2'),
+    translate('chat.empty_state_messages.3'),
+    translate('chat.empty_state_messages.4'),
+    translate('chat.empty_state_messages.5'),
+    translate('chat.empty_state_messages.6'),
+    translate('chat.empty_state_messages.7'),
+    translate('chat.empty_state_messages.8'),
+    translate('chat.empty_state_messages.9'),
+  ];
 
   void _sendMessage() {
     if (_textEditingController.text.isEmpty) return;
@@ -312,35 +349,6 @@ class _AiChatPageState extends State<AiChatPage> {
       ),
     );
   }
-
-  static const List<String> _placeholders = <String>[
-    'Share your thoughts...',
-    "What's on your mind?",
-    'How can I assist you today?',
-    'What are you thinking about?',
-    'Need some guidance?',
-    "Let's explore your goals...",
-    "What's your next big idea?",
-    'How can I help you today?',
-    "What's your current challenge?",
-    'Tell me your thoughts...',
-    "What's on your agenda?",
-    'What would you like to discuss?',
-    'Ready to unlock your potential?',
-  ];
-
-  static const List<String> emptyStateMessages = <String>[
-    'What would you like to achieve today?',
-    'Share your goals with the Life-Coach AI.',
-    "Let's start your journey. Ask me anything!",
-    'How can I help you reach your potential?',
-    'Tell me about your aspirations.',
-    "Ready to set some goals? Let's chat!",
-    "What's your next big step?",
-    "Need some guidance? I'm here to help.",
-    "What's on your mind today?",
-    "Let's explore your dreams together.",
-  ];
 
   void _showFeedbackDialog() {
     context.read<ChatBloc>().add(const BugReportPressedEvent());

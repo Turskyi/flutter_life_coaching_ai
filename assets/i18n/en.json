@@ -20,7 +20,41 @@
   "account_deletion": "Account deletion in progress...",
   "continue": "Continue",
   "chat": {
-    "sendMessageToStartChat": "Send a message to start the chat with Life-Coach AI!"
+    "anonymous": "Anonymous",
+    "title": "Life-Coach AI Chat",
+    "sendMessageToStartChat": "Send a message to start the chat with Life-Coach AI!",
+    "anonymous_button": "Chat Anonymously\nwith Life-Coach AI",
+    "something_went_wrong": "😨 Something went wrong. ",
+    "please_try_again": "Please try again.",
+    "please_use_official_website": "Please use our official website: ",
+    "thinking": "🤔 Thinking...",
+    "placeholders": [
+      "Share your thoughts...",
+      "What's on your mind?",
+      "How can I assist you today?",
+      "What are you thinking about?",
+      "Need some guidance?",
+      "Let's explore your goals...",
+      "What's your next big idea?",
+      "How can I help you today?",
+      "What's your current challenge?",
+      "Tell me your thoughts...",
+      "What's on your agenda?",
+      "What would you like to discuss?",
+      "Ready to unlock your potential?"
+    ],
+    "empty_state_messages": [
+      "What would you like to achieve today?",
+      "Share your goals with the Life-Coach AI.",
+      "Let's start your journey. Ask me anything!",
+      "How can I help you reach your potential?",
+      "Tell me about your aspirations.",
+      "Ready to set some goals? Let's chat!",
+      "What's your next big step?",
+      "Need some guidance? I'm here to help.",
+      "What's on your mind today?",
+      "Let's explore your dreams together."
+    ]
   },
   "feedback": {
     "appFeedback": "App Feedback",
@@ -54,7 +88,12 @@
     "deleteAccountConfirmation": "Are you sure you want to delete your account?\nThis action cannot be undone.",
     "cancel": "Cancel",
     "delete": "Delete",
-    "about": "About"
+    "about": "About",
+    "language": "Language"
+  },
+  "languages": {
+    "en": "English",
+    "uk": "Ukrainian"
   },
   "sign_in": {
     "forgot_password": "Forgot Password?",
@@ -95,5 +134,10 @@
     "email": "Email: ",
     "telegram": "Telegram: ",
     "supportGroup": "Support Group"
+  },
+  "home": {
+    "description": "Discover your true potential with AI-powered life-coaching app.\nSet and achieve your goals with personalized guidance and insightful questions designed to help you find your own answers.",
+    "view_goals": "View Goals",
+    "or": "or"
   }
 }

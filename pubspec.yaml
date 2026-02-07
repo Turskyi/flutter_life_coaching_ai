@@ -50,6 +50,10 @@ dependencies:
   flutter_bloc: ^9.1.1
   # Do not upgrade to 8.0.0.
   flutter_email_sender: ^8.0.0
+
+  flutter_localizations:
+    sdk: flutter
+
   flutter_markdown: ^0.7.7+1
   flutter_spinkit: ^5.2.2
 
