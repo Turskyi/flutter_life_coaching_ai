@@ -35,14 +35,7 @@ class AppDrawer extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
             ),
-            child: Text(
-              translate('menu.title'),
-              style: TextStyle(
-                fontSize: theme.textTheme.headlineSmall?.fontSize,
-                fontWeight: FontWeight.bold,
-                color: colorScheme.primary,
-              ),
-            ),
+            child: const SizedBox.shrink(),
           ),
           ListTile(
             leading: const Icon(Icons.info),
