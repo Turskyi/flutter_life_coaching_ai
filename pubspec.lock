@@ -148,10 +148,10 @@ packages:
     dependency: "direct main"
     description:
       name: clerk_auth
-      sha256: "06d0f2d65c2c25ac756258cc6eba3dc4bce1b8db6659f1d215782530bca10a9a"
+      sha256: "9dba5fe674de759f46d5501230f954d4841f1a9497113fd62a61440ae4931c8d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.13-beta"
+    version: "0.0.14-beta"
   cli_config:
     dependency: transitive
     description:
@@ -828,6 +828,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.2.1"
+  retry:
+    dependency: transitive
+    description:
+      name: retry
+      sha256: "822e118d5b3aafed083109c72d5f484c6dc66707885e07c0fbcb8b986bba7efc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.2"
   shared_preferences:
     dependency: "direct main"
     description:
