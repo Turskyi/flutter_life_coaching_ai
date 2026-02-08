@@ -7,6 +7,7 @@ enum AppRoute {
   resetPassword('/reset-password'),
   privacyPolity('/privacy-policy'),
   about('/about'),
+  support('/support'),
   signUp('/sign-up');
 
   const AppRoute(this.path);

@@ -13,6 +13,7 @@ import 'package:lifecoach/ui/privacy/privacy_policy_page.dart';
 import 'package:lifecoach/ui/sign_in/reset_password_page.dart';
 import 'package:lifecoach/ui/sign_in/sign_in_page.dart';
 import 'package:lifecoach/ui/sign_up/sign_up_page.dart';
+import 'package:lifecoach/ui/support/support_page.dart';
 import 'package:models/models.dart';
 
 Map<String, WidgetBuilder> buildAppRoutes({
@@ -44,6 +45,10 @@ Map<String, WidgetBuilder> buildAppRoutes({
     AppRoute.about.path: (BuildContext _) {
       final Language savedLanguage = localDataSource.getSavedLanguage();
       return AboutPage(initialLanguage: savedLanguage);
+    },
+    AppRoute.support.path: (BuildContext _) {
+      final Language savedLanguage = localDataSource.getSavedLanguage();
+      return SupportPage(initialLanguage: savedLanguage);
     },
   };
 }

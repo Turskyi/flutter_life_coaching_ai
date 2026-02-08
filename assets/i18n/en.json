@@ -89,7 +89,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "about": "About",
-    "language": "Language"
+    "language": "Language",
+    "support": "Support"
   },
   "languages": {
     "en": "English",
@@ -154,6 +155,27 @@
     "email": "Email: ",
     "telegram": "Telegram: ",
     "supportGroup": "Support Group"
+  },
+  "support": {
+    "title": "Support",
+    "header": "Support for \"{appName}\" App",
+    "intro": "We're here to help. If you’re experiencing issues with the app, have questions about your data, or want to share feedback - this is the place to start.",
+    "contactUs": "Contact Us",
+    "assistance": "If you need assistance, feel free to reach out:",
+    "telegramGroup": "Life-Coaching AI Telegram Group",
+    "telegramIntro": "Join our support group on Telegram: ",
+    "developerSupportIntro": "Or reach out using the contact form on the developer’s support page: ",
+    "accountManagement": "Account and Data Management",
+    "accountDeletionIntro": "To delete your account and all associated data, please visit the ",
+    "accountDeletionLink": "Account Deletion Instructions",
+    "accountDeletionOutro": " page.",
+    "privacyPolicy": "Privacy Policy",
+    "privacyPolicyIntro": "You can view our full privacy policy here: ",
+    "commonQuestions": "Common Questions",
+    "q1": "Is the app really free? - Yes, there are no charges or in-app purchases.",
+    "q2": "Do I need to create an account to use the chat? - No, anonymous chat is available without logging in.",
+    "q3": "Can I manage or delete my goals? - Yes, logged-in users can add, edit, and delete goals freely.",
+    "q4": "How do I delete my data? - Follow the link above to permanently remove your account and data."
   },
   "home": {
     "description": "Discover your true potential with AI-powered life-coaching app.\nSet and achieve your goals with personalized guidance and insightful questions designed to help you find your own answers.",

@@ -46,6 +46,11 @@ class AppDrawer extends StatelessWidget {
             onTap: () => _showLanguageSelector(context),
           ),
           ListTile(
+            leading: const Icon(Icons.help),
+            title: Text(translate('menu.support')),
+            onTap: () => Navigator.of(context).pushNamed(AppRoute.support.path),
+          ),
+          ListTile(
             leading: const Icon(Icons.info),
             title: Text(translate('menu.about')),
             onTap: () => _openAbout(context),

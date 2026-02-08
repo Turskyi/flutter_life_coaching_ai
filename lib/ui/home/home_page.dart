@@ -115,6 +115,22 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+      persistentFooterAlignment: AlignmentDirectional.center,
+      persistentFooterButtons: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pushNamed(context, AppRoute.about.path),
+          child: Text(translate('menu.about')),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pushNamed(context, AppRoute.support.path),
+          child: Text(translate('menu.support')),
+        ),
+        TextButton(
+          onPressed: () =>
+              Navigator.pushNamed(context, AppRoute.privacyPolity.path),
+          child: Text(translate('menu.privacyPolicy')),
+        ),
+      ],
     );
   }
 
