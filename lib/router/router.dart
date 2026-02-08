@@ -9,6 +9,7 @@ import 'package:lifecoach/ui/about/about_page.dart';
 import 'package:lifecoach/ui/chat/ai_chat_page.dart';
 import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
+import 'package:lifecoach/ui/instruction/instruction_page.dart';
 import 'package:lifecoach/ui/privacy/privacy_policy_page.dart';
 import 'package:lifecoach/ui/sign_in/reset_password_page.dart';
 import 'package:lifecoach/ui/sign_in/sign_in_page.dart';
@@ -50,6 +51,7 @@ Map<String, WidgetBuilder> buildAppRoutes({
       final Language savedLanguage = localDataSource.getSavedLanguage();
       return SupportPage(initialLanguage: savedLanguage);
     },
+    AppRoute.instruction.path: (BuildContext _) => const InstructionPage(),
   };
 }
 

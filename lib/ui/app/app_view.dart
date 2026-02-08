@@ -129,6 +129,7 @@ class _AppViewState extends State<AppView> {
           AppRoute.signIn.path,
           AppRoute.signUp.path,
           AppRoute.resetPassword.path,
+          AppRoute.instruction.path,
         ];
 
         final bool isPublicRoute = publicRoutes.contains(currentRouteName);

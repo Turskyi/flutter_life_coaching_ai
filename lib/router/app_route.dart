@@ -8,7 +8,8 @@ enum AppRoute {
   privacyPolity('/privacy-policy'),
   about('/about'),
   support('/support'),
-  signUp('/sign-up');
+  signUp('/sign-up'),
+  instruction('/instruction');
 
   const AppRoute(this.path);
 

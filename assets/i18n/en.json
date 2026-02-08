@@ -177,6 +177,15 @@
     "q3": "Can I manage or delete my goals? - Yes, logged-in users can add, edit, and delete goals freely.",
     "q4": "How do I delete my data? - Follow the link above to permanently remove your account and data."
   },
+  "instruction": {
+    "title": "Account Deletion Instructions",
+    "description": "This page allows you to access, delete, or manage the data associated with your account. For more details, please review our ",
+    "privacy_policy_link": "Privacy Policy",
+    "how_to_proceed": "To proceed with deleting your account, you must click the \"Login to Access Delete Account Page\" button below. This will direct you to the login page. After logging in, you will be able to access the page where you can delete your account.",
+    "important": "Important: ",
+    "warning": "Deleting your account will permanently remove all your data, including any goals you have created. Please ensure you have backed up any important information before proceeding.",
+    "button": "Login to Access Delete Account Page"
+  },
   "home": {
     "description": "Discover your true potential with AI-powered life-coaching app.\nSet and achieve your goals with personalized guidance and insightful questions designed to help you find your own answers.",
     "view_goals": "View Goals",
