@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart';
 
@@ -26,7 +27,7 @@ class ContinueButton extends StatelessWidget {
     return ElevatedButton(
       key: const Key('signInForm_continue_raisedButton'),
       onPressed: isValid ? onPressed : null,
-      child: const Text('Continue'),
+      child: Text(translate('continue')),
     );
   }
 }

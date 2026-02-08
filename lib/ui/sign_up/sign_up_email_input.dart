@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
@@ -39,8 +40,10 @@ class _SignUpEmailInputState extends State<SignUpEmailInput> {
       onChanged: (String email) =>
           context.read<SignUpBloc>().add(SignUpEmailChanged(email)),
       decoration: InputDecoration(
-        labelText: 'Email address',
-        errorText: displayError != null ? 'invalid email' : null,
+        labelText: translate('sign_up.email_label'),
+        errorText: displayError != null
+            ? translate('sign_up.invalid_email')
+            : null,
       ),
     );
   }

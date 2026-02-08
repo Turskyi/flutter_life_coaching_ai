@@ -1,6 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart';
 import 'package:lifecoach/ui/sign_in/reset_password_form.dart';
 
@@ -18,7 +19,7 @@ class ResetPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Reset Password')),
+      appBar: AppBar(title: Text(translate('reset_password.title'))),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: BlocProvider<SignInBloc>(

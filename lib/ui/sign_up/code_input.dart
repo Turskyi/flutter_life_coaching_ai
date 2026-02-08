@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart';
 
 class CodeInput extends StatefulWidget {
@@ -54,7 +55,7 @@ class _CodeInputState extends State<CodeInput> {
                         (SignUpBloc bloc) => bloc.state.code.displayError,
                       ) !=
                       null
-                  ? 'Invalid code'
+                  ? translate('sign_up.invalid_code')
                   : null,
             ),
           ),
