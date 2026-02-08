@@ -88,6 +88,12 @@ class _AppViewState extends State<AppView> {
   ) {
     final AuthenticationStatus status = state.status;
 
+    String? currentRouteName;
+    _navigator?.popUntil((Route<dynamic> route) {
+      currentRouteName = route.settings.name;
+      return true;
+    });
+
     switch (status) {
       case CodeAuthenticationStatus():
         _navigator?.pushAndRemoveUntil<void>(
@@ -102,15 +108,38 @@ class _AppViewState extends State<AppView> {
           context,
         ).showSnackBar(SnackBar(content: Text(translate('account_deletion'))));
       case AuthenticatedStatus():
-        _navigator?.pushAndRemoveUntil<void>(
-          GoalsPage.route(widget.authenticationBloc),
-          (Route<void> _) => false,
-        );
+        final bool isOnGuestRoute =
+            currentRouteName == AppRoute.home.path ||
+            currentRouteName == AppRoute.signIn.path ||
+            currentRouteName == AppRoute.signUp.path ||
+            currentRouteName == null;
+
+        if (isOnGuestRoute) {
+          _navigator?.pushAndRemoveUntil<void>(
+            GoalsPage.route(widget.authenticationBloc),
+            (Route<void> _) => false,
+          );
+        }
       case UnauthenticatedStatus():
-        _navigator?.pushAndRemoveUntil<void>(
-          HomePage.route(),
-          (Route<void> _) => false,
-        );
+        final List<String> publicRoutes = <String>[
+          AppRoute.home.path,
+          AppRoute.about.path,
+          AppRoute.support.path,
+          AppRoute.privacyPolity.path,
+          AppRoute.signIn.path,
+          AppRoute.signUp.path,
+          AppRoute.resetPassword.path,
+        ];
+
+        final bool isPublicRoute = publicRoutes.contains(currentRouteName);
+
+        if (!isPublicRoute) {
+          _navigator?.pushAndRemoveUntil<void>(
+            HomePage.route(),
+            (Route<void> _) => false,
+          );
+        }
+
         if (status.message.isNotEmpty) {
           final String message = status.message;
           Fluttertoast.showToast(
