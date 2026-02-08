@@ -22,17 +22,15 @@ Map<String, WidgetBuilder> buildAppRoutes({
 }) {
   return <String, WidgetBuilder>{
     AppRoute.home.path: (BuildContext _) => const HomePage(),
-    AppRoute.chat.path: (BuildContext _) => BlocProvider<ChatBloc>(
-      create: (BuildContext _) {
-        return chatBloc..add(const LoadingInitialChatStateEvent());
-      },
+    AppRoute.chat.path: (BuildContext _) => BlocProvider<ChatBloc>.value(
+      value: chatBloc..add(const LoadingInitialChatStateEvent()),
       child: const BlocListener<ChatBloc, ChatState>(
         listener: _chatStateListener,
         child: AiChatPage(),
       ),
     ),
-    AppRoute.goals.path: (BuildContext _) => BlocProvider<GoalsBloc>(
-      create: (BuildContext _) => goalsBloc..add(const LoadGoals()),
+    AppRoute.goals.path: (BuildContext _) => BlocProvider<GoalsBloc>.value(
+      value: goalsBloc..add(const LoadGoals()),
       child: const GoalsPage(),
     ),
     AppRoute.signIn.path: (BuildContext _) => const SignInPage(),

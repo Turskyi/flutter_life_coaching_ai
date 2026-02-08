@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
@@ -37,64 +38,68 @@ class _SignInFormState extends State<SignInForm> {
       builder: (_, SignInState state) {
         return Align(
           alignment: const Alignment(0, -1 / 3),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const EmailInput(),
-                const Padding(padding: EdgeInsets.all(12)),
-                const PasswordInput(),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: state.email.isValid
-                        ? () => context.read<SignInBloc>().add(
-                            const ForgotPasswordRequested(),
-                          )
-                        : null,
-                    child: const Text('Forgot Password?'),
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(12)),
-                CheckboxListTile(
-                  title: RichText(
-                    text: TextSpan(
-                      text: 'I consent to the collection of my data.\n',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      children: <InlineSpan>[
-                        TextSpan(
-                          text: 'Learn more.',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              _launchPrivacyPolicy(context);
-                            },
-                        ),
-                      ],
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const EmailInput(),
+                  const Padding(padding: EdgeInsets.all(12)),
+                  const PasswordInput(),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: state.email.isValid
+                          ? () => context.read<SignInBloc>().add(
+                              const ForgotPasswordRequested(),
+                            )
+                          : null,
+                      child: Text(translate('sign_in.forgot_password')),
                     ),
                   ),
-                  value: _isConsentGiven,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isConsentGiven = value ?? false;
-                    });
-                  },
-                ),
-                ContinueButton(
-                  onPressed: _isConsentGiven
-                      ? () => context.read<SignInBloc>().add(
-                          const SignInSubmitted(),
-                        )
-                      : null, // Disable button if consent is not given
-                ),
-                const Padding(padding: EdgeInsets.all(12)),
-                SignUpPrompt(
-                  email: state.email.value,
-                  password: state.password.value,
-                ),
-              ],
+                  const Padding(padding: EdgeInsets.all(12)),
+                  CheckboxListTile(
+                    title: RichText(
+                      text: TextSpan(
+                        text: translate('sign_in.consent_message'),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        children: <InlineSpan>[
+                          TextSpan(
+                            text: translate('sign_in.learn_more'),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                _launchPrivacyPolicy(context);
+                              },
+                          ),
+                        ],
+                      ),
+                    ),
+                    value: _isConsentGiven,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isConsentGiven = value ?? false;
+                      });
+                    },
+                  ),
+                  ContinueButton(
+                    onPressed: _isConsentGiven
+                        ? () => context.read<SignInBloc>().add(
+                            const SignInSubmitted(),
+                          )
+                        : null, // Disable button if consent is not given
+                  ),
+                  const Padding(padding: EdgeInsets.all(12)),
+                  SignUpPrompt(
+                    email: state.email.value,
+                    password: state.password.value,
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -111,11 +116,9 @@ class _SignInFormState extends State<SignInForm> {
           TextSpan(
             style: DefaultTextStyle.of(context).style,
             children: <TextSpan>[
-              const TextSpan(
-                text:
-                    'Sign in is not available here. Please use our official '
-                    'website: ',
-                style: TextStyle(color: Colors.black),
+              TextSpan(
+                text: translate('sign_in.use_website'),
+                style: const TextStyle(color: Colors.black),
               ),
               TextSpan(
                 text: officialWebsiteUrl,
@@ -141,7 +144,7 @@ class _SignInFormState extends State<SignInForm> {
         if (state is SignInErrorState) {
           errorMessage = state.errorMessage;
         } else {
-          errorMessage = 'Authentication Failure';
+          errorMessage = translate('sign_in.auth_failure');
         }
 
         final bool isPasswordError =
@@ -159,13 +162,13 @@ class _SignInFormState extends State<SignInForm> {
                     const ForgotPasswordRequested(),
                   );
                 },
-                child: const Text('RESET'),
+                child: Text(translate('sign_in.reset_action')),
               ),
             TextButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
               },
-              child: const Text('OK'),
+              child: Text(translate('sign_in.ok_action')),
             ),
           ],
         );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/router/app_route.dart';
 
 class GoalsAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -9,12 +10,16 @@ class GoalsAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    // This registers a dependency on the localization provider,
+    // triggering a rebuild when changeLocale is called.
+    LocalizationProvider.of(context).state;
+
     return AppBar(
-      title: const Text('Goals'),
+      title: Text(translate('goals.title')),
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.chat_bubble_outline),
-          tooltip: 'Life-Coach AI',
+          tooltip: translate('chat.title'),
           onPressed: () => Navigator.pushNamed(context, AppRoute.chat.path),
         ),
       ],

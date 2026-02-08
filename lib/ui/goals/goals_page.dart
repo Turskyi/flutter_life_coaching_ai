@@ -49,22 +49,26 @@ class _GoalsPageState extends State<GoalsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // This registers a dependency on the locale, triggering a rebuild when it
+    // changes.
+    LocalizedApp.of(context).delegate;
+
     return Scaffold(
-      appBar: const GoalsAppBar(),
-      drawer: const AppDrawer(),
+      appBar: GoalsAppBar(key: UniqueKey()),
+      drawer: AppDrawer(key: UniqueKey()),
       body: BlocConsumer<GoalsBloc, GoalsState>(
         listener: _handleGoalsState,
         builder: (BuildContext context, GoalsState state) {
           if (state is GoalsInitial) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is GoalsError) {
-            return Center(child: Text('Error: ${state.errorText}'));
-          } else if (state.goals.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
-                "You don't have any goals yet. Why don't you create one?",
+                '${translate('error.unexpectedError')}: ${state.errorText}',
               ),
             );
+          } else if (state.goals.isEmpty) {
+            return Center(child: Text(translate('goals.no_goals')));
           } else {
             final List<Goal> allGoals = state.goals;
             const double axisSpacing = 16.0;
@@ -97,7 +101,7 @@ class _GoalsPageState extends State<GoalsPage> {
             child: const AddEditGoalDialog(),
           ),
         ),
-        tooltip: 'Add Goal',
+        tooltip: translate('goals.add_goal'),
         child: const Icon(Icons.add),
       ),
     );

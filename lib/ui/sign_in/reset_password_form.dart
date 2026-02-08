@@ -37,58 +37,72 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
             );
         }
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            translate(
-              'reset_password.instruction',
-              args: <String, String>{'email': widget.email},
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: _codeController,
-            decoration: InputDecoration(
-              labelText: translate('reset_password.verification_code_label'),
-              helperText: translate('reset_password.verification_code_helper'),
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: _passwordController,
-            obscureText: _obscureText,
-            decoration: InputDecoration(
-              labelText: translate('reset_password.new_password_label'),
-              helperText: translate('reset_password.new_password_helper'),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility : Icons.visibility_off,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  translate(
+                    'reset_password.instruction',
+                    args: <String, String>{'email': widget.email},
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                onPressed: _toggleVisibility,
-              ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _codeController,
+                  decoration: InputDecoration(
+                    labelText: translate(
+                      'reset_password.verification_code_label',
+                    ),
+                    helperText: translate(
+                      'reset_password.verification_code_helper',
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _passwordController,
+                  obscureText: _obscureText,
+                  decoration: InputDecoration(
+                    labelText: translate('reset_password.new_password_label'),
+                    helperText: translate('reset_password.new_password_helper'),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: _toggleVisibility,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                BlocBuilder<SignInBloc, SignInState>(
+                  builder: (BuildContext context, SignInState state) {
+                    return state.status.isInProgress
+                        ? const CircularProgressIndicator()
+                        : ElevatedButton(
+                            onPressed: () {
+                              context.read<SignInBloc>().add(
+                                ResetPasswordSubmitted(
+                                  code: _codeController.text,
+                                  newPassword: _passwordController.text,
+                                ),
+                              );
+                            },
+                            child: Text(
+                              translate('reset_password.submit_button'),
+                            ),
+                          );
+                  },
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 24),
-          BlocBuilder<SignInBloc, SignInState>(
-            builder: (BuildContext context, SignInState state) {
-              return state.status.isInProgress
-                  ? const CircularProgressIndicator()
-                  : ElevatedButton(
-                      onPressed: () {
-                        context.read<SignInBloc>().add(
-                          ResetPasswordSubmitted(
-                            code: _codeController.text,
-                            newPassword: _passwordController.text,
-                          ),
-                        );
-                      },
-                      child: Text(translate('reset_password.submit_button')),
-                    );
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

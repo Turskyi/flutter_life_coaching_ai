@@ -42,17 +42,9 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return RepositoryProvider<AuthenticationRepository>.value(
       value: widget.authenticationRepository,
-      child: BlocProvider<AuthenticationBloc>(
-        // By default, BlocProvider is lazy and does not call create until the
-        // first time the Bloc is accessed. Since AuthenticationBloc should
-        // always subscribe to the AuthenticationStatus stream immediately (via
-        // the AuthenticationSubscriptionRequested event), we can explicitly
-        // opt out of this behavior by setting `lazy: false`.
-        lazy: false,
-        create: (_) {
-          return widget.authenticationBloc
-            ..add(const AuthenticationSubscriptionRequested());
-        },
+      child: BlocProvider<AuthenticationBloc>.value(
+        value: widget.authenticationBloc
+          ..add(const AuthenticationSubscriptionRequested()),
         child: AppView(
           authenticationBloc: widget.authenticationBloc,
           localDataSource: widget.localDataSource,
