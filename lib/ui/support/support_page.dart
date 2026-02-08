@@ -7,19 +7,16 @@ import 'package:lifecoach/ui/about/widgets/bullet_point.dart';
 import 'package:lifecoach/ui/about/widgets/section_title.dart';
 import 'package:lifecoach/ui/about/widgets/support_link_row.dart';
 import 'package:lifecoach/ui/common/home_app_bar_button.dart';
-import 'package:models/models.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SupportPage extends StatelessWidget {
-  const SupportPage({required this.initialLanguage, super.key});
-
-  final Language initialLanguage;
+  const SupportPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: kIsWeb ? HomeAppBarButton(language: initialLanguage) : null,
+        leading: kIsWeb ? const HomeAppBarButton() : null,
         title: Text(translate('support.title')),
       ),
       body: SingleChildScrollView(

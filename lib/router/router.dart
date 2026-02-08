@@ -43,14 +43,8 @@ Map<String, WidgetBuilder> buildAppRoutes({
       return ResetPasswordPage(email: email);
     },
     AppRoute.privacyPolity.path: (BuildContext _) => const PrivacyPolicyPage(),
-    AppRoute.about.path: (BuildContext _) {
-      final Language savedLanguage = localDataSource.getSavedLanguage();
-      return AboutPage(initialLanguage: savedLanguage);
-    },
-    AppRoute.support.path: (BuildContext _) {
-      final Language savedLanguage = localDataSource.getSavedLanguage();
-      return SupportPage(initialLanguage: savedLanguage);
-    },
+    AppRoute.about.path: (BuildContext _) => const AboutPage(),
+    AppRoute.support.path: (BuildContext _) => const SupportPage(),
     AppRoute.instruction.path: (BuildContext _) => const InstructionPage(),
   };
 }
