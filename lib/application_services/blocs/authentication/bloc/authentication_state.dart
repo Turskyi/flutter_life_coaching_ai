@@ -34,6 +34,9 @@ class AuthenticationState extends Equatable {
   AuthenticationState.code(String email)
     : this._(status: CodeAuthenticationStatus(email));
 
+  AuthenticationState.resetPassword(String email)
+    : this._(status: ResetPasswordAuthenticationStatus(email));
+
   final AuthenticationStatus status;
   final User user;
 

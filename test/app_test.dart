@@ -1,26 +1,40 @@
 import 'package:authentication_repository/authentication_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/authentication/authentication.dart';
-import 'package:lifecoach/di/injector.dart';
+import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
+import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
+import 'package:lifecoach/application_services/repositories/chat_repository_impl.dart';
+import 'package:lifecoach/application_services/repositories/goals_repository_impl.dart';
+import 'package:lifecoach/application_services/repositories/settings_repository_impl.dart';
+import 'package:lifecoach/domain_services/chat_repository.dart';
+import 'package:lifecoach/domain_services/goals_repository.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
-import 'package:lifecoach/ui/app/app_view.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart';
+import 'package:lifecoach/router/router.dart' as router;
+import 'package:lifecoach/ui/app/app.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:user_repository/user_repository.dart';
 
-class MockAuthenticationRepository extends Mock
-    implements AuthenticationRepository {}
-
-class MockUserRepository extends Mock implements UserRepository {}
+import 'test_mocks/mock_authentication_repository.dart';
+import 'test_mocks/mock_user_repository.dart';
 
 void main() {
   late MockAuthenticationRepository authenticationRepository;
   late MockUserRepository userRepository;
+  late LocalizationDelegate localizationDelegate;
+
+  setUpAll(() async {
+    localizationDelegate = await LocalizationDelegate.create(
+      fallbackLocale: 'en',
+      supportedLocales: <String>['en', 'uk'],
+    );
+  });
 
   setUp(() {
-    // Ensure dependencies are injected before each test
-    injectDependencies();
     authenticationRepository = MockAuthenticationRepository();
     userRepository = MockUserRepository();
 
@@ -33,26 +47,53 @@ void main() {
   });
 
   testWidgets('App initializes correctly', (WidgetTester tester) async {
-    final AuthenticationBloc authenticationBloc = AuthenticationBloc(
-      authenticationRepository: authenticationRepository,
-      userRepository: userRepository,
-    );
     SharedPreferences.setMockInitialValues(<String, Object>{});
     final SharedPreferences preferences = await SharedPreferences.getInstance();
 
     final LocalDataSource localDataSource = LocalDataSource(preferences);
+
+    final SettingsRepository settingsRepository = SettingsRepositoryImpl(
+      preferences,
+    );
+
+    final ChatRepository chatRepository = ChatRepositoryImpl(
+      RetrofitClient(Dio()),
+    );
+
+    final AuthenticationRepository authenticationRepository =
+        AuthenticationRepository(RetrofitClient(Dio()), preferences);
+
+    final GoalsRepository goalsRepository = GoalsRepositoryImpl(
+      RetrofitClient(Dio()),
+    );
+
+    final AuthenticationBloc authenticationBloc = AuthenticationBloc(
+      authenticationRepository: authenticationRepository,
+      userRepository: userRepository,
+    );
+
+    final GoalsBloc goalsBloc = GoalsBloc(goalsRepository, authenticationBloc);
+
+    final ChatBloc chatBloc = ChatBloc(
+      chatRepository,
+      settingsRepository,
+      userRepository,
+    );
+
+    final Map<String, WidgetBuilder> routeMap = router.buildAppRoutes(
+      chatBloc: chatBloc,
+      goalsBloc: goalsBloc,
+      localDataSource: localDataSource,
+    );
+
     await tester.pumpWidget(
-      RepositoryProvider<AuthenticationRepository>.value(
-        value: authenticationRepository,
-        child: BlocProvider<AuthenticationBloc>(
-          lazy: false,
-          create: (_) =>
-              authenticationBloc
-                ..add(const AuthenticationSubscriptionRequested()),
-          child: AppView(
-            authenticationBloc: authenticationBloc,
-            localDataSource: localDataSource,
-          ),
+      LocalizedApp(
+        localizationDelegate,
+        App(
+          authenticationRepository: authenticationRepository,
+          authenticationBloc: authenticationBloc,
+          localDataSource: localDataSource,
+          routeMap: routeMap,
         ),
       ),
     );
@@ -61,6 +102,6 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify that the app is rendered correctly
-    expect(find.byType(AppView), findsOneWidget);
+    expect(find.byType(App), findsOneWidget);
   });
 }

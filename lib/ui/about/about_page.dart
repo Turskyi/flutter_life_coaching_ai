@@ -7,37 +7,15 @@ import 'package:lifecoach/ui/about/widgets/bullet_point.dart';
 import 'package:lifecoach/ui/about/widgets/section_title.dart';
 import 'package:lifecoach/ui/about/widgets/support_link_row.dart';
 import 'package:lifecoach/ui/common/home_app_bar_button.dart';
-import 'package:models/models.dart';
 
-class AboutPage extends StatefulWidget {
-  const AboutPage({required this.initialLanguage, super.key});
-
-  final Language initialLanguage;
-
-  @override
-  State<AboutPage> createState() => _AboutPageState();
-}
-
-class _AboutPageState extends State<AboutPage> {
-  @override
-  void initState() {
-    super.initState();
-    final Language currentLanguage = Language.fromIsoLanguageCode(
-      LocalizedApp.of(context).delegate.currentLocale.languageCode,
-    );
-    final Language savedLanguage = widget.initialLanguage;
-    if (currentLanguage != savedLanguage) {
-      changeLocale(context, savedLanguage.isoLanguageCode);
-    }
-  }
+class AboutPage extends StatelessWidget {
+  const AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: kIsWeb
-            ? HomeAppBarButton(language: widget.initialLanguage)
-            : null,
+        leading: kIsWeb ? const HomeAppBarButton() : null,
         title: Text(translate('about.title'), maxLines: 2),
       ),
       body: SingleChildScrollView(

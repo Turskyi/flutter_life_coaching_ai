@@ -39,6 +39,8 @@ import 'package:lifecoach/di/user_repository_module.dart' as _i960;
 import 'package:lifecoach/domain_services/chat_repository.dart' as _i737;
 import 'package:lifecoach/domain_services/goals_repository.dart' as _i109;
 import 'package:lifecoach/domain_services/settings_repository.dart' as _i912;
+import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart'
+    as _i107;
 import 'package:lifecoach/infrastructure/data_sources/remote/rest/interceptors/logging_interceptor.dart'
     as _i195;
 import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart'
@@ -78,6 +80,9 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           dioHttpClientModule.getDioHttpClient(gh<_i195.LoggingInterceptor>()),
       preResolve: true,
+    );
+    gh.factory<_i107.LocalDataSource>(
+      () => _i107.LocalDataSource(gh<_i460.SharedPreferences>()),
     );
     gh.lazySingleton<_i669.RestClient>(
       () => restClientModule.getRestClient(gh<_i361.Dio>()),

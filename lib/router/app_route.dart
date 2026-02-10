@@ -4,9 +4,12 @@ enum AppRoute {
   goals('/goals'),
   signIn('/sign-in'),
   code('/code'),
+  resetPassword('/reset-password'),
   privacyPolity('/privacy-policy'),
   about('/about'),
-  signUp('/sign-up');
+  support('/support'),
+  signUp('/sign-up'),
+  instruction('/instruction');
 
   const AppRoute(this.path);
 

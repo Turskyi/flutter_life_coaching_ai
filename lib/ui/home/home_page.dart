@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/common/anonymous_ai_chat_button.dart';
@@ -14,8 +15,27 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: TextButton.icon(
+              onPressed: () => _showLanguageSelector(context),
+              icon: const Icon(Icons.language),
+              label: Text(
+                _getLanguageName(
+                  LocalizedApp.of(context).delegate.currentLocale,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 56),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -38,6 +58,11 @@ class HomePage extends StatelessWidget {
                     end: Alignment.topCenter,
                   ).createShader(bounds),
                   child: AnimatedTextKit(
+                    key: ValueKey<String>(
+                      LocalizedApp.of(
+                        context,
+                      ).delegate.currentLocale.languageCode,
+                    ),
                     animatedTexts: <AnimatedText>[
                       TypewriterAnimatedText(
                         constants.appName,
@@ -60,13 +85,10 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Discover your true potential with AI-powered life-coaching '
-                  'app.\nSet and achieve your goals with personalized guidance '
-                  'and insightful questions designed to help you find your own '
-                  'answers.',
+                Text(
+                  translate('home.description'),
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
@@ -75,18 +97,81 @@ class HomePage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () =>
                         Navigator.pushNamed(context, AppRoute.signIn.path),
-                    child: const Text('View Goals'),
+                    child: Text(translate('home.view_goals')),
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text('or'),
+                Text(translate('home.or')),
                 const SizedBox(height: 10),
-                const AnonymousAiChatButton(),
+                AnonymousAiChatButton(
+                  key: ValueKey<String>(
+                    LocalizedApp.of(
+                      context,
+                    ).delegate.currentLocale.languageCode,
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
+      persistentFooterAlignment: AlignmentDirectional.center,
+      persistentFooterButtons: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pushNamed(context, AppRoute.about.path),
+          child: Text(translate('menu.about')),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pushNamed(context, AppRoute.support.path),
+          child: Text(translate('menu.support')),
+        ),
+        TextButton(
+          onPressed: () =>
+              Navigator.pushNamed(context, AppRoute.privacyPolity.path),
+          child: Text(translate('menu.privacyPolicy')),
+        ),
+      ],
+    );
+  }
+
+  String _getLanguageName(Locale locale) {
+    switch (locale.languageCode) {
+      case 'en':
+        return translate('languages.en');
+      case 'uk':
+        return translate('languages.uk');
+      default:
+        return locale.languageCode;
+    }
+  }
+
+  void _showLanguageSelector(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Text('🇬🇧', style: TextStyle(fontSize: 24)),
+                title: Text(translate('languages.en')),
+                onTap: () {
+                  changeLocale(context, 'en');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Text('🇺🇦', style: TextStyle(fontSize: 24)),
+                title: Text(translate('languages.uk')),
+                onTap: () {
+                  changeLocale(context, 'uk');
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -12,6 +12,10 @@ sealed class AuthenticationStatus {
   factory AuthenticationStatus.code(String email) {
     return CodeAuthenticationStatus(email);
   }
+
+  factory AuthenticationStatus.resetPassword(String email) {
+    return ResetPasswordAuthenticationStatus(email);
+  }
 }
 
 class UnknownAuthenticationStatus extends AuthenticationStatus {
@@ -34,6 +38,12 @@ class UnauthenticatedStatus extends AuthenticationStatus {
 
 class CodeAuthenticationStatus extends AuthenticationStatus {
   const CodeAuthenticationStatus(this.email);
+
+  final String email;
+}
+
+class ResetPasswordAuthenticationStatus extends AuthenticationStatus {
+  const ResetPasswordAuthenticationStatus(this.email);
 
   final String email;
 }

@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:formz/formz.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/sign_in.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
@@ -14,6 +15,14 @@ class MockLoginBloc extends MockBloc<SignInEvent, SignInState>
 void main() {
   group('SignInForm', () {
     late SignInBloc loginBloc;
+    late LocalizationDelegate localizationDelegate;
+
+    setUpAll(() async {
+      localizationDelegate = await LocalizationDelegate.create(
+        fallbackLocale: 'en',
+        supportedLocales: <String>['en', 'uk'],
+      );
+    });
 
     setUp(() {
       loginBloc = MockLoginBloc();
@@ -25,11 +34,14 @@ void main() {
       const String email = 'test@${constants.domain}';
       when(() => loginBloc.state).thenReturn(const SignInState());
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: BlocProvider<SignInBloc>.value(
-              value: loginBloc,
-              child: const SignInForm(),
+        LocalizedApp(
+          localizationDelegate,
+          MaterialApp(
+            home: Scaffold(
+              body: BlocProvider<SignInBloc>.value(
+                value: loginBloc,
+                child: const SignInForm(),
+              ),
             ),
           ),
         ),
@@ -47,11 +59,14 @@ void main() {
         const String password = 'password';
         when(() => loginBloc.state).thenReturn(const SignInState());
         await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: BlocProvider<SignInBloc>.value(
-                value: loginBloc,
-                child: const SignInForm(),
+          LocalizedApp(
+            localizationDelegate,
+            MaterialApp(
+              home: Scaffold(
+                body: BlocProvider<SignInBloc>.value(
+                  value: loginBloc,
+                  child: const SignInForm(),
+                ),
               ),
             ),
           ),
@@ -71,11 +86,14 @@ void main() {
     ) async {
       when(() => loginBloc.state).thenReturn(const SignInState());
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: BlocProvider<SignInBloc>.value(
-              value: loginBloc,
-              child: const SignInForm(),
+        LocalizedApp(
+          localizationDelegate,
+          MaterialApp(
+            home: Scaffold(
+              body: BlocProvider<SignInBloc>.value(
+                value: loginBloc,
+                child: const SignInForm(),
+              ),
             ),
           ),
         ),
@@ -93,11 +111,14 @@ void main() {
           const SignInState(status: FormzSubmissionStatus.inProgress),
         );
         await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: BlocProvider<SignInBloc>.value(
-                value: loginBloc,
-                child: const SignInForm(),
+          LocalizedApp(
+            localizationDelegate,
+            MaterialApp(
+              home: Scaffold(
+                body: BlocProvider<SignInBloc>.value(
+                  value: loginBloc,
+                  child: const SignInForm(),
+                ),
               ),
             ),
           ),
@@ -117,11 +138,14 @@ void main() {
           () => loginBloc.state,
         ).thenReturn(const SignInState(status: FormzSubmissionStatus.success));
         await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: BlocProvider<SignInBloc>.value(
-                value: loginBloc,
-                child: const SignInForm(),
+          LocalizedApp(
+            localizationDelegate,
+            MaterialApp(
+              home: Scaffold(
+                body: BlocProvider<SignInBloc>.value(
+                  value: loginBloc,
+                  child: const SignInForm(),
+                ),
               ),
             ),
           ),
@@ -145,11 +169,14 @@ void main() {
 
         // Build the widget tree with the SignInForm
         await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: BlocProvider<SignInBloc>.value(
-                value: loginBloc,
-                child: const SignInForm(),
+          LocalizedApp(
+            localizationDelegate,
+            MaterialApp(
+              home: Scaffold(
+                body: BlocProvider<SignInBloc>.value(
+                  value: loginBloc,
+                  child: const SignInForm(),
+                ),
               ),
             ),
           ),
@@ -186,11 +213,14 @@ void main() {
 
         // Build the widget tree with the SignInForm
         await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: BlocProvider<SignInBloc>.value(
-                value: loginBloc,
-                child: const SignInForm(),
+          LocalizedApp(
+            localizationDelegate,
+            MaterialApp(
+              home: Scaffold(
+                body: BlocProvider<SignInBloc>.value(
+                  value: loginBloc,
+                  child: const SignInForm(),
+                ),
               ),
             ),
           ),
@@ -224,11 +254,14 @@ void main() {
         initialState: const SignInState(status: FormzSubmissionStatus.failure),
       );
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: BlocProvider<SignInBloc>.value(
-              value: loginBloc,
-              child: const SignInForm(),
+        LocalizedApp(
+          localizationDelegate,
+          MaterialApp(
+            home: Scaffold(
+              body: BlocProvider<SignInBloc>.value(
+                value: loginBloc,
+                child: const SignInForm(),
+              ),
             ),
           ),
         ),

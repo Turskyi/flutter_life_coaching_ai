@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
@@ -24,8 +25,10 @@ class EmailInput extends StatelessWidget {
         context.read<SignInBloc>().add(SignInEmailChanged(email));
       },
       decoration: InputDecoration(
-        labelText: 'Email address',
-        errorText: displayError != null ? 'invalid email' : null,
+        labelText: translate('sign_in.email_label'),
+        errorText: displayError != null
+            ? translate('sign_in.invalid_email')
+            : null,
       ),
     );
   }

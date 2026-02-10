@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:core';
 
 import 'package:authentication_repository/authentication_repository.dart';
@@ -12,9 +11,12 @@ import 'package:lifecoach/di/injector.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/localization/localization_delelegate_getter.dart'
     as localization;
+import 'package:lifecoach/router/router.dart' as router;
 import 'package:lifecoach/ui/app/app.dart';
 import 'package:lifecoach/ui/feedback/feedback_form.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'application_services/blocs/chat/bloc/chat_bloc.dart';
+import 'application_services/blocs/goals/goals_bloc.dart';
 
 /// The [main] is the ultimate detail — the lowest-level policy.
 /// It is the initial entry point of the system.
@@ -35,19 +37,28 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize dependency injection and wait for `SharedPreferences`.
-  await di.injectDependencies();
+  final GetIt dependencies = await di.injectDependencies();
 
-  final SharedPreferences preferences = await SharedPreferences.getInstance();
-
-  final LocalDataSource localDataSource = LocalDataSource(preferences);
+  final LocalDataSource localDataSource = dependencies.get<LocalDataSource>();
 
   final LocalizationDelegate localizationDelegate = await localization
       .getLocalizationDelegate();
 
-  final AuthenticationRepository authenticationRepository =
-      GetIt.instance<AuthenticationRepository>();
-  final AuthenticationBloc authenticationBloc =
-      GetIt.instance<AuthenticationBloc>();
+  final AuthenticationRepository authenticationRepository = dependencies
+      .get<AuthenticationRepository>();
+
+  final AuthenticationBloc authenticationBloc = dependencies
+      .get<AuthenticationBloc>();
+
+  final ChatBloc chatBloc = dependencies.get<ChatBloc>();
+
+  final GoalsBloc goalsBloc = dependencies.get<GoalsBloc>();
+
+  final Map<String, WidgetBuilder> routeMap = router.buildAppRoutes(
+    chatBloc: chatBloc,
+    goalsBloc: goalsBloc,
+    localDataSource: localDataSource,
+  );
 
   runApp(
     LocalizedApp(
@@ -68,6 +79,7 @@ Future<void> main() async {
           authenticationRepository: authenticationRepository,
           authenticationBloc: authenticationBloc,
           localDataSource: localDataSource,
+          routeMap: routeMap,
         ),
       ),
     ),

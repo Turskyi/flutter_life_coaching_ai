@@ -109,6 +109,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     required Object error,
     required Emitter<SignUpState> emitter,
   }) {
+    debugPrint('Error in SignUpBloc: $error');
     if (error is DioException) {
       final Object? responseBody = error.response?.data;
 
@@ -155,7 +156,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           email: state.email,
           password: state.password,
           isValid: state.isValid,
-          errorMessage: error.message,
+          errorMessage: error.toString(),
+          code: state.code,
         ),
       );
     } else {

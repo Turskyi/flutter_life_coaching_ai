@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
 import 'package:models/models.dart';
 
@@ -77,7 +78,11 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.goal == null ? 'Add Goal' : 'Edit Goal'),
+      title: Text(
+        widget.goal == null
+            ? translate('goals.add_goal')
+            : translate('goals.edit_goal'),
+      ),
       content: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -88,10 +93,12 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
                 controller: _titleController,
                 maxLines: 3,
                 minLines: 2,
-                decoration: const InputDecoration(labelText: 'Goal title'),
+                decoration: InputDecoration(
+                  labelText: translate('goals.goal_title_label'),
+                ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a title';
+                    return translate('goals.goal_title_error');
                   }
                   return null;
                 },
@@ -102,16 +109,16 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
                 // Allows for multiline input
                 maxLines: 6,
                 minLines: 3,
-                decoration: const InputDecoration(
-                  labelText: 'Goal content',
+                decoration: InputDecoration(
+                  labelText: translate('goals.goal_content_label'),
                   // Align label with multiline input
                   alignLabelWithHint: true,
                   // Add border for better UX.
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter content';
+                    return translate('goals.goal_content_error');
                   }
                   return null;
                 },
@@ -126,18 +133,18 @@ class _AddEditGoalDialogState extends State<AddEditGoalDialog> {
             onPressed: _deleteInProgress ? null : _deleteGoal,
             child: _deleteInProgress
                 ? const CircularProgressIndicator()
-                : const Text(
-                    'Delete goal',
-                    style: TextStyle(color: Colors.red),
+                : Text(
+                    translate('goals.delete_goal'),
+                    style: const TextStyle(color: Colors.red),
                   ),
           ),
         TextButton(
           onPressed: Navigator.of(context).pop,
-          child: const Text('Cancel'),
+          child: Text(translate('menu.cancel')),
         ),
         ValueListenableBuilder<TextEditingValue>(
           valueListenable: _titleController,
-          child: const Text('Submit'),
+          child: Text(translate('goals.submit')),
           builder: (_, TextEditingValue titleValue, Widget? submitText) {
             const double progressIndicatorSize = 24.0;
             return ElevatedButton(

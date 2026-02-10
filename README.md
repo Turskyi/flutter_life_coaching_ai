@@ -7,7 +7,9 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Turskyi/flutter_life_coaching_ai)
 [![Deploy to Firebase Hosting on merge](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/firebase-hosting-merge.yml)
 [![Deploy to Firebase Hosting on PR](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/firebase-hosting-pull-request.yml/badge.svg)](https://github.com/Turskyi/flutter_life_coaching_ai/actions/workflows/firebase-hosting-pull-request.yml)
-<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Turskyi/flutter_life_coaching_ai">
+[![wakatime](https://wakatime.com/badge/user/f9df5074-b4ea-4c17-b001-fff428ab82aa/project/e0627f2a-8ba6-4083-bfda-bbaa9405de92.svg)](https://wakatime.com/badge/user/f9df5074-b4ea-4c17-b001-fff428ab82aa/project/e0627f2a-8ba6-4083-bfda-bbaa9405de92)
+<img alt="GitHub commit activity"
+src="https://img.shields.io/github/commit-activity/m/Turskyi/flutter_life_coaching_ai">
 
 # Life-Coaching AI (Flutter Version).
 
@@ -481,10 +483,7 @@ For any inquiries, please contact support@lifecoaching-ai.com.
 
 This project is based on the
 [Flutter Login](https://bloclibrary.dev/tutorials/flutter-login/)
-by [the Bloc Community](https://github.com/felangel/bloc/graphs/contributors)
-and
-[Create gradient chat bubbles](https://docs.flutter.dev/cookbook/effects/gradient-bubbles)
-cookbook.
+by [the Bloc Community](https://github.com/felangel/bloc/graphs/contributors).
 I only followed along and made some minor changes.
 
 ## Download

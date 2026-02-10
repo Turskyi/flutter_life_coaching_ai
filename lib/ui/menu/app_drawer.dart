@@ -35,14 +35,20 @@ class AppDrawer extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
             ),
-            child: Text(
-              translate('menu.title'),
-              style: TextStyle(
-                fontSize: theme.textTheme.headlineSmall?.fontSize,
-                fontWeight: FontWeight.bold,
-                color: colorScheme.primary,
-              ),
+            child: const SizedBox.shrink(),
+          ),
+          ListTile(
+            leading: const Icon(Icons.language),
+            title: Text(translate('menu.language')),
+            trailing: Text(
+              _getLanguageName(LocalizedApp.of(context).delegate.currentLocale),
             ),
+            onTap: () => _showLanguageSelector(context),
+          ),
+          ListTile(
+            leading: const Icon(Icons.help),
+            title: Text(translate('menu.support')),
+            onTap: () => Navigator.of(context).pushNamed(AppRoute.support.path),
           ),
           ListTile(
             leading: const Icon(Icons.info),
@@ -106,6 +112,47 @@ class AppDrawer extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  String _getLanguageName(Locale locale) {
+    switch (locale.languageCode) {
+      case 'en':
+        return translate('languages.en');
+      case 'uk':
+        return translate('languages.uk');
+      default:
+        return locale.languageCode;
+    }
+  }
+
+  void _showLanguageSelector(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Text('🇬🇧', style: TextStyle(fontSize: 24)),
+                title: Text(translate('languages.en')),
+                onTap: () {
+                  changeLocale(context, 'en');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Text('🇺🇦', style: TextStyle(fontSize: 24)),
+                title: Text(translate('languages.uk')),
+                onTap: () {
+                  changeLocale(context, 'uk');
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
