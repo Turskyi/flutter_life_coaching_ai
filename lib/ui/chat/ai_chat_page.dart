@@ -193,9 +193,11 @@ class _AiChatPageState extends State<AiChatPage> {
                         children: <Widget>[
                           const Icon(Icons.chat_bubble_outline),
                           const SizedBox(width: 8.0),
-                          Text(
-                            _randomEmptyStateMessage,
-                            style: const TextStyle(fontSize: 18),
+                          Flexible(
+                            child: Text(
+                              _randomEmptyStateMessage,
+                              style: const TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),

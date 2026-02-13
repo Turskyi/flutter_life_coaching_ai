@@ -23,7 +23,12 @@ part 'chat_state.dart';
 @injectable
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc(this._chatRepository, this._settingsRepository, this._userRepository)
-    : super(const LoadingChatState(user: User(''))) {
+    : super(
+        LoadingChatState(
+          user: _userRepository.getUser(),
+          language: _settingsRepository.getLanguage(),
+        ),
+      ) {
     on<LoadingInitialChatStateEvent>(_onLoadingInitialChatState);
 
     on<SendMessageEvent>(_onSendMessage);

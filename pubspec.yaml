@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build 
 # suffix.
-version: 1.1.0+10
+version: 1.1.1+11
 
 environment:
   sdk: '>=3.9.2 <4.0.0'
@@ -42,7 +42,7 @@ dependencies:
   cookie_jar: ^4.0.8
   dio: ^5.9.1
   dio_cookie_manager: ^3.3.0
-  envied: ^1.3.2
+  envied: ^1.3.3
   equatable: ^2.0.8
   feedback: ^3.2.0
   flutter:
@@ -83,7 +83,7 @@ dependencies:
   path_provider: ^2.1.5
   resend: ^1.0.0
   retrofit: ^4.9.2
-  retrofit_generator: ^10.2.1
+  retrofit_generator: ^10.2.3
   shared_preferences: ^2.5.4
   shimmer: ^3.0.0
   url_launcher: ^6.3.2
@@ -101,7 +101,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  envied_generator: ^1.3.2
+  envied_generator: ^1.3.3
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
