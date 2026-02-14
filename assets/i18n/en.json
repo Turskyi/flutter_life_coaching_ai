@@ -232,7 +232,21 @@
     "thank_you": "Thank you for using {appName}!",
     "error_launch": "Could not launch {url}. ",
     "error_copy_instruction": "You can copy this link and paste it into your browser:\n",
-    "copy_label": "Copy"
+    "copy_label": "Copy",
+    "privacy_title": "Privacy Policy",
+    "privacy_intro": "Your privacy is important to us. This app is designed to provide AI-powered life-coaching guidance while minimizing the collection of personal data.",
+    "privacy_data_collection_title": "Data We Collect",
+    "privacy_data_collection_body": "If you create an account, we collect your email address and a unique user ID for authentication purposes. If you use the goals feature, your goals are securely stored to provide personalized coaching. Messages you send in chat are processed to generate responses.",
+    "privacy_ai_title": "Use of AI Services",
+    "privacy_ai_body": "This app uses a third-party AI model (GPT-4o-mini by OpenAI) to generate coaching responses. When you send a message, the content of your message and, if applicable, your saved goals are securely transmitted to the AI service to generate a response. We do not intentionally send your email address or other direct contact information to the AI model.",
+    "privacy_data_usage_title": "How Your Data Is Used",
+    "privacy_data_usage_body": "Your data is used solely to provide core app functionality, including authentication, goal tracking, and AI-generated coaching responses. We do not sell your personal data.",
+    "privacy_storage_title": "Data Storage",
+    "privacy_storage_body": "Account information and goals are stored securely. Chat messages may be processed by third-party AI services for response generation.",
+    "privacy_user_control_title": "Your Control",
+    "privacy_user_control_body": "You may use the app anonymously without creating an account. If you create an account, you may request account deletion by contacting support.",
+    "privacy_contact_title": "Contact",
+    "privacy_contact_body": "If you have questions about this Privacy Policy, please contact us at support@lifecoaching-ai.com."
   },
   "goals": {
     "title": "Goals",
