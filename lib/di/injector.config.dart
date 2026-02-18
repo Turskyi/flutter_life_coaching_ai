@@ -69,20 +69,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i195.LoggingInterceptor>(
       () => const _i195.LoggingInterceptor(),
     );
+    gh.factory<_i912.SettingsRepository>(
+      () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()),
+    );
+    gh.factory<_i107.LocalDataSource>(
+      () => _i107.LocalDataSource(gh<_i460.SharedPreferences>()),
+    );
     gh.lazySingleton<_i164.UserRepository>(
       () =>
           userRepositoryModule.getUserRepository(gh<_i460.SharedPreferences>()),
-    );
-    gh.factory<_i912.SettingsRepository>(
-      () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()),
     );
     await gh.factoryAsync<_i361.Dio>(
       () =>
           dioHttpClientModule.getDioHttpClient(gh<_i195.LoggingInterceptor>()),
       preResolve: true,
-    );
-    gh.factory<_i107.LocalDataSource>(
-      () => _i107.LocalDataSource(gh<_i460.SharedPreferences>()),
     );
     gh.lazySingleton<_i669.RestClient>(
       () => restClientModule.getRestClient(gh<_i361.Dio>()),
@@ -101,13 +101,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i737.ChatRepository>(
       () => _i518.ChatRepositoryImpl(gh<_i1050.RetrofitClient>()),
-    );
-    gh.factory<_i489.ChatBloc>(
-      () => _i489.ChatBloc(
-        gh<_i737.ChatRepository>(),
-        gh<_i912.SettingsRepository>(),
-        gh<_i164.UserRepository>(),
-      ),
     );
     gh.factory<_i73.AuthenticationBloc>(
       () => _i73.AuthenticationBloc(
@@ -129,6 +122,13 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i989.GoalsBloc(
         gh<_i109.GoalsRepository>(),
         gh<_i73.AuthenticationBloc>(),
+      ),
+    );
+    gh.factory<_i489.ChatBloc>(
+      () => _i489.ChatBloc(
+        gh<_i737.ChatRepository>(),
+        gh<_i912.SettingsRepository>(),
+        gh<_i164.UserRepository>(),
       ),
     );
     return this;
