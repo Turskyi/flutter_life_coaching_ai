@@ -17,6 +17,7 @@ import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_clien
 import 'package:lifecoach/router/router.dart' as router;
 import 'package:lifecoach/ui/app/app.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_mocks/mock_authentication_repository.dart';
@@ -44,6 +45,8 @@ void main() {
         AuthenticationStatus.unauthenticated(),
       ),
     );
+
+    when(() => userRepository.getUser()).thenReturn(User.anonymous);
   });
 
   testWidgets('App initializes correctly', (WidgetTester tester) async {

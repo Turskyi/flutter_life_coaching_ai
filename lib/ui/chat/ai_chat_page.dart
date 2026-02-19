@@ -4,9 +4,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
+import 'package:lifecoach/domain_services/ai_consent_repository.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/ui/chat/message_bubble.dart';
+import 'package:lifecoach/ui/dialogs/ai_consent_dialog.dart';
 import 'package:models/models.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -193,9 +196,11 @@ class _AiChatPageState extends State<AiChatPage> {
                         children: <Widget>[
                           const Icon(Icons.chat_bubble_outline),
                           const SizedBox(width: 8.0),
-                          Text(
-                            _randomEmptyStateMessage,
-                            style: const TextStyle(fontSize: 18),
+                          Flexible(
+                            child: Text(
+                              _randomEmptyStateMessage,
+                              style: const TextStyle(fontSize: 18),
+                            ),
                           ),
                         ],
                       ),
@@ -301,6 +306,39 @@ class _AiChatPageState extends State<AiChatPage> {
   ];
 
   void _sendMessage() {
+    if (_textEditingController.text.isEmpty) return;
+    _checkConsentAndSend();
+  }
+
+  Future<void> _checkConsentAndSend() async {
+    final AiConsentRepository consentRepository =
+        GetIt.instance<AiConsentRepository>();
+
+    final bool hasConsent = await consentRepository.hasAiConsent();
+
+    if (!hasConsent) {
+      // Show consent dialog and wait for user response
+      if (!mounted) return;
+
+      final bool? userConsented = await AiConsentDialog.show(context);
+
+      if (userConsented == true) {
+        // User agreed to AI processing
+        await consentRepository.setAiConsent(true);
+
+        // Send the message
+        if (mounted) {
+          _sendChatMessage();
+        }
+      }
+      // If userConsented is false or null, don't send the message
+    } else {
+      // Consent already given, send the message
+      _sendChatMessage();
+    }
+  }
+
+  void _sendChatMessage() {
     if (_textEditingController.text.isEmpty) return;
     context.read<ChatBloc>().add(SendMessageEvent(_textEditingController.text));
 

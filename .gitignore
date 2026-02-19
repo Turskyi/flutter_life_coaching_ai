@@ -39,6 +39,23 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
+# macOS build artifacts
+/macos/build/
+/macos/Flutter/Flutter-Generated.xcconfig
+/macos/Flutter/ephemeral/
+/macos/Pods/
+
+# iOS build artifacts
+/ios/build/
+/ios/Flutter/Flutter-Generated.xcconfig
+/ios/Flutter/ephemeral/
+/ios/Pods/
+
+# Other platform build artifacts
+/windows/build/
+/linux/build/
+/web/build/
+
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile
@@ -75,3 +92,5 @@ test/retrofit_client_mock.mocks.dart
 test/retrofit_client_test/retrofit_client_test.mocks.dart
 .firebase
 
+macos/build/Build
+macos/build

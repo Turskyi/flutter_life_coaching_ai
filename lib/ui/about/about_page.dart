@@ -6,6 +6,7 @@ import 'package:lifecoach/ui/about/widgets/body_paragraph.dart';
 import 'package:lifecoach/ui/about/widgets/bullet_point.dart';
 import 'package:lifecoach/ui/about/widgets/section_title.dart';
 import 'package:lifecoach/ui/about/widgets/support_link_row.dart';
+import 'package:lifecoach/ui/common/app_version.dart';
 import 'package:lifecoach/ui/common/home_app_bar_button.dart';
 
 class AboutPage extends StatelessWidget {
@@ -55,6 +56,7 @@ class AboutPage extends StatelessWidget {
               url: constants.telegramUrl,
             ),
             const SizedBox(height: 48),
+            const AppVersion(),
           ],
         ),
       ),

@@ -41,7 +41,6 @@ linter:
     avoid_classes_with_only_static_members: true
     sort_constructors_first: true
     always_put_required_named_parameters_first: true
-    avoid_as: true
     avoid_void_async: true
     cancel_subscriptions: true
     avoid_print: true

@@ -4,8 +4,8 @@ part of 'chat_bloc.dart';
 sealed class ChatState {
   const ChatState({
     required this.user,
+    required this.language,
     this.messages = const <Message>[],
-    this.language = Language.en,
   });
 
   final Language language;
@@ -60,7 +60,11 @@ final class ChatInitial extends ChatState {
 }
 
 final class LoadingChatState extends ChatState {
-  const LoadingChatState({required super.user, super.messages, super.language});
+  const LoadingChatState({
+    required super.user,
+    required super.language,
+    super.messages,
+  });
 
   LoadingChatState copyWith({
     List<Message>? messages,

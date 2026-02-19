@@ -28,3 +28,5 @@ const String mailToScheme = 'mailto';
 const String subjectParameter = 'subject';
 const String bodyParameter = 'body';
 const String telegramUrl = 'https://t.me/+ooDZkd_gKbFmOGM6';
+const String aiModel = 'OpenAI (GPT-4o-mini)';
+const String aiConsentKey = 'ai_consent_given';

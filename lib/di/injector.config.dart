@@ -24,6 +24,8 @@ import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.d
     as _i270;
 import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart'
     as _i829;
+import 'package:lifecoach/application_services/repositories/ai_consent_repository_impl.dart'
+    as _i865;
 import 'package:lifecoach/application_services/repositories/chat_repository_impl.dart'
     as _i518;
 import 'package:lifecoach/application_services/repositories/goals_repository_impl.dart'
@@ -36,6 +38,7 @@ import 'package:lifecoach/di/preferences_module.dart' as _i78;
 import 'package:lifecoach/di/rest_client_module.dart' as _i868;
 import 'package:lifecoach/di/retrofit_http_client_module.dart' as _i696;
 import 'package:lifecoach/di/user_repository_module.dart' as _i960;
+import 'package:lifecoach/domain_services/ai_consent_repository.dart' as _i550;
 import 'package:lifecoach/domain_services/chat_repository.dart' as _i737;
 import 'package:lifecoach/domain_services/goals_repository.dart' as _i109;
 import 'package:lifecoach/domain_services/settings_repository.dart' as _i912;
@@ -69,20 +72,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i195.LoggingInterceptor>(
       () => const _i195.LoggingInterceptor(),
     );
+    gh.factory<_i912.SettingsRepository>(
+      () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()),
+    );
+    gh.factory<_i550.AiConsentRepository>(
+      () => _i865.AiConsentRepositoryImpl(gh<_i460.SharedPreferences>()),
+    );
+    gh.factory<_i107.LocalDataSource>(
+      () => _i107.LocalDataSource(gh<_i460.SharedPreferences>()),
+    );
     gh.lazySingleton<_i164.UserRepository>(
       () =>
           userRepositoryModule.getUserRepository(gh<_i460.SharedPreferences>()),
-    );
-    gh.factory<_i912.SettingsRepository>(
-      () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()),
     );
     await gh.factoryAsync<_i361.Dio>(
       () =>
           dioHttpClientModule.getDioHttpClient(gh<_i195.LoggingInterceptor>()),
       preResolve: true,
-    );
-    gh.factory<_i107.LocalDataSource>(
-      () => _i107.LocalDataSource(gh<_i460.SharedPreferences>()),
     );
     gh.lazySingleton<_i669.RestClient>(
       () => restClientModule.getRestClient(gh<_i361.Dio>()),
@@ -101,13 +107,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i737.ChatRepository>(
       () => _i518.ChatRepositoryImpl(gh<_i1050.RetrofitClient>()),
-    );
-    gh.factory<_i489.ChatBloc>(
-      () => _i489.ChatBloc(
-        gh<_i737.ChatRepository>(),
-        gh<_i912.SettingsRepository>(),
-        gh<_i164.UserRepository>(),
-      ),
     );
     gh.factory<_i73.AuthenticationBloc>(
       () => _i73.AuthenticationBloc(
@@ -129,6 +128,13 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i989.GoalsBloc(
         gh<_i109.GoalsRepository>(),
         gh<_i73.AuthenticationBloc>(),
+      ),
+    );
+    gh.factory<_i489.ChatBloc>(
+      () => _i489.ChatBloc(
+        gh<_i737.ChatRepository>(),
+        gh<_i912.SettingsRepository>(),
+        gh<_i164.UserRepository>(),
       ),
     );
     return this;

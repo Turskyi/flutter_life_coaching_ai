@@ -89,6 +89,13 @@ class PrivacyPolicyPage extends StatelessWidget {
             Text(translate('privacy.goals_collect')),
             const SizedBox(height: 20),
             Text(
+              translate('privacy.privacy_ai_title'),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Text(translate('privacy.privacy_ai_body')),
+            const SizedBox(height: 20),
+            Text(
               translate('privacy.storage_security_title'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -215,7 +222,8 @@ class PrivacyPolicyPage extends StatelessWidget {
       } else if (context.mounted) {
         _showErrorSnackbar(context: context, url: uri);
       }
-    } catch (_) {
+    } catch (e) {
+      debugPrint('Error launching URL $url: $e');
       if (context.mounted) {
         _showErrorSnackbar(context: context, url: uri);
       }
@@ -258,4 +266,4 @@ class PrivacyPolicyPage extends StatelessWidget {
   }
 }
 
-const String _updateDate = 'September 2024';
+const String _updateDate = 'February 2026';
