@@ -246,7 +246,11 @@
     "privacy_user_control_title": "Your Control",
     "privacy_user_control_body": "You may use the app anonymously without creating an account. If you create an account, you may request account deletion by contacting support.",
     "privacy_contact_title": "Contact",
-    "privacy_contact_body": "If you have questions about this Privacy Policy, please contact us at support@lifecoaching-ai.com."
+    "privacy_contact_body": "If you have questions about this Privacy Policy, please contact us at support@lifecoaching-ai.com.",
+    "ai_consent_title": "AI Processing Notice",
+    "ai_consent_body": "Messages you send in chat will be securely transmitted to {aiModel} to generate responses.\n\nIf you are signed in, your saved goals may also be included to provide contextual coaching.\n\nBy continuing, you agree to this processing as described in our Privacy Policy.",
+    "ai_consent_continue": "Continue",
+    "ai_consent_view_policy": "View Privacy Policy"
   },
   "goals": {
     "title": "Goals",

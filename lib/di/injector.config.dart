@@ -24,6 +24,8 @@ import 'package:lifecoach/application_services/blocs/sign_in/bloc/sign_in_bloc.d
     as _i270;
 import 'package:lifecoach/application_services/blocs/sign_up/bloc/sign_up_bloc.dart'
     as _i829;
+import 'package:lifecoach/application_services/repositories/ai_consent_repository_impl.dart'
+    as _i865;
 import 'package:lifecoach/application_services/repositories/chat_repository_impl.dart'
     as _i518;
 import 'package:lifecoach/application_services/repositories/goals_repository_impl.dart'
@@ -36,6 +38,7 @@ import 'package:lifecoach/di/preferences_module.dart' as _i78;
 import 'package:lifecoach/di/rest_client_module.dart' as _i868;
 import 'package:lifecoach/di/retrofit_http_client_module.dart' as _i696;
 import 'package:lifecoach/di/user_repository_module.dart' as _i960;
+import 'package:lifecoach/domain_services/ai_consent_repository.dart' as _i550;
 import 'package:lifecoach/domain_services/chat_repository.dart' as _i737;
 import 'package:lifecoach/domain_services/goals_repository.dart' as _i109;
 import 'package:lifecoach/domain_services/settings_repository.dart' as _i912;
@@ -71,6 +74,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i912.SettingsRepository>(
       () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()),
+    );
+    gh.factory<_i550.AiConsentRepository>(
+      () => _i865.AiConsentRepositoryImpl(gh<_i460.SharedPreferences>()),
     );
     gh.factory<_i107.LocalDataSource>(
       () => _i107.LocalDataSource(gh<_i460.SharedPreferences>()),
