@@ -162,6 +162,13 @@ class PrivacyPolicyPage extends StatelessWidget {
             Text(translate('privacy.rights_choices_bullet3')),
             const SizedBox(height: 20),
             Text(
+              translate('privacy.tracking_title'),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Text(translate('privacy.tracking_body')),
+            const SizedBox(height: 20),
+            Text(
               translate('privacy.changes_policy_title'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
