@@ -9,6 +9,7 @@ import 'package:lifecoach/application_services/blocs/authentication/bloc/authent
 import 'package:lifecoach/di/injector.dart' as di;
 import 'package:lifecoach/di/injector.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
+import 'package:lifecoach/infrastructure/services/theme_service.dart';
 import 'package:lifecoach/localization/localization_delelegate_getter.dart'
     as localization;
 import 'package:lifecoach/router/router.dart' as router;
@@ -54,6 +55,8 @@ Future<void> main() async {
 
   final GoalsBloc goalsBloc = dependencies.get<GoalsBloc>();
 
+  final ThemeService themeService = dependencies.get<ThemeService>();
+
   final Map<String, WidgetBuilder> routeMap = router.buildAppRoutes(
     chatBloc: chatBloc,
     goalsBloc: goalsBloc,
@@ -80,6 +83,7 @@ Future<void> main() async {
           authenticationBloc: authenticationBloc,
           localDataSource: localDataSource,
           routeMap: routeMap,
+          themeService: themeService,
         ),
       ),
     ),

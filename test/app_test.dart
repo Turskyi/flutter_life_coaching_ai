@@ -14,6 +14,7 @@ import 'package:lifecoach/domain_services/goals_repository.dart';
 import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart';
+import 'package:lifecoach/infrastructure/services/theme_service.dart';
 import 'package:lifecoach/router/router.dart' as router;
 import 'package:lifecoach/ui/app/app.dart';
 import 'package:mocktail/mocktail.dart';
@@ -89,6 +90,8 @@ void main() {
       localDataSource: localDataSource,
     );
 
+    final ThemeService themeService = ThemeService(preferences);
+
     await tester.pumpWidget(
       LocalizedApp(
         localizationDelegate,
@@ -97,6 +100,7 @@ void main() {
           authenticationBloc: authenticationBloc,
           localDataSource: localDataSource,
           routeMap: routeMap,
+          themeService: themeService,
         ),
       ),
     );

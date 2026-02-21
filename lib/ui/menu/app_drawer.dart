@@ -2,8 +2,10 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/authentication.dart';
 import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
+import 'package:lifecoach/infrastructure/services/theme_service.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/privacy/privacy_policy_page.dart';
@@ -45,6 +47,7 @@ class AppDrawer extends StatelessWidget {
             ),
             onTap: () => _showLanguageSelector(context),
           ),
+          _buildThemeToggleTile(context),
           ListTile(
             leading: const Icon(Icons.help),
             title: Text(translate('menu.support')),
@@ -187,5 +190,28 @@ class AppDrawer extends StatelessWidget {
 
   void _openAbout(BuildContext context) {
     Navigator.of(context).pushNamed(AppRoute.about.path);
+  }
+
+  Widget _buildThemeToggleTile(BuildContext context) {
+    final ThemeService themeService = GetIt.I<ThemeService>();
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: themeService.themeNotifier,
+      builder: (BuildContext context, ThemeMode themeMode, Widget? child) {
+        return ListTile(
+          leading: Icon(
+            themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
+          ),
+          title: Text(
+            themeMode == ThemeMode.dark
+                ? translate('menu.darkMode')
+                : translate('menu.lightMode'),
+          ),
+          trailing: Switch(
+            value: themeMode == ThemeMode.light,
+            onChanged: (_) => themeService.toggleTheme(),
+          ),
+        );
+      },
+    );
   }
 }

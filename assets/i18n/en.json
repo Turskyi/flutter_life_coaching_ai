@@ -90,7 +90,9 @@
     "delete": "Delete",
     "about": "About",
     "language": "Language",
-    "support": "Support"
+    "support": "Support",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
   },
   "languages": {
     "en": "English",
