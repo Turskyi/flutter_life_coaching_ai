@@ -118,7 +118,9 @@ class _SignInFormState extends State<SignInForm> {
             children: <TextSpan>[
               TextSpan(
                 text: translate('sign_in.use_website'),
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
               ),
               TextSpan(
                 text: officialWebsiteUrl,

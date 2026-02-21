@@ -83,7 +83,7 @@ class _AiChatPageState extends State<AiChatPage> {
               TextSpan(
                 style: DefaultTextStyle.of(
                   context,
-                ).style.copyWith(color: Colors.red),
+                ).style.copyWith(color: Theme.of(context).colorScheme.error),
                 children: <TextSpan>[
                   TextSpan(text: translate('chat.something_went_wrong')),
                   TextSpan(text: translate('chat.please_use_official_website')),
@@ -110,7 +110,7 @@ class _AiChatPageState extends State<AiChatPage> {
             errorDisplayWidget = SelectableText(
               '${translate('chat.something_went_wrong')}'
               '${translate('chat.please_try_again')}',
-              style: const TextStyle(color: Colors.red),
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
               textAlign: TextAlign.center,
             );
           }
@@ -138,21 +138,27 @@ class _AiChatPageState extends State<AiChatPage> {
                             ),
                             padding: const EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
-                              color: Colors.redAccent,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.errorContainer,
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: ListTile(
                               title: SelectableText(
                                 state.errorMessage,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onErrorContainer,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               trailing: IconButton(
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.refresh,
-                                  color: Colors.white,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onErrorContainer,
                                 ),
                                 onPressed: () => context.read<ChatBloc>().add(
                                   const RetrySendMessageEvent(),
@@ -219,7 +225,9 @@ class _AiChatPageState extends State<AiChatPage> {
                           controller: _textEditingController,
                           decoration: InputDecoration(
                             hintText: _randomPlaceholder,
-                            hintStyle: const TextStyle(color: Colors.grey),
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
                           ),
                           onSubmitted: (_) => _sendMessage(),
                         ),

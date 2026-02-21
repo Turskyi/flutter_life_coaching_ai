@@ -246,7 +246,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               'privacy.error_launch',
               args: <String, Object?>{'url': url.path},
             ),
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             children: <InlineSpan>[
               TextSpan(text: translate('privacy.error_copy_instruction')),
               TextSpan(

@@ -47,8 +47,8 @@ class InstructionPage extends StatelessWidget {
                   TextSpan(text: translate('instruction.description')),
                   TextSpan(
                     text: translate('instruction.privacy_policy_link'),
-                    style: const TextStyle(
-                      color: Colors.blue,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
                       decoration: TextDecoration.underline,
                     ),
                     recognizer: TapGestureRecognizer()

@@ -58,8 +58,8 @@ class SupportPage extends StatelessWidget {
                   onTap: () => _launchUrl(constants.deletionInstructionsLink),
                   child: Text(
                     translate('support.accountDeletionLink'),
-                    style: const TextStyle(
-                      color: Colors.blue,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
                       decoration: TextDecoration.underline,
                     ),
                   ),
@@ -79,8 +79,8 @@ class SupportPage extends StatelessWidget {
                   },
                   child: Text(
                     translate('menu.privacyPolicy'),
-                    style: const TextStyle(
-                      color: Colors.blue,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
                       decoration: TextDecoration.underline,
                     ),
                   ),
