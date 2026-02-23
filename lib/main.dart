@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/application_services/interactors/initialize_app_language_use_case.dart';
 import 'package:lifecoach/di/injector.dart' as di;
 import 'package:lifecoach/di/injector.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/infrastructure/services/theme_service.dart';
 import 'package:lifecoach/localization/localization_delelegate_getter.dart'
@@ -15,6 +17,7 @@ import 'package:lifecoach/localization/localization_delelegate_getter.dart'
 import 'package:lifecoach/router/router.dart' as router;
 import 'package:lifecoach/ui/app/app.dart';
 import 'package:lifecoach/ui/feedback/feedback_form.dart';
+import 'package:models/models.dart';
 
 import 'application_services/blocs/chat/bloc/chat_bloc.dart';
 import 'application_services/blocs/goals/goals_bloc.dart';
@@ -41,9 +44,19 @@ Future<void> main() async {
   final GetIt dependencies = await di.injectDependencies();
 
   final LocalDataSource localDataSource = dependencies.get<LocalDataSource>();
+  final SettingsRepository settingsRepository = dependencies
+      .get<SettingsRepository>();
 
   final LocalizationDelegate localizationDelegate = await localization
       .getLocalizationDelegate();
+
+  final Language language = settingsRepository.getLanguage();
+
+  final InitializeAppLanguageUseCase initializeAppLanguageUseCase =
+      InitializeAppLanguageUseCase(localDataSource, localizationDelegate);
+
+  // Resolve and apply initial app language using the dedicated use case.
+  await initializeAppLanguageUseCase.call(fallback: language);
 
   final AuthenticationRepository authenticationRepository = dependencies
       .get<AuthenticationRepository>();
