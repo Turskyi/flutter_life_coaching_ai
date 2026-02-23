@@ -3,4 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:lifecoach/di/injector.config.dart';
 
 @InjectableInit(initializerName: 'initDependencyInjection')
-Future<GetIt> injectDependencies() => GetIt.I.initDependencyInjection();
+Future<GetIt> injectDependencies() {
+  return GetIt.I.initDependencyInjection();
+}

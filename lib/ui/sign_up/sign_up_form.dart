@@ -78,7 +78,9 @@ class SignUpForm extends StatelessWidget {
             children: <TextSpan>[
               TextSpan(
                 text: translate('sign_up.not_available_web'),
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
               ),
               TextSpan(
                 text: officialWebsiteUrl,

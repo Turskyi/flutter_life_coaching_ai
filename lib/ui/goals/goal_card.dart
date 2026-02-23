@@ -52,7 +52,9 @@ class GoalCard extends StatelessWidget {
                       timestamp: createdUpdatedAtTimestamp,
                       wasUpdated: wasUpdated,
                     ),
-                    style: const TextStyle(color: Colors.grey),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(goal.content, style: const TextStyle(fontSize: 16)),

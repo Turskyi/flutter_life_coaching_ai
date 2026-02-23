@@ -119,7 +119,9 @@ class _CustomFeedbackFormState extends State<FeedbackForm> {
         break;
     }
     return IconButton(
-      color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.grey,
+      color: isSelected
+          ? Theme.of(context).colorScheme.secondary
+          : Theme.of(context).colorScheme.outline,
       onPressed: () => setState(
         () => _customFeedback = _customFeedback.copyWith(rating: rating),
       ),

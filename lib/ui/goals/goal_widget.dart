@@ -19,7 +19,7 @@ class GoalWidget extends StatelessWidget {
             if (state is SubmittingGoal && state.goalId == goal.id) {
               return Positioned.fill(
                 child: Card(
-                  color: Colors.black.withOpacity(0.5),
+                  color: Theme.of(context).colorScheme.scrim.withOpacity(0.5),
                   child: const Center(child: CircularProgressIndicator()),
                 ),
               );

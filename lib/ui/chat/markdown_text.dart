@@ -62,7 +62,7 @@ class MarkdownText extends StatelessWidget {
         spans.add(
           TextSpan(
             text: linkText,
-            style: const TextStyle(color: Colors.blue),
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
             recognizer: TapGestureRecognizer()
               ..onTap = () => _launchURL(context: context, url: linkUrl),
           ),
@@ -98,7 +98,7 @@ class MarkdownText extends StatelessWidget {
         content: RichText(
           text: TextSpan(
             text: 'Could not launch ${url.path}. ',
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             children: <InlineSpan>[
               const TextSpan(
                 text:
@@ -106,8 +106,8 @@ class MarkdownText extends StatelessWidget {
               ),
               TextSpan(
                 text: url.toString(),
-                style: const TextStyle(
-                  color: Colors.blue,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
                   // Makes the URL look like a clickable link
                   decoration: TextDecoration.underline,
                 ),

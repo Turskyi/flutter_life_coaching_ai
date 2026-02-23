@@ -6,25 +6,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/application_services/interactors/initialize_app_language_use_case.dart';
 import 'package:lifecoach/di/injector.dart' as di;
 import 'package:lifecoach/di/injector.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
+import 'package:lifecoach/infrastructure/services/theme_service.dart';
 import 'package:lifecoach/localization/localization_delelegate_getter.dart'
     as localization;
 import 'package:lifecoach/router/router.dart' as router;
 import 'package:lifecoach/ui/app/app.dart';
 import 'package:lifecoach/ui/feedback/feedback_form.dart';
+import 'package:models/models.dart';
 
 import 'application_services/blocs/chat/bloc/chat_bloc.dart';
 import 'application_services/blocs/goals/goals_bloc.dart';
 
-/// The [main] is the ultimate detail — the lowest-level policy.
+/// The [main] is the ultimate detail - the lowest-level policy.
 /// It is the initial entry point of the system.
 /// Nothing, other than the operating system, depends on it.
 /// Here we should [injectDependencies] by a dependency injection framework.
 /// The [main] is a dirty low-level module in the outermost circle of the onion
 /// architecture.
-/// Think of [main] as a plugin to the [App] — a plugin that sets
+/// Think of [main] as a plugin to the [App] - a plugin that sets
 /// up the initial conditions and configurations, gathers all the outside
 /// resources, and then hands control over to the high-level policy of the
 /// [App].
@@ -40,9 +44,19 @@ Future<void> main() async {
   final GetIt dependencies = await di.injectDependencies();
 
   final LocalDataSource localDataSource = dependencies.get<LocalDataSource>();
+  final SettingsRepository settingsRepository = dependencies
+      .get<SettingsRepository>();
 
   final LocalizationDelegate localizationDelegate = await localization
       .getLocalizationDelegate();
+
+  final Language language = settingsRepository.getLanguage();
+
+  final InitializeAppLanguageUseCase initializeAppLanguageUseCase =
+      InitializeAppLanguageUseCase(localDataSource, localizationDelegate);
+
+  // Resolve and apply initial app language using the dedicated use case.
+  await initializeAppLanguageUseCase.call(fallback: language);
 
   final AuthenticationRepository authenticationRepository = dependencies
       .get<AuthenticationRepository>();
@@ -53,6 +67,8 @@ Future<void> main() async {
   final ChatBloc chatBloc = dependencies.get<ChatBloc>();
 
   final GoalsBloc goalsBloc = dependencies.get<GoalsBloc>();
+
+  final ThemeService themeService = dependencies.get<ThemeService>();
 
   final Map<String, WidgetBuilder> routeMap = router.buildAppRoutes(
     chatBloc: chatBloc,
@@ -80,6 +96,7 @@ Future<void> main() async {
           authenticationBloc: authenticationBloc,
           localDataSource: localDataSource,
           routeMap: routeMap,
+          themeService: themeService,
         ),
       ),
     ),

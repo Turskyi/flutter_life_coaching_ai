@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -48,11 +49,11 @@ class HomePage extends StatelessWidget {
                   height: 200,
                 ),
                 ShaderMask(
-                  shaderCallback: (Rect bounds) => const LinearGradient(
+                  shaderCallback: (Rect bounds) => LinearGradient(
                     colors: <Color>[
-                      Colors.white,
-                      Colors.white,
-                      Colors.blueGrey,
+                      colorScheme.onBackground,
+                      colorScheme.onBackground,
+                      colorScheme.secondary,
                     ],
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
@@ -73,7 +74,7 @@ class HomePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontFamily: constants.fontFamily,
                           // This color will be masked by the gradient.
-                          color: Colors.white,
+                          color: colorScheme.onBackground,
                         ),
                         speed: const Duration(milliseconds: 200),
                       ),

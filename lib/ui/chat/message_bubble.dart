@@ -11,6 +11,7 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final Alignment messageAlignment = message.isMine
         ? Alignment.topRight
         : Alignment.topLeft;
@@ -26,13 +27,13 @@ class MessageBubble extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(16.0)),
             child: BubbleBackground(
               colors: <Color>[
-                if (message.isMine) ...const <Color>[
-                  Color(0xFF6C7689),
-                  Color(0xFF3A364B),
-                ] else ...const <Color>[Color(0xFF19B7FF), Color(0xFF491CCB)],
+                if (message.isMine) ...<Color>[
+                  colorScheme.tertiary.withOpacity(0.8),
+                  colorScheme.tertiary,
+                ] else ...<Color>[colorScheme.primary, colorScheme.secondary],
               ],
               child: DefaultTextStyle.merge(
-                style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                style: TextStyle(fontSize: 18.0, color: colorScheme.onPrimary),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: MarkdownText(text: '${message.text}'),

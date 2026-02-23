@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
+import 'package:lifecoach/infrastructure/services/theme_service.dart';
 import 'package:lifecoach/ui/app/app_view.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -25,6 +26,7 @@ class App extends StatefulWidget {
     required this.authenticationBloc,
     required this.localDataSource,
     required this.routeMap,
+    required this.themeService,
     super.key,
   });
 
@@ -32,6 +34,7 @@ class App extends StatefulWidget {
   final AuthenticationBloc authenticationBloc;
   final LocalDataSource localDataSource;
   final Map<String, WidgetBuilder> routeMap;
+  final ThemeService themeService;
 
   @override
   State<App> createState() => _AppState();
@@ -49,6 +52,7 @@ class _AppState extends State<App> {
           authenticationBloc: widget.authenticationBloc,
           localDataSource: widget.localDataSource,
           routeMap: widget.routeMap,
+          themeService: widget.themeService,
         ),
       ),
     );

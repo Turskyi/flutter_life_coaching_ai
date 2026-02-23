@@ -6,9 +6,10 @@ class ShimmerGoal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+      baseColor: colorScheme.surfaceVariant,
+      highlightColor: colorScheme.surfaceVariant.withOpacity(0.6),
       child: Card(
         elevation: 4.0,
         margin: const EdgeInsets.all(8.0),
@@ -20,15 +21,15 @@ class ShimmerGoal extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 20.0,
-                color: Colors.white,
+                color: colorScheme.surface,
               ),
               const SizedBox(height: 8),
-              Container(width: 100.0, height: 20.0, color: Colors.white),
+              Container(width: 100.0, height: 20.0, color: colorScheme.surface),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
                 height: 14.0,
-                color: Colors.white,
+                color: colorScheme.surface,
               ),
             ],
           ),

@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/env/env.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
+import 'package:lifecoach/infrastructure/services/theme_service.dart';
+import 'package:lifecoach/res/app_theme.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/goals/goals_page.dart';
@@ -30,12 +32,14 @@ class AppView extends StatefulWidget {
     required this.localDataSource,
     required this.authenticationBloc,
     required this.routeMap,
+    required this.themeService,
     super.key,
   });
 
   final AuthenticationBloc authenticationBloc;
   final LocalDataSource localDataSource;
   final Map<String, WidgetBuilder> routeMap;
+  final ThemeService themeService;
 
   @override
   State<AppView> createState() => _AppViewState();
@@ -54,31 +58,38 @@ class _AppViewState extends State<AppView> {
       context,
     ).delegate;
 
-    return LocalizationProvider(
-      state: LocalizationProvider.of(context).state,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: constants.appName,
-        initialRoute: AppRoute.home.path,
-        routes: widget.routeMap,
-        theme: ThemeData.dark(),
-        navigatorKey: _navigatorKey,
-        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          localizationDelegate,
-        ],
-        supportedLocales: localizationDelegate.supportedLocales,
-        locale: localizationDelegate.currentLocale,
-        builder: (BuildContext _, Widget? child) {
-          return BlocListener<AuthenticationBloc, AuthenticationState>(
-            listener: _authenticationBlocStateListener,
-            child: child,
-          );
-        },
-        onGenerateRoute: (RouteSettings _) => SplashPage.route(),
-      ),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: widget.themeService.themeNotifier,
+      builder: (BuildContext context, ThemeMode themeMode, Widget? child) {
+        return LocalizationProvider(
+          state: LocalizationProvider.of(context).state,
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: constants.appName,
+            initialRoute: AppRoute.home.path,
+            routes: widget.routeMap,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeMode,
+            navigatorKey: _navigatorKey,
+            localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              localizationDelegate,
+            ],
+            supportedLocales: localizationDelegate.supportedLocales,
+            locale: localizationDelegate.currentLocale,
+            builder: (BuildContext _, Widget? child) {
+              return BlocListener<AuthenticationBloc, AuthenticationState>(
+                listener: _authenticationBlocStateListener,
+                child: child,
+              );
+            },
+            onGenerateRoute: (RouteSettings _) => SplashPage.route(),
+          ),
+        );
+      },
     );
   }
 

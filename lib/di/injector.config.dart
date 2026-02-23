@@ -48,6 +48,7 @@ import 'package:lifecoach/infrastructure/data_sources/remote/rest/interceptors/l
     as _i195;
 import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart'
     as _i1050;
+import 'package:lifecoach/infrastructure/services/theme_service.dart' as _i323;
 import 'package:models/models.dart' as _i669;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:user_repository/user_repository.dart' as _i164;
@@ -84,6 +85,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i164.UserRepository>(
       () =>
           userRepositoryModule.getUserRepository(gh<_i460.SharedPreferences>()),
+    );
+    gh.lazySingleton<_i323.ThemeService>(
+      () => _i323.ThemeService(gh<_i460.SharedPreferences>()),
     );
     await gh.factoryAsync<_i361.Dio>(
       () =>

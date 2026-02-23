@@ -66,7 +66,10 @@ void _chatStateListener(BuildContext context, ChatState state) {
     }
   } else if (state is FeedbackError) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(state.errorMessage), backgroundColor: Colors.red),
+      SnackBar(
+        content: Text(state.errorMessage),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ),
     );
   }
 }
