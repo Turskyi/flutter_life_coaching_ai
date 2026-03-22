@@ -32,7 +32,7 @@ void main() {
         setUp: () {
           when(
             () => authenticationRepository.signIn(
-              email: 'test@${constants.domain}',
+              email: 'test@${constants.kDomain}',
               password: 'password',
             ),
           ).thenAnswer((_) => Future<String>.value('user'));
@@ -41,25 +41,25 @@ void main() {
             SignInBloc(authenticationRepository: authenticationRepository),
         act: (SignInBloc bloc) {
           bloc
-            ..add(const SignInEmailChanged('test@${constants.domain}'))
+            ..add(const SignInEmailChanged('test@${constants.kDomain}'))
             ..add(const SignInPasswordChanged('password'))
             ..add(const SignInSubmitted());
         },
         expect: () => const <SignInState>[
-          SignInState(email: EmailAddress.dirty('test@${constants.domain}')),
+          SignInState(email: EmailAddress.dirty('test@${constants.kDomain}')),
           SignInState(
-            email: EmailAddress.dirty('test@${constants.domain}'),
+            email: EmailAddress.dirty('test@${constants.kDomain}'),
             password: Password.dirty('password'),
             isValid: true,
           ),
           SignInState(
-            email: EmailAddress.dirty('test@${constants.domain}'),
+            email: EmailAddress.dirty('test@${constants.kDomain}'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.inProgress,
           ),
           SignInState(
-            email: EmailAddress.dirty('test@${constants.domain}'),
+            email: EmailAddress.dirty('test@${constants.kDomain}'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.success,
@@ -72,7 +72,7 @@ void main() {
         setUp: () {
           when(
             () => authenticationRepository.signIn(
-              email: 'test@${constants.domain}',
+              email: 'test@${constants.kDomain}',
               password: 'password',
             ),
           ).thenThrow(Exception('oops'));
@@ -81,25 +81,25 @@ void main() {
             SignInBloc(authenticationRepository: authenticationRepository),
         act: (dynamic bloc) {
           bloc
-            ..add(const SignInEmailChanged('test@${constants.domain}'))
+            ..add(const SignInEmailChanged('test@${constants.kDomain}'))
             ..add(const SignInPasswordChanged('password'))
             ..add(const SignInSubmitted());
         },
         expect: () => const <SignInState>[
-          SignInState(email: EmailAddress.dirty('test@${constants.domain}')),
+          SignInState(email: EmailAddress.dirty('test@${constants.kDomain}')),
           SignInState(
-            email: EmailAddress.dirty('test@${constants.domain}'),
+            email: EmailAddress.dirty('test@${constants.kDomain}'),
             password: Password.dirty('password'),
             isValid: true,
           ),
           SignInState(
-            email: EmailAddress.dirty('test@${constants.domain}'),
+            email: EmailAddress.dirty('test@${constants.kDomain}'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.inProgress,
           ),
           SignInState(
-            email: EmailAddress.dirty('test@${constants.domain}'),
+            email: EmailAddress.dirty('test@${constants.kDomain}'),
             password: Password.dirty('password'),
             isValid: true,
             status: FormzSubmissionStatus.failure,

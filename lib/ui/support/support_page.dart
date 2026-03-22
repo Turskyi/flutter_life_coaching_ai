@@ -45,7 +45,7 @@ class SupportPage extends StatelessWidget {
             ),
             SupportLinkRow(
               label: translate('about.website'),
-              linkLabel: '${constants.domain}/support',
+              linkLabel: '${constants.kDomain}/support',
               url: '${constants.website}/#/support',
             ),
             SectionTitle(translate('support.accountManagement')),

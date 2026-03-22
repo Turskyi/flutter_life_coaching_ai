@@ -42,7 +42,7 @@ class AboutPage extends StatelessWidget {
             SectionTitle(translate('about.supportTitle')),
             SupportLinkRow(
               label: translate('about.website'),
-              linkLabel: constants.domain,
+              linkLabel: constants.kDomain,
               url: constants.website,
             ),
             SupportLinkRow(
