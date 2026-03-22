@@ -40,6 +40,12 @@ Future<void> main() async {
   // `SharedPreferences` dependencies initialization.
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Keep `GetIt` usage at the composition root on purpose.
+  // Right now `injectable` generates registrations directly for `GetIt`,
+  // so introducing a local `Dependencies` abstraction here would only proxy
+  // `get<T>()` without reducing real coupling. If we later move away from
+  // `GetIt`, we should replace this whole composition-root wiring (not wrap it)
+  // and keep the rest of the app injected through constructors as it is now.
   // Initialize dependency injection and wait for `SharedPreferences`.
   final GetIt dependencies = await di.injectDependencies();
 
@@ -47,11 +53,19 @@ Future<void> main() async {
   final SettingsRepository settingsRepository = dependencies
       .get<SettingsRepository>();
 
+  // Keep `LocalizationDelegate` out of `GetIt`.
+  // It is app-bootstrap configuration from `flutter_translate`, initialized
+  // once before `runApp`, and not a reusable domain/infrastructure service.
+  // Registering it in DI would add container indirection without practical
+  // benefit and would blur the boundary between startup wiring and services.
   final LocalizationDelegate localizationDelegate = await localization
       .getLocalizationDelegate();
 
   final Language language = settingsRepository.getLanguage();
 
+  // Keep this use case created in-place for startup orchestration.
+  // It belongs to app bootstrap (one-time pre-`runApp` flow), while long-lived
+  // services/blocs are what we register in `GetIt`.
   final InitializeAppLanguageUseCase initializeAppLanguageUseCase =
       InitializeAppLanguageUseCase(localDataSource, localizationDelegate);
 
@@ -73,7 +87,6 @@ Future<void> main() async {
   final Map<String, WidgetBuilder> routeMap = router.buildAppRoutes(
     chatBloc: chatBloc,
     goalsBloc: goalsBloc,
-    localDataSource: localDataSource,
   );
 
   runApp(

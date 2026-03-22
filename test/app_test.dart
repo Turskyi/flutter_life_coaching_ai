@@ -87,7 +87,6 @@ void main() {
     final Map<String, WidgetBuilder> routeMap = router.buildAppRoutes(
       chatBloc: chatBloc,
       goalsBloc: goalsBloc,
-      localDataSource: localDataSource,
     );
 
     final ThemeService themeService = ThemeService(preferences);

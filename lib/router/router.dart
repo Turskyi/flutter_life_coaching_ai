@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
 import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
-import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/about/about_page.dart';
 import 'package:lifecoach/ui/chat/ai_chat_page.dart';
@@ -20,7 +19,6 @@ import 'package:models/models.dart';
 Map<String, WidgetBuilder> buildAppRoutes({
   required ChatBloc chatBloc,
   required GoalsBloc goalsBloc,
-  required LocalDataSource localDataSource,
 }) {
   return <String, WidgetBuilder>{
     AppRoute.home.path: (BuildContext _) => const HomePage(),
