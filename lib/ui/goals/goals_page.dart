@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
 import 'package:lifecoach/domain_services/goals_repository.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/resend/feedback_email_remote_data_source.dart';
 import 'package:lifecoach/ui/goals/add_edit_goal_dialog.dart';
 import 'package:lifecoach/ui/goals/goal_widget.dart';
 import 'package:lifecoach/ui/goals/goals_app_bar.dart';
@@ -27,9 +28,11 @@ class GoalsPage extends StatefulWidget {
   static Route<void> route(AuthenticationBloc authenticationBloc) =>
       MaterialPageRoute<void>(
         builder: (_) => BlocProvider<GoalsBloc>(
-          create: (_) =>
-              GoalsBloc(GetIt.I.get<GoalsRepository>(), authenticationBloc)
-                ..add(const LoadGoals()),
+          create: (_) => GoalsBloc(
+            GetIt.I.get<GoalsRepository>(),
+            authenticationBloc,
+            GetIt.I.get<FeedbackEmailRemoteDataSource>(),
+          )..add(const LoadGoals()),
           child: const GoalsPage(),
         ),
       );

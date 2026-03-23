@@ -13,6 +13,7 @@ import 'package:lifecoach/domain_services/chat_repository.dart';
 import 'package:lifecoach/domain_services/goals_repository.dart';
 import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/resend/feedback_email_remote_data_source.dart';
 import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart';
 import 'package:lifecoach/infrastructure/services/theme_service.dart';
 import 'package:lifecoach/router/router.dart' as router;
@@ -70,13 +71,19 @@ void main() {
     final GoalsRepository goalsRepository = GoalsRepositoryImpl(
       RetrofitClient(Dio()),
     );
+    const FeedbackEmailRemoteDataSource feedbackEmailRemoteDataSource =
+        FeedbackEmailRemoteDataSource();
 
     final AuthenticationBloc authenticationBloc = AuthenticationBloc(
       authenticationRepository: authenticationRepository,
       userRepository: userRepository,
     );
 
-    final GoalsBloc goalsBloc = GoalsBloc(goalsRepository, authenticationBloc);
+    final GoalsBloc goalsBloc = GoalsBloc(
+      goalsRepository,
+      authenticationBloc,
+      feedbackEmailRemoteDataSource,
+    );
 
     final ChatBloc chatBloc = ChatBloc(
       chatRepository,

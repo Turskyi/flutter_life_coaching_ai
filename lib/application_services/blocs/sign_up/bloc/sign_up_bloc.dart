@@ -35,6 +35,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<ResendCode>(_onResendCode);
   }
 
+  static const String _invalidCodeErrorMessage = 'Invalid code';
+
   final AuthenticationRepository _authenticationRepository;
 
   void _onEmailChanged(SignUpEmailChanged event, Emitter<SignUpState> emit) {
@@ -169,29 +171,39 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     CodeSubmitted event,
     Emitter<SignUpState> emit,
   ) async {
+    // Keep this as a guard clause: when the form is invalid we exit quietly,
+    // and avoid an `else` branch to keep the happy path flat and readable.
     if (state.isValid) {
-      emit(
-        SignUpProgressState(
-          email: state.email,
-          password: state.password,
-          isValid: state.isValid,
-          code: state.code,
-          status: FormzSubmissionStatus.inProgress,
-        ),
-      );
-      try {
-        final String code = state.code.value;
+      final String code = state.code.value.trim();
 
-        if (code.isNotEmpty) {
+      if (code.isEmpty) {
+        emit(
+          SignUpErrorState(
+            status: FormzSubmissionStatus.failure,
+            email: state.email,
+            password: state.password,
+            isValid: false,
+            errorMessage: _invalidCodeErrorMessage,
+            code: const Code.pure(),
+          ),
+        );
+      } else {
+        emit(
+          SignUpProgressState(
+            email: state.email,
+            password: state.password,
+            isValid: state.isValid,
+            code: state.code,
+            status: FormzSubmissionStatus.inProgress,
+          ),
+        );
+        try {
           await _authenticationRepository.verify(code);
-        } else {
-          // TODO: find a better way to handle this case.
-          debugPrint('Code is empty in `_onCodeSubmitted` of $runtimeType');
-        }
 
-        emit(state.copyWith(status: FormzSubmissionStatus.success));
-      } catch (e) {
-        _handleError(error: e, emitter: emit);
+          emit(state.copyWith(status: FormzSubmissionStatus.success));
+        } catch (e) {
+          _handleError(error: e, emitter: emit);
+        }
       }
     }
   }
@@ -217,6 +229,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           state.copyWith(
             status: FormzSubmissionStatus.success,
             code: const Code.pure(),
+            isValid: false,
           ),
         );
       } catch (e) {

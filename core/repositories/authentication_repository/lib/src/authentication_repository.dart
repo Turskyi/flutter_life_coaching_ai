@@ -107,16 +107,17 @@ class AuthenticationRepository {
     final String signUpId =
         _preferences.getString(StorageKeys.signUpId.key) ?? '';
 
-    if (signUpId.isNotEmpty) {
+    if (signUpId.isEmpty) {
+      throw StateError(
+        'Cannot send verification code because sign-up session is missing.',
+      );
+    } else {
       await _authInit();
 
       await _auth?.attemptSignUp(
         strategy: clerk.Strategy.resetPasswordEmailCode,
         emailAddress: _email,
       );
-    } else {
-      //TODO:  this should never happen, so better come up with better handling.
-      throw Exception('Signup id is empty');
     }
   }
 
@@ -124,7 +125,11 @@ class AuthenticationRepository {
     final String signUpId =
         _preferences.getString(StorageKeys.signUpId.key) ?? '';
 
-    if (signUpId.isNotEmpty) {
+    if (signUpId.isEmpty) {
+      throw StateError(
+        'Cannot verify sign-up code because sign-up session is missing.',
+      );
+    } else {
       await _authInit();
 
       final clerk.Client? clerkClient = await _auth?.attemptSignUp(
@@ -139,12 +144,10 @@ class AuthenticationRepository {
         _controller.add(AuthenticationStatus.authenticated());
         await _removeSignUpId();
       } else {
-        //TODO: come up with better handling.
-        throw Exception('User id is empty');
+        throw StateError(
+          'Verification completed without a user id from Clerk.',
+        );
       }
-    } else {
-      //TODO:  this should never happen, so better come up with better handling.
-      _controller.add(AuthenticationStatus.unauthenticated());
     }
   }
 

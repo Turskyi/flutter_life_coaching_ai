@@ -91,6 +91,7 @@ test/infrastructure/logging_interceptor_test.mocks.dart
 test/retrofit_client_mock.mocks.dart
 test/retrofit_client_test/retrofit_client_test.mocks.dart
 .firebase
+core/repositories/user_repository/build/
 
 macos/build/Build
 macos/build

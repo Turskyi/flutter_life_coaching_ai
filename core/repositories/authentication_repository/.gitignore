@@ -7,3 +7,4 @@
 pubspec.lock
 .env
 /lib/src/env/env.g.dart
+/build/

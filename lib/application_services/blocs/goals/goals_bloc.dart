@@ -9,11 +9,11 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:lifecoach/domain_services/goals_repository.dart';
+import 'package:lifecoach/infrastructure/data_sources/remote/resend/feedback_email_remote_data_source.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart' as path;
-import 'package:resend/resend.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'goals_event.dart';
@@ -21,8 +21,11 @@ part 'goals_state.dart';
 
 @injectable
 class GoalsBloc extends Bloc<GoalsEvent, GoalsState> {
-  GoalsBloc(this._goalsRepository, this._authenticationBloc)
-    : super(const GoalsInitial()) {
+  GoalsBloc(
+    this._goalsRepository,
+    this._authenticationBloc,
+    this._feedbackEmailRemoteDataSource,
+  ) : super(const GoalsInitial()) {
     on<LoadGoals>(_onLoadGoals);
 
     on<BugReportPressedEvent>(_onBugReportPressedEvent);
@@ -74,6 +77,7 @@ class GoalsBloc extends Bloc<GoalsEvent, GoalsState> {
 
   final GoalsRepository _goalsRepository;
   final AuthenticationBloc _authenticationBloc;
+  final FeedbackEmailRemoteDataSource _feedbackEmailRemoteDataSource;
 
   FutureOr<void> _onLoadGoals(LoadGoals _, Emitter<GoalsState> emit) async {
     // Access the user ID from the AuthenticationBloc's state.
@@ -194,14 +198,10 @@ class GoalsBloc extends Bloc<GoalsEvent, GoalsState> {
           );
 
         if (event.submissionType.isAutomatic) {
-          // TODO: move this thing to "data".
-          final Resend resend = Resend.instance;
-          await resend.sendEmail(
-            from: constants.feedbackEmailSender,
-            to: <String>[constants.supportEmail],
+          await _feedbackEmailRemoteDataSource.sendFeedbackEmail(
             subject:
                 '${translate('feedback.app_feedback')}: ${packageInfo.appName}',
-            text: feedbackBody.toString(),
+            body: feedbackBody.toString(),
           );
         } else if (kIsWeb || Platform.isMacOS) {
           final Uri emailLaunchUri = Uri(
