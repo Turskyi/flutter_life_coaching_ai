@@ -42,7 +42,7 @@ dependencies:
   cookie_jar: ^4.0.9
   dio: ^5.9.2
   dio_cookie_manager: ^3.4.0
-  envied: ^1.3.3
+  envied: ^1.3.4
   equatable: ^2.0.8
   feedback: ^3.2.0
   flutter:
@@ -101,7 +101,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  envied_generator: ^1.3.3
+  envied_generator: ^1.3.4
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
