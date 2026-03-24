@@ -125,6 +125,7 @@
     "invalid_code": "Invalid code",
     "verify_email": "Verify your email",
     "verification_code_instruction": "Enter the verification code sent to your email",
+    "check_spam_folder": "If you do not see the email, please check your spam folder.",
     "did_not_receive_code": "Didn't receive a code?",
     "resend_button": "Resend",
     "failure": "Sign Up Failure",
