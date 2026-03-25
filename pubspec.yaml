@@ -73,9 +73,8 @@ dependencies:
   intl: ^0.20.2
   json_annotation: ^4.11.0
   logger: ^2.7.0
-  # Match the version required by flutter_test.
   meta: any
-  mockito: ^5.6.3
+  mockito: ^5.6.4
   mocktail: ^1.0.4
   models:
     path: core/models
