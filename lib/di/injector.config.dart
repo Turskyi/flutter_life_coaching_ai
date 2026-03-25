@@ -44,6 +44,8 @@ import 'package:lifecoach/domain_services/goals_repository.dart' as _i109;
 import 'package:lifecoach/domain_services/settings_repository.dart' as _i912;
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart'
     as _i107;
+import 'package:lifecoach/infrastructure/data_sources/remote/resend/feedback_email_remote_data_source.dart'
+    as _i898;
 import 'package:lifecoach/infrastructure/data_sources/remote/rest/interceptors/logging_interceptor.dart'
     as _i195;
 import 'package:lifecoach/infrastructure/data_sources/remote/rest/retrofit_client/retrofit_client.dart'
@@ -72,6 +74,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i195.LoggingInterceptor>(
       () => const _i195.LoggingInterceptor(),
+    );
+    gh.lazySingleton<_i898.FeedbackEmailRemoteDataSource>(
+      () => const _i898.FeedbackEmailRemoteDataSource(),
     );
     gh.factory<_i912.SettingsRepository>(
       () => _i767.SettingsRepositoryImpl(gh<_i460.SharedPreferences>()),
@@ -132,6 +137,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i989.GoalsBloc(
         gh<_i109.GoalsRepository>(),
         gh<_i73.AuthenticationBloc>(),
+        gh<_i898.FeedbackEmailRemoteDataSource>(),
       ),
     );
     gh.factory<_i489.ChatBloc>(

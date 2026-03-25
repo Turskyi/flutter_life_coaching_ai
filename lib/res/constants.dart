@@ -1,8 +1,9 @@
-const String domain = 'lifecoaching-ai.com';
-const String privacyEmail = 'privacy@$domain';
-const String website = 'https://$domain';
+const String kDomain = 'lifecoaching-ai.com';
+const String privacyEmail = 'privacy@$kDomain';
+const String website = 'https://$kDomain';
 const String baseUrl = '$website/api/';
-const String supportEmail = 'support@$domain';
+const String supportEmail = 'support@$kDomain';
+const String kResendEmailDomain = kDomain;
 const String appName = 'Life-Coaching AI';
 const String authServiceLink = 'https://clerk.com';
 const String authServiceName = 'Clerk';
@@ -19,11 +20,10 @@ const String ratingProperty = 'rating';
 const String feedbackTextProperty = 'feedback_text';
 const String feedbackTypeProperty = 'feedback_type';
 const String screenSizeProperty = 'screenSize';
-// Expires Mar 13, 2026.
-const String resendEmailDomain = 'kima.website';
+
 const String doNotReplySenderName = 'Do Not Reply';
 const String feedbackEmailSender =
-    '$doNotReplySenderName $appName <no-reply@$resendEmailDomain>';
+    '$doNotReplySenderName $appName <no-reply@$kResendEmailDomain>';
 const String mailToScheme = 'mailto';
 const String subjectParameter = 'subject';
 const String bodyParameter = 'body';

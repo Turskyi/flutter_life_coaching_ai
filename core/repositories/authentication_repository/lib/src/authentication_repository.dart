@@ -55,22 +55,21 @@ class AuthenticationRepository {
   Future<void> signUp({required String email, required String password}) async {
     await _authInit();
 
-    final clerk.Client? signUpResponse = await _auth?.attemptSignUp(
-      strategy: clerk.Strategy.password,
+    await _auth?.attemptSignUp(
+      strategy: clerk.Strategy.emailCode,
       emailAddress: email,
       password: password,
       passwordConfirmation: password,
     );
 
-    final String? signUpId = signUpResponse?.id;
+    final String? signUpId = _auth?.signUp?.id;
 
     if (signUpId?.isNotEmpty == true) {
       await _saveSignUpId(signUpId ?? '');
+      await _saveEmail(email);
 
       _controller.add(AuthenticationStatus.code(email));
     }
-
-    await _saveEmail(email);
   }
 
   Future<void> forgotPassword(String email) async {
@@ -107,16 +106,14 @@ class AuthenticationRepository {
     final String signUpId =
         _preferences.getString(StorageKeys.signUpId.key) ?? '';
 
-    if (signUpId.isNotEmpty) {
-      await _authInit();
-
-      await _auth?.attemptSignUp(
-        strategy: clerk.Strategy.resetPasswordEmailCode,
-        emailAddress: _email,
+    if (signUpId.isEmpty) {
+      throw StateError(
+        'Cannot send verification code because sign-up session is missing.',
       );
     } else {
-      //TODO:  this should never happen, so better come up with better handling.
-      throw Exception('Signup id is empty');
+      await _authInit();
+
+      await _auth?.attemptSignUp(strategy: clerk.Strategy.emailCode);
     }
   }
 
@@ -124,7 +121,11 @@ class AuthenticationRepository {
     final String signUpId =
         _preferences.getString(StorageKeys.signUpId.key) ?? '';
 
-    if (signUpId.isNotEmpty) {
+    if (signUpId.isEmpty) {
+      throw StateError(
+        'Cannot verify sign-up code because sign-up session is missing.',
+      );
+    } else {
       await _authInit();
 
       final clerk.Client? clerkClient = await _auth?.attemptSignUp(
@@ -139,12 +140,10 @@ class AuthenticationRepository {
         _controller.add(AuthenticationStatus.authenticated());
         await _removeSignUpId();
       } else {
-        //TODO: come up with better handling.
-        throw Exception('User id is empty');
+        throw StateError(
+          'Verification completed without a user id from Clerk.',
+        );
       }
-    } else {
-      //TODO:  this should never happen, so better come up with better handling.
-      _controller.add(AuthenticationStatus.unauthenticated());
     }
   }
 
@@ -185,8 +184,6 @@ class AuthenticationRepository {
     return _preferences.setString(StorageKeys.email.key, email);
   }
 
-  String get _email => _preferences.getString(StorageKeys.email.key) ?? '';
-
   Future<bool> _removeToken() => _preferences.remove(StorageKeys.authToken.key);
 
   Future<bool> _removeSignUpId() =>
@@ -201,10 +198,23 @@ class AuthenticationRepository {
     return signOut().then((_) => _restClient.deleteAccount(userId));
   }
 
+  /// Returns `true` only when there is an active Clerk sign-up session that
+  /// matches the sign-up id persisted in local storage.
+  ///
+  /// The stored id is written after a successful [signUp] call reaches the
+  /// verification stage. It may remain in local storage between app launches,
+  /// so this method also requires the current in-memory Clerk [_auth] instance
+  /// to expose the same active `signUp.id`.
+  ///
+  /// This means `canSendCode()` can legitimately return `true` during the same
+  /// live sign-up flow, but stale ids from older runs should be filtered out by
+  /// [_clearStaleSignUpId] during [_authInit].
   bool canSendCode() {
     final String signUpId =
         _preferences.getString(StorageKeys.signUpId.key) ?? '';
-    return signUpId.isNotEmpty;
+    final String activeSignUpId = _auth?.signUp?.id ?? '';
+
+    return signUpId.isNotEmpty && signUpId == activeSignUpId;
   }
 
   Future<void> _authInit() async {
@@ -217,6 +227,32 @@ class AuthenticationRepository {
       );
 
       await _auth?.initialize();
+      await _clearStaleSignUpId();
+    }
+  }
+
+  /// Removes a locally persisted sign-up id when it no longer matches the
+  /// active Clerk sign-up session after authentication initialization.
+  ///
+  /// This runs only during [_authInit], not on every [canSendCode] call. Its
+  /// purpose is to reconcile leftover local state from previous app runs with
+  /// Clerk's current in-memory session state.
+  ///
+  /// If a user is in an active sign-up flow, the stored id and Clerk's current
+  /// `signUp.id` should match and the value is kept. If the stored id belongs
+  /// to an older abandoned flow, it is removed.
+  Future<void> _clearStaleSignUpId() async {
+    final String storedSignUpId =
+        _preferences.getString(StorageKeys.signUpId.key) ?? '';
+
+    if (storedSignUpId.isEmpty) {
+      return;
+    }
+
+    final String activeSignUpId = _auth?.signUp?.id ?? '';
+
+    if (activeSignUpId != storedSignUpId) {
+      await _removeSignUpId();
     }
   }
 }

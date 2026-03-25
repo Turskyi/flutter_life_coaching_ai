@@ -42,6 +42,15 @@ class CodeForm extends StatelessWidget {
                   style: TextStyle(fontSize: titleFontSize),
                 ),
                 const SizedBox(height: 8),
+                Text(
+                  translate('sign_up.check_spam_folder'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: textTheme.titleSmall?.fontSize,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -45,7 +45,7 @@ void main() {
       expect(response.token, '');
       verifyNever(
         mockDio.post(
-          'https://clerk.${constants.domain}/v1/client/sign_ins?_clerk_js_version=5.14.0',
+          'https://clerk.${constants.kDomain}/v1/client/sign_ins?_clerk_js_version=5.14.0',
           data: <String, String>{
             'identifier': 'identifier',
             'password': 'password',
@@ -86,7 +86,7 @@ void main() {
 
       verifyNever(
         mockDio.get(
-          'https://clerk.${constants.domain}/v1/environment?_clerk_js_version=5.14.0',
+          'https://clerk.${constants.kDomain}/v1/environment?_clerk_js_version=5.14.0',
         ),
       ).called(0);
     });

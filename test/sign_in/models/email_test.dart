@@ -3,7 +3,7 @@ import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:models/models.dart';
 
 void main() {
-  const String emailString = 'test@${constants.domain}';
+  const String emailString = 'test@${constants.kDomain}';
   group('Email', () {
     group('constructors', () {
       test('pure creates correct instance', () {

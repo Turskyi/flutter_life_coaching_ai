@@ -31,7 +31,7 @@ void main() {
     testWidgets('adds SignInEmailChanged to SignInBloc when email is updated', (
       WidgetTester tester,
     ) async {
-      const String email = 'test@${constants.domain}';
+      const String email = 'test@${constants.kDomain}';
       when(() => loginBloc.state).thenReturn(const SignInState());
       await tester.pumpWidget(
         LocalizedApp(
