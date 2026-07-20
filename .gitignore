@@ -95,3 +95,4 @@ core/repositories/user_repository/build/
 
 macos/build/Build
 macos/build
+.artifacts

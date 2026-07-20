@@ -19,3 +19,5 @@ key.properties
 /key.properties
 /app/.cxx/
 /app/.cxx/Debug/
+/build/
+/*/build/

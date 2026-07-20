@@ -49,10 +49,7 @@ def signingKeyReleaseKeyPassword = keyProperties.getProperty('production.SIGNING
 android {
     namespace = rootProject.applicationId
     compileSdk = flutter.compileSdkVersion
-    //TODO: change back to dynamic "flutter.ndkVersion" version, when the
-    // error "One or more plugins require a higher Android NDK version." is
-    // gone.
-    ndkVersion = "27.0.12077973"
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
@@ -72,6 +69,10 @@ android {
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     signingConfigs {
@@ -143,7 +144,7 @@ dependencies {
 // Does not compile with 23.0.0.
     //noinspection GradleDependency
     implementation 'com.google.firebase:firebase-analytics:21.5.0'
-    implementation 'com.google.firebase:firebase-crashlytics:20.0.4'
+    implementation 'com.google.firebase:firebase-crashlytics:20.1.0'
 }
 
 subprojects {
