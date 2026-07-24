@@ -199,6 +199,17 @@
     "view_goals": "View Goals",
     "or": "or"
   },
+  "expectations": {
+    "title": "What to Expect",
+    "introduction": "Life-Coaching AI is designed differently from a typical AI assistant. Instead of telling you what to do, it uses professional life-coaching techniques to help you discover your own answers.",
+    "bullet1": "It will often respond with thoughtful questions instead of direct advice.",
+    "bullet2": "The goal is to help you reflect, clarify your thinking, and make your own decisions.",
+    "bullet3": "Sometimes it will explain coaching concepts before continuing the conversation.",
+    "bullet4": "There are no \"correct\" answers - the conversation adapts to you.",
+    "bullet5": "The more open and specific you are, the more helpful the coaching becomes.",
+    "note": "Professional life coaches spend years learning how to ask the right questions. This app applies those same coaching principles using AI.",
+    "button": "Start Coaching"
+  },
   "privacy": {
     "title": "Privacy Policy",
     "title_for_app": "Privacy Policy For \"{appName}\" App",

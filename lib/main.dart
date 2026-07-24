@@ -87,6 +87,7 @@ Future<void> main() async {
   final Map<String, WidgetBuilder> routeMap = router.buildAppRoutes(
     chatBloc: chatBloc,
     goalsBloc: goalsBloc,
+    settingsRepository: settingsRepository,
   );
 
   runApp(
@@ -108,6 +109,7 @@ Future<void> main() async {
           authenticationRepository: authenticationRepository,
           authenticationBloc: authenticationBloc,
           localDataSource: localDataSource,
+          settingsRepository: settingsRepository,
           routeMap: routeMap,
           themeService: themeService,
         ),

@@ -27,4 +27,14 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Future<bool> saveLanguageIsoCode(String languageIsoCode) =>
       _preferences.setString(StorageKeys.languageIsoCode.key, languageIsoCode);
+
+  @override
+  bool isExpectationsShown() {
+    return _preferences.getBool(StorageKeys.expectationsShown.key) ?? false;
+  }
+
+  @override
+  Future<void> setExpectationsShown({required bool shown}) {
+    return _preferences.setBool(StorageKeys.expectationsShown.key, shown);
+  }
 }

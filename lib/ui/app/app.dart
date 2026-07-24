@@ -2,6 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/infrastructure/services/theme_service.dart';
 import 'package:lifecoach/ui/app/app_view.dart';
@@ -25,6 +26,7 @@ class App extends StatefulWidget {
     required this.authenticationRepository,
     required this.authenticationBloc,
     required this.localDataSource,
+    required this.settingsRepository,
     required this.routeMap,
     required this.themeService,
     super.key,
@@ -33,6 +35,7 @@ class App extends StatefulWidget {
   final AuthenticationRepository authenticationRepository;
   final AuthenticationBloc authenticationBloc;
   final LocalDataSource localDataSource;
+  final SettingsRepository settingsRepository;
   final Map<String, WidgetBuilder> routeMap;
   final ThemeService themeService;
 
@@ -51,6 +54,7 @@ class _AppState extends State<App> {
         child: AppView(
           authenticationBloc: widget.authenticationBloc,
           localDataSource: widget.localDataSource,
+          settingsRepository: widget.settingsRepository,
           routeMap: widget.routeMap,
           themeService: widget.themeService,
         ),

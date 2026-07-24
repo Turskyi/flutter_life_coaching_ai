@@ -1,16 +1,24 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/res/constants.dart' as constants;
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/common/anonymous_ai_chat_button.dart';
 
 @immutable
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({required this.settingsRepository, super.key});
 
-  static Route<void> route() =>
-      MaterialPageRoute<void>(builder: (_) => const HomePage());
+  final SettingsRepository settingsRepository;
+
+  static Route<void> route(SettingsRepository settingsRepository) {
+    return MaterialPageRoute<void>(
+      builder: (BuildContext _) {
+        return HomePage(settingsRepository: settingsRepository);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +104,9 @@ class HomePage extends StatelessWidget {
                   width: 208,
                   height: 60,
                   child: ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, AppRoute.signIn.path),
+                    onPressed: () {
+                      _onAction(context, AppRoute.signIn.path);
+                    },
                     child: Text(translate('home.view_goals')),
                   ),
                 ),
@@ -110,6 +119,7 @@ class HomePage extends StatelessWidget {
                       context,
                     ).delegate.currentLocale.languageCode,
                   ),
+                  onPressed: () => _onAction(context, AppRoute.chat.path),
                 ),
               ],
             ),
@@ -133,6 +143,18 @@ class HomePage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _onAction(BuildContext context, String nextRoute) {
+    if (settingsRepository.isExpectationsShown()) {
+      Navigator.pushNamed(context, nextRoute);
+    } else {
+      Navigator.pushNamed(
+        context,
+        AppRoute.expectations.path,
+        arguments: nextRoute,
+      );
+    }
   }
 
   String _getLanguageName(Locale locale) {

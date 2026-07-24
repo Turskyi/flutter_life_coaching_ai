@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/env/env.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
 import 'package:lifecoach/infrastructure/services/theme_service.dart';
@@ -30,6 +31,7 @@ import 'package:resend/resend.dart';
 class AppView extends StatefulWidget {
   const AppView({
     required this.localDataSource,
+    required this.settingsRepository,
     required this.authenticationBloc,
     required this.routeMap,
     required this.themeService,
@@ -38,6 +40,7 @@ class AppView extends StatefulWidget {
 
   final AuthenticationBloc authenticationBloc;
   final LocalDataSource localDataSource;
+  final SettingsRepository settingsRepository;
   final Map<String, WidgetBuilder> routeMap;
   final ThemeService themeService;
 
@@ -147,7 +150,7 @@ class _AppViewState extends State<AppView> {
 
         if (!isPublicRoute) {
           _navigator?.pushAndRemoveUntil<void>(
-            HomePage.route(),
+            HomePage.route(widget.settingsRepository),
             (Route<void> _) => false,
           );
         }
