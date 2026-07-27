@@ -40,8 +40,8 @@ dependencies:
   clerk_auth: ^0.0.18-beta
   collection: ^1.19.1
   cookie_jar: ^4.0.9
-  dio: ^5.10.0
-  dio_cookie_manager: ^3.4.0
+  dio: ^5.11.0
+  dio_cookie_manager: ^3.5.0
   envied: ^1.3.8
   equatable: ^2.1.0
   feedback: ^3.2.0
