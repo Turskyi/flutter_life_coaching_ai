@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:lifecoach/router/app_route.dart';
 
 class AnonymousAiChatButton extends StatelessWidget {
-  const AnonymousAiChatButton({super.key});
+  const AnonymousAiChatButton({required this.onPressed, super.key});
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class AnonymousAiChatButton extends StatelessWidget {
       width: 208,
       height: 60,
       child: ElevatedButton(
-        onPressed: () => Navigator.pushNamed(context, AppRoute.chat.path),
+        onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

@@ -9,7 +9,8 @@ enum AppRoute {
   about('/about'),
   support('/support'),
   signUp('/sign-up'),
-  instruction('/instruction');
+  instruction('/instruction'),
+  expectations('/expectations');
 
   const AppRoute(this.path);
 

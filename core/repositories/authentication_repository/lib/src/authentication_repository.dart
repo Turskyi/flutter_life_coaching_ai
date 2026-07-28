@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:authentication_repository/src/authentication_status.dart';
 import 'package:authentication_repository/src/env/env.dart';
+import 'package:authentication_repository/src/shared_preferences_persistor.dart';
 import 'package:clerk_auth/clerk_auth.dart' as clerk;
-import 'package:clerk_auth/clerk_auth.dart';
 import 'package:models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -220,9 +220,9 @@ class AuthenticationRepository {
   Future<void> _authInit() async {
     if (_auth == null) {
       _auth = clerk.Auth(
-        config: const clerk.AuthConfig(
+        config: clerk.AuthConfig(
           publishableKey: Env.clerkPublishableKey,
-          persistor: Persistor.none,
+          persistor: SharedPreferencesPersistor(_preferences),
         ),
       );
 

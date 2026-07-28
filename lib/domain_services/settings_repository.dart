@@ -6,4 +6,8 @@ abstract interface class SettingsRepository {
   Language getLanguage();
 
   Future<bool> saveLanguageIsoCode(String languageIsoCode);
+
+  bool isExpectationsShown();
+
+  Future<void> setExpectationsShown({required bool shown});
 }

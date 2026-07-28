@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
 import 'package:lifecoach/application_services/blocs/goals/goals_bloc.dart';
+import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/router/app_route.dart';
 import 'package:lifecoach/ui/about/about_page.dart';
 import 'package:lifecoach/ui/chat/ai_chat_page.dart';
+import 'package:lifecoach/ui/expectations/expectations_page.dart';
 import 'package:lifecoach/ui/goals/goals_page.dart';
 import 'package:lifecoach/ui/home/home_page.dart';
 import 'package:lifecoach/ui/instruction/instruction_page.dart';
@@ -19,9 +21,12 @@ import 'package:models/models.dart';
 Map<String, WidgetBuilder> buildAppRoutes({
   required ChatBloc chatBloc,
   required GoalsBloc goalsBloc,
+  required SettingsRepository settingsRepository,
 }) {
   return <String, WidgetBuilder>{
-    AppRoute.home.path: (BuildContext _) => const HomePage(),
+    AppRoute.home.path: (BuildContext _) {
+      return HomePage(settingsRepository: settingsRepository);
+    },
     AppRoute.chat.path: (BuildContext _) => BlocProvider<ChatBloc>.value(
       value: chatBloc..add(const LoadingInitialChatStateEvent()),
       child: const BlocListener<ChatBloc, ChatState>(
@@ -44,6 +49,14 @@ Map<String, WidgetBuilder> buildAppRoutes({
     AppRoute.about.path: (BuildContext _) => const AboutPage(),
     AppRoute.support.path: (BuildContext _) => const SupportPage(),
     AppRoute.instruction.path: (BuildContext _) => const InstructionPage(),
+    AppRoute.expectations.path: (BuildContext context) {
+      final Object? args = ModalRoute.of(context)?.settings.arguments;
+      final String nextRoute = args is String ? args : AppRoute.home.path;
+      return ExpectationsPage(
+        settingsRepository: settingsRepository,
+        nextRoute: nextRoute,
+      );
+    },
   };
 }
 

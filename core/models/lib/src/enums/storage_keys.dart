@@ -4,7 +4,8 @@ enum StorageKeys {
   userId('user_id'),
   email('email'),
   password('password'),
-  languageIsoCode('language_iso_code');
+  languageIsoCode('language_iso_code'),
+  expectationsShown('expectations_shown');
 
   const StorageKeys(this.key);
 
