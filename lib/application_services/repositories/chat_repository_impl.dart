@@ -74,11 +74,34 @@ class ChatRepositoryImpl implements ChatRepository {
 
   Stream<String> _processResponse(Stream<String> response) {
     return response.transform(const LineSplitter()).map((String line) {
-      // Use a regular expression to match lines that start with an index
-      // and extract the actual content.
+      if (line.startsWith('0:')) {
+        // Content chunk: 0:"..."
+        try {
+          return jsonDecode(line.substring(2)) as String;
+        } catch (_) {
+          return '';
+        }
+      } else if (line.startsWith('2:')) {
+        // Data chunk: 2:[{"model":"..."}]
+        try {
+          final List<dynamic> dataList = jsonDecode(line.substring(2));
+          final dynamic modelData = dataList.firstWhere(
+            (dynamic d) => d is Map && d.containsKey('model'),
+            orElse: () => null,
+          );
+          if (modelData != null) {
+            return '__MODEL__:${modelData['model']}';
+          }
+        } catch (_) {}
+      }
+
+      // Fallback for other formats or legacy
       final RegExp regex = RegExp(r'^\d+:"(.+)"$');
       final RegExpMatch? match = regex.firstMatch(line);
-      return match?.group(1) ?? '';
-    });
+      final String content = match?.group(1) ?? '';
+
+      // Simple unescape if it looks like it was escaped
+      return content.replaceAll(r'\"', '"').replaceAll(r'\n', '\n');
+    }).where((String s) => s.isNotEmpty);
   }
 }

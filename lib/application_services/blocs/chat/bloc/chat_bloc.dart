@@ -150,12 +150,21 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     UpdateAiMessageEvent event,
     Emitter<ChatState> emit,
   ) {
+    String pieceOfMessage = event.pieceOfMessage;
+    String? modelName;
+
+    if (pieceOfMessage.startsWith('__MODEL__:')) {
+      modelName = pieceOfMessage.replaceFirst('__MODEL__:', '');
+      pieceOfMessage = '';
+    }
+
     if (state.messages.isNotEmpty && state.messages.last.isOther) {
       // Copy the last message and update its content.
       final List<Message> updatedMessages = List<Message>.from(state.messages);
       final Message lastMessage = updatedMessages.removeLast();
       final Message updatedLastMessage = lastMessage.copyWith(
-        text: StringBuffer(lastMessage.text.toString() + event.pieceOfMessage),
+        text: StringBuffer(lastMessage.text.toString() + pieceOfMessage),
+        modelName: modelName ?? lastMessage.modelName,
       );
       updatedMessages.add(updatedLastMessage);
 
@@ -172,7 +181,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ..add(
           Message(
             owner: MessageOwner.other,
-            text: StringBuffer(event.pieceOfMessage),
+            text: StringBuffer(pieceOfMessage),
+            modelName: modelName,
           ),
         );
 
