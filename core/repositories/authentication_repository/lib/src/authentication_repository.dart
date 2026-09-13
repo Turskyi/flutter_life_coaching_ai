@@ -36,7 +36,11 @@ class AuthenticationRepository {
     yield* _controller.stream;
   }
 
-  Future<void> signIn({required String email, required String password}) async {
+  Future<void> signIn({
+    required String email,
+    required String password,
+    bool staySignedIn = true,
+  }) async {
     final String trimmedEmail = email.trim();
     await _restClient.signEmail(trimmedEmail);
     final String trimmedPassword = password.trim();
@@ -49,6 +53,7 @@ class AuthenticationRepository {
 
     await _saveToken(loginResponse.token);
     await _saveUserId(loginResponse.userId);
+    await _saveStaySignedIn(staySignedIn);
     _controller.add(AuthenticationStatus.authenticated());
   }
 
@@ -154,6 +159,7 @@ class AuthenticationRepository {
     await _removeToken();
     await _removeEmail();
     await _removeUserId();
+    await _removeStaySignedIn();
     _controller.add(AuthenticationStatus.unauthenticated());
   }
 
@@ -163,9 +169,30 @@ class AuthenticationRepository {
   }
 
   bool _checkInitialAuthenticationStatus() {
+    final bool staySignedIn =
+        _preferences.getBool(StorageKeys.staySignedIn.key) ?? true;
+
+    if (!staySignedIn) {
+      _removeToken();
+      _removeUserId();
+      _removeEmail();
+      _removeStaySignedIn();
+      _clearClerkData();
+      return false;
+    }
+
     final String token = _preferences.getString(StorageKeys.email.key) ?? '';
 
     return token.isNotEmpty;
+  }
+
+  void _clearClerkData() {
+    final Set<String> keys = _preferences.getKeys();
+    for (final String key in keys) {
+      if (key.startsWith('clerk_auth.')) {
+        _preferences.remove(key);
+      }
+    }
   }
 
   Future<bool> _saveToken(String token) {
@@ -184,6 +211,10 @@ class AuthenticationRepository {
     return _preferences.setString(StorageKeys.email.key, email);
   }
 
+  Future<bool> _saveStaySignedIn(bool staySignedIn) {
+    return _preferences.setBool(StorageKeys.staySignedIn.key, staySignedIn);
+  }
+
   Future<bool> _removeToken() => _preferences.remove(StorageKeys.authToken.key);
 
   Future<bool> _removeSignUpId() =>
@@ -192,6 +223,9 @@ class AuthenticationRepository {
   Future<bool> _removeEmail() => _preferences.remove(StorageKeys.email.key);
 
   Future<bool> _removeUserId() => _preferences.remove(StorageKeys.userId.key);
+
+  Future<bool> _removeStaySignedIn() =>
+      _preferences.remove(StorageKeys.staySignedIn.key);
 
   Future<MessageResponse> deleteAccount(String userId) {
     _controller.add(AuthenticationStatus.deleting());

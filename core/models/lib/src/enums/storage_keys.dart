@@ -4,6 +4,7 @@ enum StorageKeys {
   userId('user_id'),
   email('email'),
   password('password'),
+  staySignedIn('stay_signed_in'),
   languageIsoCode('language_iso_code'),
   expectationsShown('expectations_shown');
 

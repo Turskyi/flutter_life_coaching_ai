@@ -26,6 +26,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       super(const SignInState()) {
     on<SignInEmailChanged>(_onEmailChanged);
     on<SignInPasswordChanged>(_onPasswordChanged);
+    on<SignInStaySignedInChanged>(_onStaySignedInChanged);
     on<SignInSubmitted>(_onSubmitted);
     on<ForgotPasswordRequested>(_onForgotPasswordRequested);
     on<ResetPasswordSubmitted>(_onResetPasswordSubmitted);
@@ -65,6 +66,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     );
   }
 
+  void _onStaySignedInChanged(
+    SignInStaySignedInChanged event,
+    Emitter<SignInState> emit,
+  ) {
+    emit(state.copyWith(staySignedIn: event.staySignedIn));
+  }
+
   Future<void> _onSubmitted(
     SignInSubmitted event,
     Emitter<SignInState> emit,
@@ -75,6 +83,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         await _authenticationRepository.signIn(
           email: state.email.value,
           password: state.password.value,
+          staySignedIn: state.staySignedIn,
         );
 
         emit(state.copyWith(status: FormzSubmissionStatus.success));
