@@ -48,12 +48,16 @@ def signingKeyReleaseKeyPassword = keyProperties.getProperty('production.SIGNING
 
 android {
     namespace = rootProject.applicationId
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    kotlinOptions {
+        jvmTarget = "21"
     }
 
     defaultConfig {
@@ -62,7 +66,7 @@ android {
 // For more information, see:
 // https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 37
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
 
@@ -141,10 +145,10 @@ configurations {
 }
 
 dependencies {
-// Does not compile with 23.0.0.
+
     //noinspection GradleDependency
     implementation 'com.google.firebase:firebase-analytics:21.5.0'
-    implementation 'com.google.firebase:firebase-crashlytics:20.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics:20.1.1'
 }
 
 subprojects {
