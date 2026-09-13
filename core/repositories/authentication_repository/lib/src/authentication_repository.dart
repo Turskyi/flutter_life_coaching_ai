@@ -53,6 +53,7 @@ class AuthenticationRepository {
 
     await _saveToken(loginResponse.token);
     await _saveUserId(loginResponse.userId);
+    await _saveEmail(trimmedEmail);
     await _saveStaySignedIn(staySignedIn);
     _controller.add(AuthenticationStatus.authenticated());
   }
@@ -181,7 +182,8 @@ class AuthenticationRepository {
       return false;
     }
 
-    final String token = _preferences.getString(StorageKeys.email.key) ?? '';
+    final String token =
+        _preferences.getString(StorageKeys.authToken.key) ?? '';
 
     return token.isNotEmpty;
   }

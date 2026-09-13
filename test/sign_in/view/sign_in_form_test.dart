@@ -131,33 +131,32 @@ void main() {
       },
     );
 
-    testWidgets(
-      'loading indicator is shown when status is submission success',
-      (WidgetTester tester) async {
-        when(
-          () => loginBloc.state,
-        ).thenReturn(const SignInState(status: FormzSubmissionStatus.success));
-        await tester.pumpWidget(
-          LocalizedApp(
-            localizationDelegate,
-            MaterialApp(
-              home: Scaffold(
-                body: BlocProvider<SignInBloc>.value(
-                  value: loginBloc,
-                  child: const SignInForm(),
-                ),
+    testWidgets('continue button is shown when status is submission success', (
+      WidgetTester tester,
+    ) async {
+      when(
+        () => loginBloc.state,
+      ).thenReturn(const SignInState(status: FormzSubmissionStatus.success));
+      await tester.pumpWidget(
+        LocalizedApp(
+          localizationDelegate,
+          MaterialApp(
+            home: Scaffold(
+              body: BlocProvider<SignInBloc>.value(
+                value: loginBloc,
+                child: const SignInForm(),
               ),
             ),
           ),
-        );
+        ),
+      );
 
-        expect(
-          find.byKey(const Key('signInForm_continue_raisedButton')),
-          findsNothing,
-        );
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
-      },
-    );
+      expect(
+        find.byKey(const Key('signInForm_continue_raisedButton')),
+        findsOneWidget,
+      );
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+    });
 
     testWidgets(
       'continue button is enabled when status is validated and consent given',

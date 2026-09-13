@@ -6,10 +6,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
 import 'package:user_repository/user_repository.dart';
 
-class _MockAuthenticationRepository extends Mock
-    implements AuthenticationRepository {}
-
-class _MockUserRepository extends Mock implements UserRepository {}
+import '../test_mocks/mock_authentication_repository.dart';
+import '../test_mocks/mock_user_repository.dart';
 
 void main() {
   const User user = User('id');
@@ -17,8 +15,8 @@ void main() {
   late UserRepository userRepository;
 
   setUp(() {
-    authenticationRepository = _MockAuthenticationRepository();
-    userRepository = _MockUserRepository();
+    authenticationRepository = MockAuthenticationRepository();
+    userRepository = MockUserRepository();
 
     // Mock the status stream from AuthenticationRepository.
     when(
@@ -79,8 +77,22 @@ void main() {
         build: buildBloc,
         act: (AuthenticationBloc bloc) =>
             bloc.add(const AuthenticationSubscriptionRequested()),
-        expect: () => <AuthenticationState>[
-          const AuthenticationState.authenticated(user),
+        expect: () => <dynamic>[
+          isA<AuthenticationState>()
+              .having(
+                (AuthenticationState s) {
+                  return s.status;
+                },
+                'status',
+                isA<AuthenticatedStatus>(),
+              )
+              .having(
+                (AuthenticationState s) {
+                  return s.user;
+                },
+                'user',
+                user,
+              ),
         ],
       );
 
@@ -98,8 +110,12 @@ void main() {
         build: buildBloc,
         act: (AuthenticationBloc bloc) =>
             bloc.add(const AuthenticationSubscriptionRequested()),
-        expect: () => const <AuthenticationState>[
-          AuthenticationState.unauthenticated(),
+        expect: () => <dynamic>[
+          isA<AuthenticationState>().having(
+            (AuthenticationState s) => s.status,
+            'status',
+            isA<UnauthenticatedStatus>(),
+          ),
         ],
       );
 

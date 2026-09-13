@@ -9,6 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'package:authentication_repository/authentication_repository.dart'
     as _i223;
 import 'package:dio/dio.dart' as _i361;

@@ -89,7 +89,25 @@ class _AppViewState extends State<AppView> {
             builder: (BuildContext _, Widget? child) {
               return BlocListener<AuthenticationBloc, AuthenticationState>(
                 listener: _authenticationBlocStateListener,
-                child: child,
+                child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                  buildWhen:
+                      (
+                        AuthenticationState previous,
+                        AuthenticationState current,
+                      ) {
+                        return previous.status is UnknownAuthenticationStatus &&
+                            current.status is! UnknownAuthenticationStatus;
+                      },
+                  builder: (BuildContext context, AuthenticationState state) {
+                    // Check initial state once status is known
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (state.status is AuthenticatedStatus) {
+                        _authenticationBlocStateListener(context, state);
+                      }
+                    });
+                    return child!;
+                  },
+                ),
               );
             },
             onGenerateRoute: (RouteSettings _) => SplashPage.route(),
