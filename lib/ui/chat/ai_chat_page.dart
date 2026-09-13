@@ -218,7 +218,9 @@ class _AiChatPageState extends State<AiChatPage> {
                     children: <Widget>[
                       IconButton(
                         icon: const Icon(Icons.delete),
-                        onPressed: () => setState(state.messages.clear),
+                        onPressed: state.messages.isEmpty
+                            ? null
+                            : () => setState(state.messages.clear),
                       ),
                       Expanded(
                         child: TextField(

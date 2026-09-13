@@ -105,6 +105,7 @@ void main() {
         App(
           authenticationRepository: authenticationRepository,
           authenticationBloc: authenticationBloc,
+          chatBloc: chatBloc,
           localDataSource: localDataSource,
           settingsRepository: settingsRepository,
           routeMap: routeMap,

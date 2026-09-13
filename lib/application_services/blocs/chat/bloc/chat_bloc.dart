@@ -48,6 +48,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatErrorEvent>(_onChatError);
 
     on<FeedbackErrorEvent>(_onFeedbackError);
+
+    on<ClearChatHistoryEvent>(_onClearChatHistory);
   }
 
   final ChatRepository _chatRepository;
@@ -150,12 +152,21 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     UpdateAiMessageEvent event,
     Emitter<ChatState> emit,
   ) {
+    String pieceOfMessage = event.pieceOfMessage;
+    String? modelName;
+
+    if (pieceOfMessage.startsWith('__MODEL__:')) {
+      modelName = pieceOfMessage.replaceFirst('__MODEL__:', '');
+      pieceOfMessage = '';
+    }
+
     if (state.messages.isNotEmpty && state.messages.last.isOther) {
       // Copy the last message and update its content.
       final List<Message> updatedMessages = List<Message>.from(state.messages);
       final Message lastMessage = updatedMessages.removeLast();
       final Message updatedLastMessage = lastMessage.copyWith(
-        text: StringBuffer(lastMessage.text.toString() + event.pieceOfMessage),
+        text: StringBuffer(lastMessage.text.toString() + pieceOfMessage),
+        modelName: modelName ?? lastMessage.modelName,
       );
       updatedMessages.add(updatedLastMessage);
 
@@ -172,7 +183,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ..add(
           Message(
             owner: MessageOwner.other,
-            text: StringBuffer(event.pieceOfMessage),
+            text: StringBuffer(pieceOfMessage),
+            modelName: modelName,
           ),
         );
 
@@ -386,6 +398,19 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         errorMessage: event.error,
         messages: state.messages,
         language: state.language,
+        user: _getUser(),
+      ),
+    );
+  }
+
+  FutureOr<void> _onClearChatHistory(
+    ClearChatHistoryEvent event,
+    Emitter<ChatState> emit,
+  ) {
+    emit(
+      ChatInitial(
+        language: _settingsRepository.getLanguage(),
+        messages: const <Message>[],
         user: _getUser(),
       ),
     );

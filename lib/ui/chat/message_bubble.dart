@@ -36,7 +36,23 @@ class MessageBubble extends StatelessWidget {
                 style: TextStyle(fontSize: 18.0, color: colorScheme.onPrimary),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: MarkdownText(text: '${message.text}'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      MarkdownText(text: '${message.text}'),
+                      if (message.modelName != null) ...<Widget>[
+                        const SizedBox(height: 4),
+                        Text(
+                          'via ${message.modelName}',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: colorScheme.onPrimary.withOpacity(0.5),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
               ),
             ),

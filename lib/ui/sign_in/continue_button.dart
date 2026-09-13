@@ -14,11 +14,11 @@ class ContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isInProgressOrSuccess = context.select(
-      (SignInBloc bloc) => bloc.state.status.isInProgressOrSuccess,
+    final FormzSubmissionStatus status = context.select(
+      (SignInBloc bloc) => bloc.state.status,
     );
 
-    if (isInProgressOrSuccess) return const CircularProgressIndicator();
+    if (status.isInProgress) return const CircularProgressIndicator();
 
     final bool isValid = context.select(
       (SignInBloc bloc) => bloc.state.isValid,

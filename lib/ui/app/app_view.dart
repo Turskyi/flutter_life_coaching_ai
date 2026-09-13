@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lifecoach/application_services/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:lifecoach/application_services/blocs/chat/bloc/chat_bloc.dart';
 import 'package:lifecoach/domain_services/settings_repository.dart';
 import 'package:lifecoach/env/env.dart';
 import 'package:lifecoach/infrastructure/data_sources/local/local_data_source.dart';
@@ -33,12 +34,14 @@ class AppView extends StatefulWidget {
     required this.localDataSource,
     required this.settingsRepository,
     required this.authenticationBloc,
+    required this.chatBloc,
     required this.routeMap,
     required this.themeService,
     super.key,
   });
 
   final AuthenticationBloc authenticationBloc;
+  final ChatBloc chatBloc;
   final LocalDataSource localDataSource;
   final SettingsRepository settingsRepository;
   final Map<String, WidgetBuilder> routeMap;
@@ -86,7 +89,25 @@ class _AppViewState extends State<AppView> {
             builder: (BuildContext _, Widget? child) {
               return BlocListener<AuthenticationBloc, AuthenticationState>(
                 listener: _authenticationBlocStateListener,
-                child: child,
+                child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                  buildWhen:
+                      (
+                        AuthenticationState previous,
+                        AuthenticationState current,
+                      ) {
+                        return previous.status is UnknownAuthenticationStatus &&
+                            current.status is! UnknownAuthenticationStatus;
+                      },
+                  builder: (BuildContext context, AuthenticationState state) {
+                    // Check initial state once status is known
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (state.status is AuthenticatedStatus) {
+                        _authenticationBlocStateListener(context, state);
+                      }
+                    });
+                    return child!;
+                  },
+                ),
               );
             },
             onGenerateRoute: (RouteSettings _) => SplashPage.route(),
@@ -135,6 +156,7 @@ class _AppViewState extends State<AppView> {
           );
         }
       case UnauthenticatedStatus():
+        widget.chatBloc.add(const ClearChatHistoryEvent());
         final List<String> publicRoutes = <String>[
           AppRoute.home.path,
           AppRoute.about.path,

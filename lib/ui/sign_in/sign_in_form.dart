@@ -61,6 +61,20 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                   const Padding(padding: EdgeInsets.all(12)),
                   CheckboxListTile(
+                    key: const Key('signInForm_staySignedIn_checkbox'),
+                    title: Text(
+                      translate('sign_in.stay_signed_in'),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    value: state.staySignedIn,
+                    onChanged: (bool? value) {
+                      context.read<SignInBloc>().add(
+                        SignInStaySignedInChanged(value ?? false),
+                      );
+                    },
+                  ),
+                  CheckboxListTile(
+                    key: const Key('signInForm_consent_checkbox'),
                     title: RichText(
                       text: TextSpan(
                         text: translate('sign_in.consent_message'),

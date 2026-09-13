@@ -75,3 +75,7 @@ final class FeedbackErrorEvent extends ChatEvent {
 
   final String error;
 }
+
+final class ClearChatHistoryEvent extends ChatEvent {
+  const ClearChatHistoryEvent();
+}

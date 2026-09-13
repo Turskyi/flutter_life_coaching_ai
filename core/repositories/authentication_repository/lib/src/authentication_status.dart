@@ -23,7 +23,19 @@ class UnknownAuthenticationStatus extends AuthenticationStatus {
 }
 
 class AuthenticatedStatus extends AuthenticationStatus {
-  const AuthenticatedStatus();
+  AuthenticatedStatus() : timestamp = DateTime.now();
+
+  final DateTime timestamp;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AuthenticatedStatus &&
+          runtimeType == other.runtimeType &&
+          timestamp == other.timestamp;
+
+  @override
+  int get hashCode => timestamp.hashCode;
 }
 
 class DeletingAuthenticatedUserStatus extends AuthenticationStatus {

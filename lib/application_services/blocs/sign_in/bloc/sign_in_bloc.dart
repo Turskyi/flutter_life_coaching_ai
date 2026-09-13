@@ -26,6 +26,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       super(const SignInState()) {
     on<SignInEmailChanged>(_onEmailChanged);
     on<SignInPasswordChanged>(_onPasswordChanged);
+    on<SignInStaySignedInChanged>(_onStaySignedInChanged);
     on<SignInSubmitted>(_onSubmitted);
     on<ForgotPasswordRequested>(_onForgotPasswordRequested);
     on<ResetPasswordSubmitted>(_onResetPasswordSubmitted);
@@ -36,9 +37,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   void _onEmailChanged(SignInEmailChanged event, Emitter<SignInState> emit) {
     final EmailAddress email = EmailAddress.dirty(event.email);
     emit(
-      SignInState(
+      state.copyWith(
         email: email,
-        password: state.password,
         isValid: Formz.validate(<FormzInput<String, ValidationError>>[
           state.password,
           email,
@@ -54,8 +54,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     final Password password = Password.dirty(event.password);
 
     emit(
-      SignInState(
-        email: state.email,
+      state.copyWith(
         password: password,
         isValid: Formz.validate(<FormzInput<String, ValidationError>>[
           password,
@@ -63,6 +62,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         ]),
       ),
     );
+  }
+
+  void _onStaySignedInChanged(
+    SignInStaySignedInChanged event,
+    Emitter<SignInState> emit,
+  ) {
+    emit(state.copyWith(staySignedIn: event.staySignedIn));
   }
 
   Future<void> _onSubmitted(
@@ -75,6 +81,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         await _authenticationRepository.signIn(
           email: state.email.value,
           password: state.password.value,
+          staySignedIn: state.staySignedIn,
         );
 
         emit(state.copyWith(status: FormzSubmissionStatus.success));
@@ -121,6 +128,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
               email: state.email,
               password: state.password,
               isValid: state.isValid,
+              staySignedIn: state.staySignedIn,
               errorMessage: errorMessage,
             ),
           );
