@@ -190,7 +190,7 @@ void main() {
         expect(buttonBefore.enabled, isFalse);
 
         // Simulate the user tapping the checkbox
-        await tester.tap(find.byType(CheckboxListTile));
+        await tester.tap(find.byKey(const Key('signInForm_consent_checkbox')));
         await tester
             .pumpAndSettle(); // Let the widget rebuild after interaction
 
@@ -227,7 +227,7 @@ void main() {
         );
 
         // Tap the checkbox to give consent
-        await tester.tap(find.byType(CheckboxListTile));
+        await tester.tap(find.byKey(const Key('signInForm_consent_checkbox')));
         await tester
             .pumpAndSettle(); // Let the widget rebuild after interaction.
 

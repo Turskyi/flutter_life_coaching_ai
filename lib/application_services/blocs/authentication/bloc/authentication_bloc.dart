@@ -62,7 +62,6 @@ class AuthenticationBloc
     AuthenticationSubscriptionRequested event,
     Emitter<AuthenticationState> emit,
   ) {
-
     return emit.onEach(
       _authenticationRepository.status,
       onData: (AuthenticationStatus status) async {

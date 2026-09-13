@@ -48,6 +48,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<ChatErrorEvent>(_onChatError);
 
     on<FeedbackErrorEvent>(_onFeedbackError);
+
+    on<ClearChatHistoryEvent>(_onClearChatHistory);
   }
 
   final ChatRepository _chatRepository;
@@ -396,6 +398,19 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         errorMessage: event.error,
         messages: state.messages,
         language: state.language,
+        user: _getUser(),
+      ),
+    );
+  }
+
+  FutureOr<void> _onClearChatHistory(
+    ClearChatHistoryEvent event,
+    Emitter<ChatState> emit,
+  ) {
+    emit(
+      ChatInitial(
+        language: _settingsRepository.getLanguage(),
+        messages: const <Message>[],
         user: _getUser(),
       ),
     );

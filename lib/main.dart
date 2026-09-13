@@ -108,6 +108,7 @@ Future<void> main() async {
         child: App(
           authenticationRepository: authenticationRepository,
           authenticationBloc: authenticationBloc,
+          chatBloc: chatBloc,
           localDataSource: localDataSource,
           settingsRepository: settingsRepository,
           routeMap: routeMap,
