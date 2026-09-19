@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   collection: ^1.19.1
-  equatable: ^2.1.0
+  equatable: any
 
   # Error while trying to load an asset: Flutter Web engine failed to fetch
   #  "assets/AssetManifest.json".
